@@ -1,2 +1,4 @@
 syntax: glob
+*.pyc
+syntax: glob
 *.sublime-workspace
