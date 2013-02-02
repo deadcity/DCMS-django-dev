@@ -1,11 +1,18 @@
 from rest_framework import serializers
 
+import traits.models as trait_models
+
 from traits.models import (
-    AttributeType,      Attribute,
+    AttributeType,
+    DerangementType,
+    FlawType,
+    SkillType,
+
+    Attribute,
     CombatTrait,
-    DerangementType,    Derangement,
-    MeritFlawType,      Flaw,
-    SkillType,          Skill,
+    Derangement,
+    Flaw,
+    Skill,
 )
 
 
@@ -13,37 +20,35 @@ class AttributeTypeSerializer(serializers.ModelSerializer):
     class Meta(object):
         model = AttributeType
 
+class DerangementTypeSerializer(serializers.ModelSerializer):
+    class Meta(object):
+        model = DerangementType
+
+class FlawTypeSerializer(serializers.ModelSerializer):
+    class Meta(object):
+        model = FlawType
+
+class SkillTypeSerializer(serializers.ModelSerializer):
+    class Meta(object):
+        model = SkillType
+
+
+
 class AttributeSerializer(serializers.ModelSerializer):
     class Meta(object):
         model = Attribute
-
 
 class CombatTraitSerializer(serializers.ModelSerializer):
     class Meta(object):
         model = CombatTrait
 
-
-class DerangementTypeSerializer(serializers.ModelSerializer):
-    class Meta(object):
-        model = DerangementType
-
 class DerangementSerializer(serializers.ModelSerializer):
     class Meta(object):
         model = Derangement
 
-
-class MeritFlawTypeSerializer(serializers.ModelSerializer):
-    class Meta(object):
-        model = MeritFlawType
-
 class FlawSerializer(serializers.ModelSerializer):
     class Meta(object):
         model = Flaw
-
-
-class SkillTypeSerializer(serializers.ModelSerializer):
-    class Meta(object):
-        model = SkillType
 
 class SkillSerializer(serializers.ModelSerializer):
     class Meta(object):

@@ -1,18 +1,28 @@
 from rest_framework import generics
 
 from traits.models import (
-    AttributeType,      Attribute,
+    AttributeType,
+    DerangementType,
+    FlawType,
+    SkillType,
+
+    Attribute,
     CombatTrait,
-    DerangementType,    Derangment,
-    MeritFlawType,      Flaw,
-    SkillType,          Skill,
+    Derangement,
+    Flaw,
+    Skill,
 )
 from traits.serializers import (
-    AttributeTypeSerializer,    AttributeSerializer,
+    AttributeTypeSerializer,
+    DerangementTypeSerializer,
+    FlawTypeSerializer,
+    SkillTypeSerializer,
+
+    AttributeSerializer,
     CombatTraitSerializer,
-    DerangementTypeSerializer,  DerangmentSerializer,
-    MeritFlawTypeSerializer,    FlawSerializer,
-    SkillTypeSerializer,        SkillSerializer,
+    DerangementSerializer,
+    FlawSerializer,
+    SkillSerializer,
 )
 
 
@@ -23,6 +33,35 @@ class AttributeTypeList(generics.ListCreateAPIView):
 class AttributeTypeDetail(generics.RetrieveUpdateDestroyAPIView):
     model            = AttributeType
     serializer_class = AttributeTypeSerializer
+
+
+class DerangementTypeList(generics.ListCreateAPIView):
+    model            = DerangementType
+    serializer_class = DerangementTypeSerializer
+
+class DerangementTypeDetail(generics.RetrieveUpdateDestroyAPIView):
+    model            = DerangementType
+    serializer_class = DerangementTypeSerializer
+
+
+class FlawTypeList(generics.ListCreateAPIView):
+    model            = FlawType
+    serializer_class = FlawTypeSerializer
+
+class FlawTypeDetail(generics.RetrieveUpdateDestroyAPIView):
+    model            = FlawType
+    serializer_class = FlawTypeSerializer
+
+
+class SkillTypeList(generics.ListCreateAPIView):
+    model            = SkillType
+    serializer_class = SkillTypeSerializer
+
+class SkillTypeDetail(generics.RetrieveUpdateDestroyAPIView):
+    model            = SkillType
+    serializer_class = SkillTypeSerializer
+
+
 
 
 class AttributeList(generics.ListCreateAPIView):
@@ -43,31 +82,13 @@ class CombatTraitDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = CombatTraitSerializer
 
 
-class DerangementTypeList(generics.ListCreateAPIView):
-    model            = DerangementType
-    serializer_class = DerangementTypeSerializer
+class DerangementList(generics.ListCreateAPIView):
+    model            = Derangement
+    serializer_class = DerangementSerializer
 
-class DerangementTypeDetail(generics.RetrieveUpdateDestroyAPIView):
-    model            = DerangementType
-    serializer_class = DerangementTypeSerializer
-
-
-class DerangmentList(generics.ListCreateAPIView):
-    model            = Derangment
-    serializer_class = DerangmentSerializer
-
-class DerangmentDetail(generics.RetrieveUpdateDestroyAPIView):
-    model            = Derangment
-    serializer_class = DerangmentSerializer
-
-
-class MeritFlawTypeList(generics.ListCreateAPIView):
-    model            = MeritFlawType
-    serializer_class = MeritFlawTypeSerializer
-
-class MeritFlawTypeDetail(generics.RetrieveUpdateDestroyAPIView):
-    model            = MeritFlawType
-    serializer_class = MeritFlawTypeSerializer
+class DerangementDetail(generics.RetrieveUpdateDestroyAPIView):
+    model            = Derangement
+    serializer_class = DerangementSerializer
 
 
 class FlawList(generics.ListCreateAPIView):
@@ -77,15 +98,6 @@ class FlawList(generics.ListCreateAPIView):
 class FlawDetail(generics.RetrieveUpdateDestroyAPIView):
     model            = Flaw
     serializer_class = FlawSerializer
-
-
-class SkillTypeList(generics.ListCreateAPIView):
-    model            = SkillType
-    serializer_class = SkillTypeSerializer
-
-class SkillTypeDetail(generics.RetrieveUpdateDestroyAPIView):
-    model            = SkillType
-    serializer_class = SkillTypeSerializer
 
 
 class SkillList(generics.ListCreateAPIView):
