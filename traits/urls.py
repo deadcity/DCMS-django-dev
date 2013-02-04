@@ -1,47 +1,39 @@
+import re
+
 from django.conf.urls import patterns, url
 from rest_framework.urlpatterns import format_suffix_patterns
-from traits.views import (
-    AttributeTypeList,   AttributeTypeDetail,
-    DerangementTypeList, DerangementTypeDetail,
-    FlawTypeList,        FlawTypeDetail,
-    SkillTypeList,       SkillTypeDetail,
 
-    AttributeList,       AttributeDetail,
-    CombatTraitList,     CombatTraitDetail,
-    DerangementList,     DerangementDetail,
-    FlawList,            FlawDetail,
-    SkillList,           SkillDetail,
-)
+import traits.views as trait_views
+
+
+def convert(s):
+    s = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', s)
+    return re.sub('([a-z0-9])([A-Z])', r'\1_\2', s).lower()
+
+def create_url_list(model_name):
+    return url(
+        r'^api/' + convert(model_name) + '/$',
+        getattr(trait_views, model_name + 'List').as_view()
+    )
+
+def create_url_detail(model_name):
+    return url(
+        r'^api/' + convert(model_name) + r'/(?P<pk>[0-9]+)/$',
+        getattr(trait_views, model_name + 'Detail').as_view()
+    )
 
 
 urlpatterns = patterns('',
-    url(r'^api/attribute_type/$',                AttributeTypeList.as_view()),
-    url(r'^api/attribute_type/(?P<pk>[0-9]+)/$', AttributeTypeDetail.as_view()),
+    create_url_list('AttributeType'),   create_url_detail('AttributeType'),
+    create_url_list('DerangementType'), create_url_detail('DerangementType'),
+    create_url_list('FlawType'),        create_url_detail('FlawType'),
+    create_url_list('SkillType'),       create_url_detail('SkillType'),
 
-    url(r'^api/derangement_type/$',               DerangementTypeList.as_view()),
-    url(r'^api/derangement_type/(?P<pk>[0-9]+)/$', DerangementTypeDetail.as_view()),
-
-    url(r'^api/flaw_type/$',               FlawTypeList.as_view()),
-    url(r'^api/flaw_type/(?P<pk>[0-9]+)/$', FlawTypeDetail.as_view()),
-
-    url(r'^api/skill_type/$',               SkillTypeList.as_view()),
-    url(r'^api/skill_type/(?P<pk>[0-9]+)/$', SkillTypeDetail.as_view()),
-
-
-    url(r'^api/attribute/$',                AttributeList.as_view()),
-    url(r'^api/attribute/(?P<pk>[0-9]+)/$', AttributeDetail.as_view()),
-
-    url(r'^api/combat_trait/$',                CombatTraitList.as_view()),
-    url(r'^api/combat_trait/(?P<pk>[0-9]+)/$', CombatTraitDetail.as_view()),
-
-    url(r'^api/derangement/$',                DerangementList.as_view()),
-    url(r'^api/derangement/(?P<pk>[0-9]+)/$', DerangementDetail.as_view()),
-
-    url(r'^api/flaw/$',                FlawList.as_view()),
-    url(r'^api/flaw/(?P<pk>[0-9]+)/$', FlawDetail.as_view()),
-
-    url(r'^api/skill/$',                SkillList.as_view()),
-    url(r'^api/skill/(?P<pk>[0-9]+)/$', SkillDetail.as_view()),
+    create_url_list('Attribute'),   create_url_detail('Attribute'),
+    create_url_list('CombatTrait'), create_url_detail('CombatTrait'),
+    create_url_list('Derangement'), create_url_detail('Derangement'),
+    create_url_list('Flaw'),        create_url_detail('Flaw'),
+    create_url_list('Skill'),       create_url_detail('Skill')
 )
 
 

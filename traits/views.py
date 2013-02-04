@@ -1,109 +1,37 @@
 from rest_framework import generics
 
-from traits.models import (
-    AttributeType,
-    DerangementType,
-    FlawType,
-    SkillType,
-
-    Attribute,
-    CombatTrait,
-    Derangement,
-    Flaw,
-    Skill,
-)
-from traits.serializers import (
-    AttributeTypeSerializer,
-    DerangementTypeSerializer,
-    FlawTypeSerializer,
-    SkillTypeSerializer,
-
-    AttributeSerializer,
-    CombatTraitSerializer,
-    DerangementSerializer,
-    FlawSerializer,
-    SkillSerializer,
-)
+import traits.models as trait_models
+import traits.serializers as trait_serializers
 
 
-class AttributeTypeList(generics.ListCreateAPIView):
-    model            = AttributeType
-    serializer_class = AttributeTypeSerializer
+def create_api_list(model_name):
+    return type(
+        model_name + 'List',
+        (generics.ListCreateAPIView,),
+        dict(
+            model            = getattr(trait_models, model_name),
+            serializer_class = getattr(trait_serializers, model_name + 'Serializer')
+        )
+    )
 
-class AttributeTypeDetail(generics.RetrieveUpdateDestroyAPIView):
-    model            = AttributeType
-    serializer_class = AttributeTypeSerializer
-
-
-class DerangementTypeList(generics.ListCreateAPIView):
-    model            = DerangementType
-    serializer_class = DerangementTypeSerializer
-
-class DerangementTypeDetail(generics.RetrieveUpdateDestroyAPIView):
-    model            = DerangementType
-    serializer_class = DerangementTypeSerializer
-
-
-class FlawTypeList(generics.ListCreateAPIView):
-    model            = FlawType
-    serializer_class = FlawTypeSerializer
-
-class FlawTypeDetail(generics.RetrieveUpdateDestroyAPIView):
-    model            = FlawType
-    serializer_class = FlawTypeSerializer
+def create_api_detail(model_name):
+    return type(
+        model_name + 'Detail',
+        (generics.RetrieveUpdateDestroyAPIView,),
+        dict(
+            model            = getattr(trait_models, model_name),
+            serializer_class = getattr(trait_serializers, model_name + 'Serializer')
+        )
+    )
 
 
-class SkillTypeList(generics.ListCreateAPIView):
-    model            = SkillType
-    serializer_class = SkillTypeSerializer
+AttributeTypeList   = create_api_list('AttributeType');   AttributeTypeDetail   = create_api_detail('AttributeType')
+DerangementTypeList = create_api_list('DerangementType'); DerangementTypeDetail = create_api_detail('DerangementType')
+FlawTypeList        = create_api_list('FlawType');        FlawTypeDetail        = create_api_detail('FlawType')
+SkillTypeList       = create_api_list('SkillType');       SkillTypeDetail       = create_api_detail('SkillType')
 
-class SkillTypeDetail(generics.RetrieveUpdateDestroyAPIView):
-    model            = SkillType
-    serializer_class = SkillTypeSerializer
-
-
-
-
-class AttributeList(generics.ListCreateAPIView):
-    model            = Attribute
-    serializer_class = AttributeSerializer
-
-class AttributeDetail(generics.RetrieveUpdateDestroyAPIView):
-    model            = Attribute
-    serializer_class = AttributeSerializer
-
-
-class CombatTraitList(generics.ListCreateAPIView):
-    model            = CombatTrait
-    serializer_class = CombatTraitSerializer
-
-class CombatTraitDetail(generics.RetrieveUpdateDestroyAPIView):
-    model            = CombatTrait
-    serializer_class = CombatTraitSerializer
-
-
-class DerangementList(generics.ListCreateAPIView):
-    model            = Derangement
-    serializer_class = DerangementSerializer
-
-class DerangementDetail(generics.RetrieveUpdateDestroyAPIView):
-    model            = Derangement
-    serializer_class = DerangementSerializer
-
-
-class FlawList(generics.ListCreateAPIView):
-    model            = Flaw
-    serializer_class = FlawSerializer
-
-class FlawDetail(generics.RetrieveUpdateDestroyAPIView):
-    model            = Flaw
-    serializer_class = FlawSerializer
-
-
-class SkillList(generics.ListCreateAPIView):
-    model            = Skill
-    serializer_class = SkillSerializer
-
-class SkillDetail(generics.RetrieveUpdateDestroyAPIView):
-    model            = Skill
-    serializer_class = SkillSerializer
+AttributeList   = create_api_list('Attribute');   AttributeDetail   = create_api_detail('Attribute')
+CombatTraitList = create_api_list('CombatTrait'); CombatTraitDetail = create_api_detail('CombatTrait')
+DerangementList = create_api_list('Derangement'); DerangementDetail = create_api_detail('Derangement')
+FlawList        = create_api_list('Flaw');        FlawDetail        = create_api_detail('Flaw')
+SkillList       = create_api_list('Skill');       SkillDetail       = create_api_detail('Skill')
