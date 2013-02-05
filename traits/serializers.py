@@ -3,11 +3,11 @@ from rest_framework import serializers
 import traits
 
 
-def create_serializer(model_name):
+def _create_serializer(model, model_name):
     Meta = type(
         'Meta',
         (object,),
-        dict(model = getattr(traits.models, model_name))
+        dict(model = model)
     )
     return type(
         model_name + 'Serializer',
@@ -15,14 +15,6 @@ def create_serializer(model_name):
         dict(Meta = Meta)
     )
 
-
-AttributeTypeSerializer   = create_serializer('AttributeType')
-DerangementTypeSerializer = create_serializer('DerangementType')
-FlawTypeSerializer        = create_serializer('FlawType')
-SkillTypeSerializer       = create_serializer('SkillType')
-
-AttributeSerializer   = create_serializer('Attribute')
-CombatTraitSerializer = create_serializer('CombatTrait')
-DerangementSerializer = create_serializer('Derangement')
-FlawSerializer        = create_serializer('Flaw')
-SkillSerializer       = create_serializer('Skill')
+for model in traits.models._enum_models + traits.models._trait_models:
+    model_name = model._meta.object_name
+    globals()[model_name + 'Serializer'] = _create_serializer(model, model_name)

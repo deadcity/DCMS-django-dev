@@ -3,7 +3,7 @@ from django.contrib import admin
 import traits
 
 
-def create_enum_admin(model_name):
+def _create_enum_admin(model, model_name):
     Admin = type(
         model_name + 'Admin',
         (admin.ModelAdmin,),
@@ -11,15 +11,15 @@ def create_enum_admin(model_name):
             list_display = ('name',)
         )
     )
-    admin.site.register(getattr(traits.models, model_name), Admin)
+    admin.site.register(model, Admin)
     return Admin
 
 
-def create_admin(model_name):
+def _create_trait_admin(model, model_name):
     field_list = []
     for field_name in [
             f.get_attname() for f
-            in getattr(traits.models, model_name)._meta.fields]:
+            in model._meta.fields]:
         if field_name in ('id', 'trait_ptr_id', 'name'):
             pass
         elif '_id' == field_name[-3:]:
@@ -36,17 +36,14 @@ def create_admin(model_name):
         )
     )
 
-    admin.site.register(getattr(traits.models, model_name), Admin)
+    admin.site.register(model, Admin)
     return Admin
 
 
-AttributeTypeAdmin   = create_enum_admin('AttributeType')
-DerangementTypeAdmin = create_enum_admin('DerangementType')
-FlawTypeAdmin        = create_enum_admin('FlawType')
-SkillTypeAdmin       = create_enum_admin('SkillType')
+for model in traits.models._enum_models:
+    model_name = model._meta.object_name
+    globals()[model_name + 'Admin'] = _create_enum_admin(model, model_name)
 
-AttributeAdmin   = create_admin('Attribute')
-CombatTraitAdmin = create_admin('CombatTrait')
-DerangementAdmin = create_admin('Derangement')
-FlawAdmin        = create_admin('Flaw')
-SkillAdmin       = create_admin('Skill')
+for model in traits.models._trait_models:
+    model_name = model._meta.object_name
+    globals()[model_name + 'Admin'] = _create_trait_admin(model, model_name)
