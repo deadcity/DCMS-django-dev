@@ -40,8 +40,7 @@ class Attribute(Trait):
 _trait_models.append(Attribute)
 
 
-class CombatTrait(Trait):
-    pass
+class CombatTrait(Trait): pass
 _trait_models.append(CombatTrait)
 
 
@@ -56,6 +55,28 @@ class Flaw(Trait):
     requires_specification = models.BooleanField()
     requires_description   = models.BooleanField()
 _trait_models.append(Flaw)
+
+
+class Merit(Trait):
+    type = models.ForeignKey(MeritType)
+    min_rating = models.SmallIntegerField()
+    max_rating = models.SmallIntegerField()
+    inc_rating = models.SmallIntegerField()
+    requires_specification = models.BooleanField()
+    requires_description   = models.BooleanField()
+_trait_models.append(Merit)
+
+
+class Power(Trait):
+    rating = models.IntegerField()
+    group  = models.CharField(max_length = 200, null = True, blank = True)
+
+    def __unicode__(self):
+        if self.name is None or self.name == '':
+            return self.group + ' ' + unicode(self.rating)
+        else:
+            return name
+_trait_models.append(Power)
 
 
 class Skill(Trait):
