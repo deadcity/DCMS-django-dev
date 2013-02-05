@@ -20,14 +20,14 @@ class SkillType       (Enum): pass
 
 class Trait(models.Model):
     enabled = models.BooleanField(default = True)
+    name    = models.CharField(max_length = 200)
+
+    def __unicode__(self):
+        return self.name
 
 
 class Attribute(Trait):
     type = models.ForeignKey(AttributeType)
-    name = models.CharField(max_length = 200)
-
-    def __unicode__(self):
-        return self.name
 
 
 class CombatTrait(Trait):
@@ -48,8 +48,3 @@ class Flaw(Trait):
 
 class Skill(Trait):
     type = models.ForeignKey(SkillType)
-    name = models.CharField(max_length = 200)
-
-    def __unicode__(self):
-        return self.name
-
