@@ -10,6 +10,7 @@ urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'DCMS.views.home', name='home'),
     # url(r'^DCMS/', include('DCMS.foo.urls')),
+    url(r'^character/', include('character.urls')),
     url(r'^traits/', include('traits.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:

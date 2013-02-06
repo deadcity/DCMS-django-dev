@@ -48,6 +48,10 @@ class Attribute(Trait):
 _trait_models.append(Attribute)
 
 
+class CharacterText(Trait): pass
+_trait_models.append(CharacterText)
+
+
 class CombatTrait(Trait): pass
 _trait_models.append(CombatTrait)
 
