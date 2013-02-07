@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-import traits
+import character
 
 
 def _create_serializer(model):
@@ -15,5 +15,10 @@ def _create_serializer(model):
         dict(Meta = Meta)
     )
 
-for model in traits.models._enum_models + traits.models._trait_models:
+for model in character.models._character_trait_models:
     globals()[model._meta.object_name + 'Serializer'] = _create_serializer(model)
+
+
+class CharacterSerializer(serializers.ModelSerializer):
+    class Meta(object):
+        model = character.models.Character

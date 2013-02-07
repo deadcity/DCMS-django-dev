@@ -13,12 +13,12 @@ class Character(models.Model):
     # status = models.EnumField()
 
     name          = models.CharField(blank = True, max_length = 256)
-    creature_type = models.ForeignKey(trait_models.CreatureType)
-    genealogy     = models.ForeignKey(trait_models.Genealogy)
-    affiliation   = models.ForeignKey(trait_models.Affiliation)
-    subgroup      = models.ForeignKey(trait_models.Subgroup)
-    virtue        = models.ForeignKey(trait_models.Virtue)
-    vice          = models.ForeignKey(trait_models.Vice)
+    creature_type = models.ForeignKey(trait_models.CreatureType, null = True, blank = True)
+    genealogy     = models.ForeignKey(trait_models.Genealogy,    null = True, blank = True)
+    affiliation   = models.ForeignKey(trait_models.Affiliation,  null = True, blank = True)
+    subgroup      = models.ForeignKey(trait_models.Subgroup,     null = True, blank = True)
+    virtue        = models.ForeignKey(trait_models.Virtue,       null = True, blank = True)
+    vice          = models.ForeignKey(trait_models.Vice,         null = True, blank = True)
     texts         = models.ManyToManyField(trait_models.CharacterText, through = 'CharacterHasText')
 
     date_created     = models.DateTimeField(auto_now_add = True)
@@ -35,6 +35,9 @@ class Character(models.Model):
     derangements        = models.ManyToManyField(trait_models.Derangement,  through = 'CharacterHasDerangement')
     combat_traits       = models.ManyToManyField(trait_models.CombatTrait,  through = 'CharacterHasCombatTrait')
     misc_traits         = models.ManyToManyField(trait_models.MiscTrait,    through = 'CharacterHasMiscTrait')
+
+    def __unicode__(self):
+        return self.name
 
 
 class CharacterHasText(models.Model):
