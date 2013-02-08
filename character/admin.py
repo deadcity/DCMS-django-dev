@@ -28,9 +28,21 @@ def _create_character_trait_admin(model, model_name):
     return Admin
 
 
+def _create_character_trait_inline(model, model_name):
+    Inline = type(
+        model_name + 'Inline',
+        (admin.TabularInline,),
+        dict(
+            model = model,
+        )
+    )
+    return Inline
+
+
 for model in character.models._character_trait_models:
     model_name = model._meta.object_name
-    globals()[model_name + 'Admin'] = _create_character_trait_admin(model, model_name)
+    globals()[model_name + 'Admin']  = _create_character_trait_admin(model, model_name)
+    globals()[model_name + 'Inline'] = _create_character_trait_inline(model, model_name)
 
 
 class CharacterAdmin(admin.ModelAdmin):
@@ -46,4 +58,16 @@ class CharacterAdmin(admin.ModelAdmin):
         'virtue', 'vice',
         'date_created', 'date_submitted', 'date_approved', 'date_last_edited',
     )
+    inlines = [
+        CharacterHasTextInline,
+        CharacterHasAttributeInline,
+        CharacterHasSkillInline,
+        CharacterHasSkillSpecialtyInline,
+        CharacterHasPowerInline,
+        CharacterHasMeritInline,
+        CharacterHasFlawInline,
+        CharacterHasDerangementInline,
+        CharacterHasCombatTraitInline,
+        CharacterHasMiscTraitInline,
+    ]
 admin.site.register(character.models.Character, CharacterAdmin)

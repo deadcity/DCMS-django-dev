@@ -40,42 +40,42 @@ class Character(models.Model):
         return self.name
 
 
-class CharacterHasText(models.Model):
+class CharacterHasTrait(models.Model):
     character = models.ForeignKey(Character)
+    class Meta(object):
+        abstract = True
+
+
+class CharacterHasText(CharacterHasTrait):
     attribute = models.ForeignKey(trait_models.CharacterText)
     text      = models.TextField(blank = True)
 _character_trait_models.append(CharacterHasText)
 
 
-class CharacterHasAttribute(models.Model):
-    character = models.ForeignKey(Character)
+class CharacterHasAttribute(CharacterHasTrait):
     attribute = models.ForeignKey(trait_models.Attribute)
     rating    = models.SmallIntegerField(default = 1)
 _character_trait_models.append(CharacterHasAttribute)
 
 
-class CharacterHasSkill(models.Model):
-    character = models.ForeignKey(Character)
-    skill     = models.ForeignKey(trait_models.Skill)
-    rating    = models.SmallIntegerField()
+class CharacterHasSkill(CharacterHasTrait):
+    skill  = models.ForeignKey(trait_models.Skill)
+    rating = models.SmallIntegerField()
 _character_trait_models.append(CharacterHasSkill)
 
 
-class CharacterHasSkillSpecialty(models.Model):
-    character       = models.ForeignKey(Character)
+class CharacterHasSkillSpecialty(CharacterHasTrait):
     skill_specialty = models.ForeignKey(trait_models.Skill)
     specialty       = models.CharField(max_length = 256)
 _character_trait_models.append(CharacterHasSkillSpecialty)
 
 
-class CharacterHasPower(models.Model):
-    character = models.ForeignKey(Character)
+class CharacterHasPower(CharacterHasTrait):
     power = models.ForeignKey(trait_models.Power)
 _character_trait_models.append(CharacterHasPower)
 
 
-class CharacterHasMerit(models.Model):
-    character     = models.ForeignKey(Character)
+class CharacterHasMerit(CharacterHasTrait):
     merit         = models.ForeignKey(trait_models.Merit)
     rating        = models.SmallIntegerField()
     specification = models.CharField(null = True, blank = True, max_length = 256)
@@ -83,31 +83,27 @@ class CharacterHasMerit(models.Model):
 _character_trait_models.append(CharacterHasMerit)
 
 
-class CharacterHasFlaw(models.Model):
-    character     = models.ForeignKey(Character)
+class CharacterHasFlaw(CharacterHasTrait):
     flaw          = models.ForeignKey(trait_models.Flaw)
     specification = models.CharField(null = True, blank = True, max_length = 256)
     description   = models.TextField(null = True, blank = True)
 _character_trait_models.append(CharacterHasFlaw)
 
 
-class CharacterHasDerangement(models.Model):
-    character     = models.ForeignKey(Character)
+class CharacterHasDerangement(CharacterHasTrait):
     derangement   = models.ForeignKey(trait_models.Derangement)
     specification = models.CharField(null = True, blank = True, max_length = 256)
     description   = models.TextField(null = True, blank = True)
 _character_trait_models.append(CharacterHasDerangement)
 
 
-class CharacterHasCombatTrait(models.Model):
-    character    = models.ForeignKey(Character)
+class CharacterHasCombatTrait(CharacterHasTrait):
     combat_trait = models.ForeignKey(trait_models.CombatTrait)
     rating       = models.SmallIntegerField()
 _character_trait_models.append(CharacterHasCombatTrait)
 
 
-class CharacterHasMiscTrait(models.Model):
-    character   = models.ForeignKey(Character)
+class CharacterHasMiscTrait(CharacterHasTrait):
     misc_trait  = models.ForeignKey(trait_models.MiscTrait)
     rating      = models.SmallIntegerField()
     description = models.TextField(null = True, blank = True)
