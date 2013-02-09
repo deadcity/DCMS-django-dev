@@ -5,7 +5,7 @@ _trait_models = []
 
 
 class Enum(models.Model):
-    name = models.CharField(max_length = 200)
+    name = models.CharField(max_length = 256, unique = True)
 
     def __unicode__(self):
         return self.name
@@ -33,7 +33,7 @@ _enum_models.append(Virtue)
 
 class Trait(models.Model):
     enabled = models.BooleanField(default = True)
-    name    = models.CharField(max_length = 200)
+    name    = models.CharField(max_length = 256, unique = True)
 
     def __unicode__(self):
         return self.name
@@ -57,10 +57,10 @@ _trait_models.append(CombatTrait)
 
 
 class CreatureType(Trait):
-    genealogy_name   = models.CharField(max_length = 200, null = True, blank = True)
-    affiliation_name = models.CharField(max_length = 200, null = True, blank = True)
-    subgroup_name    = models.CharField(max_length = 200, null = True, blank = True)
-    power_name       = models.CharField(max_length = 200, null = True, blank = True)
+    genealogy_name   = models.CharField(max_length = 256, null = True, blank = True)
+    affiliation_name = models.CharField(max_length = 256, null = True, blank = True)
+    subgroup_name    = models.CharField(max_length = 256, null = True, blank = True)
+    power_name       = models.CharField(max_length = 256, null = True, blank = True)
 _trait_models.append(CreatureType)
 
 
@@ -98,7 +98,7 @@ _trait_models.append(MiscTrait)
 
 class Power(Trait):
     rating = models.IntegerField()
-    group  = models.CharField(max_length = 200, null = True, blank = True)
+    group  = models.CharField(max_length = 256, null = True, blank = True)
 
     def __unicode__(self):
         if self.name is None or self.name == '':

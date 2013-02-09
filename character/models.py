@@ -47,31 +47,41 @@ class CharacterHasTrait(models.Model):
 
 
 class CharacterHasText(CharacterHasTrait):
-    attribute = models.ForeignKey(trait_models.CharacterText)
+    character_text = models.ForeignKey(trait_models.CharacterText)
     text      = models.TextField(blank = True)
+    class Meta(object):
+        unique_together = ('character', 'character_text')
 _character_trait_models.append(CharacterHasText)
 
 
 class CharacterHasAttribute(CharacterHasTrait):
     attribute = models.ForeignKey(trait_models.Attribute)
     rating    = models.SmallIntegerField(default = 1)
+    class Meta(object):
+        unique_together = ('character', 'attribute')
 _character_trait_models.append(CharacterHasAttribute)
 
 
 class CharacterHasSkill(CharacterHasTrait):
     skill  = models.ForeignKey(trait_models.Skill)
     rating = models.SmallIntegerField()
+    class Meta(object):
+        unique_together = ('character', 'skill')
 _character_trait_models.append(CharacterHasSkill)
 
 
 class CharacterHasSkillSpecialty(CharacterHasTrait):
-    skill_specialty = models.ForeignKey(trait_models.Skill)
-    specialty       = models.CharField(max_length = 256)
+    skill     = models.ForeignKey(trait_models.Skill)
+    specialty = models.CharField(max_length = 256)
+    class Meta(object):
+        unique_together = ('character', 'skill', 'specialty')
 _character_trait_models.append(CharacterHasSkillSpecialty)
 
 
 class CharacterHasPower(CharacterHasTrait):
     power = models.ForeignKey(trait_models.Power)
+    class Meta(object):
+        unique_together = ('character', 'power')
 _character_trait_models.append(CharacterHasPower)
 
 
@@ -100,6 +110,8 @@ _character_trait_models.append(CharacterHasDerangement)
 class CharacterHasCombatTrait(CharacterHasTrait):
     combat_trait = models.ForeignKey(trait_models.CombatTrait)
     rating       = models.SmallIntegerField()
+    class Meta(object):
+        unique_together = ('character', 'combat_trait')
 _character_trait_models.append(CharacterHasCombatTrait)
 
 
