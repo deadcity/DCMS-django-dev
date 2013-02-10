@@ -2,8 +2,6 @@ from django.conf.urls import url
 from django.contrib import admin
 from rest_framework import generics, serializers
 
-from common.string import camel_to_underscore
-
 
 # admin
 
@@ -95,13 +93,13 @@ def generate_serializer(Model):
 
 def generate_list_url(model_name, ListView):
     return url(
-        r'^api/' + camel_to_underscore(model_name) + '/$',
+        r'^' + model_name + '/$',
         ListView.as_view()
     )
 
 def generate_detail_url(model_name, DetailView):
     return url(
-        r'^api/' + camel_to_underscore(model_name) + r'/(?P<pk>[0-9]+)/$',
+        r'^' + model_name + r'/(?P<pk>[0-9]+)/$',
         DetailView.as_view()
     )
 

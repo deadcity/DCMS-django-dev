@@ -8,13 +8,14 @@ import traits.views as trait_views
 
 _urls = []
 for Model in traits.models._enum_models + traits.models._trait_models:
-    model_name = Model._meta.object_name
+    model_name  = Model._meta.object_name
+    module_name = Model._meta.module_name
     _urls.append(generate_list_url(
-        model_name,
+        module_name,
         getattr(trait_views, model_name + 'List')
     ))
     _urls.append(generate_detail_url(
-        model_name,
+        module_name,
         getattr(trait_views, model_name + 'Detail')
     ))
 
