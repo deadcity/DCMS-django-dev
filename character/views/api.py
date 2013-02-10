@@ -1,32 +1,17 @@
 from rest_framework import generics
 
 import character
+import character.serializers as character_serializers
+from common.generators import generate_api_list, generate_api_detail
 
 
-def _create_api_list(model, model_name):
-    return type(
-        model_name + 'List',
-        (generics.ListCreateAPIView,),
-        dict(
-            model            = model,
-            serializer_class = getattr(character.serializer, model_name + 'Serializer')
-        )
-    )
-
-def _create_api_detail(model, model_name):
-    return type(
-        model_name + 'Detail',
-        (generics.RetrieveUpdateDestroyAPIView,),
-        dict(
-            model            = model,
-            serializer_class = getattr(character.Serializer, model_name + 'Serializer')
-        )
-    )
-
-for model in character._character_trait_models:
-    model_name = model._meta.object_name
-    globals()[model_name + 'List']   = _create_api_list  (model, model_name)
-    globals()[model_name + 'Detail'] = _create_api_detail(model, model_name)
+for Model in character.models._character_trait_models:
+    model_name  = Model._meta.object_name
+    Serializer  = getattr(character_serializers, model_name + 'Serializer')
+    list_name   = model_name + 'List'
+    detail_name = model_name + 'Detail'
+    globals()[list_name]   = generate_api_list  (list_name,   Model, Serializer)
+    globals()[detail_name] = generate_api_detail(detail_name, Model, Serializer)
 
 
 class CharacterList(generics.ListCreateAPIView):
