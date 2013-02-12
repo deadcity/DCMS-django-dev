@@ -30,6 +30,8 @@ _enum_models.append(SkillType)
 _enum_models.append(Vice)
 _enum_models.append(Virtue)
 
+class EnumField(models.ForeignKey): pass
+
 
 class Trait(models.Model):
     enabled = models.BooleanField(default = True)
@@ -44,7 +46,7 @@ _trait_models.append(Affiliation)
 
 
 class Attribute(Trait):
-    type = models.ForeignKey(AttributeType)
+    type = EnumField(AttributeType)
 _trait_models.append(Attribute)
 
 
@@ -65,13 +67,13 @@ _trait_models.append(CreatureType)
 
 
 class Derangement(Trait):
-    type = models.ForeignKey(DerangementType)
+    type = EnumField(DerangementType)
     requires_specification = models.BooleanField()
 _trait_models.append(Derangement)
 
 
 class Flaw(Trait):
-    type = models.ForeignKey(FlawType)
+    type = EnumField(FlawType)
     requires_specification = models.BooleanField()
     requires_description   = models.BooleanField()
 _trait_models.append(Flaw)
@@ -82,7 +84,7 @@ _trait_models.append(Genealogy)
 
 
 class Merit(Trait):
-    type = models.ForeignKey(MeritType)
+    type = EnumField(MeritType)
     min_rating = models.SmallIntegerField()
     max_rating = models.SmallIntegerField()
     inc_rating = models.SmallIntegerField()
@@ -109,7 +111,7 @@ _trait_models.append(Power)
 
 
 class Skill(Trait):
-    type = models.ForeignKey(SkillType)
+    type = EnumField(SkillType)
 _trait_models.append(Skill)
 
 
