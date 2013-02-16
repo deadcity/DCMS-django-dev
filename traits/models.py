@@ -41,8 +41,8 @@ class Trait(models.Model):
         return self.name
 
     fields = [
-        { 'name': 'enabled', 'type': models.BooleanField },
-        { 'name': 'name',    'type': models.CharField },
+        'enabled',
+        'name',
     ]
 
 
@@ -54,7 +54,7 @@ class Attribute(Trait):
     type = EnumField(AttributeType)
 
     fields = Trait.fields + [
-        { 'name': 'type', 'type': EnumField },
+        'type',
     ]
 _trait_models.append(Attribute)
 
@@ -87,8 +87,8 @@ class Derangement(Trait):
     requires_specification = models.BooleanField()
 
     fields = Trait.fields + [
-        { 'name': 'type',                   'type': EnumField },
-        { 'name': 'requires_specification', 'type': models.BooleanField },
+        'type',
+        'requires_specification',
     ]
 _trait_models.append(Derangement)
 
@@ -99,9 +99,9 @@ class Flaw(Trait):
     requires_description   = models.BooleanField()
 
     fields = Trait.fields + [
-        { 'name': 'type',                   'type': EnumField },
-        { 'name': 'requires_specification', 'type': models.BooleanField },
-        { 'name': 'requires_description',   'type': models.BooleanField },
+        'type',
+        'requires_specification',
+        'requires_description',
     ]
 _trait_models.append(Flaw)
 
@@ -119,12 +119,12 @@ class Merit(Trait):
     requires_description   = models.BooleanField()
 
     fields = Trait.fields + [
-        { 'name': 'type',                   'type': EnumField },
-        { 'name': 'min_rating',             'type': models.SmallIntegerField },
-        { 'name': 'max_rating',             'type': models.SmallIntegerField },
-        { 'name': 'inc_rating',             'type': models.SmallIntegerField },
-        { 'name': 'requires_specification', 'type': models.BooleanField },
-        { 'name': 'requires_description',   'type': models.BooleanField },
+        'type',
+        'min_rating',
+        'max_rating',
+        'inc_rating',
+        'requires_specification',
+        'requires_description',
     ]
 _trait_models.append(Merit)
 
@@ -133,7 +133,7 @@ class MiscTrait(Trait):
     requires_description = models.BooleanField()
 
     fields = Trait.fields + [
-        { 'name': 'requires_description',   'type': models.BooleanField },
+        'requires_description',
     ]
 _trait_models.append(MiscTrait)
 
@@ -149,8 +149,8 @@ class Power(Trait):
             return name
 
     fields = Trait.fields + [
-        { 'name': 'rating', 'type': models.IntegerField },
-        { 'name': 'group',  'type': models.CharField },
+        'rating',
+        'group',
     ]
 _trait_models.append(Power)
 
@@ -159,7 +159,7 @@ class Skill(Trait):
     type = EnumField(SkillType)
 
     fields = Trait.fields + [
-        { 'name': 'type', 'type': EnumField },
+        'type',
     ]
 _trait_models.append(Skill)
 

@@ -1,3 +1,6 @@
+from django.db.models.loading import get_model
+from django.shortcuts import render
+
 from common.generators import generate_api_list, generate_api_detail
 import traits
 import traits.serializers as trait_serializers
@@ -10,3 +13,10 @@ for Model in traits.models._enum_models + traits.models._trait_models:
     detail_name = model_name + 'Detail'
     globals()[list_name]   = generate_api_list  (list_name,   Model, Serializer)
     globals()[detail_name] = generate_api_detail(detail_name, Model, Serializer)
+
+
+def generate_trait_model(request, trait_name):
+    return render(request, 'traits/model.js', {
+        'model_name' : trait_name,
+        'Model'      : get_model('traits', trait_name),
+    })
