@@ -21,8 +21,8 @@ for Model in traits.models._enum_models + traits.models._trait_models:
 
 
 urlpatterns = patterns('',
-    url(r'jsmodel/(?P<trait_name>\w+)/$', trait_views.generate_trait_model,
-        name = 'js_trait_model'),
+    url(r'jsenum/(?P<enum_name>\w+)/$',   trait_views.generate_enum,        name = 'js_enum'),
+    url(r'jsmodel/(?P<trait_name>\w+)/$', trait_views.generate_trait_model, name = 'js_trait_model'),
     *_urls
 )
 # urlpatterns = format_suffix_patterns(urlpatterns)
