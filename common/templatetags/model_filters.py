@@ -14,8 +14,8 @@ field_type.is_safe = True
 
 
 @register.filter
-def enum_name(Model, field_name):
+def related_name(Model, field_name):
     return next(f.related.parent_model._meta.object_name
                 for f in Model._meta.fields
                 if f.name == field_name)
-enum_name.is_safe = True
+related_name.is_safe = True
