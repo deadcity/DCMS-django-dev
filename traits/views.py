@@ -26,11 +26,11 @@ def generate_enum (request, enum_name):
     return render(request, 'traits/trait_enum.js', {
         'enum_name'   : enum_name,
         'values_json' : JSONRenderer().render(serializer.data),
-    })
+    }, content_type = 'text/javascript')
 
 
 def generate_trait_model (request, trait_name):
-    return render(request, 'traits/model.js', {
+    return render(request, 'traits/trait_model.js', {
         'model_name' : trait_name,
         'Model'      : get_model('traits', trait_name),
-    })
+    }, content_type = 'text/javascript')
