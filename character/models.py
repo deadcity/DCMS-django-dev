@@ -50,76 +50,76 @@ class CharacterHasTrait(models.Model):
 
 
 class CharacterHasText(CharacterHasTrait):
-    character_text = models.ForeignKey(trait_models.CharacterText)
-    text           = models.TextField(blank = True)
+    trait = models.ForeignKey(trait_models.CharacterText)
+    text  = models.TextField(blank = True)
     class Meta(object):
-        unique_together = ('character', 'character_text')
+        unique_together = ('character', 'trait')
 
     fields = CharacterHasTrait.fields + [
-        'character_text',
+        'trait',
         'text',
     ]
 _character_trait_models.append(CharacterHasText)
 
 
 class CharacterHasAttribute(CharacterHasTrait):
-    attribute = models.ForeignKey(trait_models.Attribute)
-    rating    = models.SmallIntegerField(default = 1)
+    trait  = models.ForeignKey(trait_models.Attribute)
+    rating = models.SmallIntegerField(default = 1)
     class Meta(object):
-        unique_together = ('character', 'attribute')
+        unique_together = ('character', 'trait')
 
     fields = CharacterHasTrait.fields + [
-        'attribute',
+        'trait',
         'rating',
     ]
 _character_trait_models.append(CharacterHasAttribute)
 
 
 class CharacterHasSkill(CharacterHasTrait):
-    skill  = models.ForeignKey(trait_models.Skill)
+    trait  = models.ForeignKey(trait_models.Skill)
     rating = models.SmallIntegerField()
     class Meta(object):
-        unique_together = ('character', 'skill')
+        unique_together = ('character', 'trait')
 
     fields = CharacterHasTrait.fields + [
-        'skill',
+        'trait',
         'rating',
     ]
 _character_trait_models.append(CharacterHasSkill)
 
 
 class CharacterHasSkillSpecialty(CharacterHasTrait):
-    skill     = models.ForeignKey(trait_models.Skill)
+    trait     = models.ForeignKey(trait_models.Skill)
     specialty = models.CharField(max_length = 256)
     class Meta(object):
-        unique_together = ('character', 'skill', 'specialty')
+        unique_together = ('character', 'trait', 'specialty')
 
     fields = CharacterHasTrait.fields + [
-        'skill',
+        'trait',
         'specialty',
     ]
 _character_trait_models.append(CharacterHasSkillSpecialty)
 
 
 class CharacterHasPower(CharacterHasTrait):
-    power = models.ForeignKey(trait_models.Power)
+    trait = models.ForeignKey(trait_models.Power)
     class Meta(object):
-        unique_together = ('character', 'power')
+        unique_together = ('character', 'trait')
 
     fields = CharacterHasTrait.fields + [
-        'power',
+        'trait',
     ]
 _character_trait_models.append(CharacterHasPower)
 
 
 class CharacterHasMerit(CharacterHasTrait):
-    merit         = models.ForeignKey(trait_models.Merit)
-    rating        = models.SmallIntegerField()
+    trait         = models.ForeignKey(trait_models.Merit)
+    rating        = models.SmallIntegerField(null = True, blank = True)
     specification = models.CharField(null = True, blank = True, max_length = 256)
     description   = models.TextField(null = True, blank = True)
 
     fields = CharacterHasTrait.fields + [
-        'merit',
+        'trait',
         'rating',
         'specification',
         'description',
@@ -128,12 +128,12 @@ _character_trait_models.append(CharacterHasMerit)
 
 
 class CharacterHasFlaw(CharacterHasTrait):
-    flaw          = models.ForeignKey(trait_models.Flaw)
+    trait         = models.ForeignKey(trait_models.Flaw)
     specification = models.CharField(null = True, blank = True, max_length = 256)
     description   = models.TextField(null = True, blank = True)
 
     fields = CharacterHasTrait.fields + [
-        'flaw',
+        'trait',
         'specification',
         'description',
     ]
@@ -141,12 +141,12 @@ _character_trait_models.append(CharacterHasFlaw)
 
 
 class CharacterHasDerangement(CharacterHasTrait):
-    derangement   = models.ForeignKey(trait_models.Derangement)
+    trait         = models.ForeignKey(trait_models.Derangement)
     specification = models.CharField(null = True, blank = True, max_length = 256)
     description   = models.TextField(null = True, blank = True)
 
     fields = CharacterHasTrait.fields + [
-        'derangement',
+        'trait',
         'specification',
         'description',
     ]
@@ -154,25 +154,25 @@ _character_trait_models.append(CharacterHasDerangement)
 
 
 class CharacterHasCombatTrait(CharacterHasTrait):
-    combat_trait = models.ForeignKey(trait_models.CombatTrait)
+    trait = models.ForeignKey(trait_models.CombatTrait)
     rating       = models.SmallIntegerField()
     class Meta(object):
-        unique_together = ('character', 'combat_trait')
+        unique_together = ('character', 'trait')
 
     fields = CharacterHasTrait.fields + [
-        'combat_trait',
+        'trait',
         'rating',
     ]
 _character_trait_models.append(CharacterHasCombatTrait)
 
 
 class CharacterHasMiscTrait(CharacterHasTrait):
-    misc_trait  = models.ForeignKey(trait_models.MiscTrait)
+    trait  = models.ForeignKey(trait_models.MiscTrait)
     rating      = models.SmallIntegerField()
     description = models.TextField(null = True, blank = True)
 
     fields = CharacterHasTrait.fields + [
-        'misc_trait',
+        'trait',
         'rating',
         'description',
     ]
