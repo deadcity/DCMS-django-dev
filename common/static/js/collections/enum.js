@@ -5,19 +5,13 @@ var Enum = Tools.create_namespace('Enum');
 
 Enum.Element = Backbone.Model.extend({
     defaults: {
-        name:  null,
-        value: null,
-        text:  undefined,
+        id:   null,
+        name: null,
+        text: undefined,
     },
-
-    idAttribute: 'value',
 
     name: function () {
         return this.get('name');
-    },
-
-    value: function () {
-        return this.get('value');
     },
 
     text: function () {
@@ -26,7 +20,7 @@ Enum.Element = Backbone.Model.extend({
     },
 
     valueOf: function () {
-        return this.value();
+        return this.id;
     },
 });
 
@@ -40,10 +34,10 @@ Enum.Enum = Backbone.Collection.extend({
         var this_ = this;
         var next_val = 0;
         this.each(function (el) {
-            // auto increment value
-            var curr_val = el.get('value');
+            // auto increment id
+            var curr_val = el.id;
             if (_.isNull(curr_val) || _.isUndefined(curr_val)) {
-                el.set('value', next_val);
+                el.set('id', next_val);
                 ++next_val;
             } else {
                 next_val = curr_val + 1;
@@ -55,7 +49,7 @@ Enum.Enum = Backbone.Collection.extend({
     },
 
     get: function (identifier) {
-        var element = Backbone.Collection.prototype.get.apply(this, identifier);
+        var element = Backbone.Collection.prototype.get.apply(this, arguments);
         if (element) return element;
 
         return this.find(function (item) {

@@ -2,14 +2,18 @@
 
 (function () {
 
-var Traits = Tools.create_namespace('Traits');
+var Models = Tools.create_namespace('Traits.Models');
 
-Traits.{{model_name}} = Backbone.Model.extend({
+Models.{{model_name}} = Backbone.Model.extend({
     defaults: {
         id: null,
       {% for field in Model.fields %}
         {{field}}: null,
       {% endfor %}
+    },
+
+    initialize: function (attributes) {
+        this.set(this.parse(attributes));
     },
 
     parse: function (raw) {
@@ -45,6 +49,10 @@ Traits.{{model_name}} = Backbone.Model.extend({
         attr.{{field}} = attr.{{field}}.toHumanJSON();
       {% endif %}
       {% endfor %}
+    },
+
+    url: function () {
+        return '/api/traits/jsmodel/{{model_name|lower}}/' + this.id + '/';
     },
 });
 

@@ -14,6 +14,26 @@ field_type.is_safe = True
 
 
 @register.filter
+def instance_name(Model):
+    return Model._meta.verbose_name.replace(' ', '_')
+instance_name.is_safe = True
+
+
+@register.filter
+def model_name(Model):
+    return Model._meta.object_name
+model_name.is_safe = True
+
+
+@register.filter
+def related_instance(Model, field_name):
+    return next(f.related.parent_model._meta.verbose_name.replace(' ', '_')
+                for f in Model._meta.fields
+                if f.name == field_name)
+related_instance.is_safe = True
+
+
+@register.filter
 def related_name(Model, field_name):
     return next(f.related.parent_model._meta.object_name
                 for f in Model._meta.fields

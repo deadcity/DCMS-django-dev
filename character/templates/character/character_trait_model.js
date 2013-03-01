@@ -2,11 +2,12 @@
 
 (function () {
 
-var Character = Tools.create_namespace('Character');
+var Models = Tools.create_namespace('Character.Models');
 
-Character.{{model_name}} = Backbone.Model.extend({
+Models.{{model_name}} = Backbone.Model.extend({
     defaults: {
-        id: null,
+        id:        null,
+        character: null,
       {% for field in Model.fields %}
         {{field}}: null,
       {% endfor %}
@@ -14,7 +15,8 @@ Character.{{model_name}} = Backbone.Model.extend({
 
     parse: function (raw) {
         return {
-            id: parseInt(raw.id, 10),
+            id:        parseInt(raw.id, 10),
+            character: parseInt(raw.character, 10),
           {% for field in Model.fields %}
           {% if Model|field_type:field == 'IntegerField' %}
             {{field}}: parseInt(raw.{{field}}, 10),
@@ -25,7 +27,7 @@ Character.{{model_name}} = Backbone.Model.extend({
           {% elif Model|field_type:field == 'TextField' %}
             {{field}}: raw.{{field}},
           {% elif Model|field_type:field == 'ForeignKey' %}
-            {{field}}: Traits.{{Model|related_name:field}}.get(parseInt(raw.{{field}}, 10)),
+            {{field}}: Traits.{{Model|related_instance:field}}.get(parseInt(raw.{{field}}, 10)),
           {% endif %}
           {% endfor %}
         }
@@ -38,15 +40,23 @@ Character.{{model_name}} = Backbone.Model.extend({
         attr.{{field}} = attr.{{field}}.value();
       {% endif %}
       {% endfor %}
+        return attr;
     },
 
     toHumanJSON: function () {
         var attr = _.clone(this.attributes);
       {% for field in Model.fields %}
-      {% if Model|field_type:field == 'ForeignField' %}
+        {{Model|field_type:field}}
+      {% if Model|related_name:field == 'Character' %}
+      {% elif Model|field_type:field == 'ForeignField' %}
         attr.{{field}} = attr.{{field}}.toHumanJSON();
       {% endif %}
       {% endfor %}
+        return attr;
+    },
+
+    url: function () {
+        return '/api/character/jsmodel/{{model_name|lower}}/' + this.id + '/';
     },
 });
 

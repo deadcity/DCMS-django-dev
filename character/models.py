@@ -46,7 +46,6 @@ class CharacterHasTrait(models.Model):
         abstract = True
 
     fields = [
-        'character',
     ]
 
 
