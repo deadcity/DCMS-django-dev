@@ -26,15 +26,15 @@ class Character(models.Model):
     date_approved    = models.DateTimeField(null = True, blank = True)
     date_last_edited = models.DateTimeField(auto_now = True)
 
-    attributes          = models.ManyToManyField(trait_models.Attribute,    through = 'CharacterHasAttribute')
-    skills              = models.ManyToManyField(trait_models.Skill,        through = 'CharacterHasSkill')
-    skill_specialties   = models.ManyToManyField(trait_models.Skill,        through = 'CharacterHasSkillSpecialty', related_name = 'character_specialties_set')
-    powers              = models.ManyToManyField(trait_models.Power,        through = 'CharacterHasPower')
-    merits              = models.ManyToManyField(trait_models.Merit,        through = 'CharacterHasMerit')
-    flaws               = models.ManyToManyField(trait_models.Flaw,         through = 'CharacterHasFlaw')
-    derangements        = models.ManyToManyField(trait_models.Derangement,  through = 'CharacterHasDerangement')
-    combat_traits       = models.ManyToManyField(trait_models.CombatTrait,  through = 'CharacterHasCombatTrait')
-    misc_traits         = models.ManyToManyField(trait_models.MiscTrait,    through = 'CharacterHasMiscTrait')
+    attributes        = models.ManyToManyField(trait_models.Attribute,   through = 'CharacterHasAttribute')
+    skills            = models.ManyToManyField(trait_models.Skill,       through = 'CharacterHasSkill')
+    skill_specialties = models.ManyToManyField(trait_models.Skill,       through = 'CharacterHasSkillSpecialty', related_name = 'character_specialties_set')
+    powers            = models.ManyToManyField(trait_models.Power,       through = 'CharacterHasPower')
+    merits            = models.ManyToManyField(trait_models.Merit,       through = 'CharacterHasMerit')
+    flaws             = models.ManyToManyField(trait_models.Flaw,        through = 'CharacterHasFlaw')
+    derangements      = models.ManyToManyField(trait_models.Derangement, through = 'CharacterHasDerangement')
+    combat_traits     = models.ManyToManyField(trait_models.CombatTrait, through = 'CharacterHasCombatTrait')
+    misc_traits       = models.ManyToManyField(trait_models.MiscTrait,   through = 'CharacterHasMiscTrait')
 
     def __unicode__(self):
         return self.name

@@ -1,16 +1,15 @@
 from django.conf.urls import url
 from django.contrib import admin
+from django.forms.widgets import MediaDefiningClass
+
 from rest_framework import generics, serializers
 
 
 # admin
 
-def generate_character_trait_admin(Model, model_name):
-    print model_name, 'Trait Admin'
+def CharacterTraitAdmin_Metaclass(Model):
     field_list = []
-    for field_name in [
-            f.get_attname() for f
-            in Model._meta.fields]:
+    for field_name in [f.get_attname() for f in Model._meta.fields]:
         if field_name in ('id', 'text', 'description'):
             continue
         elif '_id' == field_name[-3:]:
@@ -18,42 +17,39 @@ def generate_character_trait_admin(Model, model_name):
         else:
             field_list.append(field_name)
 
-    Admin = type(
-        model_name + 'Admin',
-        (admin.ModelAdmin,),
-        dict(
-            list_display = tuple(field_list),
-            list_filter  = tuple(field_list),
-        )
-    )
+    class CharacterTraitAdmin_Metaclass(MediaDefiningClass):
+        def __new__(metaclass, name, bases, attrs):
+            return super(CharacterTraitAdmin_Metaclass, metaclass).__new__(
+                metaclass, name, (admin.ModelAdmin,),
+                dict(
+                    list_display = tuple(field_list),
+                    list_filter  = tuple(field_list),
+                    **attrs
+                )
+            )
+    return CharacterTraitAdmin_Metaclass
 
-    admin.site.register(Model, Admin)
-    return Admin
+def CharacterTraitInline_Metaclass(Model):
+    class CharacterTraitInline_Metaclass(MediaDefiningClass):
+        def __new__(metaclass, name, bases, attrs):
+            return super(CharacterTraitInline_Metaclass, metaclass).__new__(
+                metaclass, name, (admin.TabularInline,),
+                dict(model = Model, **attrs)
+            )
+    return CharacterTraitInline_Metaclass
 
-def generate_character_trait_inline(Model, model_name):
-    Inline = type(
-        model_name + 'Inline',
-        (admin.TabularInline,),
-        dict(model = Model),
-    )
-    return Inline
+def EnumAdmin_Metaclass(Model):
+    class EnumAdmin_Metaclass(MediaDefiningClass):
+        def __new__(metaclass, name, bases, attrs):
+            return super(EnumAdmin_Metaclass, metaclass).__new__(
+                metaclass, name, (admin.ModelAdmin,),
+                dict(list_display = ('name',), **attrs)
+            )
+    return EnumAdmin_Metaclass
 
-def generate_enum_admin(Model, model_name):
-    Admin = type(
-        model_name + 'Admin',
-        (admin.ModelAdmin,),
-        dict(
-            list_display = ('name',)
-        )
-    )
-    admin.site.register(Model, Admin)
-    return Admin
-
-def generate_trait_admin(Model, model_name):
+def TraitAdmin_Metaclass(Model):
     field_list = []
-    for field_name in [
-            f.get_attname() for f
-            in Model._meta.fields]:
+    for field_name in [f.get_attname() for f in Model._meta.fields]:
         if field_name in ('id', 'trait_ptr_id', 'name'):
             pass
         elif '_id' == field_name[-3:]:
@@ -61,32 +57,33 @@ def generate_trait_admin(Model, model_name):
         else:
             field_list.append(field_name)
 
-    Admin = type(
-        model_name + 'Admin',
-        (admin.ModelAdmin,),
-        dict(
-            list_display = tuple(['name'] + field_list),
-            list_filter  = tuple(field_list),
-        )
-    )
-
-    admin.site.register(Model, Admin)
-    return Admin
+    class TraitAdmin_Metaclass(MediaDefiningClass):
+        def __new__(metaclass, name, bases, attrs):
+            return super(TraitAdmin_Metaclass, metaclass).__new__(
+                metaclass, name, (admin.ModelAdmin,),
+                dict(
+                    list_display = tuple(['name'] + field_list),
+                    list_filter  = tuple(field_list),
+                    **attrs
+                )
+            )
+    return TraitAdmin_Metaclass
 
 
 # serializers
 
-def generate_serializer(Model):
-    Meta = type(
-        'Meta',
-        (object,),
-        dict(model = Model)
-    )
-    return type(
-        Model._meta.object_name + 'Serializer',
-        (serializers.ModelSerializer,),
-        dict(Meta = Meta)
-    )
+def Serializer_Metaclass(Model):
+    class Serializer_Metaclass(serializers.SerializerMetaclass):
+        def __new__(metaclass, name, bases, attrs):
+            return super(Serializer_Metaclass, metaclass).__new__(
+                metaclass, name, (serializers.ModelSerializer,),
+                dict(Meta = type(
+                    'Meta',
+                    (object,),
+                    dict(model = Model)
+                ), **attrs)
+            )
+    return Serializer_Metaclass
 
 
 # urls
@@ -106,22 +103,28 @@ def generate_detail_url(model_name, DetailView):
 
 # views
 
-def generate_api_list(name, Model, Serializer):
-    return type(
-        name,
-        (generics.ListCreateAPIView,),
-        dict(
-            model            = Model,
-            serailizer_class = Serializer,
-        )
-    )
+def APIDetail_Metaclass(Model, Serializer):
+    class APIDetail_Metaclass(type):
+        def __new__(metaclass, name, bases, attrs):
+            return super(APIDetail_Metaclass, metaclass).__new__(
+                metaclass, name, (generics.RetrieveUpdateDestroyAPIView,),
+                dict(
+                    model            = Model,
+                    serializer_class = Serializer,
+                    **attrs
+                )
+            )
+    return APIDetail_Metaclass
 
-def generate_api_detail(name, Model, Serializer):
-    return type(
-        name,
-        (generics.RetrieveUpdateDestroyAPIView,),
-        dict(
-            model            = Model,
-            serializer_class = Serializer,
-        )
-    )
+def APIList_Metaclass(Model, Serializer):
+    class APIList_Metaclass(type):
+        def __new__(metaclass, name, bases, attrs):
+            return super(APIList_Metaclass, metaclass).__new__(
+                metaclass, name, (generics.ListCreateAPIView,),
+                dict(
+                    model            = Model,
+                    serializer_class = Serializer,
+                    **attrs
+                )
+            )
+    return APIList_Metaclass
