@@ -1,10 +1,13 @@
 from django.db import models
 
+from common.generators import Model_Metaclass
+
 _enum_models = []
 _trait_models = []
 
 
 class Enum(models.Model):
+    __metaclass__ = Model_Metaclass
     name = models.CharField(max_length = 256)
 
     def __unicode__(self):
@@ -34,16 +37,12 @@ class EnumField(models.ForeignKey): pass
 
 
 class Trait(models.Model):
+    __metaclass__ = Model_Metaclass
     enabled = models.BooleanField(default = True)
     name    = models.CharField(max_length = 256, unique = True)
 
     def __unicode__(self):
         return self.name
-
-    fields = [
-        'enabled',
-        'name',
-    ]
 
     class Meta(object):
         abstract = True
@@ -55,19 +54,11 @@ _trait_models.append(Affiliation)
 
 class Attribute(Trait):
     type = EnumField(AttributeType, null = True)
-
-    fields = Trait.fields + [
-        'type',
-    ]
 _trait_models.append(Attribute)
 
 
 class CharacterText(Trait):
     hide_from_player = models.BooleanField(default = False)
-
-    fields = Trait.fields + [
-        'hide_from_player',
-    ]
 _trait_models.append(CharacterText)
 
 
@@ -80,24 +71,12 @@ class CreatureType(Trait):
     affiliation_name = models.CharField(max_length = 256, null = True, blank = True)
     subgroup_name    = models.CharField(max_length = 256, null = True, blank = True)
     power_name       = models.CharField(max_length = 256, null = True, blank = True)
-
-    fields = Trait.fields + [
-        'genealogy_name',
-        'affiliation_name',
-        'subgroup_name',
-        'power_name',
-    ]
 _trait_models.append(CreatureType)
 
 
 class Derangement(Trait):
     type = EnumField(DerangementType, null = True)
     requires_specification = models.BooleanField()
-
-    fields = Trait.fields + [
-        'type',
-        'requires_specification',
-    ]
 _trait_models.append(Derangement)
 
 
@@ -105,12 +84,6 @@ class Flaw(Trait):
     type = EnumField(FlawType, null = True)
     requires_specification = models.BooleanField()
     requires_description   = models.BooleanField()
-
-    fields = Trait.fields + [
-        'type',
-        'requires_specification',
-        'requires_description',
-    ]
 _trait_models.append(Flaw)
 
 
@@ -125,44 +98,22 @@ class Merit(Trait):
     inc_rating = models.SmallIntegerField()
     requires_specification = models.BooleanField()
     requires_description   = models.BooleanField()
-
-    fields = Trait.fields + [
-        'type',
-        'min_rating',
-        'max_rating',
-        'inc_rating',
-        'requires_specification',
-        'requires_description',
-    ]
 _trait_models.append(Merit)
 
 
 class MiscTrait(Trait):
     requires_description = models.BooleanField()
-
-    fields = Trait.fields + [
-        'requires_description',
-    ]
 _trait_models.append(MiscTrait)
 
 
 class Power(Trait):
     rating = models.IntegerField(null = True, blank = True)
     group  = models.CharField(max_length = 256)
-
-    fields = Trait.fields + [
-        'rating',
-        'group',
-    ]
 _trait_models.append(Power)
 
 
 class Skill(Trait):
     type = EnumField(SkillType, null = True)
-
-    fields = Trait.fields + [
-        'type',
-    ]
 _trait_models.append(Skill)
 
 

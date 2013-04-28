@@ -1,5 +1,6 @@
 from django.conf.urls import url
 from django.contrib import admin
+from django.db import models
 from django.forms.widgets import MediaDefiningClass
 
 from rest_framework import generics, serializers
@@ -68,6 +69,25 @@ def TraitAdmin_Metaclass(Model):
                 )
             )
     return TraitAdmin_Metaclass
+
+
+# models
+
+class Model_Metaclass(models.base.ModelBase):
+    def __new__(metaclass, name, bases, attrs):
+        Fields = {}
+
+        for base in bases:
+            if hasattr(base, 'Fields'):
+                Fields.update(getattr(base, 'Fields'))
+
+        for key, val in attrs.items():
+            if isinstance(val, models.fields.Field):
+                Fields[key] = val
+
+        return super(Model_Metaclass, metaclass).__new__(
+            metaclass, name, bases, dict(Fields = Fields, **attrs)
+        )
 
 
 # serializers
