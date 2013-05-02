@@ -127,6 +127,7 @@ INSTALLED_APPS = (
     'rest_framework',
 
     'character',
+    'DCMS',
     'common',
     'traits',
 )

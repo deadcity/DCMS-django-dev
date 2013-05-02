@@ -2,7 +2,7 @@
 
 (function () {
 
-var Models = Tools.create_namespace('Character.Models');
+var Models = Tools.create_namespace('{{Model|module_name|split:'.'|first|capfirst}}.Models');
 
 Models.{{model_name}} = Backbone.Model.extend({
     defaults: {

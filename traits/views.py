@@ -79,7 +79,7 @@ def generate_enum (request, enum_name):
 
 def generate_trait_model (request, trait_name):
     Model = get_model('traits', trait_name)
-    return render(request, 'traits/trait_model.js', {
+    return render(request, 'trait_model_template.js', {
         'model_name' : Model._meta.object_name,
         'Model'      : Model,
     }, content_type = 'text/javascript')
