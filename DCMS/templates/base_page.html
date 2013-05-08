@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+{% block css_includes %}
+    {{block.super}}
+    <style type='text/css'>
+        body {
+            background-color: #000;
+            color: #FFF;
+            text-align: center;
+            font-family: Roboto, Helvetica, Arial, sans-serif;
+            font-size: 82.5%;
+            margin-top: 75px;
+        }
+
+        #page {
+            width: 960px;
+            text-align: left;
+            margin: 0 auto;
+        }
+
+        header {
+            font-family: 'Roboto Slab', serif;
+        }
+
+        header h1 {
+            margin-bottom: 0;
+        }
+
+        header .desc {
+            font-size: 125%;
+            margin-top: 0;
+        }
+
+        nav {
+            background-color: #600;
+            color: #FFF;
+        }
+
+        nav a {
+            color: #FFF;
+            text-decoration: none;
+            display: block;
+            padding: 5px 10px;
+        }
+
+        nav a:hover {
+            background-color: #900;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li {
+            display: inline-block;
+        }
+
+        section#content {
+            background-color: #FFF;
+            color: #000;
+            padding: 20px;
+        }
+
+        section#content .character-list tr:nth-child(2n+1) td {
+            background-color: #EEE;
+        }
+    </style>
+{% endblock css_includes %}
+
+{% block page %}
+    <header>
+        {% block branding %}<h1>Dead City Productions</h1>{% endblock %}
+        <p class='desc'>{% block page_description %}Digital Character Management System{% endblock %}</p>
+    </header>
+
+    <nav>
+        {% block nav %}
+            <ul>
+                <li><a href='/'>Home</a></li>
+                <li><a href='#'>Link</a></li>
+                <li><a href='#'>Link</a></li>
+                <li><a href='#'>Link</a></li>
+            </ul>
+        {% endblock nav %}
+    </nav>
+
+    <section id='content'>
+        {% block content %}{% endblock %}
+    </section>
+{% endblock page %}
