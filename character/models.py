@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-from common.generators import Model_Metaclass
+from common.metaclasses import Model_Metaclass
 import traits.models as trait_models
 
 
