@@ -79,6 +79,7 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    'compressor.finders.CompressorFinder',
 )
 
 # Make this unique, and don't share it with anybody.
@@ -124,6 +125,7 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 
+    'compressor',
     'rest_framework',
 
     'character',
@@ -131,6 +133,15 @@ INSTALLED_APPS = (
     'common',
     'traits',
 )
+
+if os.name == 'nt':
+    COMPRESS_PRECOMPILERS = (
+        ('text/coffeescript', 'coffee.cmd --compile --stdio')
+    )
+else:
+    COMPRESS_PRECOMPILERS = (
+        ('text/coffeescript', 'coffee --compile --stdio')
+    )
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to

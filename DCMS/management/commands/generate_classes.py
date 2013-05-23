@@ -161,62 +161,52 @@ class ${MODEL_NAME}Inline (admin.TabularInline):
     # # # # # # # # # #
 
     __backbone_model_template__main = Template("""\
-(function () {
+Models_NS = Tools.create_namespace '${PROJECT}.Models'
 
-var Models = Tools.create_namespace('${PROJECT}.Models');
-
-Models.${MODEL_NAME} = Backbone.Model.extend({
-    defaults: {
-        id: null,
+class Models_NS.${MODEL_NAME} extends Backbone.Model
+    defaults:
+        id: null
 ${FIELD_LIST__DEFAULT}
-    },
 
-    parse: function (raw) {
-        return {
-            id: parseInt(raw.id, 10),
+    parse: (raw) ->
+        {
+            id: parseInt raw.id, 10
 ${FIELD_LIST__PARSE}
         }
-    },
 
-    toJSON: function () {
-        var attr = _.clone(this.attributes);
+    toJSON: () ->
+        attr = _.clone this.attributes
 ${FIELD_LIST__JSON}
-        return attr;
-    },
+        attr
 
-    toHumanJSON: function () {
-        var attr = _.clone(this.attributes);
+    toHumanJSON: () ->
+        attr = _.clone this.attributes
 ${FIELD_LIST__HUMAN_JSON}
-        return attr;
-    },
+        attr
 
-    url: function () {
-        return '/api/${PROJECT_LOWERCASE}/${MODEL_NAME}/' + (this.id == null ? '' : this.id + '/');
-    },
-});
-
-})();
+    url: () ->
+        "/api/${PROJECT_LOWERCASE}/${MODEL_NAME}/#{ if @id? then "#{@id}/" else '' }"
 """)
 
-    __backbone_model_template__default = Template("        ${FIELD_NAME}: null,")
+    __backbone_model_template__default = Template("        ${FIELD_NAME}: null")
 
-    __backbone_model_template__parse_integer = Template("            ${FIELD_NAME}: parseInt(raw.${FIELD_NAME}, 10),")
+    __backbone_model_template__parse_integer = Template("            ${FIELD_NAME}: parseInt raw.${FIELD_NAME}, 10")
     __backbone_model_template__parse_text    = Template("            ${FIELD_NAME}: raw.${FIELD_NAME},")
-    __backbone_model_template__parse_enum    = Template("            ${FIELD_NAME}: ${RELATED_PROJECT}.${RELATED_MODEL}.get(parseInt(raw.${FIELD_NAME}, 10)),")
-    __backbone_model_template__parse_foreign = Template("            ${FIELD_NAME}: ${RELATED_PROJECT}.Objects.${RELATED_MODEL}.get(parseInt(raw.${FIELD_NAME}, 10)),")
+    __backbone_model_template__parse_enum    = Template("            ${FIELD_NAME}: ${RELATED_PROJECT}.${RELATED_MODEL}.get parseInt raw.${FIELD_NAME}, 10")
+    __backbone_model_template__parse_foreign = Template("            ${FIELD_NAME}: ${RELATED_PROJECT}.Objects.${RELATED_MODEL}.get parseInt raw.${FIELD_NAME}, 10")
 
-    __backbone_model_template__json_foreign = Template("        attr.${FIELD_NAME} = attr.${FIELD_NAME}.id;")
+    __backbone_model_template__json_foreign = Template("        attr.${FIELD_NAME} = attr.${FIELD_NAME}.id")
 
-    __backbone_model_template__human_json_foreign = Template("        attr.${FIELD_NAME} = attr.${FIELD_NAME}.toHumanJSON();")
+    __backbone_model_template__human_json_foreign = Template("        attr.${FIELD_NAME} = attr.${FIELD_NAME}.toHumanJSON()")
 
     def __gen_backbone_models (self, project, model_list):
         print 'generating backbone models for {project}... '.format(project = project),
         stdout.flush()
 
-        target_dir = path.join(settings.PROJECT_PATH, project, 'static', project, 'js', 'models')
+        target_dir = path.join(settings.PROJECT_PATH, project, 'static', project, 'coffeescript', 'models')
         for Model in model_list:
-            with open(path.join(target_dir, Model.__name__.lower() + '.js'), 'w') as out:
-                out.write(self.__js_header);
+            with open(path.join(target_dir, Model.__name__.lower() + '.coffee'), 'w') as out:
+                out.write(self.__standard_header);
 
                 field_list__default = []
                 field_list__parse = []
