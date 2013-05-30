@@ -1,0 +1,165 @@
+{% extends 'base_page.html' %}
+
+{% load compress %}
+{% load js_filters %}
+{% load model_filters %}
+{% load static %}
+
+{% block style_includes %}
+    {{block.super}}
+    <link rel='stylesheet' type='text/css' href='{% static 'css/table.css' %}' />
+{% endblock style_includes %}
+
+{% block script_includes %}
+    {{block.super}}
+    <script type='text/javascript' src='{% static 'js/libraries/underscore-1.4.4.js' %}'></script>
+    <script type='text/javascript' src='{% static 'js/libraries/backbone-1.0.0.js' %}'></script>
+
+    <!-- libs -->
+    {% compress js %}
+        <script type='text/coffeescript' src='{% static 'coffeescript/tools.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'coffeescript/enum.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'coffeescript/svg_tools.coffee' %}'></script>
+    {% endcompress %}
+
+    <!-- table -->
+    {% compress js %}
+        <script type='text/coffeescript' src='{% static 'coffeescript/table/column.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'coffeescript/table/row.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'coffeescript/table/table.coffee' %}'></script>
+    {% endcompress %}
+
+    <!-- character summary -->
+    {% compress js %}
+        <script type='text/coffeescript' src='{% static 'character/coffeescript/models/character.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'traits/coffeescript/models/creaturetype.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'traits/coffeescript/models/genealogy.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'traits/coffeescript/models/affiliation.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'traits/coffeescript/models/subgroup.coffee' %}'></script>
+    {% endcompress %}
+{% endblock script_includes %}
+
+{% block content %}
+    <script type='text/html' id='template__table_row'>
+        <td><%= record.user.username      %></td>
+        <td><%= record.name               %></td>
+        <td><%= record.creature_type.name %></td>
+        <td><%= record.genealogy.name     %></td>
+        <td><%= record.affiliation.name   %></td>
+        <td><%= record.status             %></td>
+        <td>
+            <% if (can_submit) { %>
+                <button name='submit'>submit</button>
+            <% } %>
+        </td>
+        <td>
+            <% if (can_edit) { %>
+                <button name='edit'>edit</button>
+            <% } %>
+        </td>
+        <td>
+            <% if (can_disable) { %>
+                <button name='disable'>disable</button>
+            <% } else if (can_enable) { %>
+                <button name='enable'>enable</button>
+            <% } %>
+        </td>
+    </script>
+
+    <div style='float: left'>
+        <label>
+            show disabled characters
+            <input type='checkbox' id='show-disabled-characters' />
+        </label>
+    </div>
+    <table id='character-table' class='list-table stripped'></table>
+
+    {% compress js %}
+    <script type='text/coffeescript'>
+        TEnum_NS = Tools.create_namespace 'Traits.Enums'
+        TObj_NS  = Tools.create_namespace 'Traits.Objects'
+
+        TEnum_NS.Vice   = new Enum.Enum {{Vice.objects   | serialize_json:Vice.Serializer   | safe}}
+        TEnum_NS.Virtue = new Enum.Enum {{Virtue.objects | serialize_json:Virtue.Serializer | safe}}
+
+        TObj_NS.Affiliation  = new Backbone.Collection {{Affiliation.objects  | serialize_json:Affiliation.Serializer  | safe}}, {model: Traits.Models.Affiliation  }
+        TObj_NS.CreatureType = new Backbone.Collection {{CreatureType.objects | serialize_json:CreatureType.Serializer | safe}}, {model: Traits.Models.CreatureType }
+        TObj_NS.Genealogy    = new Backbone.Collection {{Genealogy.objects    | serialize_json:Genealogy.Serializer    | safe}}, {model: Traits.Models.Genealogy    }
+        TObj_NS.Subgroup     = new Backbone.Collection {{Subgroup.objects     | serialize_json:Subgroup.Serializer     | safe}}, {model: Traits.Models.Subgroup     }
+
+        TObj_NS
+    </script>
+
+
+    <script type='text/coffeescript'>
+        character_table = new Table.Table {
+            el: $ '#character-table'
+            collection: new Backbone.Collection null, {model: Character.Models.Character}
+            filter: (pres_model) -> pres_model.record.get 'enabled'
+
+            columns: [
+                { header: 'user' }
+                { header: 'name',          field: 'name'          }
+                { header: 'creature type', field: 'creature_type' }
+                { header: 'clan',          field: 'clan'          }
+                { header: 'covenant',      field: 'covenant'      }
+                { header: 'status' }
+                {}  # submit button
+                {}  # edit button
+                {}  # disable/enable button
+            ]
+
+            RowPresentation: class extends Table.Models.RowPresentation
+                initialize: (attributes, options) ->
+                    super attributes, options
+                    @set 'can_submit',  options.can_submit
+                    @set 'can_edit',    options.can_edit
+                    @set 'can_disable', options.can_disable
+
+                toJSON: () ->
+                    attr = _.clone super
+                    attr.can_submit  =     attr.record.enabled and attr.can_submit
+                    attr.can_edit    =     attr.record.enabled and attr.can_edit
+                    attr.can_disable =     attr.record.enabled and @attributes.can_disable
+                    attr.can_enable  = not attr.record.enabled and @attributes.can_disable
+                    attr
+
+            RowView: class extends Table.Views.Row
+                events: () ->
+                    _.extend {}, super,
+                        'click button[name="submit"]'  : 'on_submit'
+                        'click button[name="edit"]'    : 'on_edit'
+                        'click button[name="disable"]' : 'on_disable'
+                        'click button[name="enable"]'  : 'on_enable'
+
+                on_submit: () ->
+
+                on_edit: () ->
+
+                on_disable: () ->
+                    @model.record.save 'enabled', false, patch: true
+
+                on_enable: () ->
+                    @model.record.save 'enabled', true, patch: true
+
+            row_template: _.template $('#template__table_row').html()
+        }
+
+        {% for character in character_list %}
+        character_table.collection.add {{character.json|safe}},
+            parse: true
+            can_submit:  {{character.can_submit  | js_bool}}
+            can_edit:    {{character.can_edit    | js_bool}}
+            can_disable: {{character.can_disable | js_bool}}
+        {% endfor %}
+
+        character_table.render()
+
+        $('#show-disabled-characters').change () ->
+            if $(@).is ':checked'
+                character_table.filter null
+            else
+                character_table.filter (pres_model) -> pres_model.record.get 'enabled'
+    </script>
+    {% endcompress %}
+{% endblock content %}

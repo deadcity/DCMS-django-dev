@@ -12,6 +12,7 @@ urlpatterns = patterns('',
     # url(r'^$', 'DCMS.views.home', name='home'),
     # url(r'^DCMS/', include('DCMS.foo.urls')),
     url(r'^api/', include('DCMS.urls.api')),
+    url(r'^characters/', include('character.urls.character_management')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
