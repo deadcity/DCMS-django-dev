@@ -22,3 +22,9 @@ def character_list (request):
         'Vice'         : { 'objects': Vice         .objects.all(), 'Serializer': Vice         .Serializer },
         'Virtue'       : { 'objects': Virtue       .objects.all(), 'Serializer': Virtue       .Serializer },
     })
+
+
+# def show_character_detail (request, id):
+#     return render(request, 'character/show_character_detail.html', {
+#         'character' : JSONRenderer().render(Character.Serializer(Character.objects.find))
+#     })

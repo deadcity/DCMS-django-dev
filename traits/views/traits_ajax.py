@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# 2013-05-13 11:58:31.554363
+# 2013-05-30 12:10:52.781713
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -10,187 +10,107 @@
 # forget to commit the newly generated files!)
 
 
-from rest_framework import generics
+from rest_framework import viewsets
 
 from traits.models import AttributeType, DerangementType, FlawType, MeritType, SkillType, Vice, Virtue, Affiliation, Attribute, CharacterText, CombatTrait, CreatureType, Derangement, Flaw, Genealogy, Merit, MiscTrait, Power, Skill, Subgroup
 from traits.serializers import AttributeTypeSerializer, DerangementTypeSerializer, FlawTypeSerializer, MeritTypeSerializer, SkillTypeSerializer, ViceSerializer, VirtueSerializer, AffiliationSerializer, AttributeSerializer, CharacterTextSerializer, CombatTraitSerializer, CreatureTypeSerializer, DerangementSerializer, FlawSerializer, GenealogySerializer, MeritSerializer, MiscTraitSerializer, PowerSerializer, SkillSerializer, SubgroupSerializer
 
 
-class AttributeTypeDetail (generics.RetrieveUpdateDestroyAPIView):
-    model            = AttributeType
-    serializer_class = AttributeTypeSerializer
-
-class AttributeTypeList (generics.ListCreateAPIView):
+class AttributeTypeViewSet (viewsets.ModelViewSet):
     model            = AttributeType
     serializer_class = AttributeTypeSerializer
 
 
-class DerangementTypeDetail (generics.RetrieveUpdateDestroyAPIView):
-    model            = DerangementType
-    serializer_class = DerangementTypeSerializer
-
-class DerangementTypeList (generics.ListCreateAPIView):
+class DerangementTypeViewSet (viewsets.ModelViewSet):
     model            = DerangementType
     serializer_class = DerangementTypeSerializer
 
 
-class FlawTypeDetail (generics.RetrieveUpdateDestroyAPIView):
-    model            = FlawType
-    serializer_class = FlawTypeSerializer
-
-class FlawTypeList (generics.ListCreateAPIView):
+class FlawTypeViewSet (viewsets.ModelViewSet):
     model            = FlawType
     serializer_class = FlawTypeSerializer
 
 
-class MeritTypeDetail (generics.RetrieveUpdateDestroyAPIView):
-    model            = MeritType
-    serializer_class = MeritTypeSerializer
-
-class MeritTypeList (generics.ListCreateAPIView):
+class MeritTypeViewSet (viewsets.ModelViewSet):
     model            = MeritType
     serializer_class = MeritTypeSerializer
 
 
-class SkillTypeDetail (generics.RetrieveUpdateDestroyAPIView):
-    model            = SkillType
-    serializer_class = SkillTypeSerializer
-
-class SkillTypeList (generics.ListCreateAPIView):
+class SkillTypeViewSet (viewsets.ModelViewSet):
     model            = SkillType
     serializer_class = SkillTypeSerializer
 
 
-class ViceDetail (generics.RetrieveUpdateDestroyAPIView):
-    model            = Vice
-    serializer_class = ViceSerializer
-
-class ViceList (generics.ListCreateAPIView):
+class ViceViewSet (viewsets.ModelViewSet):
     model            = Vice
     serializer_class = ViceSerializer
 
 
-class VirtueDetail (generics.RetrieveUpdateDestroyAPIView):
-    model            = Virtue
-    serializer_class = VirtueSerializer
-
-class VirtueList (generics.ListCreateAPIView):
+class VirtueViewSet (viewsets.ModelViewSet):
     model            = Virtue
     serializer_class = VirtueSerializer
 
 
-class AffiliationDetail (generics.RetrieveUpdateDestroyAPIView):
-    model            = Affiliation
-    serializer_class = AffiliationSerializer
-
-class AffiliationList (generics.ListCreateAPIView):
+class AffiliationViewSet (viewsets.ModelViewSet):
     model            = Affiliation
     serializer_class = AffiliationSerializer
 
 
-class AttributeDetail (generics.RetrieveUpdateDestroyAPIView):
-    model            = Attribute
-    serializer_class = AttributeSerializer
-
-class AttributeList (generics.ListCreateAPIView):
+class AttributeViewSet (viewsets.ModelViewSet):
     model            = Attribute
     serializer_class = AttributeSerializer
 
 
-class CharacterTextDetail (generics.RetrieveUpdateDestroyAPIView):
-    model            = CharacterText
-    serializer_class = CharacterTextSerializer
-
-class CharacterTextList (generics.ListCreateAPIView):
+class CharacterTextViewSet (viewsets.ModelViewSet):
     model            = CharacterText
     serializer_class = CharacterTextSerializer
 
 
-class CombatTraitDetail (generics.RetrieveUpdateDestroyAPIView):
-    model            = CombatTrait
-    serializer_class = CombatTraitSerializer
-
-class CombatTraitList (generics.ListCreateAPIView):
+class CombatTraitViewSet (viewsets.ModelViewSet):
     model            = CombatTrait
     serializer_class = CombatTraitSerializer
 
 
-class CreatureTypeDetail (generics.RetrieveUpdateDestroyAPIView):
-    model            = CreatureType
-    serializer_class = CreatureTypeSerializer
-
-class CreatureTypeList (generics.ListCreateAPIView):
+class CreatureTypeViewSet (viewsets.ModelViewSet):
     model            = CreatureType
     serializer_class = CreatureTypeSerializer
 
 
-class DerangementDetail (generics.RetrieveUpdateDestroyAPIView):
-    model            = Derangement
-    serializer_class = DerangementSerializer
-
-class DerangementList (generics.ListCreateAPIView):
+class DerangementViewSet (viewsets.ModelViewSet):
     model            = Derangement
     serializer_class = DerangementSerializer
 
 
-class FlawDetail (generics.RetrieveUpdateDestroyAPIView):
-    model            = Flaw
-    serializer_class = FlawSerializer
-
-class FlawList (generics.ListCreateAPIView):
+class FlawViewSet (viewsets.ModelViewSet):
     model            = Flaw
     serializer_class = FlawSerializer
 
 
-class GenealogyDetail (generics.RetrieveUpdateDestroyAPIView):
-    model            = Genealogy
-    serializer_class = GenealogySerializer
-
-class GenealogyList (generics.ListCreateAPIView):
+class GenealogyViewSet (viewsets.ModelViewSet):
     model            = Genealogy
     serializer_class = GenealogySerializer
 
 
-class MeritDetail (generics.RetrieveUpdateDestroyAPIView):
-    model            = Merit
-    serializer_class = MeritSerializer
-
-class MeritList (generics.ListCreateAPIView):
+class MeritViewSet (viewsets.ModelViewSet):
     model            = Merit
     serializer_class = MeritSerializer
 
 
-class MiscTraitDetail (generics.RetrieveUpdateDestroyAPIView):
-    model            = MiscTrait
-    serializer_class = MiscTraitSerializer
-
-class MiscTraitList (generics.ListCreateAPIView):
+class MiscTraitViewSet (viewsets.ModelViewSet):
     model            = MiscTrait
     serializer_class = MiscTraitSerializer
 
 
-class PowerDetail (generics.RetrieveUpdateDestroyAPIView):
-    model            = Power
-    serializer_class = PowerSerializer
-
-class PowerList (generics.ListCreateAPIView):
+class PowerViewSet (viewsets.ModelViewSet):
     model            = Power
     serializer_class = PowerSerializer
 
 
-class SkillDetail (generics.RetrieveUpdateDestroyAPIView):
-    model            = Skill
-    serializer_class = SkillSerializer
-
-class SkillList (generics.ListCreateAPIView):
+class SkillViewSet (viewsets.ModelViewSet):
     model            = Skill
     serializer_class = SkillSerializer
 
 
-class SubgroupDetail (generics.RetrieveUpdateDestroyAPIView):
-    model            = Subgroup
-    serializer_class = SubgroupSerializer
-
-class SubgroupList (generics.ListCreateAPIView):
+class SubgroupViewSet (viewsets.ModelViewSet):
     model            = Subgroup
     serializer_class = SubgroupSerializer

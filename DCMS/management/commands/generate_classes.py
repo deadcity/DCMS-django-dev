@@ -36,10 +36,10 @@ class Command (NoArgsCommand):
             elif issubclass(Model, trait_models.Trait):
                 traits.append(Model)
 
-        self.__gen_serializers       ('traits', trait_types + traits, 'trait_serializers')
-        self.__gen_views_list_detail ('traits', trait_types + traits, 'traits_ajax')
-        self.__gen_urls              ('traits', trait_types + traits, 'traits_ajax')
-        self.__gen_backbone_models   ('traits', traits)
+        self.__gen_serializers     ('traits', trait_types + traits, 'trait_serializers')
+        self.__gen_view_sets       ('traits', trait_types + traits, 'traits_ajax')
+        self.__gen_urls            ('traits', trait_types + traits, 'traits_ajax')
+        self.__gen_backbone_models ('traits', traits)
 
         self.__gen_admin_classes ('traits', trait_types, 'enum_admins',  self.__admin_template__enum_admin)
         self.__gen_admin_classes ('traits', traits,      'trait_admins', self.__admin_template__model_admin)
@@ -58,15 +58,11 @@ class Command (NoArgsCommand):
             if issubclass(Model, character_models.CharacterHasTrait):
                 character_traits.append(Model)
 
-        self.__gen_serializers       ('character', character_traits, 'character_trait_serializers')
-        self.__gen_views_list_detail ('character', character_traits, 'character_traits_ajax')
-        self.__gen_urls              ('character', character_traits, 'character_traits_ajax')
-        self.__gen_backbone_models   ('character', character_traits)
-
         Character = [character_models.Character]
-        self.__gen_serializers       ('character', Character, 'character_serializers')
-        self.__gen_views_list_detail ('character', Character, 'character_ajax')
-        self.__gen_urls              ('character', Character, 'character_ajax')
+        self.__gen_serializers     ('character', Character + character_traits, 'character_serializers')
+        self.__gen_view_sets       ('character', Character + character_traits, 'character_ajax')
+        self.__gen_urls            ('character', Character + character_traits, 'character_ajax')
+        self.__gen_backbone_models ('character', character_traits)
 
         self.__gen_admin_classes ('character', character_traits, 'character_trait_admins',  self.__admin_template__model_admin)
         self.__gen_admin_classes ('character', character_traits, 'character_traits_inline', self.__admin_template__inline_admin)
@@ -294,43 +290,37 @@ ${MODEL_NAME}.Serializer = ${MODEL_NAME}Serializer
     # # # # #
 
     __url_template__header = Template("""\
-from django.conf.urls import url
+from rest_framework.routers import DefaultRouter
 
-from ${PROJECT}.views import ${DETAIL_VIEWS}
-from ${PROJECT}.views import ${LIST_VIEWS}
+from ${PROJECT}.views import ${VIEW_SETS}
 
-urls = [""")
-    __url_template__urls = Template("""
-  url(r'^${MODEL_NAME}/(?P<pk>[0-9]+)/$$', ${MODEL_NAME}Detail.as_view()),
-  url(r'^${MODEL_NAME}/$$',                ${MODEL_NAME}List.as_view()),
+router = DefaultRouter()
 """)
-    __url_template__footer = Template("]\n")
+    __url_template__urls = Template("router.register('${MODEL_NAME}', ${MODEL_NAME}ViewSet)\n")
 
     def __gen_urls (self, project, model_list, file_name):
         print 'generating urls for {project}... '.format(project = project),
         with open(path.join(settings.PROJECT_PATH, project, 'urls', file_name + '.py'), 'w') as out:
             out.write(self.__standard_header);
             out.write(self.__url_template__header.substitute(
-                PROJECT      = project,
-                DETAIL_VIEWS = ', '.join([Model.__name__ + 'Detail' for Model in model_list]),
-                LIST_VIEWS   = ', '.join([Model.__name__ + 'List'   for Model in model_list])
+                PROJECT   = project,
+                VIEW_SETS = ', '.join([Model.__name__ + 'ViewSet' for Model in model_list]),
             ))
             for Model in model_list:
                 out.write(self.__url_template__urls.substitute(
                     MODEL_NAME = Model.__name__
                 ))
-            out.write(self.__url_template__footer.substitute())
 
         print 'done'
         stdout.flush()
 
 
-    # # # # # # # # # # # # #
-    # VIEWS : LIST / DETAIL #
-    # # # # # # # # # # # # #
+    # # # # # # # #
+    # VIEWS : API #
+    # # # # # # # #
 
     __list_detail_view_template__header = Template("""\
-from rest_framework import generics
+from rest_framework import viewsets
 
 from ${PROJECT}.models import ${MODEL_NAMES}
 from ${PROJECT}.serializers import ${SERIALIZER_NAMES}
@@ -338,16 +328,12 @@ from ${PROJECT}.serializers import ${SERIALIZER_NAMES}
 
     __list_detail_view_template__views = Template("""
 
-class ${MODEL_NAME}Detail (generics.RetrieveUpdateDestroyAPIView):
-    model            = ${MODEL_NAME}
-    serializer_class = ${MODEL_NAME}Serializer
-
-class ${MODEL_NAME}List (generics.ListCreateAPIView):
+class ${MODEL_NAME}ViewSet (viewsets.ModelViewSet):
     model            = ${MODEL_NAME}
     serializer_class = ${MODEL_NAME}Serializer
 """)
 
-    def __gen_views_list_detail (self, project, model_list, file_name):
+    def __gen_view_sets (self, project, model_list, file_name):
         print 'generating views (list/detail) for {project}... '.format(project = project),
         stdout.flush()
 

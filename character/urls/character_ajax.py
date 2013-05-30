@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# 2013-05-13 11:58:31.554363
+# 2013-05-30 12:10:52.781713
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -10,12 +10,19 @@
 # forget to commit the newly generated files!)
 
 
-from django.conf.urls import url
+from rest_framework.routers import DefaultRouter
 
-from character.views import CharacterDetail
-from character.views import CharacterList
+from character.views import CharacterViewSet, CharacterHasAttributeViewSet, CharacterHasCombatTraitViewSet, CharacterHasDerangementViewSet, CharacterHasFlawViewSet, CharacterHasMeritViewSet, CharacterHasMiscTraitViewSet, CharacterHasPowerViewSet, CharacterHasSkillViewSet, CharacterHasSkillSpecialtyViewSet, CharacterHasTextViewSet
 
-urls = [
-  url(r'^Character/(?P<pk>[0-9]+)/$', CharacterDetail.as_view()),
-  url(r'^Character/$',                CharacterList.as_view()),
-]
+router = DefaultRouter()
+router.register('Character', CharacterViewSet)
+router.register('CharacterHasAttribute', CharacterHasAttributeViewSet)
+router.register('CharacterHasCombatTrait', CharacterHasCombatTraitViewSet)
+router.register('CharacterHasDerangement', CharacterHasDerangementViewSet)
+router.register('CharacterHasFlaw', CharacterHasFlawViewSet)
+router.register('CharacterHasMerit', CharacterHasMeritViewSet)
+router.register('CharacterHasMiscTrait', CharacterHasMiscTraitViewSet)
+router.register('CharacterHasPower', CharacterHasPowerViewSet)
+router.register('CharacterHasSkill', CharacterHasSkillViewSet)
+router.register('CharacterHasSkillSpecialty', CharacterHasSkillSpecialtyViewSet)
+router.register('CharacterHasText', CharacterHasTextViewSet)
