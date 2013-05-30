@@ -267,6 +267,7 @@ from ${PROJECT}.models import ${MODEL_NAMES}
 class ${MODEL_NAME}Serializer (serializers.ModelSerializer):
     class Meta (object):
         model = ${MODEL_NAME}
+${MODEL_NAME}.Serializer = ${MODEL_NAME}Serializer
 """)
 
     def __gen_serializers (self, project, model_list, file_name):

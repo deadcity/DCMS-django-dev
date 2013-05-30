@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block css_includes %}
+{% block style_includes %}
     {{block.super}}
     <style type='text/css'>
         body {
@@ -63,11 +63,15 @@
             padding: 20px;
         }
 
+        section#content .list-table {
+            color: black;
+        }
+
         section#content .character-list tr:nth-child(2n+1) td {
             background-color: #EEE;
         }
     </style>
-{% endblock css_includes %}
+{% endblock style_includes %}
 
 {% block page %}
     <header>

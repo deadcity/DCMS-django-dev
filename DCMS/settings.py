@@ -136,11 +136,11 @@ INSTALLED_APPS = (
 
 if os.name == 'nt':
     COMPRESS_PRECOMPILERS = (
-        ('text/coffeescript', 'coffee.cmd --compile --stdio')
+        ('text/coffeescript', 'coffee.cmd --compile --stdio'),
     )
 else:
     COMPRESS_PRECOMPILERS = (
-        ('text/coffeescript', 'coffee --compile --stdio')
+        ('text/coffeescript', 'coffee --compile --stdio'),
     )
 
 # A sample logging configuration. The only tangible logging

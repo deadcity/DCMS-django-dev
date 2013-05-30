@@ -46,7 +46,7 @@ class Views_NS.Header extends Backbone.View
   The default column presentation model.  Facilitates sorting.
 
   @attr header         - text displayed as the column's header
-  @attr fieled         - attribute name in the domain model this column corresponds to
+  @attr field          - attribute name in the domain model this column corresponds to
   @attr sort_direction - enumeration used interally for sorting
                          default: Table.Enum.SORT_DIRECTION.UNSORTED
 ###

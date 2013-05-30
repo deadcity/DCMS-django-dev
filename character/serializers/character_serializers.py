@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# 2013-05-13 11:58:31.554363
+# 2013-05-24 10:08:14.612453
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -18,3 +18,4 @@ from character.models import Character
 class CharacterSerializer (serializers.ModelSerializer):
     class Meta (object):
         model = Character
+Character.Serializer = CharacterSerializer

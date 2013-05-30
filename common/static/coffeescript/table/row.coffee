@@ -42,7 +42,7 @@ class Views_NS.Row extends Backbone.View
         @listenTo @model, 'command:move_to', @move_to
         @listenTo @model, 'hide',            @remove
 
-    events:
+    events: () ->
         'click': 'on_click'
 
     render: () ->

@@ -23,6 +23,8 @@ class Table_NS.Table extends Backbone.View
                                 default: Table.Models.RowPresentation
       @arg RowView            - class to use for the row view
                                 default: Table.Views.Row
+      @arg row_template       - callable to generate html for a row
+                                this will override RowView.prototype.template
       @arg filter             - function to filter presentation models by
     ###
     initialize: (options) ->
@@ -33,6 +35,10 @@ class Table_NS.Table extends Backbone.View
         @RowPresentation    = options.RowPresentation    ? Table_NS.Models.RowPresentation
         @RowView            = options.RowView            ? Table_NS.Views.Row
         @_filter            = options.filter
+
+        if options.row_template?
+            class @RowView extends @RowView
+                template: options.row_template
 
         if options.columns instanceof Backbone.Collection
             @columns = options.columns
@@ -113,7 +119,7 @@ class Table_NS.Table extends Backbone.View
         , @
 
     on_add_record: (model, collection, options) ->
-        pres_model = new @RowPresentation null, _extend {record: model}, options
+        pres_model = new @RowPresentation null, _.extend {record: model}, options
         @all_rows.add pres_model
         @filter_pres_model pres_model
 
