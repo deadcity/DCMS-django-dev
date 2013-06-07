@@ -5,13 +5,15 @@
 {% load model_filters %}
 {% load static %}
 
+
 {% block style_includes %}
-    {{block.super}}
+    {{ block.super }}
     <link rel='stylesheet' type='text/css' href='{% static 'css/table.css' %}' />
 {% endblock style_includes %}
 
+
 {% block script_includes %}
-    {{block.super}}
+    {{ block.super }}
     <script type='text/javascript' src='{% static 'js/libraries/underscore-1.4.4.js' %}'></script>
     <script type='text/javascript' src='{% static 'js/libraries/backbone-1.0.0.js' %}'></script>
 
@@ -39,8 +41,9 @@
     {% endcompress %}
 {% endblock script_includes %}
 
+
 {% block content %}
-    <script type='text/html' id='template__table_row'>
+    <script type='text/html' id='template_table-row'>
         <td><%= record.user.username      %></td>
         <td><%= record.name               %></td>
         <td><%= record.creature_type.name %></td>
@@ -76,18 +79,16 @@
 
     {% compress js %}
     <script type='text/coffeescript'>
-        TEnum_NS = Tools.create_namespace 'Traits.Enums'
-        TObj_NS  = Tools.create_namespace 'Traits.Objects'
+        Tools.create_namespace 'Traits.Enums'
+        Tools.create_namespace 'Traits.Objects'
 
-        TEnum_NS.Vice   = new Enum.Enum {{Vice.objects   | serialize_json:Vice.Serializer   | safe}}
-        TEnum_NS.Virtue = new Enum.Enum {{Virtue.objects | serialize_json:Virtue.Serializer | safe}}
+        Traits.Enums.Vice   = new Enum.Enum {{ vices   | serialize_json | safe }}
+        Traits.Enums.Virtue = new Enum.Enum {{ virtues | serialize_json | safe }}
 
-        TObj_NS.Affiliation  = new Backbone.Collection {{Affiliation.objects  | serialize_json:Affiliation.Serializer  | safe}}, {model: Traits.Models.Affiliation  }
-        TObj_NS.CreatureType = new Backbone.Collection {{CreatureType.objects | serialize_json:CreatureType.Serializer | safe}}, {model: Traits.Models.CreatureType }
-        TObj_NS.Genealogy    = new Backbone.Collection {{Genealogy.objects    | serialize_json:Genealogy.Serializer    | safe}}, {model: Traits.Models.Genealogy    }
-        TObj_NS.Subgroup     = new Backbone.Collection {{Subgroup.objects     | serialize_json:Subgroup.Serializer     | safe}}, {model: Traits.Models.Subgroup     }
-
-        TObj_NS
+        Traits.Objects.Affiliation  = new Backbone.Collection {{ affiliations   | serialize_json | safe }}, {model: Traits.Models.Affiliation  }
+        Traits.Objects.CreatureType = new Backbone.Collection {{ creature_types | serialize_json | safe }}, {model: Traits.Models.CreatureType }
+        Traits.Objects.Genealogy    = new Backbone.Collection {{ genealogies    | serialize_json | safe }}, {model: Traits.Models.Genealogy    }
+        Traits.Objects.Subgroup     = new Backbone.Collection {{ subgroups      | serialize_json | safe }}, {model: Traits.Models.Subgroup     }
     </script>
 
 
@@ -133,8 +134,10 @@
                         'click button[name="enable"]'  : 'on_enable'
 
                 on_submit: () ->
+                    # TODO(emery): change status to 'submitted'
 
                 on_edit: () ->
+                    # TODO(emery): goto character_edit page
 
                 on_disable: () ->
                     @model.record.save 'enabled', false, patch: true
@@ -142,15 +145,15 @@
                 on_enable: () ->
                     @model.record.save 'enabled', true, patch: true
 
-            row_template: _.template $('#template__table_row').html()
+            row_template: _.template $('#template_table-row').html()
         }
 
-        {% for character in character_list %}
-        character_table.collection.add {{character.json|safe}},
+        {% for item in character_list %}
+        character_table.collection.add {{ item.character|serialize_json|safe }},
             parse: true
-            can_submit:  {{character.can_submit  | js_bool}}
-            can_edit:    {{character.can_edit    | js_bool}}
-            can_disable: {{character.can_disable | js_bool}}
+            can_submit:  {{ item.can_submit  | js_bool }}
+            can_edit:    {{ item.can_edit    | js_bool }}
+            can_disable: {{ item.can_disable | js_bool }}
         {% endfor %}
 
         character_table.render()

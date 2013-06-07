@@ -42,7 +42,7 @@ class Affiliation(Trait): pass
 
 
 class Attribute(Trait):
-    type = EnumField(AttributeType, null = True)
+    type = EnumField(AttributeType, related_name = 'trait', null = True)
 
 
 class CharacterText(Trait):
@@ -60,12 +60,12 @@ class CreatureType(Trait):
 
 
 class Derangement(Trait):
-    type = EnumField(DerangementType, null = True)
+    type = EnumField(DerangementType, related_name = 'trait', null = True)
     requires_specification = models.BooleanField()
 
 
 class Flaw(Trait):
-    type = EnumField(FlawType, null = True)
+    type = EnumField(FlawType, related_name = 'trait', null = True)
     requires_specification = models.BooleanField()
     requires_description   = models.BooleanField()
 
@@ -74,7 +74,7 @@ class Genealogy(Trait): pass
 
 
 class Merit(Trait):
-    type = EnumField(MeritType, null = True)
+    type = EnumField(MeritType, related_name = 'trait', null = True)
     min_rating = models.SmallIntegerField()
     max_rating = models.SmallIntegerField()
     inc_rating = models.SmallIntegerField()
@@ -92,7 +92,9 @@ class Power(Trait):
 
 
 class Skill(Trait):
-    type = EnumField(SkillType, null = True)
+    type = EnumField(SkillType, related_name = 'trait', null = True)
+    class Meta(object):
+        ordering = ('name',)
 
 
 class Subgroup(Trait): pass
