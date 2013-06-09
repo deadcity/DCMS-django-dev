@@ -1,6 +1,6 @@
 from django.conf.urls import include, patterns, url
 
-from traits_ajax import router
+from chronicle_ajax import router
 
 
 urlpatterns = patterns('',
