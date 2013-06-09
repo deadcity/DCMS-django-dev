@@ -9,8 +9,9 @@ from django.conf import settings
 from django.core.management.base import NoArgsCommand
 from django.db import models
 
-from traits import models as trait_models
 from character import models as character_models
+from chronicle import models as chronicle_models
+from traits import models as trait_models
 
 
 def to_unserscores(name):
@@ -20,6 +21,10 @@ def to_unserscores(name):
 
 class Command (NoArgsCommand):
     def handle_noargs (self, **options):
+        # # # # # #
+        # TRAITS  #
+        # # # # # #
+
         trait_types = []
         traits = []
 
@@ -45,6 +50,10 @@ class Command (NoArgsCommand):
         self.__gen_admin_classes ('traits', traits,      'trait_admins', self.__admin_template__model_admin)
 
 
+        # # # # # # #
+        # CHARACTER #
+        # # # # # # #
+
         character_traits = []
 
         for attr in dir(character_models):
@@ -66,6 +75,29 @@ class Command (NoArgsCommand):
 
         self.__gen_admin_classes ('character', character_traits, 'character_trait_admins',  self.__admin_template__model_admin)
         self.__gen_admin_classes ('character', character_traits, 'character_traits_inline', self.__admin_template__inline_admin)
+
+
+        # # # # # # #
+        # CHRONICLE #
+        # # # # # # #
+
+        # chronicle = []
+
+        # for attr in dir(chronicle_models):
+        #     Model = getattr(chronicle_models, attr)
+        #     if not isinstance(Model, type):
+        #         continue
+
+        #     if issubclass(Model, models.Model):
+        #         chronicle.append(Model)
+
+        chronicle = [chronicle_models.Chronicle, chronicle_models.Game]
+        self.__gen_serializers ('chronicle', chronicle, 'chronicle_serializers')
+        self.__gen_view_sets   ('chronicle', chronicle, 'chronicle_ajax')
+        self.__gen_urls        ('chronicle', chronicle, 'chronicle_ajax')
+
+        # self.__gen_admin_classes ('chronicle', chronicle, 'chronicle_admins', self.__admin_template__model_admin)
+        self.__gen_admin_classes ('chronicle', [chronicle_models.Game], 'chronicle_inlines', self.__admin_template__inline_admin)
 
 
     # # # # # # # # # #
@@ -133,7 +165,7 @@ class ${MODEL_NAME}Inline (admin.TabularInline):
         print 'generating enum admin classes for {project}/{file_name}... '.format(project = project, file_name = file_name),
         stdout.flush()
 
-        with open(path.join(settings.PROJECT_PATH, project, 'admin', file_name + '.py'), 'w') as out:
+        with open(path.join(settings.PROJECT_PATH, project, 'admin', file_name + '.py'), 'wb') as out:
             out.write(self.__standard_header);
             out.write(self.__admin_template__header.substitute(
                 MODULE_NAME = model_list[0].__module__,
@@ -201,7 +233,7 @@ ${FIELD_LIST__HUMAN_JSON}
 
         target_dir = path.join(settings.PROJECT_PATH, project, 'static', project, 'coffeescript', 'models')
         for Model in model_list:
-            with open(path.join(target_dir, Model.__name__.lower() + '.coffee'), 'w') as out:
+            with open(path.join(target_dir, Model.__name__.lower() + '.coffee'), 'wb') as out:
                 out.write(self.__standard_header);
 
                 field_list__default = []
@@ -270,7 +302,7 @@ ${MODEL_NAME}.Serializer = ${MODEL_NAME}Serializer
         print 'generating serializers for {project}... '.format(project = project),
         stdout.flush()
 
-        with open(path.join(settings.PROJECT_PATH, project, 'serializers', file_name + '.py'), 'w') as out:
+        with open(path.join(settings.PROJECT_PATH, project, 'serializers', file_name + '.py'), 'wb') as out:
             out.write(self.__standard_header);
             out.write(self.__serializer_template__header.substitute(
                 PROJECT     = project,
@@ -300,7 +332,7 @@ router = DefaultRouter()
 
     def __gen_urls (self, project, model_list, file_name):
         print 'generating urls for {project}... '.format(project = project),
-        with open(path.join(settings.PROJECT_PATH, project, 'urls', file_name + '.py'), 'w') as out:
+        with open(path.join(settings.PROJECT_PATH, project, 'urls', file_name + '.py'), 'wb') as out:
             out.write(self.__standard_header);
             out.write(self.__url_template__header.substitute(
                 PROJECT   = project,
@@ -337,7 +369,7 @@ class ${MODEL_NAME}ViewSet (viewsets.ModelViewSet):
         print 'generating views (list/detail) for {project}... '.format(project = project),
         stdout.flush()
 
-        with open(path.join(settings.PROJECT_PATH, project, 'views', file_name + '.py'), 'w') as out:
+        with open(path.join(settings.PROJECT_PATH, project, 'views', file_name + '.py'), 'wb') as out:
             out.write(self.__standard_header);
             out.write(self.__list_detail_view_template__header.substitute(
                 PROJECT          = project,
