@@ -5,7 +5,7 @@ from character_traits_inline import *
 from character import models
 
 
-class CharacterAdmin(admin.ModelAdmin):
+class CharacterAdmin (admin.ModelAdmin):
     list_display = (
         'name', 'enabled', 'creature_type',
         'genealogy', 'affiliation', 'subgroup',

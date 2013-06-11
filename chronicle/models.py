@@ -11,8 +11,11 @@ class Chronicle(models.Model):
 
     description = models.TextField(blank = True)
 
+    def __unicode__ (self):
+        return self.name if self.name and self.name is not '' else '<chronicle>'
 
-class Game(models.Model):
+
+class Game (models.Model):
     __metaclass__ = Model_Metaclass
 
     enabled = models.BooleanField(default = True)
@@ -21,5 +24,8 @@ class Game(models.Model):
     chronicle = models.ForeignKey(Chronicle)
     date = models.DateField()
 
-    class Meta(object):
+    def __unicode__ (self):
+        return '{}: {}'.format(self.chronicle.name, self.name)
+
+    class Meta (object):
         ordering = ('chronicle', 'date',)
