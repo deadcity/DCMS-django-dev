@@ -78,6 +78,6 @@ def character_list (request):
     return render(request, 'character/character_list.html', context)
 
 
-class ShowCharacterView (generic.DetailView):
+class CharacterDetailView (generic.DetailView):
     model = Character
     template_name = 'character/character_detail.html'
