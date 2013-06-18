@@ -10,7 +10,7 @@ from traits.models import Attribute, CharacterText, CombatTrait, Derangement, Fl
 import traits.serializers
 
 
-def add_character_enums_to_context (context = None, **kwags):
+def add_character_enums_to_context (context = None, **kwargs):
     if not context:
         context = {}
 
@@ -32,7 +32,7 @@ def add_summary_data_to_context (context = None, **kwargs):
     return context
 
 
-def add_trait_enums_to_context (context = None, **kwags):
+def add_trait_enums_to_context (context = None, **kwargs):
     if not context:
         context = {}
 

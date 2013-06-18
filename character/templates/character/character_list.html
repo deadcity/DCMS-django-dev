@@ -1,4 +1,4 @@
-{% extends 'base_page.html' %}
+{% extends 'table_page.html' %}
 
 {% load compress %}
 {% load js_filters %}
@@ -6,30 +6,8 @@
 {% load static %}
 
 
-{% block style_includes %}
-    {{ block.super }}
-    <link rel='stylesheet' type='text/css' href='{% static 'css/table.css' %}' />
-{% endblock style_includes %}
-
-
 {% block script_includes %}
     {{ block.super }}
-    <script type='text/javascript' src='{% static 'js/libraries/underscore-1.4.4.js' %}'></script>
-    <script type='text/javascript' src='{% static 'js/libraries/backbone-1.0.0.js' %}'></script>
-
-    <!-- libs -->
-    {% compress js %}
-        <script type='text/coffeescript' src='{% static 'coffeescript/tools.coffee' %}'></script>
-        <script type='text/coffeescript' src='{% static 'coffeescript/enum.coffee' %}'></script>
-        <script type='text/coffeescript' src='{% static 'coffeescript/svg_tools.coffee' %}'></script>
-    {% endcompress %}
-
-    <!-- table -->
-    {% compress js %}
-        <script type='text/coffeescript' src='{% static 'coffeescript/table/column.coffee' %}'></script>
-        <script type='text/coffeescript' src='{% static 'coffeescript/table/row.coffee' %}'></script>
-        <script type='text/coffeescript' src='{% static 'coffeescript/table/table.coffee' %}'></script>
-    {% endcompress %}
 
     <!-- character summary -->
     {% compress js %}
@@ -42,7 +20,17 @@
 {% endblock script_includes %}
 
 
-{% block content %}
+{% block pretable_content %}
+    <div style='float: left'>
+        <label>
+            show disabled characters
+            <input type='checkbox' id='show-disabled-characters' />
+        </label>
+    </div>
+{% endblock pretable_content %}
+
+
+{% block table_definition %}
     <script type='text/html' id='template_table-row'>
         <td><%= record.user.username      %></td>
         <td><%= record.name               %></td>
@@ -69,14 +57,6 @@
         </td>
     </script>
 
-    <div style='float: left'>
-        <label>
-            show disabled characters
-            <input type='checkbox' id='show-disabled-characters' />
-        </label>
-    </div>
-    <table id='character-table' class='list-table stripped'></table>
-
     {% compress js %}
     <script type='text/coffeescript'>
         Tools.create_namespace 'Traits.Enums'
@@ -91,10 +71,9 @@
         Traits.Objects.Subgroup     = new Backbone.Collection {{ subgroups      | serialize_json | safe }}, {model: Traits.Models.Subgroup     }
     </script>
 
-
     <script type='text/coffeescript'>
         character_table = new Table.Table {
-            el: $ '#character-table'
+            el: $ '#table'
             collection: new Backbone.Collection null, {model: Character.Models.Character}
             filter: (pres_model) -> pres_model.record.get 'enabled'
 
@@ -118,7 +97,7 @@
                     @set 'can_disable', options.can_disable
 
                 toJSON: () ->
-                    attr = _.clone super
+                    attr = super
                     attr.can_submit  =     attr.record.enabled and attr.can_submit
                     attr.can_edit    =     attr.record.enabled and attr.can_edit
                     attr.can_disable =     attr.record.enabled and @attributes.can_disable
@@ -165,4 +144,4 @@
                 character_table.filter (pres_model) -> pres_model.record.get 'enabled'
     </script>
     {% endcompress %}
-{% endblock content %}
+{% endblock table_definition %}
