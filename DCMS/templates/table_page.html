@@ -6,12 +6,14 @@
 
 {% block style_includes %}
     {{ block.super }}
+
     <link rel='stylesheet' type='text/css' href='{% static 'css/table.css' %}' />
 {% endblock style_includes %}
 
 
 {% block script_includes %}
     {{ block.super }}
+
     <script type='text/javascript' src='{% static 'js/libraries/underscore-1.4.4.js' %}'></script>
     <script type='text/javascript' src='{% static 'js/libraries/backbone-1.0.0.js' %}'></script>
 

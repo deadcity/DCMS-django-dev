@@ -35,10 +35,7 @@ class Table_NS.Table extends Backbone.View
         @RowPresentation    = options.RowPresentation    ? Table_NS.Models.RowPresentation
         @RowView            = options.RowView            ? Table_NS.Views.Row
         @_filter            = options.filter
-
-        if options.row_template?
-            class @RowView extends @RowView
-                template: options.row_template
+        @row_template       = options.row_template
 
         if options.columns instanceof Backbone.Collection
             @columns = options.columns
@@ -74,7 +71,7 @@ class Table_NS.Table extends Backbone.View
             header.append view.render().el
 
     render_row: (model) ->
-        view = new @RowView {model: model}
+        view = new @RowView {model: model, template: @row_template}
         view.listenTo model, 'hide', view.remove
         view.render().move_to @$('tbody'), @rows.indexOf(model), @
 

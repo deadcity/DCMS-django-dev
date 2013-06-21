@@ -1,0 +1,121 @@
+{% extends 'base_page.html' %}
+
+{% load compress %}
+{% load model_filters %}
+{% load static %}
+
+
+{% block style_includes %}
+    {{ block.super }}
+
+    <link rel='stylesheet' type='text/css' href='{% static 'css/table.css' %}' />
+{% endblock style_includes %}
+
+
+{% block script_includes %}
+    {{ block.super }}
+
+    <script type='text/javascript' src='{% static 'js/libraries/underscore-1.4.4.js' %}'></script>
+    <script type='text/javascript' src='{% static 'js/libraries/backbone-1.0.0.js' %}'></script>
+
+    <!-- libs -->
+    {% compress js %}
+        <script type='text/coffeescript' src='{% static 'coffeescript/tools.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'coffeescript/enum.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'coffeescript/svg_tools.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'coffeescript/datetime.coffee' %}'></script>
+    {% endcompress %}
+
+    <!-- table -->
+    {% compress js %}
+        <script type='text/coffeescript' src='{% static 'coffeescript/table/column.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'coffeescript/table/row.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'coffeescript/table/table.coffee' %}'></script>
+    {% endcompress %}
+
+    <!-- chronicle -->
+    {% compress js %}
+        <script type='text/coffeescript' src='{% static 'chronicle/coffeescript/models/chronicle.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'chronicle/coffeescript/models/game.coffee' %}'></script>
+    {% endcompress %}
+{% endblock script_includes %}
+
+
+{% block content %}
+    <script type='text/html' id='template_game-table-row'>
+        <td><%= record.date %></td>
+        <td><%= record.name %></td>
+    </script>
+
+    <script type='text/html' id='template_edit-game-table-row'>
+        <td><%= record.date %></td>
+        <td><input name='name' value='<%= record.name %>' /></td>
+    </script>
+
+    <h2>{{ chronicle.name }}</h2>
+    <p>{{ chronicle.description }}
+    <section id='games'>
+        <h3>Games</h3>
+        <button name='edit'>edit</button>
+        <table id='game-table' class='list-table stripped'></table>
+
+        {% compress js %}
+        <script type='text/coffeescript'>
+            template_game_table_row      = _.template $('#template_game-table-row').html()
+            template_edit_game_table_row = _.template $('#template_edit-game-table-row').html()
+
+            class EditGameRowView extends Table.Views.Row
+                initialize: (options) ->
+                    super
+                    @on 'remove', 'save_on_remove', @
+
+                save_on_remove: () ->
+                    @model.record.save
+                        name: @$('input[name="name"]').val()
+
+
+            game_table = new Table.Table {
+                el: $ '#game-table'
+                collection: new Backbone.Collection null, {model: Chronicle.Models.Game}
+                filter: (pres_model) -> pres_model.record.get 'enabled'
+
+                columns: [
+                    { header: 'date', field: 'date' }
+                    { header: 'name', field: 'name' }
+                ]
+
+                RowView: Table.Views.Row
+
+                row_template: template_game_table_row
+            }
+
+            {% for game in chronicle.game_set.all %}
+            game_table.collection.add {{ game|serialize_json|safe }},
+                parse: true
+            {% endfor %}
+
+            game_table.render()
+
+            game_edit_toggle_button = $ 'button[name="edit"]', $ '#games'
+
+            lock_game_edit = () ->
+                game_edit_toggle_button.text 'edit'
+                game_edit_toggle_button.off 'click'
+                game_edit_toggle_button.click enable_game_edit
+                game_table.RowView = Table.Views.Row
+                game_table.row_template = template_game_table_row
+                game_table.render()
+
+            enable_game_edit = () ->
+                game_edit_toggle_button.text 'lock'
+                game_edit_toggle_button.off 'click'
+                game_edit_toggle_button.click lock_game_edit
+                game_table.RowView = EditGameRowView
+                game_table.row_template = template_edit_game_table_row
+                game_table.render()
+
+            game_edit_toggle_button.click enable_game_edit
+        </script>
+        {% endcompress %}
+    </section>
+{% endblock content %}

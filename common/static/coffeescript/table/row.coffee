@@ -34,6 +34,9 @@ class Views_NS.Row extends Backbone.View
     template: null
 
     initialize: (options) ->
+        if options?.template?
+            @template = options.template
+
         @listenTo @model, 'destroy', @remove
         @listenTo @model, 'remove',  @remove
         @listenTo @model.record, 'change', @render

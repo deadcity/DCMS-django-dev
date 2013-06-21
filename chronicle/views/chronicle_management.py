@@ -1,6 +1,6 @@
 from django.views import generic
 
-from chronicle.models import Chronicle, Game
+from chronicle.models import Chronicle
 
 
 class ChronicleDetailView (generic.DetailView):
