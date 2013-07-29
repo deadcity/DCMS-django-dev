@@ -48,10 +48,10 @@ class Table_NS.Table extends Backbone.View
         @collection.each @on_add_record, @
         @listenTo @collection, 'add', @on_add_record
 
-        @listenTo @columns,  'sort:set', @sort
-        @listenTo @rows,     'remove',   @hide_row
-        @listenTo @rows,     'add',      @render_row
-        @listenTo @all_rows, 'change',   @filter_pres_model
+        @listenTo @columns,    'sort:set', @sort
+        @listenTo @rows,       'remove',   @hide_row
+        @listenTo @rows,       'add',      @render_row
+        @listenTo @all_rows,   'change',   @filter_pres_model
 
     render: () ->
         @rows.each @hide_row, @
@@ -73,6 +73,8 @@ class Table_NS.Table extends Backbone.View
     render_row: (model) ->
         view = new @RowView {model: model, template: @row_template}
         view.listenTo model, 'hide', view.remove
+        model.once 'destroy', () ->
+            view.stopListening model
         view.render().move_to @$('tbody'), @rows.indexOf(model), @
 
     hide_row: (model, collection) ->
@@ -95,6 +97,12 @@ class Table_NS.Table extends Backbone.View
             if col isnt column
                 col.set 'sort_direction', SORT_DIRECTION.UNSORTED
 
+        @collection.off 'change',    @rows.sort, @rows
+        @stopListening  @collection, 'change',   @sync_row_order
+
+        if not column?
+            return
+
         field = column.get 'field'
         comp = (a, b) ->
             a_ = a.record.get field
@@ -109,7 +117,12 @@ class Table_NS.Table extends Backbone.View
             when SORT_DIRECTION.DESCENDING then @rows.comparator = (a, b) -> comp b, a
 
         @rows.sort()
+        @collection.on 'change',    @rows.sort, @rows
+        @listenTo      @collection, 'change',   @sync_row_order
 
+        @sync_row_order()
+
+    sync_row_order: () ->
         tbody = @$ 'tbody'
         @rows.each (row_pres, idx) ->
             row_pres.trigger 'command:move_to', tbody, idx, @

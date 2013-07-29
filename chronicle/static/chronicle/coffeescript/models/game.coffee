@@ -6,16 +6,18 @@ class Models_NS.Game extends Backbone.Model
         id      : null
         enabled : false
 
-        name : null
-        date : null
+        name      : null
+        chronicle : null
+        date      : null
 
     parse: (raw) ->
         {
             id      : parseInt raw.id, 10
             enabled : raw.enabled
 
-            name : raw.name
-            date : if raw.date? then new Datetime.Date raw.date else null
+            name      : raw.name
+            chronicle : if raw.chronicle? then parseInt raw.chronicle else raw.chronicle
+            date      : if raw.date? then new Datetime.Date raw.date else raw.date
         }
 
     url: () ->
@@ -28,5 +30,5 @@ class Models_NS.Game extends Backbone.Model
 
     toHumanJSON: () ->
         attr = _.clone @attributes
-        attr.date = attr.date?.to_builtin_date().toDateString()
+        # attr.date = attr.date?.to_builtin_date().toDateString()
         attr

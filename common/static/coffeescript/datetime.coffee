@@ -65,6 +65,7 @@ class Datetime.Date
             date = new window.Date value
         else if _.isString value
             date = new window.Date value
+            options.UTC = true
         else if value instanceof window.Date
             date = value
 
@@ -112,7 +113,7 @@ class Datetime.Date
         @to_builtin_date().getTime()
 
     toString: () ->
-        "#{@_year}-#{@_month.value}-#{@_day}"
+        "#{@_year}-#{if @_month < 10 then '0' else ''}#{@_month.value}-#{if @_day < 10 then '0' else ''}#{@_day}"
 
     valueOf: () ->
         @time()

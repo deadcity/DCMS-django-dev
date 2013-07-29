@@ -11,7 +11,8 @@ urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'DCMS.views.home', name='home'),
     # url(r'^DCMS/', include('DCMS.foo.urls')),
-    url(r'^api/', include('DCMS.urls.api')),
+    url(r'^api/',        include('DCMS.urls.api')),
+    url(r'^accounts/',   include('accounts.urls')),
     url(r'^characters/', include('character.urls.character_management')),
     url(r'^chronicles/', include('chronicle.urls.chronicle_management')),
 

@@ -15,9 +15,6 @@
 {% block script_includes %}
     {{ block.super }}
 
-    <script type='text/javascript' src='{% static 'js/libraries/underscore-1.4.4.js' %}'></script>
-    <script type='text/javascript' src='{% static 'js/libraries/backbone-1.0.0.js' %}'></script>
-
     <!-- libs -->
     {% compress js %}
         <script type='text/coffeescript' src='{% static 'coffeescript/tools.coffee' %}'></script>
@@ -43,21 +40,23 @@
 
 {% block content %}
     <script type='text/html' id='template_game-table-row'>
-        <td><%= record.date %></td>
+        <td><% if (record.date) { %><%= record.date.to_builtin_date().toDateString() %><% } %></td>
         <td><%= record.name %></td>
     </script>
 
     <script type='text/html' id='template_edit-game-table-row'>
-        <td><%= record.date %></td>
-        <td><input name='name' value='<%= record.name %>' /></td>
+        <td><input type='date' name='date' value='<% if (record.date) { %><%= record.date.toString() %><% } %>' /></td>
+        <td><input type='text' name='name' value='<%= record.name %>' /></td>
     </script>
 
     <h2>{{ chronicle.name }}</h2>
-    <p>{{ chronicle.description }}
+    <p>{{ chronicle.description }}</p>
+
     <section id='games'>
         <h3>Games</h3>
         <button name='edit'>edit</button>
         <table id='game-table' class='list-table stripped'></table>
+        <button name='add-new-game'>add new game</button>
 
         {% compress js %}
         <script type='text/coffeescript'>
@@ -67,11 +66,32 @@
             class EditGameRowView extends Table.Views.Row
                 initialize: (options) ->
                     super
-                    @on 'remove', 'save_on_remove', @
+                    @listenTo @model, 'command:remove-view', @save_on_remove
+                    # @on 'remove', 'save_on_remove', @
+
+                events: () ->
+                    _.extend {}, super,
+                        'change input[name="date"]': 'on_change_date'
+                        'change input[name="name"]': 'on_change_name'
+
+                _change_field: (e, field, construct) ->
+                    if e.target.value == ''
+                        @model.record.set field, null
+                    else
+                        @model.record.set field, construct e.target.value
+
+                on_change_date: (e) ->
+                    @_change_field e, 'date', (v) -> new Datetime.Date v
+
+                on_change_name: (e) ->
+                    @_change_field e, 'name', (v) -> v
 
                 save_on_remove: () ->
+                    @stopListening @model.record, 'change'
                     @model.record.save
+                        date: new Datetime.Date @$('input[name="date"]').val()
                         name: @$('input[name="name"]').val()
+                    @$el.remove()
 
 
             game_table = new Table.Table {
@@ -97,25 +117,45 @@
             game_table.render()
 
             game_edit_toggle_button = $ 'button[name="edit"]', $ '#games'
+            new_game_button = $ 'button[name="add-new-game"]', $ '#games'
 
-            lock_game_edit = () ->
+            new_game_button.click (e) ->
+                game_table.collection.add enabled: true
+            new_game_button.hide()
+
+            lock_game_edit = (e) ->
                 game_edit_toggle_button.text 'edit'
                 game_edit_toggle_button.off 'click'
                 game_edit_toggle_button.click enable_game_edit
+                new_game_button.hide()
                 game_table.RowView = Table.Views.Row
                 game_table.row_template = template_game_table_row
+                for row_pres_model in game_table.rows.models
+                    row_pres_model.trigger 'command:remove-view'
                 game_table.render()
+                e.preventDefault()
 
-            enable_game_edit = () ->
+            enable_game_edit = (e) ->
                 game_edit_toggle_button.text 'lock'
                 game_edit_toggle_button.off 'click'
                 game_edit_toggle_button.click lock_game_edit
+                new_game_button.show()
                 game_table.RowView = EditGameRowView
                 game_table.row_template = template_edit_game_table_row
+                for row_pres_model in game_table.rows.models
+                    row_pres_model.trigger 'command:remove-view'
                 game_table.render()
+                e.preventDefault()
 
             game_edit_toggle_button.click enable_game_edit
         </script>
         {% endcompress %}
+    </section>
+
+    <section id='storytellers'>
+        <select name='username'>
+        </select>
+        <button></button>
+        <!-- list of storytellers -->
     </section>
 {% endblock content %}

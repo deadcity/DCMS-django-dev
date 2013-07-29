@@ -1,5 +1,21 @@
 {% extends 'base.html' %}
 
+{% load compress %}
+{% load static %}
+
+
+{% block script_includes %}
+    {{ block.super }}
+
+    <script type='text/javascript' src='{% static 'js/libraries/underscore-1.4.4.js' %}'></script>
+    <script type='text/javascript' src='{% static 'js/libraries/backbone-1.0.0.js' %}'></script>
+
+    {% compress js %}
+        <script type='text/coffeescript' src='{% static 'accounts/coffeescript/csrf_ajax.coffee' %}'></script>
+    {% endcompress %}
+{% endblock script_includes %}
+
+
 {% block style_includes %}
     {{block.super}}
     <style type='text/css'>
@@ -73,6 +89,7 @@
     </style>
 {% endblock style_includes %}
 
+
 {% block page %}
     <header>
         {% block branding %}<h1>Dead City Productions</h1>{% endblock %}
@@ -80,15 +97,21 @@
     </header>
 
     <nav>
-        {% block nav %}
-            <ul>
+        <ul>
+            {% block nav %}
                 <li><a href='/'>Home</a></li>
                 <li><a href='#'>Link</a></li>
                 <li><a href='#'>Link</a></li>
                 <li><a href='#'>Link</a></li>
-            </ul>
-        {% endblock nav %}
+            {% endblock nav %}
+        </ul>
     </nav>
+
+    {% if user.is_authenticated %}
+        <span class='logout'>Welcome, {{ user.username }}! <a href='{% url 'logout' %}'>logout</a></span>
+    {% else %}
+        <span class='login'><a href='{% url 'login' %}'>login</a></span>
+    {% endif %}
 
     <section id='content'>
         {% block content %}{% endblock %}
