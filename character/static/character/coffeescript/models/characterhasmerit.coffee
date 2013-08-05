@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# 2013-05-23 12:58:28.451149
+# 2013-08-05 07:44:15.252000
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -16,19 +16,19 @@ class Models_NS.CharacterHasMerit extends Backbone.Model
     defaults:
         id: null
         character: null
-        trait: null
-        description: null
-        specification: null
         rating: null
+        description: null
+        trait: null
+        specification: null
 
     parse: (raw) ->
         {
             id: parseInt raw.id, 10
             character: parseInt raw.character, 10
-            trait: Traits.Objects.Merit.get parseInt raw.trait, 10
-            description: raw.description,
-            specification: raw.specification,
             rating: parseInt raw.rating, 10
+            description: raw.description,
+            trait: Traits.Objects.Merit.get parseInt raw.trait, 10
+            specification: raw.specification,
         }
 
     toJSON: () ->

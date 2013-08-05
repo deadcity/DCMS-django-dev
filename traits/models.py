@@ -75,9 +75,7 @@ class Genealogy(Trait): pass
 
 class Merit(Trait):
     type = EnumField(MeritType, related_name = 'trait', null = True)
-    min_rating = models.SmallIntegerField()
-    max_rating = models.SmallIntegerField()
-    inc_rating = models.SmallIntegerField()
+    allowed_ratings        = models.CommaSeparatedIntegerField(max_length = 256)
     requires_specification = models.BooleanField()
     requires_description   = models.BooleanField()
 

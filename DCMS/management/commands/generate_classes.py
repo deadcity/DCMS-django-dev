@@ -218,12 +218,14 @@ ${FIELD_LIST__HUMAN_JSON}
 
     __backbone_model_template__default = Template("        ${FIELD_NAME}: null")
 
-    __backbone_model_template__parse_integer = Template("            ${FIELD_NAME}: parseInt raw.${FIELD_NAME}, 10")
-    __backbone_model_template__parse_text    = Template("            ${FIELD_NAME}: raw.${FIELD_NAME},")
-    __backbone_model_template__parse_enum    = Template("            ${FIELD_NAME}: ${RELATED_PROJECT}.${RELATED_MODEL}.get parseInt raw.${FIELD_NAME}, 10")
-    __backbone_model_template__parse_foreign = Template("            ${FIELD_NAME}: ${RELATED_PROJECT}.Objects.${RELATED_MODEL}.get parseInt raw.${FIELD_NAME}, 10")
+    __backbone_model_template__parse_integer  = Template("            ${FIELD_NAME}: parseInt raw.${FIELD_NAME}, 10")
+    __backbone_model_template__parse_int_list = Template("            ${FIELD_NAME}: parseInt i for i in raw.${FIELD_NAME}.split ','")
+    __backbone_model_template__parse_text     = Template("            ${FIELD_NAME}: raw.${FIELD_NAME},")
+    __backbone_model_template__parse_enum     = Template("            ${FIELD_NAME}: ${RELATED_PROJECT}.${RELATED_MODEL}.get parseInt raw.${FIELD_NAME}, 10")
+    __backbone_model_template__parse_foreign  = Template("            ${FIELD_NAME}: ${RELATED_PROJECT}.Objects.${RELATED_MODEL}.get parseInt raw.${FIELD_NAME}, 10")
 
-    __backbone_model_template__json_foreign = Template("        attr.${FIELD_NAME} = attr.${FIELD_NAME}.id")
+    __backbone_model_template__json_foreign  = Template("        attr.${FIELD_NAME} = attr.${FIELD_NAME}.id")
+    __backbone_model_template__json_int_list = Template("        attr.${FIELD_NAME} = attr.${FIELD_NAME}.join()")
 
     __backbone_model_template__human_json_foreign = Template("        attr.${FIELD_NAME} = attr.${FIELD_NAME}.toHumanJSON()")
 
@@ -247,6 +249,9 @@ ${FIELD_LIST__HUMAN_JSON}
                         field_list__parse.append(self.__backbone_model_template__parse_integer.substitute(FIELD_NAME = field_name))
                     elif isinstance(field, models.IntegerField):
                         field_list__parse.append(self.__backbone_model_template__parse_integer.substitute(FIELD_NAME = field_name))
+                    elif isinstance(field, models.CommaSeparatedIntegerField):
+                        field_list__parse.append(self.__backbone_model_template__parse_int_list.substitute(FIELD_NAME = field_name))
+                        field_list__json.append(self.__backbone_model_template__json_int_list.substitute(FIELD_NAME = field_name))
                     elif isinstance(field, models.CharField) or isinstance(field, models.TextField):
                         field_list__parse.append(self.__backbone_model_template__parse_text.substitute(FIELD_NAME = field_name))
                     elif isinstance(field, trait_models.EnumField):

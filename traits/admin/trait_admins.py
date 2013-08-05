@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# 2013-05-13 11:58:31.554363
+# 2013-08-05 07:44:15.252000
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -56,8 +56,8 @@ class GenealogyAdmin (admin.ModelAdmin):
 admin.site.register(Genealogy, GenealogyAdmin)
 
 class MeritAdmin (admin.ModelAdmin):
-    list_display = ('name', 'enabled', 'max_rating', 'inc_rating', 'requires_specification', 'requires_description', 'type', 'min_rating',)
-    list_filter  = ('enabled', 'max_rating', 'inc_rating', 'requires_specification', 'requires_description', 'type', 'min_rating',)
+    list_display = ('name', 'enabled', 'allowed_ratings', 'requires_description', 'type', 'requires_specification',)
+    list_filter  = ('enabled', 'allowed_ratings', 'requires_description', 'type', 'requires_specification',)
 admin.site.register(Merit, MeritAdmin)
 
 class MiscTraitAdmin (admin.ModelAdmin):
