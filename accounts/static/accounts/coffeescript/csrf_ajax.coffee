@@ -8,7 +8,7 @@ get_cookie = (name) ->
                 return decodeURIComponent cookie.substring name.length + 1
     null
 
-same_origin = (url) ->
+is_same_origin = (url) ->
     # URL could be relative, scheme relative, or absolute.
     host = document.location.host  # host + port
     protocol = document.location.protocol
@@ -20,10 +20,10 @@ same_origin = (url) ->
         (url is sr_origin or (url.slice 0, sr_origin.length + 1) is ("#{sr_origin}/")) or
         !(/^(\/\/|httpd:|https:).*/.test url)
 
-safe_method = (method) ->
+is_safe_method = (method) ->
     /^(GET|HEAD|OPTIONS|TRACE)$/.test method
 
 $(document).ajaxSend (event, xhr, settings) ->
-    if (!safe_method settings.type) and (same_origin settings.url)
+    if (!is_safe_method settings.type) and (is_same_origin settings.url)
         xhr.setRequestHeader 'X-CSRFToken', get_cookie 'csrftoken'
 
