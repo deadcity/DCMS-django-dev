@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# 2013-05-23 12:58:28.451149
+# 2013-08-24 15:52:40.539000
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -24,7 +24,7 @@ class Models_NS.Attribute extends Backbone.Model
             id: parseInt raw.id, 10
             name: raw.name,
             enabled: raw.enabled,
-            type: Traits.AttributeType.get parseInt raw.type, 10
+            type: Traits.Enums.AttributeType.get parseInt raw.type, 10
         }
 
     toJSON: () ->

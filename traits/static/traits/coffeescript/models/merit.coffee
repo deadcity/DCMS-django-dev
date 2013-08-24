@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# 2013-08-05 07:44:15.252000
+# 2013-08-24 15:52:40.539000
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -29,7 +29,7 @@ class Models_NS.Merit extends Backbone.Model
             enabled: raw.enabled,
             allowed_ratings: parseInt i for i in raw.allowed_ratings.split ','
             requires_description: raw.requires_description,
-            type: Traits.MeritType.get parseInt raw.type, 10
+            type: Traits.Enums.MeritType.get parseInt raw.type, 10
             requires_specification: raw.requires_specification,
         }
 

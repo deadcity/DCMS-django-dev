@@ -221,7 +221,7 @@ ${FIELD_LIST__HUMAN_JSON}
     __backbone_model_template__parse_integer  = Template("            ${FIELD_NAME}: parseInt raw.${FIELD_NAME}, 10")
     __backbone_model_template__parse_int_list = Template("            ${FIELD_NAME}: parseInt i for i in raw.${FIELD_NAME}.split ','")
     __backbone_model_template__parse_text     = Template("            ${FIELD_NAME}: raw.${FIELD_NAME},")
-    __backbone_model_template__parse_enum     = Template("            ${FIELD_NAME}: ${RELATED_PROJECT}.${RELATED_MODEL}.get parseInt raw.${FIELD_NAME}, 10")
+    __backbone_model_template__parse_enum     = Template("            ${FIELD_NAME}: ${RELATED_PROJECT}.Enums.${RELATED_MODEL}.get parseInt raw.${FIELD_NAME}, 10")
     __backbone_model_template__parse_foreign  = Template("            ${FIELD_NAME}: ${RELATED_PROJECT}.Objects.${RELATED_MODEL}.get parseInt raw.${FIELD_NAME}, 10")
 
     __backbone_model_template__json_foreign  = Template("        attr.${FIELD_NAME} = attr.${FIELD_NAME}.id")
