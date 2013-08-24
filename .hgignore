@@ -2,5 +2,6 @@ syntax: glob
 *.pyc
 *.db
 CACHE
+New folder/*
 syntax: glob
 *.sublime-workspace
