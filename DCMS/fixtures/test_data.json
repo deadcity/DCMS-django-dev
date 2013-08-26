@@ -1,0 +1,1520 @@
+[
+{
+    "pk": 1,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "add_permission",
+        "name": "Can add permission",
+        "content_type": 1
+    }
+},
+{
+    "pk": 2,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "change_permission",
+        "name": "Can change permission",
+        "content_type": 1
+    }
+},
+{
+    "pk": 3,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "delete_permission",
+        "name": "Can delete permission",
+        "content_type": 1
+    }
+},
+{
+    "pk": 4,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "add_group",
+        "name": "Can add group",
+        "content_type": 2
+    }
+},
+{
+    "pk": 5,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "change_group",
+        "name": "Can change group",
+        "content_type": 2
+    }
+},
+{
+    "pk": 6,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "delete_group",
+        "name": "Can delete group",
+        "content_type": 2
+    }
+},
+{
+    "pk": 7,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "add_user",
+        "name": "Can add user",
+        "content_type": 3
+    }
+},
+{
+    "pk": 8,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "change_user",
+        "name": "Can change user",
+        "content_type": 3
+    }
+},
+{
+    "pk": 9,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "delete_user",
+        "name": "Can delete user",
+        "content_type": 3
+    }
+},
+{
+    "pk": 10,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "add_contenttype",
+        "name": "Can add content type",
+        "content_type": 4
+    }
+},
+{
+    "pk": 11,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "change_contenttype",
+        "name": "Can change content type",
+        "content_type": 4
+    }
+},
+{
+    "pk": 12,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "delete_contenttype",
+        "name": "Can delete content type",
+        "content_type": 4
+    }
+},
+{
+    "pk": 13,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "add_session",
+        "name": "Can add session",
+        "content_type": 5
+    }
+},
+{
+    "pk": 14,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "change_session",
+        "name": "Can change session",
+        "content_type": 5
+    }
+},
+{
+    "pk": 15,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "delete_session",
+        "name": "Can delete session",
+        "content_type": 5
+    }
+},
+{
+    "pk": 16,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "add_logentry",
+        "name": "Can add log entry",
+        "content_type": 6
+    }
+},
+{
+    "pk": 17,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "change_logentry",
+        "name": "Can change log entry",
+        "content_type": 6
+    }
+},
+{
+    "pk": 18,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "delete_logentry",
+        "name": "Can delete log entry",
+        "content_type": 6
+    }
+},
+{
+    "pk": 19,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "add_character",
+        "name": "Can add character",
+        "content_type": 7
+    }
+},
+{
+    "pk": 20,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "change_character",
+        "name": "Can change character",
+        "content_type": 7
+    }
+},
+{
+    "pk": 21,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "delete_character",
+        "name": "Can delete character",
+        "content_type": 7
+    }
+},
+{
+    "pk": 22,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "add_characterhastext",
+        "name": "Can add character has text",
+        "content_type": 8
+    }
+},
+{
+    "pk": 23,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "change_characterhastext",
+        "name": "Can change character has text",
+        "content_type": 8
+    }
+},
+{
+    "pk": 24,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "delete_characterhastext",
+        "name": "Can delete character has text",
+        "content_type": 8
+    }
+},
+{
+    "pk": 25,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "add_characterhasattribute",
+        "name": "Can add character has attribute",
+        "content_type": 9
+    }
+},
+{
+    "pk": 26,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "change_characterhasattribute",
+        "name": "Can change character has attribute",
+        "content_type": 9
+    }
+},
+{
+    "pk": 27,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "delete_characterhasattribute",
+        "name": "Can delete character has attribute",
+        "content_type": 9
+    }
+},
+{
+    "pk": 28,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "add_characterhasskill",
+        "name": "Can add character has skill",
+        "content_type": 10
+    }
+},
+{
+    "pk": 29,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "change_characterhasskill",
+        "name": "Can change character has skill",
+        "content_type": 10
+    }
+},
+{
+    "pk": 30,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "delete_characterhasskill",
+        "name": "Can delete character has skill",
+        "content_type": 10
+    }
+},
+{
+    "pk": 31,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "add_characterhasskillspecialty",
+        "name": "Can add character has skill specialty",
+        "content_type": 11
+    }
+},
+{
+    "pk": 32,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "change_characterhasskillspecialty",
+        "name": "Can change character has skill specialty",
+        "content_type": 11
+    }
+},
+{
+    "pk": 33,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "delete_characterhasskillspecialty",
+        "name": "Can delete character has skill specialty",
+        "content_type": 11
+    }
+},
+{
+    "pk": 34,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "add_characterhaspower",
+        "name": "Can add character has power",
+        "content_type": 12
+    }
+},
+{
+    "pk": 35,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "change_characterhaspower",
+        "name": "Can change character has power",
+        "content_type": 12
+    }
+},
+{
+    "pk": 36,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "delete_characterhaspower",
+        "name": "Can delete character has power",
+        "content_type": 12
+    }
+},
+{
+    "pk": 37,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "add_characterhasmerit",
+        "name": "Can add character has merit",
+        "content_type": 13
+    }
+},
+{
+    "pk": 38,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "change_characterhasmerit",
+        "name": "Can change character has merit",
+        "content_type": 13
+    }
+},
+{
+    "pk": 39,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "delete_characterhasmerit",
+        "name": "Can delete character has merit",
+        "content_type": 13
+    }
+},
+{
+    "pk": 40,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "add_characterhasflaw",
+        "name": "Can add character has flaw",
+        "content_type": 14
+    }
+},
+{
+    "pk": 41,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "change_characterhasflaw",
+        "name": "Can change character has flaw",
+        "content_type": 14
+    }
+},
+{
+    "pk": 42,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "delete_characterhasflaw",
+        "name": "Can delete character has flaw",
+        "content_type": 14
+    }
+},
+{
+    "pk": 43,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "add_characterhasderangement",
+        "name": "Can add character has derangement",
+        "content_type": 15
+    }
+},
+{
+    "pk": 44,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "change_characterhasderangement",
+        "name": "Can change character has derangement",
+        "content_type": 15
+    }
+},
+{
+    "pk": 45,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "delete_characterhasderangement",
+        "name": "Can delete character has derangement",
+        "content_type": 15
+    }
+},
+{
+    "pk": 46,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "add_characterhascombattrait",
+        "name": "Can add character has combat trait",
+        "content_type": 16
+    }
+},
+{
+    "pk": 47,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "change_characterhascombattrait",
+        "name": "Can change character has combat trait",
+        "content_type": 16
+    }
+},
+{
+    "pk": 48,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "delete_characterhascombattrait",
+        "name": "Can delete character has combat trait",
+        "content_type": 16
+    }
+},
+{
+    "pk": 49,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "add_characterhasmisctrait",
+        "name": "Can add character has misc trait",
+        "content_type": 17
+    }
+},
+{
+    "pk": 50,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "change_characterhasmisctrait",
+        "name": "Can change character has misc trait",
+        "content_type": 17
+    }
+},
+{
+    "pk": 51,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "delete_characterhasmisctrait",
+        "name": "Can delete character has misc trait",
+        "content_type": 17
+    }
+},
+{
+    "pk": 52,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "add_chronicle",
+        "name": "Can add chronicle",
+        "content_type": 18
+    }
+},
+{
+    "pk": 53,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "change_chronicle",
+        "name": "Can change chronicle",
+        "content_type": 18
+    }
+},
+{
+    "pk": 54,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "delete_chronicle",
+        "name": "Can delete chronicle",
+        "content_type": 18
+    }
+},
+{
+    "pk": 55,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "add_game",
+        "name": "Can add game",
+        "content_type": 19
+    }
+},
+{
+    "pk": 56,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "change_game",
+        "name": "Can change game",
+        "content_type": 19
+    }
+},
+{
+    "pk": 57,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "delete_game",
+        "name": "Can delete game",
+        "content_type": 19
+    }
+},
+{
+    "pk": 58,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "add_attributetype",
+        "name": "Can add attribute type",
+        "content_type": 20
+    }
+},
+{
+    "pk": 59,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "change_attributetype",
+        "name": "Can change attribute type",
+        "content_type": 20
+    }
+},
+{
+    "pk": 60,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "delete_attributetype",
+        "name": "Can delete attribute type",
+        "content_type": 20
+    }
+},
+{
+    "pk": 61,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "add_derangementtype",
+        "name": "Can add derangement type",
+        "content_type": 21
+    }
+},
+{
+    "pk": 62,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "change_derangementtype",
+        "name": "Can change derangement type",
+        "content_type": 21
+    }
+},
+{
+    "pk": 63,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "delete_derangementtype",
+        "name": "Can delete derangement type",
+        "content_type": 21
+    }
+},
+{
+    "pk": 64,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "add_flawtype",
+        "name": "Can add flaw type",
+        "content_type": 22
+    }
+},
+{
+    "pk": 65,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "change_flawtype",
+        "name": "Can change flaw type",
+        "content_type": 22
+    }
+},
+{
+    "pk": 66,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "delete_flawtype",
+        "name": "Can delete flaw type",
+        "content_type": 22
+    }
+},
+{
+    "pk": 67,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "add_merittype",
+        "name": "Can add merit type",
+        "content_type": 23
+    }
+},
+{
+    "pk": 68,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "change_merittype",
+        "name": "Can change merit type",
+        "content_type": 23
+    }
+},
+{
+    "pk": 69,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "delete_merittype",
+        "name": "Can delete merit type",
+        "content_type": 23
+    }
+},
+{
+    "pk": 70,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "add_skilltype",
+        "name": "Can add skill type",
+        "content_type": 24
+    }
+},
+{
+    "pk": 71,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "change_skilltype",
+        "name": "Can change skill type",
+        "content_type": 24
+    }
+},
+{
+    "pk": 72,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "delete_skilltype",
+        "name": "Can delete skill type",
+        "content_type": 24
+    }
+},
+{
+    "pk": 73,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "add_vice",
+        "name": "Can add vice",
+        "content_type": 25
+    }
+},
+{
+    "pk": 74,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "change_vice",
+        "name": "Can change vice",
+        "content_type": 25
+    }
+},
+{
+    "pk": 75,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "delete_vice",
+        "name": "Can delete vice",
+        "content_type": 25
+    }
+},
+{
+    "pk": 76,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "add_virtue",
+        "name": "Can add virtue",
+        "content_type": 26
+    }
+},
+{
+    "pk": 77,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "change_virtue",
+        "name": "Can change virtue",
+        "content_type": 26
+    }
+},
+{
+    "pk": 78,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "delete_virtue",
+        "name": "Can delete virtue",
+        "content_type": 26
+    }
+},
+{
+    "pk": 79,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "add_affiliation",
+        "name": "Can add affiliation",
+        "content_type": 27
+    }
+},
+{
+    "pk": 80,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "change_affiliation",
+        "name": "Can change affiliation",
+        "content_type": 27
+    }
+},
+{
+    "pk": 81,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "delete_affiliation",
+        "name": "Can delete affiliation",
+        "content_type": 27
+    }
+},
+{
+    "pk": 82,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "add_attribute",
+        "name": "Can add attribute",
+        "content_type": 28
+    }
+},
+{
+    "pk": 83,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "change_attribute",
+        "name": "Can change attribute",
+        "content_type": 28
+    }
+},
+{
+    "pk": 84,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "delete_attribute",
+        "name": "Can delete attribute",
+        "content_type": 28
+    }
+},
+{
+    "pk": 85,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "add_charactertext",
+        "name": "Can add character text",
+        "content_type": 29
+    }
+},
+{
+    "pk": 86,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "change_charactertext",
+        "name": "Can change character text",
+        "content_type": 29
+    }
+},
+{
+    "pk": 87,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "delete_charactertext",
+        "name": "Can delete character text",
+        "content_type": 29
+    }
+},
+{
+    "pk": 88,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "add_combattrait",
+        "name": "Can add combat trait",
+        "content_type": 30
+    }
+},
+{
+    "pk": 89,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "change_combattrait",
+        "name": "Can change combat trait",
+        "content_type": 30
+    }
+},
+{
+    "pk": 90,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "delete_combattrait",
+        "name": "Can delete combat trait",
+        "content_type": 30
+    }
+},
+{
+    "pk": 91,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "add_creaturetype",
+        "name": "Can add creature type",
+        "content_type": 31
+    }
+},
+{
+    "pk": 92,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "change_creaturetype",
+        "name": "Can change creature type",
+        "content_type": 31
+    }
+},
+{
+    "pk": 93,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "delete_creaturetype",
+        "name": "Can delete creature type",
+        "content_type": 31
+    }
+},
+{
+    "pk": 94,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "add_derangement",
+        "name": "Can add derangement",
+        "content_type": 32
+    }
+},
+{
+    "pk": 95,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "change_derangement",
+        "name": "Can change derangement",
+        "content_type": 32
+    }
+},
+{
+    "pk": 96,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "delete_derangement",
+        "name": "Can delete derangement",
+        "content_type": 32
+    }
+},
+{
+    "pk": 97,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "add_flaw",
+        "name": "Can add flaw",
+        "content_type": 33
+    }
+},
+{
+    "pk": 98,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "change_flaw",
+        "name": "Can change flaw",
+        "content_type": 33
+    }
+},
+{
+    "pk": 99,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "delete_flaw",
+        "name": "Can delete flaw",
+        "content_type": 33
+    }
+},
+{
+    "pk": 100,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "add_genealogy",
+        "name": "Can add genealogy",
+        "content_type": 34
+    }
+},
+{
+    "pk": 101,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "change_genealogy",
+        "name": "Can change genealogy",
+        "content_type": 34
+    }
+},
+{
+    "pk": 102,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "delete_genealogy",
+        "name": "Can delete genealogy",
+        "content_type": 34
+    }
+},
+{
+    "pk": 103,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "add_merit",
+        "name": "Can add merit",
+        "content_type": 35
+    }
+},
+{
+    "pk": 104,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "change_merit",
+        "name": "Can change merit",
+        "content_type": 35
+    }
+},
+{
+    "pk": 105,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "delete_merit",
+        "name": "Can delete merit",
+        "content_type": 35
+    }
+},
+{
+    "pk": 106,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "add_misctrait",
+        "name": "Can add misc trait",
+        "content_type": 36
+    }
+},
+{
+    "pk": 107,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "change_misctrait",
+        "name": "Can change misc trait",
+        "content_type": 36
+    }
+},
+{
+    "pk": 108,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "delete_misctrait",
+        "name": "Can delete misc trait",
+        "content_type": 36
+    }
+},
+{
+    "pk": 109,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "add_power",
+        "name": "Can add power",
+        "content_type": 37
+    }
+},
+{
+    "pk": 110,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "change_power",
+        "name": "Can change power",
+        "content_type": 37
+    }
+},
+{
+    "pk": 111,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "delete_power",
+        "name": "Can delete power",
+        "content_type": 37
+    }
+},
+{
+    "pk": 112,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "add_skill",
+        "name": "Can add skill",
+        "content_type": 38
+    }
+},
+{
+    "pk": 113,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "change_skill",
+        "name": "Can change skill",
+        "content_type": 38
+    }
+},
+{
+    "pk": 114,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "delete_skill",
+        "name": "Can delete skill",
+        "content_type": 38
+    }
+},
+{
+    "pk": 115,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "add_subgroup",
+        "name": "Can add subgroup",
+        "content_type": 39
+    }
+},
+{
+    "pk": 116,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "change_subgroup",
+        "name": "Can change subgroup",
+        "content_type": 39
+    }
+},
+{
+    "pk": 117,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "delete_subgroup",
+        "name": "Can delete subgroup",
+        "content_type": 39
+    }
+},
+{
+    "pk": 1,
+    "model": "auth.user",
+    "fields": {
+        "username": "admin",
+        "first_name": "",
+        "last_name": "",
+        "is_active": true,
+        "is_superuser": true,
+        "is_staff": true,
+        "last_login": "2013-08-23T13:07:19.465Z",
+        "groups": [],
+        "user_permissions": [],
+        "password": "pbkdf2_sha256$10000$fc3Y9iOTr6Ul$NcWH0M0zT1FXM+gmReXesvBrLEEAT2yhKPzxWz6IXFY=",
+        "email": "test@fake.com",
+        "date_joined": "2013-08-05T22:09:12.942Z"
+    }
+},
+{
+    "pk": 2,
+    "model": "auth.user",
+    "fields": {
+        "username": "player_1",
+        "first_name": "",
+        "last_name": "",
+        "is_active": true,
+        "is_superuser": false,
+        "is_staff": false,
+        "last_login": "2013-08-05T22:10:46.364Z",
+        "groups": [],
+        "user_permissions": [],
+        "password": "pbkdf2_sha256$10000$vVriwetYscFr$W1JPPT/1GfKG2YGu0yk7j/tesest0E7pyDH3ilZq8MA=",
+        "email": "",
+        "date_joined": "2013-08-05T22:10:46.364Z"
+    }
+},
+{
+    "pk": 1,
+    "model": "character.character",
+    "fields": {
+        "virtue": 4,
+        "name": "Morgan Edwards",
+        "genealogy": 1,
+        "vice": 4,
+        "date_submitted": null,
+        "date_last_edited": "2013-08-06T12:42:36.842Z",
+        "enabled": true,
+        "affiliation": 3,
+        "user": 2,
+        "creature_type": 3,
+        "date_created": "2013-08-06T12:37:41.816Z",
+        "date_approved": null,
+        "subgroup": null
+    }
+},
+{
+    "pk": 1,
+    "model": "character.characterhastext",
+    "fields": {
+        "trait": 1,
+        "character": 1,
+        "text": "Stuff happened to me..."
+    }
+},
+{
+    "pk": 2,
+    "model": "character.characterhastext",
+    "fields": {
+        "trait": 3,
+        "character": 1,
+        "text": "Please give me stuff. :)"
+    }
+},
+{
+    "pk": 3,
+    "model": "character.characterhastext",
+    "fields": {
+        "trait": 4,
+        "character": 1,
+        "text": "I can't believe that happened to him.\r\n\r\nWe shouldn't give him stuff."
+    }
+},
+{
+    "pk": 1,
+    "model": "character.characterhasattribute",
+    "fields": {
+        "trait": 1,
+        "character": 1,
+        "rating": 3
+    }
+},
+{
+    "pk": 2,
+    "model": "character.characterhasattribute",
+    "fields": {
+        "trait": 2,
+        "character": 1,
+        "rating": 4
+    }
+},
+{
+    "pk": 3,
+    "model": "character.characterhasattribute",
+    "fields": {
+        "trait": 3,
+        "character": 1,
+        "rating": 3
+    }
+},
+{
+    "pk": 4,
+    "model": "character.characterhasattribute",
+    "fields": {
+        "trait": 4,
+        "character": 1,
+        "rating": 1
+    }
+},
+{
+    "pk": 5,
+    "model": "character.characterhasattribute",
+    "fields": {
+        "trait": 5,
+        "character": 1,
+        "rating": 4
+    }
+},
+{
+    "pk": 6,
+    "model": "character.characterhasattribute",
+    "fields": {
+        "trait": 6,
+        "character": 1,
+        "rating": 1
+    }
+},
+{
+    "pk": 7,
+    "model": "character.characterhasattribute",
+    "fields": {
+        "trait": 7,
+        "character": 1,
+        "rating": 2
+    }
+},
+{
+    "pk": 8,
+    "model": "character.characterhasattribute",
+    "fields": {
+        "trait": 8,
+        "character": 1,
+        "rating": 4
+    }
+},
+{
+    "pk": 9,
+    "model": "character.characterhasattribute",
+    "fields": {
+        "trait": 9,
+        "character": 1,
+        "rating": 2
+    }
+},
+{
+    "pk": 1,
+    "model": "character.characterhasskill",
+    "fields": {
+        "trait": 1,
+        "character": 1,
+        "rating": 0
+    }
+},
+{
+    "pk": 2,
+    "model": "character.characterhasskill",
+    "fields": {
+        "trait": 17,
+        "character": 1,
+        "rating": 0
+    }
+},
+{
+    "pk": 3,
+    "model": "character.characterhasskill",
+    "fields": {
+        "trait": 9,
+        "character": 1,
+        "rating": 1
+    }
+},
+{
+    "pk": 4,
+    "model": "character.characterhasskill",
+    "fields": {
+        "trait": 16,
+        "character": 1,
+        "rating": 3
+    }
+},
+{
+    "pk": 5,
+    "model": "character.characterhasskill",
+    "fields": {
+        "trait": 6,
+        "character": 1,
+        "rating": 3
+    }
+},
+{
+    "pk": 6,
+    "model": "character.characterhasskill",
+    "fields": {
+        "trait": 21,
+        "character": 1,
+        "rating": 4
+    }
+},
+{
+    "pk": 7,
+    "model": "character.characterhasskill",
+    "fields": {
+        "trait": 19,
+        "character": 1,
+        "rating": 3
+    }
+},
+{
+    "pk": 1,
+    "model": "character.characterhasskillspecialty",
+    "fields": {
+        "trait": 16,
+        "character": 1,
+        "specialty": "rapier"
+    }
+},
+{
+    "pk": 2,
+    "model": "character.characterhasskillspecialty",
+    "fields": {
+        "trait": 19,
+        "character": 1,
+        "specialty": "monologues"
+    }
+},
+{
+    "pk": 3,
+    "model": "character.characterhasskillspecialty",
+    "fields": {
+        "trait": 6,
+        "character": 1,
+        "specialty": "secret ritual"
+    }
+},
+{
+    "pk": 1,
+    "model": "character.characterhaspower",
+    "fields": {
+        "trait": 11,
+        "character": 1
+    }
+},
+{
+    "pk": 2,
+    "model": "character.characterhaspower",
+    "fields": {
+        "trait": 74,
+        "character": 1
+    }
+},
+{
+    "pk": 3,
+    "model": "character.characterhaspower",
+    "fields": {
+        "trait": 78,
+        "character": 1
+    }
+},
+{
+    "pk": 1,
+    "model": "character.characterhasmerit",
+    "fields": {
+        "trait": 19,
+        "specification": "",
+        "character": 1,
+        "description": "",
+        "rating": 2
+    }
+},
+{
+    "pk": 2,
+    "model": "character.characterhasmerit",
+    "fields": {
+        "trait": 60,
+        "specification": "",
+        "character": 1,
+        "description": "",
+        "rating": 3
+    }
+},
+{
+    "pk": 3,
+    "model": "character.characterhasmerit",
+    "fields": {
+        "trait": 46,
+        "specification": "",
+        "character": 1,
+        "description": "",
+        "rating": 2
+    }
+},
+{
+    "pk": 1,
+    "model": "character.characterhasflaw",
+    "fields": {
+        "trait": 9,
+        "specification": "",
+        "character": 1,
+        "description": ""
+    }
+},
+{
+    "pk": 2,
+    "model": "character.characterhasflaw",
+    "fields": {
+        "trait": 14,
+        "specification": "",
+        "character": 1,
+        "description": ""
+    }
+},
+{
+    "pk": 1,
+    "model": "character.characterhascombattrait",
+    "fields": {
+        "trait": 1,
+        "character": 1,
+        "rating": 5
+    }
+},
+{
+    "pk": 2,
+    "model": "character.characterhascombattrait",
+    "fields": {
+        "trait": 2,
+        "character": 1,
+        "rating": 0
+    }
+},
+{
+    "pk": 3,
+    "model": "character.characterhascombattrait",
+    "fields": {
+        "trait": 3,
+        "character": 1,
+        "rating": 4
+    }
+},
+{
+    "pk": 4,
+    "model": "character.characterhascombattrait",
+    "fields": {
+        "trait": 4,
+        "character": 1,
+        "rating": 6
+    }
+},
+{
+    "pk": 5,
+    "model": "character.characterhascombattrait",
+    "fields": {
+        "trait": 5,
+        "character": 1,
+        "rating": 8
+    }
+},
+{
+    "pk": 6,
+    "model": "character.characterhascombattrait",
+    "fields": {
+        "trait": 6,
+        "character": 1,
+        "rating": 10
+    }
+},
+{
+    "pk": 7,
+    "model": "character.characterhascombattrait",
+    "fields": {
+        "trait": 7,
+        "character": 1,
+        "rating": 5
+    }
+},
+{
+    "pk": 1,
+    "model": "character.characterhasmisctrait",
+    "fields": {
+        "trait": 1,
+        "character": 1,
+        "description": "",
+        "rating": 5
+    }
+},
+{
+    "pk": 2,
+    "model": "character.characterhasmisctrait",
+    "fields": {
+        "trait": 2,
+        "character": 1,
+        "description": "",
+        "rating": 5
+    }
+},
+{
+    "pk": 3,
+    "model": "character.characterhasmisctrait",
+    "fields": {
+        "trait": 3,
+        "character": 1,
+        "description": "",
+        "rating": 3
+    }
+},
+{
+    "pk": 1,
+    "model": "chronicle.chronicle",
+    "fields": {
+        "storytellers": [
+            1
+        ],
+        "enabled": true,
+        "name": "A Table Before Me; A Knife in my Back",
+        "description": ""
+    }
+},
+{
+    "pk": 1,
+    "model": "chronicle.game",
+    "fields": {
+        "date": "2013-08-03",
+        "enabled": true,
+        "name": "Game 1",
+        "chronicle": 1
+    }
+},
+{
+    "pk": 2,
+    "model": "chronicle.game",
+    "fields": {
+        "date": "2013-08-17",
+        "enabled": true,
+        "name": "Game 2",
+        "chronicle": 1
+    }
+},
+{
+    "pk": 3,
+    "model": "chronicle.game",
+    "fields": {
+        "date": "2013-08-31",
+        "enabled": true,
+        "name": "Game 3",
+        "chronicle": 1
+    }
+}
+]

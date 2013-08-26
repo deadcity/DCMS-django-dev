@@ -1,0 +1,13 @@
+#general-character-traits > div {
+    display: inline-block;
+    width: 60%;
+}
+
+#general-character-traits #character-dates {
+    width: 40%;
+}
+
+#attributes div,
+#skills div {
+    display: inline-block;
+}

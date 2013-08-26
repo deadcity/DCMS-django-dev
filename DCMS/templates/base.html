@@ -1,0 +1,23 @@
+<!DOCTYPE>
+
+{% load static %}
+
+<html lang='en'>
+
+<head>
+    <title>DCMS {% block section_title %}{% endblock %} {% block page_title %}{% endblock %}</title>
+    {% block script_includes %}
+        <script type='text/javascript' src='{% static 'js/libraries/jquery-1.9.1.min.js' %}'></script>
+    {% endblock script_includes %}
+    {% block style_includes %}
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,700,300' rel='stylesheet' type='text/css'>
+    {% endblock style_includes %}
+</head>
+
+<body>
+    <div id='page'>
+        {% block page %}{% endblock %}
+    </div>
+</body>
+
+</html>
