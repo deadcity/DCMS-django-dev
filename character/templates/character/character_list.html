@@ -33,7 +33,7 @@
 {% block table_definition %}
     <script type='text/html' id='template_table-row'>
         <td><%= record.user.username      %></td>
-        <td><%= record.name               %></td>
+        <td><a href="/characters/<%= record.id %>/show/"><%= record.name    %></a></td>
         <td><%= record.creature_type.name %></td>
         <td><%= record.genealogy.name     %></td>
         <td><%= record.affiliation.name   %></td>

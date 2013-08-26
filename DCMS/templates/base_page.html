@@ -36,16 +36,16 @@
             padding: 0 40px;
         }
 
-        header {
+        .page-header {
             padding: 40px 0 30px;
             color: #000;
         }
 
-        header h1 {
+        .page-header h1 {
             margin: 0;
         }
 
-        header h2.site-description {
+        .page-header h2.site-description {
             font-size: 1em;
             font-weight: normal;
             margin: 0;
@@ -88,14 +88,14 @@
         }
 
         section#content .character-list tr:nth-child(2n+1) td {
-            background-color: #EEE;
+            background-color: #ededed;
         }
     </style>
 {% endblock style_includes %}
 
 
 {% block page %}
-    <header>
+    <header class="page-header">
         <hgroup>
             {% block branding %}<h1>Dead City Productions</h1>{% endblock %}
             {% block page_description %}<h2 class="site-description">Digital Character Management System</h2>{% endblock %}

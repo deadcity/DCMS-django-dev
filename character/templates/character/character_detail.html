@@ -33,14 +33,15 @@
 
 
 {% block content %}
+    <header class="charsheet-header">
+        <h1>{{ character.name }}</h1>
+        <p><span class='label'>Played by:</span> {{ character.user.realname }}</p>
+    </header>
     <section id='general-character-traits'>
         <div>
-            <span class='label'>Player Name:</span> {{ character.user.realname }}<br />
             <span class='label'>Character Status:</span> {{ character.status.name }}<br />
-            <span class='label'>Character Name:</span> {{ character.name }}<br />
             <span class='label'>{{ character.creature_type.genealogy_name }}:</span> {{ character.genealogy.name }}<br />
-            <span class='label'>{{ character.creature_type.affiliation_name }}:</span> {{ character.affiliation.name }}<br />
-            <span class='label'>{{ character.creature_type.subgroup_name }}:</span> {{ character.subgroup.name }}<br />
+            <span class='label'>{{ character.creature_type.affiliation_name }}:</span> {{ character.affiliation.name }} {% if character.subgroup.name %}<span class='subgroup-label'>({{ character.subgroup.name }}</span>{% endif %}<br />
             <span class='label'>Virtue:</span> {{ character.virtue.name }}<br />
             <span class='label'>Vice:</span> {{ character.vice.name }}<br />
         </div>
@@ -96,67 +97,74 @@
         </ul>
     </section>
 
-    <section id='powers'>
-        <h2>{{ character.creature_type.power_name }}s</h2>
-        <ul>
-            {% for power in character.characterhaspower_set.all %}
-            <li>
-                {{ power.trait.group }}{% if power.trait.rating %} {{ power.trait.rating }}{% endif %}{% if power.trait.name %}: {{ power.trait.name }}{% endif %}
-            </li>
-            {% endfor %}
-        </ul>
-    </section>
+    <div class="row">
+        <section id='powers'>
+            <h2>{{ character.creature_type.power_name }}s</h2>
+            <ul>
+                {% for power in character.characterhaspower_set.all %}
+                <li>
+                    {{ power.trait.group }}{% if power.trait.rating %} {{ power.trait.rating }}{% endif %}{% if power.trait.name %}: {{ power.trait.name }}{% endif %}
+                </li>
+                {% endfor %}
+            </ul>
+        </section>
 
-    <section id='merits'>
-        <h2>Merits</h2>
-        <ul>
-            {% for merit in character.characterhasmerit_set.all %}
-            <li>
-                {{ merit.trait.name }}{% if merit.trait.min_rating != merit.trait.max_rating %} {{ merit.rating }}{% endif %}{% if merit.trait.requires_specification %} ({{ merit.specification }}){% endif %}
-            </li>
-            {% endfor %}
-        </ul>
-    </section>
-    <section id='flaws'>
-        <h2>Flaws</h2>
-        <ul>
-            {% for flaw in character.characterhasflaw_set.all %}
-            <li>
-                {{ flaw.trait.name }}{% if flaw.trait.requires_specification %} ({{ flaw.specification }}){% endif %}
-            </li>
-            {% endfor %}
-        </ul>
-    </section>
+        <section id='merits'>
+            <h2>Merits</h2>
+            <ul>
+                {% for merit in character.characterhasmerit_set.all %}
+                <li>
+                    {{ merit.trait.name }}{% if merit.trait.min_rating != merit.trait.max_rating %} {{ merit.rating }}{% endif %}{% if merit.trait.requires_specification %} ({{ merit.specification }}){% endif %}
+                </li>
+                {% endfor %}
+            </ul>
+        </section>
 
-    <section id='combat'>
-        <h2>Combat</h2>
-        <ul>
-            {% for combat_trait in character.characterhascombattrait_set.all %}
-            <li>
-                <span class='stat-label'>{{ combat_trait.trait.name }}:</span> {{ combat_trait.rating }}
-            </li>
-            {% endfor %}
-        </ul>
-    </section>
-    <section id='supernatural'>
-        <h2>Supernatural</h2>
-        <ul>
-            {% for misc_trait in character.characterhasmisctrait_set.all %}
-            <li>
-                <span class='stat-label'>{{ misc_trait.trait.name }}:</span> {{ misc_trait.rating }}
-            </li>
-            {% endfor %}
-        </ul></section>
-    <section id='derangement'>
-        <h2>Derangements</h2>
-        <ul>
-            {% for derangement in character.characterhasderangement_set.all %}
-            <li>
-                {{ derangement.trait.name }}{% if derangement.trait.requires_specification %} ({{ derangement.specification }}){% endif %}
-            </li>
-            {% endfor %}
-        </ul></section>
+        <section id='flaws'>
+            <h2>Flaws</h2>
+            <ul>
+                {% for flaw in character.characterhasflaw_set.all %}
+                <li>
+                    {{ flaw.trait.name }}{% if flaw.trait.requires_specification %} ({{ flaw.specification }}){% endif %}
+                </li>
+                {% endfor %}
+            </ul>
+        </section>
+    </div>
 
+    <div class="row">
+        <section id='combat'>
+            <h2>Combat</h2>
+            <ul>
+                {% for combat_trait in character.characterhascombattrait_set.all %}
+                <li>
+                    <span class='stat-label'>{{ combat_trait.trait.name }}:</span> {{ combat_trait.rating }}
+                </li>
+                {% endfor %}
+            </ul>
+        </section>
+        <section id='supernatural'>
+            <h2>Supernatural</h2>
+            <ul>
+                {% for misc_trait in character.characterhasmisctrait_set.all %}
+                <li>
+                    <span class='stat-label'>{{ misc_trait.trait.name }}:</span> {{ misc_trait.rating }}
+                </li>
+                {% endfor %}
+            </ul>
+        </section>
+        <section id='derangement'>
+            <h2>Derangements</h2>
+            <ul>
+                {% for derangement in character.characterhasderangement_set.all %}
+                <li>
+                    {{ derangement.trait.name }}{% if derangement.trait.requires_specification %} ({{ derangement.specification }}){% endif %}
+                </li>
+                {% endfor %}
+            </ul>
+        </section>
+    </div>
+    
     <section id='xp'>
         <h2>XP</h2>
     </section>

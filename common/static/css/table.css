@@ -1,13 +1,14 @@
 table.list-table {
-
     border: 0;
     border-collapse: collapse;
+    width: 100%;
+    font-size: 13px;
 }
 
 table.list-table thead {
     font-weight: bold;
     text-align: left;
-    border-bottom: 2px #000 solid;
+    text-transform: capitalize;
 }
 
 table.list-table th { padding: 2px 10px; }
@@ -35,13 +36,11 @@ table.list-table tbody .selected:nth-child(2n+1) td {
 table.list-table th.sortable { cursor: pointer; }
 table.list-table .table-sort-indicator { color: rgb(176, 176, 176); }
 
-table.list-table button {
+table.list-table button, table.list-table a {
     border: none;
     color: #900;
-    background-color: rgba(0, 0, 0, 0);
-    width: 100%;
+    background-color: transparent;
     cursor: pointer;
 }
 
-table.list-table button:hover  { background: #d0d0d0; color: #333; }
-table.list-table button:active { background: #a0a0a0; }
+table.list-table button:hover  { text-decoration: underline; }
