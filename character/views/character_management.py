@@ -4,9 +4,44 @@ from django.views import generic
 from rest_framework.renderers import JSONRenderer
 
 from character.models import Character
-from traits.models import AttributeType, DerangementType, FlawType, MeritType, SkillType, Vice, Virtue
-from traits.models import Affiliation, CreatureType, Genealogy, Subgroup
-from traits.models import Attribute, CharacterText, CombatTrait, Derangement, Flaw, Merit, MiscTrait, Power, Skill
+from character.models import (
+    CharacterHasAttribute,
+    CharacterHasCombatTrait,
+    CharacterHasDerangement,
+    CharacterHasFlaw,
+    CharacterHasMerit,
+    CharacterHasMiscTrait,
+    CharacterHasPower,
+    CharacterHasSkill,
+    CharacterHasSkillSpecialty,
+    CharacterHasText,
+    CharacterHasTrait
+)
+import character.serializers
+from traits.models import (
+    AttributeType,
+    DerangementType,
+    FlawType,
+    MeritType,
+    SkillType,
+    Vice,
+    Virtue
+)
+from traits.models import (
+    Affiliation,
+    Attribute,
+    CharacterText,
+    CombatTrait,
+    CreatureType,
+    Derangement,
+    Flaw,
+    Genealogy,
+    Merit,
+    MiscTrait,
+    Power,
+    Skill,
+    Subgroup
+)
 import traits.serializers
 
 
@@ -62,6 +97,23 @@ def add_trait_data_to_context (context = None, **kwargs):
     return context
 
 
+def add_charcter_data_to_context (context = None, **kwargs):
+    if not context:
+        context = {}
+
+    context['character_has_attribute']       = CharacterHasAttribute      .objects.filter(**kwargs)
+    context['character_has_combat_trait']    = CharacterHasCombatTrait    .objects.filter(**kwargs)
+    context['character_has_derangement']     = CharacterHasDerangement    .objects.filter(**kwargs)
+    context['character_has_flaw']            = CharacterHasFlaw           .objects.filter(**kwargs)
+    context['character_has_merit']           = CharacterHasMerit          .objects.filter(**kwargs)
+    context['character_has_misc_trait']      = CharacterHasMiscTrait      .objects.filter(**kwargs)
+    context['character_has_power']           = CharacterHasPower          .objects.filter(**kwargs)
+    context['character_has_skill']           = CharacterHasSkill          .objects.filter(**kwargs)
+    context['character_has_skill_specialty'] = CharacterHasSkillSpecialty .objects.filter(**kwargs)
+    context['character_has_text']            = CharacterHasText           .objects.filter(**kwargs)
+
+    return context
+
 
 def character_list (request):
     context = {
@@ -76,6 +128,19 @@ def character_list (request):
     add_summary_data_to_context(context)
 
     return render(request, 'character/character_list.html', context)
+
+
+def character_edit (request, pk):
+    context = {
+        'character': Character.objects.get(pk = pk),
+    }
+    add_character_enums_to_context(context)
+    add_summary_data_to_context(context)
+    add_trait_enums_to_context(context)
+    add_trait_data_to_context(context)
+    add_charcter_data_to_context(context, character__id = pk)
+
+    return render(request, 'character/character_edit.html', context)
 
 
 class CharacterDetailView (generic.DetailView):

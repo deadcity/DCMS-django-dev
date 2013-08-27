@@ -70,7 +70,9 @@
         Traits.Objects.Genealogy    = new Backbone.Collection {{ genealogies    | serialize_json | safe }}, {model: Traits.Models.Genealogy    }
         Traits.Objects.Subgroup     = new Backbone.Collection {{ subgroups      | serialize_json | safe }}, {model: Traits.Models.Subgroup     }
     </script>
+    {% endcompress %}
 
+    {% compress js %}
     <script type='text/coffeescript'>
         character_table = new Table.Table {
             el: $ '#table'

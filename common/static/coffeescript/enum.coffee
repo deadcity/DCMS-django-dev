@@ -11,6 +11,13 @@ class Enum_NS.Element
     toString: () ->
         @name
 
+    toJSON: () ->
+        attrs = {}
+        _.each _.keys(@), (key) ->
+            attrs[key] = @[key]
+        , @
+        attrs
+
 
 class Enum_NS.Enum
     constructor: (elements) ->
