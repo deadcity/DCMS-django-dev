@@ -63,16 +63,16 @@ class Models_NS.Character extends Backbone.Model
     toHumanJSON: () ->
         attr = _.clone @attributes
 
-        attr.creature_type = attr.creature_type ?.toHumanJSON()
-        attr.genealogy     = attr.genealogy     ?.toHumanJSON()
-        attr.affiliation   = attr.affiliation   ?.toHumanJSON()
-        attr.subgroup      = attr.subgroup      ?.toHumanJSON()
-        attr.virtue        = attr.virtue        ?.toString()
-        attr.vice          = attr.vice          ?.toString()
+        attr.creature_type = attr.creature_type ?.toHumanJSON() ? new Object()
+        attr.genealogy     = attr.genealogy     ?.toHumanJSON() ? new Object()
+        attr.affiliation   = attr.affiliation   ?.toHumanJSON() ? new Object()
+        attr.subgroup      = attr.subgroup      ?.toHumanJSON() ? new Object()
+        attr.virtue        = attr.virtue        ? new Object()
+        attr.vice          = attr.vice          ? new Object()
 
-        attr.date_created     = attr.date_created     ?.toISOString()
-        attr.date_submitted   = attr.date_submitted   ?.toISOString()
-        attr.date_approved    = attr.date_approved    ?.toISOString()
-        attr.date_last_edited = attr.date_last_edited ?.toISOString()
+        attr.date_created     = attr.date_created     ?.toISOString() ? new Object()
+        attr.date_submitted   = attr.date_submitted   ?.toISOString() ? new Object()
+        attr.date_approved    = attr.date_approved    ?.toISOString() ? new Object()
+        attr.date_last_edited = attr.date_last_edited ?.toISOString() ? new Object()
 
         return attr
