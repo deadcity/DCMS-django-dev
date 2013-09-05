@@ -6,7 +6,9 @@
 {% if form.errors %}
 <p class='errors'>Your username and password didn't match. Please try again.</p>
 {% endif %}
-
+{% if message %}
+    {{ message }}
+{% endif %}
 <form method='post' id="login-form" action='{% url 'django.contrib.auth.views.login' %}'>
     {% csrf_token %}
     <label>

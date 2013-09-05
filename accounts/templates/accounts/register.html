@@ -2,9 +2,30 @@
 
 {% block content %}
 
-<form method='post' action='{% url 'accounts.create' %}'>
+<form method='post' action=''>
 	{% csrf_token %}
-	
+	<div class="row">
+		<label for="username">Username</label>
+		<input type="text" name="username" />
+	</div>
+	<div class="row">
+		<label for="password">Password</label>
+		<input type="password" name="password" />
+	</div>
+	<div class="row">
+		<label for="email">Email</label>
+		<input type="text" name="email" />
+	</div>
+	<div class="row">
+		<label for="first_name">First Name</label>
+		<input type="text" name="first_name" />
+	</div>
+	<div class="row">
+		<label for="last_name">Last Name</label>
+		<input type="text" name="last_name" />
+	</div>
+	<br />
+	<input type="submit" value="Register" />
 </form>
 
 {% endblock %}
