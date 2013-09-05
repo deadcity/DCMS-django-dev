@@ -90,6 +90,29 @@
         section#content .character-list tr:nth-child(2n+1) td {
             background-color: #ededed;
         }
+
+        #login-form {
+            text-align: center;
+        }
+
+        #login-form label label {
+            width: 90px;
+            display: inline-block;
+            font-weight: bold;
+        }
+
+        #login-form input[type="submit"] {
+            display: inline-block;
+            padding: 4px 12px;
+            margin-bottom: 0;
+            font-size: 14px;
+            line-height: 20px;
+            border-radius: 4px;
+            color: #ffffff;
+            text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+            background-color: #900;
+            border: 1px #600 solid;
+        }
     </style>
 {% endblock style_includes %}
 
@@ -109,16 +132,16 @@
                 <li><a href='#'>Link</a></li>
                 <li><a href='#'>Link</a></li>
                 <li><a href='#'>Link</a></li>
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'logout' %}">Log Out</a></li>
+                {% else %}
+                    <li><a href="{% url 'login' %}">Log In</a></li>
+                {% endif %}
             {% endblock nav %}
         </ul>
     </nav>
 
     <section id='content'>
-        {% if user.is_authenticated %}
-            <p class='logout'>Welcome, {{ user.username }}! <a href='{% url 'logout' %}'>logout</a></p>
-        {% else %}
-            <p class='login'><a href='{% url 'login' %}'>login</a></p>
-        {% endif %}
         {% block content %}{% endblock %}
     </section>
 {% endblock page %}
