@@ -146,6 +146,7 @@
     </nav>
 
     <section id='content'>
+        {{ user.groups.all }}
         {% block content %}{% endblock %}
     </section>
 {% endblock page %}
