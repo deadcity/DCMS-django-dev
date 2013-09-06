@@ -1,0 +1,42 @@
+.charsheet-header {
+	text-align: center;
+}
+
+.charsheet-header .label {
+	font-style: italic;
+}
+
+#general-character-traits > div {
+    display: inline-block;
+    width: 60%;
+}
+
+#general-character-traits #character-dates {
+    width: 40%;
+}
+
+#attributes div,
+#skills div {
+    display: inline-block;
+}
+
+.trait-list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+#attributes h2, #attributes h3, #skills h2 {
+	text-align: center;
+}
+
+.row:after {
+	content: "";
+	display: block;
+	clear: both;
+}
+
+.row section {
+	float: left;
+	width: 33%;
+}
