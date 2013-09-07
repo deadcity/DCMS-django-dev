@@ -86,3 +86,7 @@ class Views_NS.CharacterSummary extends Backbone.View
             context.selected = item == @model.get 'vice'
             @$('[name="vice"]').append option_template context
         , @
+
+        @delegateEvents()
+
+        @

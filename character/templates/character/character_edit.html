@@ -16,9 +16,6 @@
 {% block script_includes %}
     {{ block.super }}
 
-    <script type='text/javascript' src='{% static 'js/libraries/jquery.svg.package-1.4.5/jquery.svg.js' %}'></script>
-    <script type='text/javascript' src='{% static 'js/libraries/jquery.svg.package-1.4.5/jquery.svgdom.js' %}'></script>
-
     <!-- libs -->
     {% compress js %}
         <script type='text/coffeescript' src='{% static 'coffeescript/tools.coffee' %}'></script>
@@ -130,14 +127,22 @@
         <div id='social-attributes'   style='width: 33.33333%'></div>
     </section>
 
+    <section id='skills'>
+        <h2>Skills</h2>
+        {# TODO(emery): Determine width programatically. #}
+        <div id='mental-skills'   style='width: 33.33333%'></div>
+        <div id='physical-skills' style='width: 33.33333%'></div>
+        <div id='social-skills'   style='width: 33.33333%'></div>
+    </section>
+
     {% compress js %}
     <script type='text/coffeescript'>
     $ () ->
-        charcter_summary = new Character.Views.CharacterSummary
+        character_summary = new Character.Views.CharacterSummary
             el: $ '#general-character-traits'
             template: _.template $('#template_character-summary').html()
             model: new Character.Models.Character({{ character | serialize_json | safe }}, { parse: true })
-        charcter_summary.render()
+        character_summary.render()
 
 
         # ATTRIBUTES
@@ -162,6 +167,28 @@
                 ItemView: Character.Views.EditAttribute
                 values: [1, 2, 3, 4, 5]
             attributes.render()
+
+        # SKILLS
+
+        character_skills = new Backbone.Collection {{ character_has_skill | serialize_json | safe }},
+            parse: true
+            model: Character.Models.CharacterHasSkill
+
+        _.each Traits.Enums.SkillType._elements, (type) ->
+            target_id = type.name.toLowerCase() + '-skills'
+            skills = new Character.Views.AttributeGroup
+                el: $ '#' + target_id
+                template: attr_group_template
+                collection: new Tools.Collections.FilteredCollection(null,
+                    base_collection: character_skills
+                    filter: (cs) ->
+                        trait = cs.get 'trait'
+                        type is trait.get 'type'
+                )
+                header: type.name
+                ItemView: Character.Views.EditAttribute
+                values: [0, 1, 2, 3, 4, 5]
+            skills.render()
     </script>
     {% endcompress %}
 {% endblock content %}

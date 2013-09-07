@@ -34,5 +34,6 @@ class Views_NS.EditAttribute extends Backbone.View
             field: 'rating'
             model: @model
             values: @options.values
+            patch: true
         @rating.render()
         @

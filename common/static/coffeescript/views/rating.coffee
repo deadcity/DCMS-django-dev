@@ -75,6 +75,7 @@ class Rating_NS.Rating extends Backbone.View
 
         field: 'rating'
         View: CircleView
+        patch: false
 
     initialize: (options) ->
         @collection = new Backbone.Collection null, {model: ItemPresentation}
@@ -137,4 +138,13 @@ class Rating_NS.Rating extends Backbone.View
         value = model.get 'value'
         @collection.each (m) ->
             m.set 'selected', value >= m.get 'value'
-        @model.set @options.field, model.get 'value'
+
+        attr = {}
+        attr[@options.field] = value
+        if value is @model.get @options.field
+            return
+
+        if @options.patch
+            @model.save attr, patch: true
+        else
+            @model.set attr
