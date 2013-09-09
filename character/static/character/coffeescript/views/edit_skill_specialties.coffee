@@ -33,10 +33,9 @@ class Views.SkillSpecialtySection extends Backbone.View
 
     initialize: (options) ->
         @listenTo @collection, 'add', @render_specialty
-        # @listenTo @collection, 'add', @save_new_model
 
     events:
-        'click button': 'add_specialty'
+        'click button[name=\'add\']': 'add_specialty'
 
     render: () ->
         @$el.html @options.template()
@@ -58,9 +57,6 @@ class Views.SkillSpecialtySection extends Backbone.View
             model: model
         @$('.trait-list').append view.render().$el
         view
-
-    save_new_model: (model) ->
-        model.save()
 
     add_specialty: () ->
         model = new @collection.model()

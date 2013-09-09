@@ -68,6 +68,7 @@
         <script type='text/coffeescript' src='{% static 'character/coffeescript/views/attribute_group.coffee' %}'></script>
         <script type='text/coffeescript' src='{% static 'character/coffeescript/views/edit_character_summary.coffee' %}'></script>
         <script type='text/coffeescript' src='{% static 'character/coffeescript/views/edit_skill_specialties.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'character/coffeescript/views/edit_powers.coffee' %}'></script>
     {% endcompress %}
 {% endblock script_includes %}
 
@@ -92,8 +93,14 @@
 
     <script type='text/html' id='template_skill-specialties'>
         <h2>Skill Specialties</h2>
-        <ul class='trait-list'></ul>
         <select name='skill'></select><input type='text' name='specialty' /><button name='add'>add</button>
+        <ul class='trait-list'></ul>
+    </script>
+
+    <script type='text/html' id='template_powers'>
+        <h2>Disciplines</h2>
+        <select name='power'></select><button name='add'>add</button>
+        <ul class='trait-list'></ul>
     </script>
 
     <script type='text/javascript'>
@@ -128,12 +135,12 @@
         Character.Objects.Character = new Character.Models.Character({{ character | serialize_json | safe }}, { parse: true });
 
         Character.Objects.CharacterHasAttribute      = new Backbone.Collection({{ character_has_attribute       | serialize_json | safe }}, { model: Character.Models.CharacterHasAttribute,      parse: true });
-        Character.Objects.CharacterHasCombatTrait    = new Backbone.Collection({{ character_has_combat_traits   | serialize_json | safe }}, { model: Character.Models.CharacterHasCombatTrait,    parse: true });
-        Character.Objects.CharacterHasDerangement    = new Backbone.Collection({{ character_has_derangements    | serialize_json | safe }}, { model: Character.Models.CharacterHasDerangement,    parse: true });
-        Character.Objects.CharacterHasFlaw           = new Backbone.Collection({{ character_has_flaws           | serialize_json | safe }}, { model: Character.Models.CharacterHasFlaw,           parse: true });
-        Character.Objects.CharacterHasMerit          = new Backbone.Collection({{ character_has_merits          | serialize_json | safe }}, { model: Character.Models.CharacterHasMerit,          parse: true });
-        Character.Objects.CharacterHasMiscTrait      = new Backbone.Collection({{ character_has_misc_traits     | serialize_json | safe }}, { model: Character.Models.CharacterHasMiscTrait,      parse: true });
-        Character.Objects.CharacterHasPower          = new Backbone.Collection({{ character_has_powers          | serialize_json | safe }}, { model: Character.Models.CharacterHasPower,          parse: true });
+        Character.Objects.CharacterHasCombatTrait    = new Backbone.Collection({{ character_has_combat_trait    | serialize_json | safe }}, { model: Character.Models.CharacterHasCombatTrait,    parse: true });
+        Character.Objects.CharacterHasDerangement    = new Backbone.Collection({{ character_has_derangement     | serialize_json | safe }}, { model: Character.Models.CharacterHasDerangement,    parse: true });
+        Character.Objects.CharacterHasFlaw           = new Backbone.Collection({{ character_has_flaw            | serialize_json | safe }}, { model: Character.Models.CharacterHasFlaw,           parse: true });
+        Character.Objects.CharacterHasMerit          = new Backbone.Collection({{ character_has_merit           | serialize_json | safe }}, { model: Character.Models.CharacterHasMerit,          parse: true });
+        Character.Objects.CharacterHasMiscTrait      = new Backbone.Collection({{ character_has_misc_trait      | serialize_json | safe }}, { model: Character.Models.CharacterHasMiscTrait,      parse: true });
+        Character.Objects.CharacterHasPower          = new Backbone.Collection({{ character_has_power           | serialize_json | safe }}, { model: Character.Models.CharacterHasPower,          parse: true });
         Character.Objects.CharacterHasSkill          = new Backbone.Collection({{ character_has_skill           | serialize_json | safe }}, { model: Character.Models.CharacterHasSkill,          parse: true });
         Character.Objects.CharacterHasSkillSpecialty = new Backbone.Collection({{ character_has_skill_specialty | serialize_json | safe }}, { model: Character.Models.CharacterHasSkillSpecialty, parse: true });
         Character.Objects.CharacterHasText           = new Backbone.Collection({{ character_has_text            | serialize_json | safe }}, { model: Character.Models.CharacterHasText,           parse: true });
@@ -240,6 +247,15 @@
             template: _.template $('#template_skill-specialties').html()
             collection: Character.Objects.CharacterHasSkillSpecialty
         specialties.render()
+
+
+        # POWERS
+
+        powers = new Character.Views.PowerSection
+            el: $ '#powers'
+            template: _.template $('#template_powers').html()
+            collection: Character.Objects.CharacterHasPower
+        powers.render()
     </script>
     {% endcompress %}
 {% endblock content %}
