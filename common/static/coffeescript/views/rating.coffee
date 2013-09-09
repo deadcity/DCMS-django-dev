@@ -1,4 +1,4 @@
-Rating_NS = Tools.create_namespace 'Rating'
+UI = Tools.create_namespace 'UI'
 
 
 class ItemPresentation extends Backbone.Model
@@ -68,7 +68,7 @@ class CircleView extends SVGTools.SVGView
         if value then @$item.addClass name else @$item.removeClass name
 
 
-class Rating_NS.Rating extends Backbone.View
+class UI.Rating extends Backbone.View
     options:
         values: null
         r: 5
@@ -83,7 +83,8 @@ class Rating_NS.Rating extends Backbone.View
 
         min = if _.contains @options.values, 0 then 0 else 1
 
-        for i in [min .. _.max @options.values]
+        # for i in [min .. _.max @options.values]
+        _.each _.range(min, 1 + _.max @options.values), (i) =>
             @collection.add
                 value: i
                 selected: i <= val
