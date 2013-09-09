@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.shortcuts import redirect
 from django.views import generic
 
 from rest_framework.renderers import JSONRenderer
@@ -44,6 +45,11 @@ from traits.models import (
 )
 import traits.serializers
 
+def is_storyteller(user):
+    if user.is_authenticated:
+        if user.groups.filter(id=1).exists():
+            return True
+    return False
 
 def add_character_enums_to_context (context = None, **kwargs):
     if not context:
@@ -116,14 +122,25 @@ def add_charcter_data_to_context (context = None, **kwargs):
 
 
 def character_list (request):
-    context = {
-        'character_list' : [{
-            'character'   : character,
-            'can_submit'  : True,
-            'can_edit'    : True,
-            'can_disable' : True,
-        } for character in Character.objects.all()]
-    }
+    user = request.user
+    if is_storyteller(user):
+        context = {
+            'character_list' : [{
+                'character'   : character,
+                'can_submit'  : True,
+                'can_edit'    : True,
+                'can_disable' : True,
+            } for character in Character.objects.all()]
+        }
+    else:
+        context = {
+            'character_list' : [{
+                'character'   : character,
+                'can_submit'  : True,
+                'can_edit'    : True,
+                'can_disable' : True,
+            } for character in Character.objects.filter(user=user)]
+        }
     add_character_enums_to_context(context)
     add_summary_data_to_context(context)
 
@@ -131,9 +148,13 @@ def character_list (request):
 
 
 def character_edit (request, pk):
+    user = request.user
     context = {
         'character': Character.objects.get(pk = pk),
     }
+    if (context['character'].user != user) and not is_storyteller(user):
+        redirect('/characters')
+
     add_character_enums_to_context(context)
     add_summary_data_to_context(context)
     add_trait_enums_to_context(context)

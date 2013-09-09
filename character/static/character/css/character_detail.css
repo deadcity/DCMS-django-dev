@@ -6,18 +6,15 @@
 	font-style: italic;
 }
 
-#general-character-traits > div {
-    display: inline-block;
-    width: 60%;
+#general-character-traits .label {
+	font-weight: bold;
+	display: inline-block;
+	width: 120px;
 }
 
-#general-character-traits #character-dates {
-    width: 40%;
-}
-
-#attributes div,
-#skills div {
-    display: inline-block;
+#general-character-traits #character-dates .label {
+    font-style: italic;
+    font-weight: normal;
 }
 
 .trait-list {
@@ -26,8 +23,25 @@
 	padding: 0;
 }
 
-#attributes h2, #attributes h3, #skills h2 {
+.stat-label {
+	font-weight: bold;
+	display: inline-block;
+	width: 100px;
+}
+
+.trait-list .rating-container {
+	display: inline;
+}
+
+#attributes h2, #attributes h3, #skills h2, #skills h3 {
 	text-align: center;
+	margin: 0;
+}
+
+#skill-specialties ul, #powers ul, #merits ul, #flaws ul, #combat ul, #supernatural ul, #derangements ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
 }
 
 .row:after {
@@ -36,7 +50,7 @@
 	clear: both;
 }
 
-.row section {
+.row section, .row .trait-set {
 	float: left;
 	width: 33%;
 }

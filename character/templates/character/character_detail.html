@@ -38,7 +38,7 @@
         <p><span class='label'>Played by:</span> {{ character.user.realname }}</p>
     </header>
     <section id='general-character-traits'>
-        <div>
+        <div id='character-basics'>
             <span class='label'>Character Status:</span> {{ character.status.name }}<br />
             <span class='label'>{{ character.creature_type.genealogy_name }}:</span> {{ character.genealogy.name }}<br />
             <span class='label'>{{ character.creature_type.affiliation_name }}:</span> {{ character.affiliation.name }} {% if character.subgroup.name %}<span class='subgroup-label'>({{ character.subgroup.name }}</span>{% endif %}<br />
@@ -46,45 +46,49 @@
             <span class='label'>Vice:</span> {{ character.vice.name }}<br />
         </div>
         <div id='character-dates'>
-            <span class='label'>created:</span> {{ date_created }}<br />
-            <span class='label'>submitted:</span> {{ date_submitted }}<br />
-            <span class='label'>approved:</span> {{ date_approved }}<br />
-            <span class='label'>last edited:</span> {{ date_last_edited }}<br />
+            <span class='label'>Created:</span> {{ date_created }}<br />
+            <span class='label'>Submitted:</span> {{ date_submitted }}<br />
+            <span class='label'>Approved:</span> {{ date_approved }}<br />
+            <span class='label'>Last Edited:</span> {{ date_last_edited }}<br />
         </div>
     </section>
     <section id='attributes'>
         {% regroup character.characterhasattribute_set.all by trait.type.name as all_attributes %}
         <h2>Attributes</h2>
-        {% for attribute_group in all_attributes %}
-        <div style='width: {% widthratio 1 all_attributes|length 100 %}%'>
-            <h3>{{ attribute_group.grouper }}</h3>
-            <ul class='trait-list'>
-                {% for character_attribute in attribute_group.list %}
-                <li>
-                    <span class='stat-label'>{{ character_attribute.trait.name }}</span>
-                    <div class='rating-container'>{{ character_attribute.rating }}</div>
-                </li>
-                {% endfor %}
-            </ul>
+        <div class="row">
+            {% for attribute_group in all_attributes %}
+            <div class="trait-set" style='width: {% widthratio 1 all_attributes|length 100 %}%'>
+                <h3>{{ attribute_group.grouper }}</h3>
+                <ul class='trait-list'>
+                    {% for character_attribute in attribute_group.list %}
+                    <li>
+                        <span class='stat-label'>{{ character_attribute.trait.name }}</span>
+                        <div class='rating-container'>{{ character_attribute.rating }}</div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endfor %}
         </div>
-        {% endfor %}
     </section>
     <section id='skills'>
         {% regroup character.characterhasskill_set.all by trait.type.name as all_skills %}
         <h2>Skills</h2>
-        {% for skill_group in all_skills %}
-        <div style='width: {% widthratio 1 all_attributes|length 100 %}%'>
-            <h3>{{ skill_group.grouper }}</h3>
-            <ul class='trait-list'>
-                {% for character_skill in skill_group.list %}
-                <li>
-                    <span class='stat-label'>{{ character_skill.trait.name }}</span>
-                    <div class='rating-container'>{{ character_skill.rating }}</div>
-                </li>
-                {% endfor %}
-            </ul>
+        <div class="row">
+            {% for skill_group in all_skills %}
+            <div class="trait-set" style='width: {% widthratio 1 all_attributes|length 100 %}%'>
+                <h3>{{ skill_group.grouper }}</h3>
+                <ul class='trait-list'>
+                    {% for character_skill in skill_group.list %}
+                    <li>
+                        <span class='stat-label'>{{ character_skill.trait.name }}</span>
+                        <div class='rating-container'>{{ character_skill.rating }}</div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endfor %}
         </div>
-        {% endfor %}
     </section>
     <section id='skill-specialties'>
         <h2>Skill Specialties</h2>

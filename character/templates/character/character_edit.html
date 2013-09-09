@@ -9,7 +9,8 @@
 {% block style_includes %}
     {{ block.super }}
 
-    <link type='text/css' rel='stylesheet' href='{% static 'css/rating.css' %}' />
+    <link rel='stylesheet' type='text/css' href='{% static 'css/rating.css' %}' />
+    <link rel='stylesheet' type='text/css' href='{% static 'character/css/character_detail.css' %}' />
 {% endblock style_includes %}
 
 
@@ -73,10 +74,9 @@
 
 {% block content %}
     <script type='text/html' id='template_character-summary'>
-        <div>
-            <span class='label'>Player Name:</span> {{ character.user.username }}<br />
-            <span class='label'>Character Status:</span> <%= status.name %><br />
+        <div id='character-basics'>
             <span class='label'>Character Name:</span> <input type='text' name='name' value='<%= name %>' /><br />
+            <span class='label'>Character Status:</span> <%= status.name %><br />
             <span class='label'><%= creature_type.genealogy_name %>:</span> <select name='genealogy'></select><br />
             <span class='label'><%= creature_type.affiliation_name %>:</span> <select name='affiliation'></select><br />
             <span class='label'><%= creature_type.subgroup_name %>:</span> <select name='subgroup'></select><br />
@@ -140,6 +140,11 @@
 
     </script>
 
+    <header class="charsheet-header">
+        <h1>{% if name %}<%= name %>{% else %}New Character{% endif %}</h1>
+        <p><span class='label'>Played by:</span> {{ character.user.realname }}</p>
+    </header>
+
     <section id='general-character-traits'>
     </section>
 
@@ -161,6 +166,24 @@
 
     <section id='skill-specialties'>
     </section>
+
+    <div class="row">
+        <section id='powers'>
+        </section>
+        <section id='merits'>
+        </section>
+        <section id='flaws'>
+        </section>
+    </div>
+    <div class="row">
+        <section id='combat'>
+        </section>
+        <section id='supernatural'>
+        </section>
+        <section id='derangements'>
+        </section>
+    </div>
+
 
     {% compress js %}
     <script type='text/coffeescript'>
@@ -191,6 +214,7 @@
                 values: [1, 2, 3, 4, 5]
             attributes.render()
 
+
         # SKILLS
 
         _.each Traits.Enums.SkillType._elements, (type) ->
@@ -207,6 +231,7 @@
                 header: type.name
                 values: [0, 1, 2, 3, 4, 5]
             skills.render()
+
 
         # SKILL SPECIALTIES
 
