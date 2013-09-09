@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# 2013-08-24 15:52:40.539000
+# 2013-09-09 07:34:16.755000
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -28,7 +28,7 @@ class Models_NS.Flaw extends Backbone.Model
             enabled: raw.enabled,
             requires_specification: raw.requires_specification,
             requires_description: raw.requires_description,
-            type: Traits.Enums.FlawType.get parseInt raw.type, 10
+            type: Traits.Enums.FlawType.get raw.type
         }
 
     toJSON: () ->

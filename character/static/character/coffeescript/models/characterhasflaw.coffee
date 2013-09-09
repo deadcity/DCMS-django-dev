@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# 2013-05-23 12:58:28.451149
+# 2013-09-09 07:34:16.755000
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -24,7 +24,7 @@ class Models_NS.CharacterHasFlaw extends Backbone.Model
         {
             id: parseInt raw.id, 10
             character: parseInt raw.character, 10
-            trait: Traits.Objects.Flaw.get parseInt raw.trait, 10
+            trait: Traits.Objects.Flaw.get raw.trait
             specification: raw.specification,
             description: raw.description,
         }
