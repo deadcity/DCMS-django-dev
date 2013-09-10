@@ -1,0 +1,171 @@
+{% extends 'base.html' %}
+
+{% load compress %}
+{% load js_filters %}
+{% load model_filters %}
+{% load static %}
+
+{% block style_includes %}
+    {{ block.super }}
+
+    <link rel='stylesheet' type='text/css' href='{% static 'character/css/character_detail.css' %}' />
+
+    <style type="text/css">
+			body {
+				font-family: Helvetica, Arial, sans-serif;
+			}
+
+			.character-item {
+				page-break-after: always;
+			}
+    </style>
+{% endblock style_includes %}
+
+{% block page %}
+	{% for character in character_list %}
+		<div class="character-item">
+			<header class="charsheet-header">
+	        <h1>{{ character.name }}</h1>
+	        <p><span class='label'>Played by:</span> {{ character.user.realname }}</p>
+	    </header>
+	    <section id='general-character-traits'>
+	        <div id='character-basics'>
+	            <span class='label'>{{ character.creature_type.genealogy_name }}:</span> {{ character.genealogy.name }}<br />
+	            <span class='label'>{{ character.creature_type.affiliation_name }}:</span> {{ character.affiliation.name }} {% if character.subgroup.name %}<span class='subgroup-label'>({{ character.subgroup.name }}</span>{% endif %}<br />
+	            <span class='label'>Virtue:</span> {{ character.virtue.name }}<br />
+	            <span class='label'>Vice:</span> {{ character.vice.name }}<br />
+	        </div>
+	    </section>
+	    <section id='attributes'>
+	        {% regroup character.characterhasattribute_set.all by trait.type.name as all_attributes %}
+	        <h2>Attributes</h2>
+	        <div class="row">
+	            {% for attribute_group in all_attributes %}
+	            <div class="trait-set" style='width: {% widthratio 1 all_attributes|length 100 %}%'>
+	                <h3>{{ attribute_group.grouper }}</h3>
+	                <ul class='trait-list'>
+	                    {% for character_attribute in attribute_group.list %}
+	                    <li>
+	                        <span class='stat-label'>{{ character_attribute.trait.name }}</span>
+	                        <div class='rating-container'>{{ character_attribute.rating }}</div>
+	                    </li>
+	                    {% endfor %}
+	                </ul>
+	            </div>
+	            {% endfor %}
+	        </div>
+	    </section>
+	    <section id='skills'>
+	        {% regroup character.characterhasskill_set.all by trait.type.name as all_skills %}
+	        <h2>Skills</h2>
+	        <div class="row">
+	            {% for skill_group in all_skills %}
+	            <div class="trait-set" style='width: {% widthratio 1 all_attributes|length 100 %}%'>
+	                <h3>{{ skill_group.grouper }}</h3>
+	                <ul class='trait-list'>
+	                    {% for character_skill in skill_group.list %}
+	                    <li>
+	                        <span class='stat-label'>{{ character_skill.trait.name }}</span>
+	                        <div class='rating-container'>{{ character_skill.rating }}</div>
+	                    </li>
+	                    {% endfor %}
+	                </ul>
+	            </div>
+	            {% endfor %}
+	        </div>
+	    </section>
+	    <section id='skill-specialties'>
+	        <h2>Skill Specialties</h2>
+	        <ul>
+	            {% for specialty in character.characterhasskillspecialty_set.all %}
+	            <li>
+	                <span class='stat-label'>{{ specialty.trait.name }}:</span> {{ specialty.specialty }}
+	            </li>
+	            {% endfor %}
+	        </ul>
+	    </section>
+
+	    <div class="row">
+	        <section id='powers'>
+	            <h2>{{ character.creature_type.power_name }}s</h2>
+	            <ul>
+	                {% for power in character.characterhaspower_set.all %}
+	                <li>
+	                    {{ power.trait.group }}{% if power.trait.rating %} {{ power.trait.rating }}{% endif %}{% if power.trait.name %}: {{ power.trait.name }}{% endif %}
+	                </li>
+	                {% endfor %}
+	            </ul>
+	        </section>
+
+	        <section id='merits'>
+	            <h2>Merits</h2>
+	            <ul>
+	                {% for merit in character.characterhasmerit_set.all %}
+	                <li>
+	                    {{ merit.trait.name }}{% if merit.trait.min_rating != merit.trait.max_rating %} {{ merit.rating }}{% endif %}{% if merit.trait.requires_specification %} ({{ merit.specification }}){% endif %}
+	                </li>
+	                {% endfor %}
+	            </ul>
+	        </section>
+
+	        <section id='flaws'>
+	            <h2>Flaws</h2>
+	            <ul>
+	                {% for flaw in character.characterhasflaw_set.all %}
+	                <li>
+	                    {{ flaw.trait.name }}{% if flaw.trait.requires_specification %} ({{ flaw.specification }}){% endif %}
+	                </li>
+	                {% endfor %}
+	            </ul>
+	        </section>
+	    </div>
+
+	    <div class="row">
+	        <section id='combat'>
+	            <h2>Combat</h2>
+	            <ul>
+	                {% for combat_trait in character.characterhascombattrait_set.all %}
+	                <li>
+	                    <span class='stat-label'>{{ combat_trait.trait.name }}:</span> {{ combat_trait.rating }}
+	                </li>
+	                {% endfor %}
+	            </ul>
+	        </section>
+	        <section id='supernatural'>
+	            <h2>Supernatural</h2>
+	            <ul>
+	                {% for misc_trait in character.characterhasmisctrait_set.all %}
+	                <li>
+	                    <span class='stat-label'>{{ misc_trait.trait.name }}:</span> {{ misc_trait.rating }}
+	                </li>
+	                {% endfor %}
+	            </ul>
+	        </section>
+	        <section id='derangement'>
+	            <h2>Derangements</h2>
+	            <ul>
+	                {% for derangement in character.characterhasderangement_set.all %}
+	                <li>
+	                    {{ derangement.trait.name }}{% if derangement.trait.requires_specification %} ({{ derangement.specification }}){% endif %}
+	                </li>
+	                {% endfor %}
+	            </ul>
+	        </section>
+	    </div>
+	    
+	    <section id='xp'>
+	        <h2>XP</h2>
+	    </section>
+	    <section id='text'>
+	        {% for character_text in character.characterhastext_set.all %}
+	        {% if not character_text.trait.hide_from_player %}  {# TODO(emery): do not hide from ST #}
+	        <div>
+	            <h2>{{ character_text.trait.name|title }}</h2>
+	            <p>{{ character_text.text }}</p>
+	        </div>
+	        {% endif %}
+	        {% endfor %}
+	    </section>
+	  </div>
+	{% endfor %}
+{% endblock page %}

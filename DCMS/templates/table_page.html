@@ -1,0 +1,41 @@
+{% extends 'base_page.html' %}
+
+{% load compress %}
+{% load static %}
+
+
+{% block style_includes %}
+    {{ block.super }}
+
+    <link rel='stylesheet' type='text/css' href='{% static 'css/table.css' %}' />
+{% endblock style_includes %}
+
+
+{% block script_includes %}
+    {{ block.super }}
+
+    <!-- libs -->
+    {% compress js %}
+        <script type='text/coffeescript' src='{% static 'coffeescript/tools.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'coffeescript/enum.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'coffeescript/svg_tools.coffee' %}'></script>
+    {% endcompress %}
+
+    <!-- table -->
+    {% compress js %}
+        <script type='text/coffeescript' src='{% static 'coffeescript/table/column.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'coffeescript/table/row.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'coffeescript/table/table.coffee' %}'></script>
+    {% endcompress %}
+{% endblock script_includes %}
+
+
+{% block content %}
+    {% block pretable_content %}{% endblock %}
+
+    {% block table_container %}
+        <table id={% block table_id %}'table'{% endblock %} class='list-table stripped'></table>
+    {% endblock table_container %}
+
+    {% block table_definition %}{% endblock %}
+{% endblock content %}
