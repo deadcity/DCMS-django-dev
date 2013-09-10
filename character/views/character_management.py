@@ -129,7 +129,8 @@ def character_list (request):
                 'can_submit'  : True,
                 'can_edit'    : True,
                 'can_disable' : True,
-            } for character in Character.objects.all()]
+            } for character in Character.objects.all()],
+            'is_storyteller' : True
         }
     else:
         context = {
@@ -138,7 +139,8 @@ def character_list (request):
                 'can_submit'  : True,
                 'can_edit'    : True,
                 'can_disable' : True,
-            } for character in Character.objects.filter(user=user)]
+            } for character in Character.objects.filter(user=user)],
+            'is_storyteller' : False
         }
     add_character_enums_to_context(context)
     add_summary_data_to_context(context)
@@ -149,7 +151,6 @@ def print_all (request):
     if not is_storyteller(request.user):
         redirect('/characters')
 
-    # once I get status working, change to .filter(status='Active')
     context = { 'character_list': Character.objects.filter(status=3) }
 
     return render(request, 'character/print_all.html', context)
@@ -158,6 +159,7 @@ def character_edit (request, pk):
     user = request.user
     context = {
         'character': Character.objects.get(pk = pk),
+        'is_storyteller': is_storyteller(user)
     }
     if (context['character'].user != user) and not is_storyteller(user):
         redirect('/characters')

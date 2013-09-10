@@ -152,20 +152,6 @@
 	            </ul>
 	        </section>
 	    </div>
-	    
-	    <section id='xp'>
-	        <h2>XP</h2>
-	    </section>
-	    <section id='text'>
-	        {% for character_text in character.characterhastext_set.all %}
-	        {% if not character_text.trait.hide_from_player %}  {# TODO(emery): do not hide from ST #}
-	        <div>
-	            <h2>{{ character_text.trait.name|title }}</h2>
-	            <p>{{ character_text.text }}</p>
-	        </div>
-	        {% endif %}
-	        {% endfor %}
-	    </section>
 	  </div>
 	{% endfor %}
 {% endblock page %}
