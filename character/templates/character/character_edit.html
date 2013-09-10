@@ -10,6 +10,7 @@
     {{ block.super }}
 
     <link rel='stylesheet' type='text/css' href='{% static 'css/rating.css' %}' />
+    <link rel='stylesheet' type='text/css' href='{% static 'css/modal.css' %}' />
     <link rel='stylesheet' type='text/css' href='{% static 'character/css/character_detail.css' %}' />
 {% endblock style_includes %}
 
@@ -67,8 +68,9 @@
         <script type='text/coffeescript' src='{% static 'coffeescript/views/rating.coffee' %}'></script>
         <script type='text/coffeescript' src='{% static 'character/coffeescript/views/attribute_group.coffee' %}'></script>
         <script type='text/coffeescript' src='{% static 'character/coffeescript/views/edit_character_summary.coffee' %}'></script>
-        <script type='text/coffeescript' src='{% static 'character/coffeescript/views/edit_skill_specialties.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'character/coffeescript/views/edit_merits.coffee' %}'></script>
         <script type='text/coffeescript' src='{% static 'character/coffeescript/views/edit_powers.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'character/coffeescript/views/edit_skill_specialties.coffee' %}'></script>
     {% endcompress %}
 {% endblock script_includes %}
 
@@ -101,6 +103,28 @@
         <h2>Disciplines</h2>
         <select name='power'></select><button name='add'>add</button>
         <ul class='trait-list'></ul>
+    </script>
+
+    <script type='text/html' id='template_merit-section'>
+        <h2>Merits</h2>
+        <select name='merit'></select><button name='add'>add</button>
+        <ul class='trait-list'></ul>
+    </script>
+
+    <script type='text/html' id='template_merit-modal'>
+        <div class='modal-content'>
+            <h3><%= trait.name %><% if (trait.requires_specification) { %>: <span name='specification'><%= specification %></span><% } %></h3>
+            <% if (trait.requires_specification) { %>
+            <label>
+                Specification: <input type='text' name='specification' value='<%= specification %>' />
+            </label><br />
+            <% } %>
+            Rating: <div class='rating-container'></div><br />
+            <% if (trait.requires_description) { %>
+            Description: <textarea name='description' rows='10' cols='40'><%= description %></textarea><br />
+            <% } %>
+            <button name='close'>Close</button>
+        </div>
     </script>
 
     <script type='text/javascript'>
@@ -256,6 +280,16 @@
             template: _.template $('#template_powers').html()
             collection: Character.Objects.CharacterHasPower
         powers.render()
+
+
+        # MERITS
+
+        merits = new Character.Views.MeritSection
+            el: $ '#merits'
+            template: _.template $('#template_merit-section').html()
+            modal_template: _.template $('#template_merit-modal').html()
+            collection: Character.Objects.CharacterHasMerit
+        merits.render()
     </script>
     {% endcompress %}
 {% endblock content %}
