@@ -16,7 +16,7 @@ Traits.Models.Merit.prototype.requires_modal = (attributes) ->
     return false
 
 
-merit_template = _.template '<%= trait.name %> (<%= rating %>)<% if (trait.requires_specification) { %>: <%= specification %><% } %><% if (Traits.Models.Merit.prototype.requires_modal(trait)) { %> <div class=\'edit\'>[edit]</div><% } %> <div class=\'remove\'>[X]</div>'
+merit_template = _.template '<%= trait.name %> (<%= rating %>)<% if (trait.requires_specification) { %>: <%= specification %><% } %><% if (Traits.Models.Merit.prototype.requires_modal(trait)) { %> <div class=\'edit\'>[edit]</div><% } %> <div class=\'remove\'>✖</div>'
 
 
 class Views.MeritModal extends Backbone.View

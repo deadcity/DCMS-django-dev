@@ -1,7 +1,7 @@
 Views = Tools.create_namespace 'Character.Views'
 
 
-power_template = _.template '<%= trait.group %> <%= trait.rating %>: <%= trait.name %><div class=\'remove\'>[X]</div>'
+power_template = _.template '<%= trait.group %> <%= trait.rating %>: <%= trait.name %><div class=\'remove\'>✖</div>'
 
 
 class Views.CharacterPower extends Backbone.View

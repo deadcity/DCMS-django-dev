@@ -1,7 +1,7 @@
 Views = Tools.create_namespace 'Character.Views'
 
 
-specialty_template = _.template '<span class=\'specialty-label\'><%= trait.name %></span>: <%= specialty %><div class=\'remove\'>[X]</div>'
+specialty_template = _.template '<span class=\'specialty-label\'><%= trait.name %></span>: <%= specialty %><div class=\'remove\'>✖</div>'
 
 
 class Views.SkillSpecialty extends Backbone.View
