@@ -1,4 +1,4 @@
-Rating_NS = Tools.create_namespace 'Rating'
+UI = Tools.create_namespace 'UI'
 
 
 class ItemPresentation extends Backbone.Model
@@ -9,7 +9,7 @@ class ItemPresentation extends Backbone.Model
         selectable: false
 
 class CircleView extends SVGTools.SVGView
-    tagName: 'circle',
+    tagName: 'svg',
 
     initialize: (options) ->
         @listenTo @model, 'change:selected',   (model) -> @set_class 'selected',  model.get 'selected'
@@ -33,43 +33,64 @@ class CircleView extends SVGTools.SVGView
     mouseup:   () -> @model.trigger 'mouseup',   @model
 
     render: () ->
-        @$el.attr('cx', @options.r / 2)
-            .attr('cy', (@model.get('index') - @options.min + .5) * @options.r)
-            .attr('r',  @options.r)
+        @$el.empty()
 
-        if @model.get 'selected'  then @$el.addClass 'selected'
-        if @model.get 'selecting' then @$el.addClass 'selecting'
+        item = @make 'circle',
+            cx : @options.r
+            cy : @options.r
+            r  : @options.r
+        $item = $ item
+
+        if @model.get('value') is 0
+            # inner circle
+            item = @make 'circle',
+                cx : @options.r
+                cy : @options.r
+                r  : @options.r / 2
+            $(item).addClass 'zero-marker'
+            @$el.append item
+            $item.addClass 'zero-selecting'
+
+        else
+            $item.addClass 'rating-value'
+
+        if @model.get 'selected'  then $item.addClass 'selected'
+        if @model.get 'selecting' then $item.addClass 'selecting'
+        @$el.append $item
+        @$item = $item
+        @$el.width  @options.r * 2
+        @$el.height @options.r * 2
 
         @delegateEvents()
         @
 
     set_class: (name, value) ->
-        if value then @$el.addClass name else @$el.removeClass name
+        if value then @$item.addClass name else @$item.removeClass name
 
 
-class Rating_NS.Rating extends SVGTools.SVGView
-    tagName: 'svg'
-
+class UI.Rating extends Backbone.View
     options:
-        min: 1
-        max: 5
-        inc: 1
-
-        r: 10
+        values: null
+        r: 5
 
         field: 'rating'
         View: CircleView
+        patch: false
 
     initialize: (options) ->
         @collection = new Backbone.Collection null, {model: ItemPresentation}
-        for i in [@options.min .. @otions.max]
-            @collection.add {
-                value: i
-                index: i
-                selectable: i % @options.inc == true
-            }
+        val = @model.get @options.field
 
-        @listenTo @model 'change:' + @options.field, @on_change_rating
+        min = if _.contains @options.values, 0 then 0 else 1
+
+        # for i in [min .. _.max @options.values]
+        _.each _.range(min, 1 + _.max @options.values), (i) =>
+            @collection.add
+                value: i
+                selected: i <= val
+                selectable: _.contains @options.values, i
+
+        @listenTo @model, 'change:' + @options.field, @on_change_rating
         @listenTo @collection, 'hover',     @on_hover
         @listenTo @collection, 'unhover',   @on_unhover
         @listenTo @collection, 'mousedown', @on_mousedown
@@ -86,17 +107,27 @@ class Rating_NS.Rating extends SVGTools.SVGView
         @$el.empty()
 
         @collection.each (item) ->
-            view = new @options.View _.extend {}, @options, {model: item}
+            view = new @options.View _.extend {}, @options,
+                model: item
+                el: null
             view.render()
-            @$el.append view.el
+            @$el.append view.$el
         , @
 
         @
 
     on_hover: (model) ->
         val = model.get 'value'
-        @collection.each (m) ->
-            m.set 'selecting', val >= m.get 'value'
+        if val is 0
+            zero_marker = @collection.find (m) ->
+                0 is m.get 'value'
+            zero_marker.set 'selecting', true
+
+        else
+            @collection.each (m) ->
+                m_val = m.get 'value'
+                if m_val isnt 0
+                    m.set 'selecting', val >= m_val
 
     on_unhover: (model) ->
         @collection.each (m) ->
@@ -105,8 +136,16 @@ class Rating_NS.Rating extends SVGTools.SVGView
     on_mousedown: (model) ->
 
     on_mouseup: (model) ->
+        value = model.get 'value'
         @collection.each (m) ->
-            if m isnt model
-                m.set 'selected', false
-        model.set 'selected', true
-        @model.set @options.field, model.get 'value'
+            m.set 'selected', value >= m.get 'value'
+
+        attr = {}
+        attr[@options.field] = value
+        if value is @model.get @options.field
+            return
+
+        if @options.patch
+            @model.save attr, patch: true
+        else
+            @model.set attr

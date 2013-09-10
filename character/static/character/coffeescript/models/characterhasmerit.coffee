@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# 2013-09-10 11:58:03.321986
+# 2013-09-09 07:34:16.755000
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -27,7 +27,7 @@ class Models_NS.CharacterHasMerit extends Backbone.Model
             character: parseInt raw.character, 10
             rating: parseInt raw.rating, 10
             description: raw.description,
-            trait: Traits.Objects.Merit.get parseInt raw.trait, 10
+            trait: Traits.Objects.Merit.get raw.trait
             specification: raw.specification,
         }
 

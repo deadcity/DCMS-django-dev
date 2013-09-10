@@ -5,11 +5,15 @@
 {% load model_filters %}
 {% load static %}
 
+
 {% block style_includes %}
     {{ block.super }}
 
+    <link rel='stylesheet' type='text/css' href='{% static 'css/rating.css' %}' />
+    <link rel='stylesheet' type='text/css' href='{% static 'css/modal.css' %}' />
     <link rel='stylesheet' type='text/css' href='{% static 'character/css/character_detail.css' %}' />
 {% endblock style_includes %}
+
 
 {% block script_includes %}
     {{ block.super }}
@@ -24,15 +28,49 @@
     <!-- character summary -->
     {% compress js %}
         <script type='text/coffeescript' src='{% static 'character/coffeescript/models/character.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'traits/coffeescript/models/affiliation.coffee' %}'></script>
         <script type='text/coffeescript' src='{% static 'traits/coffeescript/models/creaturetype.coffee' %}'></script>
         <script type='text/coffeescript' src='{% static 'traits/coffeescript/models/genealogy.coffee' %}'></script>
-        <script type='text/coffeescript' src='{% static 'traits/coffeescript/models/affiliation.coffee' %}'></script>
         <script type='text/coffeescript' src='{% static 'traits/coffeescript/models/subgroup.coffee' %}'></script>
+    {% endcompress %}
+
+    <!-- trait models -->
+    {% compress js %}
+        <script type='text/coffeescript' src='{% static 'traits/coffeescript/models/attribute.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'traits/coffeescript/models/charactertext.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'traits/coffeescript/models/combattrait.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'traits/coffeescript/models/derangement.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'traits/coffeescript/models/flaw.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'traits/coffeescript/models/merit.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'traits/coffeescript/models/misctrait.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'traits/coffeescript/models/power.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'traits/coffeescript/models/skill.coffee' %}'></script>
+    {% endcompress %}
+
+    <!-- character traits -->
+    {% compress js %}
+        <script type='text/coffeescript' src='{% static 'character/coffeescript/models/characterhasattribute.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'character/coffeescript/models/characterhascombattrait.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'character/coffeescript/models/characterhasderangement.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'character/coffeescript/models/characterhasflaw.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'character/coffeescript/models/characterhasmerit.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'character/coffeescript/models/characterhasmisctrait.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'character/coffeescript/models/characterhaspower.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'character/coffeescript/models/characterhasskill.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'character/coffeescript/models/characterhasskillspecialty.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'character/coffeescript/models/characterhastext.coffee' %}'></script>
     {% endcompress %}
 
     <!-- views -->
     {% compress js %}
+        <script type='text/coffeescript' src='{% static 'coffeescript/collections/filtered_collection.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'coffeescript/views/overlay.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'coffeescript/views/rating.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'character/coffeescript/views/attribute_group.coffee' %}'></script>
         <script type='text/coffeescript' src='{% static 'character/coffeescript/views/edit_character_summary.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'character/coffeescript/views/edit_merits.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'character/coffeescript/views/edit_powers.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'character/coffeescript/views/edit_skill_specialties.coffee' %}'></script>
     {% endcompress %}
 {% endblock script_includes %}
 
@@ -50,36 +88,88 @@
         </div>
     </script>
 
-    {% compress js %}
-    <script type='text/coffeescript'>
-        Tools.create_namespace 'Traits.Enums'
-        Tools.create_namespace 'Traits.Objects'
-
-        Traits.Enums.Vice   = new Enum.Enum {{ vices   | serialize_json | safe }}
-        Traits.Enums.Virtue = new Enum.Enum {{ virtues | serialize_json | safe }}
-
-        Traits.Objects.Affiliation  = new Backbone.Collection {{ affiliations   | serialize_json | safe }}, {model: Traits.Models.Affiliation  }
-        Traits.Objects.CreatureType = new Backbone.Collection {{ creature_types | serialize_json | safe }}, {model: Traits.Models.CreatureType }
-        Traits.Objects.Genealogy    = new Backbone.Collection {{ genealogies    | serialize_json | safe }}, {model: Traits.Models.Genealogy    }
-        Traits.Objects.Subgroup     = new Backbone.Collection {{ subgroups      | serialize_json | safe }}, {model: Traits.Models.Subgroup     }
-
-        Traits.Enums.AttributeType   = new Enum.Enum {{ attribute_types   | serialize_json | safe }}
-        Traits.Enums.DerangementType = new Enum.Enum {{ derangement_types | serialize_json | safe }}
-        Traits.Enums.FlawType        = new Enum.Enum {{ flaw_types        | serialize_json | safe }}
-        Traits.Enums.MeritType       = new Enum.Enum {{ merit_types       | serialize_json | safe }}
-        Traits.Enums.SkillType       = new Enum.Enum {{ skill_types       | serialize_json | safe }}
-
-        Traits.Objects.Attributes     = new Backbone.Collection {{ attributes      | serialize_json | safe }}, {model: Traits.Models.Attribute     }
-        Traits.Objects.CharacterTexts = new Backbone.Collection {{ character_texts | serialize_json | safe }}, {model: Traits.Models.CharacterText }
-        Traits.Objects.CombatTraits   = new Backbone.Collection {{ combat_traits   | serialize_json | safe }}, {model: Traits.Models.CombatTrait   }
-        Traits.Objects.Derangements   = new Backbone.Collection {{ derangements    | serialize_json | safe }}, {model: Traits.Models.Derangement   }
-        Traits.Objects.Flaws          = new Backbone.Collection {{ flaws           | serialize_json | safe }}, {model: Traits.Models.Flaw          }
-        Traits.Objects.Merits         = new Backbone.Collection {{ merits          | serialize_json | safe }}, {model: Traits.Models.Merit         }
-        Traits.Objects.MiscTraits     = new Backbone.Collection {{ misc_traits     | serialize_json | safe }}, {model: Traits.Models.MiscTrait     }
-        Traits.Objects.Powers         = new Backbone.Collection {{ powers          | serialize_json | safe }}, {model: Traits.Models.Power         }
-        Traits.Objects.Skills         = new Backbone.Collection {{ skills          | serialize_json | safe }}, {model: Traits.Models.Skill         }
+    <script type='text/html' id='template_simple-trait-group'>
+        <h3><%= header %></h3>
+        <ul class='trait-list'></ul>
     </script>
-    {% endcompress %}
+
+    <script type='text/html' id='template_skill-specialties'>
+        <h2>Skill Specialties</h2>
+        <select name='skill'></select><input type='text' name='specialty' /><button name='add'>add</button>
+        <ul class='trait-list'></ul>
+    </script>
+
+    <script type='text/html' id='template_powers'>
+        <h2>Disciplines</h2>
+        <select name='power'></select><button name='add'>add</button>
+        <ul class='trait-list'></ul>
+    </script>
+
+    <script type='text/html' id='template_merit-section'>
+        <h2>Merits</h2>
+        <select name='merit'></select><button name='add'>add</button>
+        <ul class='trait-list'></ul>
+    </script>
+
+    <script type='text/html' id='template_merit-modal'>
+        <div class='modal-content'>
+            <h3><%= trait.name %><% if (trait.requires_specification) { %>: <span name='specification'><%= specification %></span><% } %></h3>
+            <% if (trait.requires_specification) { %>
+            <label>
+                Specification: <input type='text' name='specification' value='<%= specification %>' />
+            </label><br />
+            <% } %>
+            Rating: <div class='rating-container'></div><br />
+            <% if (trait.requires_description) { %>
+            Description: <textarea name='description' rows='10' cols='40'><%= description %></textarea><br />
+            <% } %>
+            <button name='close'>Close</button>
+        </div>
+    </script>
+
+    <script type='text/javascript'>
+        Tools.create_namespace('Traits.Enums');
+        Tools.create_namespace('Traits.Objects');
+        Tools.create_namespace('Character.Objects');
+
+        Traits.Enums.Vice   = new Enum.Enum({{ vices   | serialize_json | safe }});
+        Traits.Enums.Virtue = new Enum.Enum({{ virtues | serialize_json | safe }});
+
+        Traits.Objects.Affiliation  = new Backbone.Collection({{ affiliations   | serialize_json | safe }}, { model: Traits.Models.Affiliation  });
+        Traits.Objects.CreatureType = new Backbone.Collection({{ creature_types | serialize_json | safe }}, { model: Traits.Models.CreatureType });
+        Traits.Objects.Genealogy    = new Backbone.Collection({{ genealogies    | serialize_json | safe }}, { model: Traits.Models.Genealogy    });
+        Traits.Objects.Subgroup     = new Backbone.Collection({{ subgroups      | serialize_json | safe }}, { model: Traits.Models.Subgroup     });
+
+        Traits.Enums.AttributeType   = new Enum.Enum({{ attribute_types   | serialize_json | safe }});
+        Traits.Enums.DerangementType = new Enum.Enum({{ derangement_types | serialize_json | safe }});
+        Traits.Enums.FlawType        = new Enum.Enum({{ flaw_types        | serialize_json | safe }});
+        Traits.Enums.MeritType       = new Enum.Enum({{ merit_types       | serialize_json | safe }});
+        Traits.Enums.SkillType       = new Enum.Enum({{ skill_types       | serialize_json | safe }});
+
+        Traits.Objects.Attribute     = new Backbone.Collection({{ attributes      | serialize_json | safe }}, { model: Traits.Models.Attribute,     parse: true });
+        Traits.Objects.CharacterText = new Backbone.Collection({{ character_texts | serialize_json | safe }}, { model: Traits.Models.CharacterText, parse: true });
+        Traits.Objects.CombatTrait   = new Backbone.Collection({{ combat_traits   | serialize_json | safe }}, { model: Traits.Models.CombatTrait,   parse: true });
+        Traits.Objects.Derangement   = new Backbone.Collection({{ derangements    | serialize_json | safe }}, { model: Traits.Models.Derangement,   parse: true });
+        Traits.Objects.Flaw          = new Backbone.Collection({{ flaws           | serialize_json | safe }}, { model: Traits.Models.Flaw,          parse: true });
+        Traits.Objects.Merit         = new Backbone.Collection({{ merits          | serialize_json | safe }}, { model: Traits.Models.Merit,         parse: true });
+        Traits.Objects.MiscTrait     = new Backbone.Collection({{ misc_traits     | serialize_json | safe }}, { model: Traits.Models.MiscTrait,     parse: true });
+        Traits.Objects.Power         = new Backbone.Collection({{ powers          | serialize_json | safe }}, { model: Traits.Models.Power,         parse: true });
+        Traits.Objects.Skill         = new Backbone.Collection({{ skills          | serialize_json | safe }}, { model: Traits.Models.Skill,         parse: true });
+
+        Character.Objects.Character = new Character.Models.Character({{ character | serialize_json | safe }}, { parse: true });
+
+        Character.Objects.CharacterHasAttribute      = new Backbone.Collection({{ character_has_attribute       | serialize_json | safe }}, { model: Character.Models.CharacterHasAttribute,      parse: true });
+        Character.Objects.CharacterHasCombatTrait    = new Backbone.Collection({{ character_has_combat_trait    | serialize_json | safe }}, { model: Character.Models.CharacterHasCombatTrait,    parse: true });
+        Character.Objects.CharacterHasDerangement    = new Backbone.Collection({{ character_has_derangement     | serialize_json | safe }}, { model: Character.Models.CharacterHasDerangement,    parse: true });
+        Character.Objects.CharacterHasFlaw           = new Backbone.Collection({{ character_has_flaw            | serialize_json | safe }}, { model: Character.Models.CharacterHasFlaw,           parse: true });
+        Character.Objects.CharacterHasMerit          = new Backbone.Collection({{ character_has_merit           | serialize_json | safe }}, { model: Character.Models.CharacterHasMerit,          parse: true });
+        Character.Objects.CharacterHasMiscTrait      = new Backbone.Collection({{ character_has_misc_trait      | serialize_json | safe }}, { model: Character.Models.CharacterHasMiscTrait,      parse: true });
+        Character.Objects.CharacterHasPower          = new Backbone.Collection({{ character_has_power           | serialize_json | safe }}, { model: Character.Models.CharacterHasPower,          parse: true });
+        Character.Objects.CharacterHasSkill          = new Backbone.Collection({{ character_has_skill           | serialize_json | safe }}, { model: Character.Models.CharacterHasSkill,          parse: true });
+        Character.Objects.CharacterHasSkillSpecialty = new Backbone.Collection({{ character_has_skill_specialty | serialize_json | safe }}, { model: Character.Models.CharacterHasSkillSpecialty, parse: true });
+        Character.Objects.CharacterHasText           = new Backbone.Collection({{ character_has_text            | serialize_json | safe }}, { model: Character.Models.CharacterHasText,           parse: true });
+
+    </script>
 
     <header class="charsheet-header">
         <h1>{% if name %}<%= name %>{% else %}New Character{% endif %}</h1>
@@ -88,12 +178,26 @@
 
     <section id='general-character-traits'>
     </section>
+
     <section id='attributes'>
+        <h2>Attributes</h2>
+        {# TODO(emery): Determine width programatically. #}
+        <div id='mental-attributes'   style='width: 33.33333%'></div>
+        <div id='physical-attributes' style='width: 33.33333%'></div>
+        <div id='social-attributes'   style='width: 33.33333%'></div>
     </section>
+
     <section id='skills'>
+        <h2>Skills</h2>
+        {# TODO(emery): Determine width programatically. #}
+        <div id='mental-skills'   style='width: 33.33333%'></div>
+        <div id='physical-skills' style='width: 33.33333%'></div>
+        <div id='social-skills'   style='width: 33.33333%'></div>
     </section>
+
     <section id='skill-specialties'>
     </section>
+
     <div class="row">
         <section id='powers'>
         </section>
@@ -111,13 +215,81 @@
         </section>
     </div>
 
+
     {% compress js %}
     <script type='text/coffeescript'>
-        charcter_summary = new Character.Views.CharacterSummary
+    $ () ->
+        character_summary = new Character.Views.CharacterSummary
             el: $ '#general-character-traits'
             template: _.template $('#template_character-summary').html()
-            model: new Character.Models.Character({{ character | serialize_json | safe }}, { parse: true })
-        charcter_summary.render()
+            model: Character.Objects.Character
+        character_summary.render()
+
+
+        # ATTRIBUTES
+
+        attr_group_template = _.template $('#template_simple-trait-group').html()
+
+        _.each Traits.Enums.AttributeType._elements, (type) ->
+            target_id = type.name.toLowerCase() + '-attributes'
+            attributes = new Character.Views.AttributeGroup
+                el: $ '#' + target_id
+                template: attr_group_template
+                collection: new Tools.Collections.FilteredCollection(null,
+                    base_collection: Character.Objects.CharacterHasAttribute
+                    filter: (ca) ->
+                        trait = ca.get 'trait'
+                        type == trait.get 'type'
+                )
+                header: type.name
+                values: [1, 2, 3, 4, 5]
+            attributes.render()
+
+
+        # SKILLS
+
+        _.each Traits.Enums.SkillType._elements, (type) ->
+            target_id = type.name.toLowerCase() + '-skills'
+            skills = new Character.Views.AttributeGroup
+                el: $ '#' + target_id
+                template: attr_group_template
+                collection: new Tools.Collections.FilteredCollection(null,
+                    base_collection: Character.Objects.CharacterHasSkill
+                    filter: (cs) ->
+                        trait = cs.get 'trait'
+                        type is trait.get 'type'
+                )
+                header: type.name
+                values: [0, 1, 2, 3, 4, 5]
+            skills.render()
+
+
+        # SKILL SPECIALTIES
+
+        specialties = new Character.Views.SkillSpecialtySection
+            el: $ '#skill-specialties'
+            template: _.template $('#template_skill-specialties').html()
+            collection: Character.Objects.CharacterHasSkillSpecialty
+        specialties.render()
+
+
+        # POWERS
+
+        powers = new Character.Views.PowerSection
+            el: $ '#powers'
+            template: _.template $('#template_powers').html()
+            collection: Character.Objects.CharacterHasPower
+        powers.render()
+
+
+        # MERITS
+
+        merits = new Character.Views.MeritSection
+            el: $ '#merits'
+            template: _.template $('#template_merit-section').html()
+            modal_template: _.template $('#template_merit-modal').html()
+            collection: Character.Objects.CharacterHasMerit
+        merits.render()
     </script>
     {% endcompress %}
 {% endblock content %}

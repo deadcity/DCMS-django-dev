@@ -1502,8 +1502,8 @@
         "requires_specification": false,
         "name": "ST Special Merit",
         "enabled": true,
-        "allowed_ratings": "1",
-        "requires_description": false,
+        "allowed_ratings": "1,2,3,4",
+        "requires_description": true,
         "type": null
     }
 },
@@ -1959,7 +1959,7 @@
         "name": "Allies",
         "enabled": true,
         "allowed_ratings": "1,2,3,4,5",
-        "requires_description": false,
+        "requires_description": true,
         "type": 3
     }
 },
@@ -1995,7 +1995,7 @@
         "name": "Contacts",
         "enabled": true,
         "allowed_ratings": "1,2,3,4,5",
-        "requires_description": false,
+        "requires_description": true,
         "type": 3
     }
 },
@@ -2007,7 +2007,7 @@
         "name": "Debt of Gratitude (minor)",
         "enabled": true,
         "allowed_ratings": "1",
-        "requires_description": false,
+        "requires_description": true,
         "type": 3
     }
 },
@@ -2019,7 +2019,7 @@
         "name": "Debt of Gratitude (major)",
         "enabled": true,
         "allowed_ratings": "2",
-        "requires_description": false,
+        "requires_description": true,
         "type": 3
     }
 },
@@ -2031,7 +2031,7 @@
         "name": "Debt of Gratitude (blood)",
         "enabled": true,
         "allowed_ratings": "3",
-        "requires_description": false,
+        "requires_description": true,
         "type": 3
     }
 },
@@ -2067,7 +2067,7 @@
         "name": "Good Neighbors",
         "enabled": true,
         "allowed_ratings": "2",
-        "requires_description": false,
+        "requires_description": true,
         "type": 3
     }
 },
@@ -2151,7 +2151,7 @@
         "name": "Mentor",
         "enabled": true,
         "allowed_ratings": "1,2,3,4,5",
-        "requires_description": false,
+        "requires_description": true,
         "type": 3
     }
 },
@@ -2187,7 +2187,7 @@
         "name": "Personal Masquerade",
         "enabled": true,
         "allowed_ratings": "3",
-        "requires_description": false,
+        "requires_description": true,
         "type": 3
     }
 },
@@ -2199,7 +2199,7 @@
         "name": "Prestigious Sire",
         "enabled": true,
         "allowed_ratings": "1",
-        "requires_description": false,
+        "requires_description": true,
         "type": 3
     }
 },
@@ -2223,7 +2223,7 @@
         "name": "Retainer",
         "enabled": true,
         "allowed_ratings": "1,2,3,4,5",
-        "requires_description": false,
+        "requires_description": true,
         "type": 3
     }
 },
@@ -2355,7 +2355,7 @@
         "name": "Spirit Mentor",
         "enabled": true,
         "allowed_ratings": "3",
-        "requires_description": false,
+        "requires_description": true,
         "type": 4
     }
 },

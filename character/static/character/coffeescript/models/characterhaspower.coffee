@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# 2013-09-10 11:58:03.321986
+# 2013-09-09 07:34:16.755000
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -22,7 +22,7 @@ class Models_NS.CharacterHasPower extends Backbone.Model
         {
             id: parseInt raw.id, 10
             character: parseInt raw.character, 10
-            trait: Traits.Objects.Power.get parseInt raw.trait, 10
+            trait: Traits.Objects.Power.get raw.trait
         }
 
     toJSON: () ->
