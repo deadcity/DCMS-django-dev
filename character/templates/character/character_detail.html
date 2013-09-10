@@ -10,6 +10,20 @@
     {{ block.super }}
 
     <link rel='stylesheet' type='text/css' href='{% static 'character/css/character_detail.css' %}' />
+
+    <style type="text/css" media="print">
+        * {
+            color: #000 !important;
+        }
+
+        .page-header, nav {
+            display: none;
+        }
+
+        .content {
+            padding: 0;
+        }
+    </style>
 {% endblock style_includes %}
 
 
