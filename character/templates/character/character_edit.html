@@ -71,6 +71,7 @@
         <script type='text/coffeescript' src='{% static 'character/coffeescript/views/edit_derangements.coffee' %}'></script>
         <script type='text/coffeescript' src='{% static 'character/coffeescript/views/edit_flaws.coffee' %}'></script>
         <script type='text/coffeescript' src='{% static 'character/coffeescript/views/edit_merits.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'character/coffeescript/views/edit_num_trait.coffee' %}'></script>
         <script type='text/coffeescript' src='{% static 'character/coffeescript/views/edit_powers.coffee' %}'></script>
         <script type='text/coffeescript' src='{% static 'character/coffeescript/views/edit_skill_specialties.coffee' %}'></script>
     {% endcompress %}
@@ -169,6 +170,15 @@
             <% } %>
             <button name='close'>Close</button>
         </div>
+    </script>
+
+    <script type='text/html' id='template_misc-trait-section'>
+        <h2><%= header %></h2>
+        <ul class='trait-list'></ul>
+    </script>
+
+    <script type='text/html' id='template_misc-trait-item'>
+        <label><%= trait.name %> <input type='number' name='rating' value='<%= rating %>' /></label>
     </script>
 
     <script type='text/javascript'>
@@ -348,8 +358,24 @@
 
         # COMBAT
 
+        combat_traits = new Character.Views.NumberSection
+            el: $ '#combat'
+            template: _.template $('#template_misc-trait-section').html()
+            item_template: _.template $('#template_misc-trait-item').html()
+            collection: Character.Objects.CharacterHasCombatTrait
+            header: 'Combat'
+        combat_traits.render()
+
 
         # SUPERNATURAL
+
+        supernatural_traits = new Character.Views.NumberSection
+            el: $ '#supernatural'
+            template: _.template $('#template_misc-trait-section').html()
+            item_template: _.template $('#template_misc-trait-item').html()
+            collection: Character.Objects.CharacterHasMiscTrait
+            header: 'Supernatural'
+        supernatural_traits.render()
 
 
         # DERANGEMENTS
