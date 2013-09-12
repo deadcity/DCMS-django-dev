@@ -35,7 +35,7 @@
 
 #attributes h2, #attributes h3, #skills h2, #skills h3 {
 	text-align: center;
-	margin: 0;
+	margin: 0 0 10px 0;
 }
 
 #skill-specialties ul, #powers ul, #merits ul, #flaws ul, #combat ul, #supernatural ul, #derangements ul {
@@ -53,4 +53,20 @@
 .row section, .row .trait-set {
 	float: left;
 	width: 33%;
+}
+
+#mental-attributes, #physical-attributes, #social-attributes, #mental-skills, #physical-skills, #social-skills {
+	float: left;
+	width: 33%;
+}
+
+.remove {
+	color: #F00;
+	display: inline;
+	margin-left: 5px;
+}
+
+.edit {
+	margin-left: 5px;
+	display: inline;
 }
