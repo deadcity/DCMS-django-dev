@@ -102,7 +102,7 @@
     </script>
 
     <script type='text/html' id='template_skill-specialty-item'>
-        <span class='specialty-label'><%= trait.name %></span>: <%= specialty %><a class='remove'>✖</a>
+        <span class='specialty-label'><%= trait.name %></span>: <%= specialty %><div class='controls'><a class='remove'>✖</a></div>
     </script>
 
     <script type='text/html' id='template_trait-selection-section'>
@@ -112,11 +112,11 @@
     </script>
 
     <script type='text/html' id='template_power-item'>
-        <%= trait.group %> <%= trait.rating %>: <%= trait.name %><a class='remove'>✖</a>
+        <%= trait.group %> <%= trait.rating %>: <%= trait.name %><div class='controls'><a class='remove'>✖</a></div>
     </script>
 
     <script type='text/html' id='template_merit-item'>
-        <%= trait.name %> (<%= rating %>)<% if (trait.requires_specification) { %>: <%= specification %><% } %><% if (Traits.Models.Merit.prototype.requires_modal(trait)) { %> <a class='edit'>[edit]</a><% } %> <a class='remove'>✖</a>
+        <%= trait.name %> (<%= rating %>)<% if (trait.requires_specification) { %>: <%= specification %><% } %><div class='controls'><% if (Traits.Models.Merit.prototype.requires_modal(trait)) { %> <a class='edit'>[edit]</a><% } %> <a class='remove'>✖</a></div>
     </script>
 
     <script type='text/html' id='template_merit-modal'>
@@ -136,7 +136,7 @@
     </script>
 
     <script type='text/html' id='template_flaw-item'>
-        <%= trait.name %><% if (trait.requires_specification) { %>: <%= specification %><% } %><% if (Traits.Models.Flaw.prototype.requires_modal(trait)) { %> <a class='edit'>[edit]</a><% } %> <a class='remove'>✖</a>
+        <%= trait.name %><% if (trait.requires_specification) { %>: <%= specification %><% } %><div class='controls'><% if (Traits.Models.Flaw.prototype.requires_modal(trait)) { %> <a class='edit'>[edit]</a><% } %> <a class='remove'>✖</a></div>
     </script>
 
     <script type='text/html' id='template_flaw-modal'>

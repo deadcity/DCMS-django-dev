@@ -60,13 +60,24 @@
 	width: 33%;
 }
 
+.trait-list li {
+	padding-right: 35px;
+}
+
+.controls {
+	display: inline-block;
+	float: right;
+}
+
 .remove {
 	color: #F00;
 	display: inline;
 	margin-left: 5px;
+	cursor: pointer;
 }
 
 .edit {
 	margin-left: 5px;
 	display: inline;
+	cursor: pointer;
 }
