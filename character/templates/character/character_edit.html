@@ -66,14 +66,9 @@
         <script type='text/coffeescript' src='{% static 'coffeescript/collections/filtered_collection.coffee' %}'></script>
         <script type='text/coffeescript' src='{% static 'coffeescript/views/overlay.coffee' %}'></script>
         <script type='text/coffeescript' src='{% static 'coffeescript/views/rating.coffee' %}'></script>
-        <script type='text/coffeescript' src='{% static 'character/coffeescript/views/attribute_group.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'coffeescript/views/basic_views.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'character/coffeescript/views/character_edit.coffee' %}'></script>
         <script type='text/coffeescript' src='{% static 'character/coffeescript/views/edit_character_summary.coffee' %}'></script>
-        <script type='text/coffeescript' src='{% static 'character/coffeescript/views/edit_derangements.coffee' %}'></script>
-        <script type='text/coffeescript' src='{% static 'character/coffeescript/views/edit_flaws.coffee' %}'></script>
-        <script type='text/coffeescript' src='{% static 'character/coffeescript/views/edit_merits.coffee' %}'></script>
-        <script type='text/coffeescript' src='{% static 'character/coffeescript/views/edit_num_trait.coffee' %}'></script>
-        <script type='text/coffeescript' src='{% static 'character/coffeescript/views/edit_powers.coffee' %}'></script>
-        <script type='text/coffeescript' src='{% static 'character/coffeescript/views/edit_skill_specialties.coffee' %}'></script>
     {% endcompress %}
 {% endblock script_includes %}
 
@@ -92,26 +87,36 @@
     </script>
 
     <script type='text/html' id='template_simple-trait-group'>
-        <h3><%= header %></h3>
+        <<%= header_tag %>><%= header %></<%= header_tag %>>
         <ul class='trait-list'></ul>
+    </script>
+
+    <script type='text/html' id='template_rated-trait'>
+        <span class='stat-label'><%= trait.name %></span><div class='rating-container'></div>
     </script>
 
     <script type='text/html' id='template_skill-specialties'>
         <h2>Skill Specialties</h2>
-        <select name='skill'></select><input type='text' name='specialty' /><button name='add'>add</button>
+        <select name='trait'></select><input type='text' name='specialty' /><button name='add'>add</button>
         <ul class='trait-list'></ul>
     </script>
 
-    <script type='text/html' id='template_powers'>
-        <h2>Disciplines</h2>
-        <select name='power'></select><button name='add'>add</button>
+    <script type='text/html' id='template_skill-specialty-item'>
+        <span class='specialty-label'><%= trait.name %></span>: <%= specialty %><a class='remove'>[X]</a>
+    </script>
+
+    <script type='text/html' id='template_trait-selection-section'>
+        <h2><%= header %></h2>
+        <select name='trait'></select><button name='add'>add</button>
         <ul class='trait-list'></ul>
     </script>
 
-    <script type='text/html' id='template_merit-section'>
-        <h2>Merits</h2>
-        <select name='merit'></select><button name='add'>add</button>
-        <ul class='trait-list'></ul>
+    <script type='text/html' id='template_power-item'>
+        <%= trait.group %> <%= trait.rating %>: <%= trait.name %><a class='remove'>[X]</a>
+    </script>
+
+    <script type='text/html' id='template_merit-item'>
+        <%= trait.name %> (<%= rating %>)<% if (trait.requires_specification) { %>: <%= specification %><% } %><% if (Traits.Models.Merit.prototype.requires_modal(trait)) { %> <a class='edit'>[edit]</a><% } %> <a class='remove'>[X]</a>
     </script>
 
     <script type='text/html' id='template_merit-modal'>
@@ -130,10 +135,8 @@
         </div>
     </script>
 
-    <script type='text/html' id='template_flaw-section'>
-        <h2>Flaws</h2>
-        <select name='flaw'></select><button name='add'>add</button>
-        <ul class='trait-list'></ul>
+    <script type='text/html' id='template_flaw-item'>
+        <%= trait.name %><% if (trait.requires_specification) { %>: <%= specification %><% } %><% if (Traits.Models.Flaw.prototype.requires_modal(trait)) { %> <a class='edit'>[edit]</a><% } %> <a class='remove'>[X]</a>
     </script>
 
     <script type='text/html' id='template_flaw-modal'>
@@ -151,12 +154,6 @@
         </div>
     </script>
 
-    <script type='text/html' id='template_derangement-section'>
-        <h2>Derangements</h2>
-        <select name='derangement'></select><button name='add'>add</button>
-        <ul class='trait-list'></ul>
-    </script>
-
     <script type='text/html' id='template_derangement-modal'>
         <div class='modal-content'>
             <h3><%= trait.name %><% if (trait.requires_specification) { %>: <span name='specification'><%= specification %></span><% } %></h3>
@@ -172,12 +169,7 @@
         </div>
     </script>
 
-    <script type='text/html' id='template_misc-trait-section'>
-        <h2><%= header %></h2>
-        <ul class='trait-list'></ul>
-    </script>
-
-    <script type='text/html' id='template_misc-trait-item'>
+    <script type='text/html' id='template_num-trait-item'>
         <label><%= trait.name %> <input type='number' name='rating' value='<%= rating %>' /></label>
     </script>
 
@@ -280,41 +272,57 @@
         character_summary.render()
 
 
+        simple_trait_section_template = _.template $('#template_simple-trait-group').html()
+        rated_trait_template = _.template $('#template_rated-trait').html()
+
+
         # ATTRIBUTES
 
-        attr_group_template = _.template $('#template_simple-trait-group').html()
-
         _.each Traits.Enums.AttributeType._elements, (type) ->
-            target_id = type.name.toLowerCase() + '-attributes'
-            attributes = new Character.Views.AttributeGroup
-                el: $ '#' + target_id
-                template: attr_group_template
+            attributes = new Common.Views.List
+                el: $ "##{ type.name.toLowerCase() }-attributes"
                 collection: new Tools.Collections.FilteredCollection(null,
                     base_collection: Character.Objects.CharacterHasAttribute
                     filter: (ca) ->
                         trait = ca.get 'trait'
                         type == trait.get 'type'
                 )
-                header: type.name
-                values: [1, 2, 3, 4, 5]
+
+                template: simple_trait_section_template
+                template_data:
+                    header: type.name
+                    header_tag: 'h3'
+
+                ItemView: Character.Views.RatingControl
+                item_options:
+                    template: rated_trait_template
+                    values: [1, 2, 3, 4, 5]
+
             attributes.render()
 
 
         # SKILLS
 
         _.each Traits.Enums.SkillType._elements, (type) ->
-            target_id = type.name.toLowerCase() + '-skills'
-            skills = new Character.Views.AttributeGroup
-                el: $ '#' + target_id
-                template: attr_group_template
+            skills = new Common.Views.List
+                el: $ "##{ type.name.toLowerCase() }-skills"
                 collection: new Tools.Collections.FilteredCollection(null,
                     base_collection: Character.Objects.CharacterHasSkill
-                    filter: (cs) ->
-                        trait = cs.get 'trait'
-                        type is trait.get 'type'
+                    filter: (ca) ->
+                        trait = ca.get 'trait'
+                        type == trait.get 'type'
                 )
-                header: type.name
-                values: [0, 1, 2, 3, 4, 5]
+
+                template: simple_trait_section_template
+                template_data:
+                    header: type.name
+                    header_tag: 'h3'
+
+                ItemView: Character.Views.RatingControl
+                item_options:
+                    template: rated_trait_template
+                    values: [0, 1, 2, 3, 4, 5]
+
             skills.render()
 
 
@@ -324,6 +332,8 @@
             el: $ '#skill-specialties'
             template: _.template $('#template_skill-specialties').html()
             collection: Character.Objects.CharacterHasSkillSpecialty
+            item_options:
+                template: _.template $('#template_skill-specialty-item').html()
         specialties.render()
 
 
@@ -331,8 +341,12 @@
 
         powers = new Character.Views.PowerSection
             el: $ '#powers'
-            template: _.template $('#template_powers').html()
+            template: _.template $('#template_trait-selection-section').html()
+            template_data:
+                header: 'Disciplines'
             collection: Character.Objects.CharacterHasPower
+            item_options:
+                template: _.template $('#template_power-item').html()
         powers.render()
 
 
@@ -340,9 +354,16 @@
 
         merits = new Character.Views.MeritSection
             el: $ '#merits'
-            template: _.template $('#template_merit-section').html()
-            modal_template: _.template $('#template_merit-modal').html()
+            template: _.template $('#template_trait-selection-section').html()
+            template_data:
+                header: 'Merits'
             collection: Character.Objects.CharacterHasMerit
+            ItemView: Character.Views.EditableItem
+            item_options:
+                template: _.template $('#template_merit-item').html()
+                ModalView: Character.Views.TraitModal
+                modal_options:
+                    template: _.template $('#template_merit-modal').html()
         merits.render()
 
 
@@ -350,42 +371,77 @@
 
         flaws = new Character.Views.FlawSection
             el: $ '#flaws'
-            template: _.template $('#template_flaw-section').html()
-            modal_template: _.template $('#template_flaw-modal').html()
+            template: _.template $('#template_trait-selection-section').html()
+            template_data:
+                header: 'Flaws'
+
+            traits: Traits.Objects.Flaw
             collection: Character.Objects.CharacterHasFlaw
+
+            ItemView: Character.Views.EditableItem
+            item_options:
+                template: _.template $('#template_flaw-item').html()
+                ModalView: Character.Views.TraitModal
+                modal_options:
+                    template: _.template $('#template_flaw-modal').html()
         flaws.render()
 
 
         # COMBAT
 
-        combat_traits = new Character.Views.NumberSection
+        combat_traits = new Common.Views.List
             el: $ '#combat'
-            template: _.template $('#template_misc-trait-section').html()
-            item_template: _.template $('#template_misc-trait-item').html()
+            template: _.template $('#template_simple-trait-group').html()
+            template_data:
+                header: 'Combat'
+                header_tag: 'h2'
             collection: Character.Objects.CharacterHasCombatTrait
-            header: 'Combat'
+            ItemView: Character.Views.NumberTraitItem
+            item_options:
+                template: _.template $('#template_num-trait-item').html()
         combat_traits.render()
 
 
         # SUPERNATURAL
 
-        supernatural_traits = new Character.Views.NumberSection
+        supernatural_traits = new Common.Views.List
             el: $ '#supernatural'
-            template: _.template $('#template_misc-trait-section').html()
-            item_template: _.template $('#template_misc-trait-item').html()
+            template: _.template $('#template_simple-trait-group').html()
+            template_data:
+                header: 'Supernatural'
+                header_tag: 'h2'
             collection: Character.Objects.CharacterHasMiscTrait
-            header: 'Supernatural'
+            ItemView: Character.Views.NumberTraitItem
+            item_options:
+                template: _.template $('#template_num-trait-item').html()
         supernatural_traits.render()
 
 
         # DERANGEMENTS
 
-        derangements = new Character.Views.DerangementSection
+        derangements = new Character.Views.FlawSection
             el: $ '#derangements'
-            template: _.template $('#template_derangement-section').html()
-            modal_template: _.template $('#template_derangement-modal').html()
+            template: _.template $('#template_trait-selection-section').html()
+            template_data:
+                header: 'Derangements'
+
+            traits: Traits.Objects.Derangement
             collection: Character.Objects.CharacterHasDerangement
+
+            ItemView: Character.Views.EditableItem
+            item_options:
+                template: _.template $('#template_flaw-item').html()
+                ModalView: Character.Views.TraitModal
+                modal_options:
+                    template: _.template $('#template_flaw-modal').html()
         derangements.render()
+
+        # derangements = new Character.Views.DerangementSection
+        #     el: $ '#derangements'
+        #     template: _.template $('#template_derangement-section').html()
+        #     modal_template: _.template $('#template_derangement-modal').html()
+        #     collection: Character.Objects.CharacterHasDerangement
+        # derangements.render()
     </script>
     {% endcompress %}
 {% endblock content %}
