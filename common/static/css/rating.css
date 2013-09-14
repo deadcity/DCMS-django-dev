@@ -1,0 +1,38 @@
+.rating-container svg {
+    padding: 2px;
+}
+
+.rating-container .rating-value {
+    stroke: black;
+    stroke-width: 1px;
+    fill: none;
+}
+
+.rating-container .rating-value.selected {
+    fill: black;
+}
+
+.rating-container .rating-value.selected.selecting {
+    fill: red;
+}
+
+.rating-container .rating-value.selecting:not(.selected) {
+    stroke: red;
+    fill: red;
+}
+
+
+.rating-container .zero-marker {
+    stroke: none;
+    fill: black;
+}
+
+.rating-container .zero-selecting {
+    stroke: none;
+    fill: none;
+}
+
+.rating-container .zero-selecting.selecting {
+    stroke: red;
+    stroke-width: 1px;
+}
