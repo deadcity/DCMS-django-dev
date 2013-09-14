@@ -72,6 +72,10 @@
     </script>
     {% endcompress %}
 
+    <script type='text/javascript'>
+        var character_table;
+    </script>
+
     {% compress js %}
     <script type='text/coffeescript'>
         character_table = new Table.Table {
@@ -121,10 +125,10 @@
                     # TODO(emery): goto character_edit page
 
                 on_disable: () ->
-                    @model.record.save 'enabled', false, patch: true
+                    @model.record.save { 'enabled': false }, { patch: true }
 
                 on_enable: () ->
-                    @model.record.save 'enabled', true, patch: true
+                    @model.record.save { 'enabled': true}, { patch: true }
 
             row_template: _.template $('#template_table-row').html()
         }

@@ -126,7 +126,7 @@ def character_list (request):
         context = {
             'character_list' : [{
                 'character'   : character,
-                'can_submit'  : True,
+                'can_submit'  : False,
                 'can_edit'    : True,
                 'can_disable' : True,
             } for character in Character.objects.all()],

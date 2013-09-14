@@ -80,7 +80,7 @@
             <span class='label'>Character Status:</span> <%= status.name %><br />
             <span class='label'><%= creature_type.genealogy_name %>:</span> <select name='genealogy'></select><br />
             <span class='label'><%= creature_type.affiliation_name %>:</span> <select name='affiliation'></select><br />
-            <span class='label'><%= creature_type.subgroup_name %>:</span> <select name='subgroup'></select><br />
+            {# <span class='label'><%= creature_type.subgroup_name %>:</span> <select name='subgroup'></select><br /> #}
             <span class='label'>Virtue:</span> <select name='virtue'></select><br />
             <span class='label'>Vice:</span> <select name='vice'></select><br />
         </div>
@@ -170,7 +170,7 @@
     </script>
 
     <script type='text/html' id='template_num-trait-item'>
-        <label><%= trait.name %> <input type='number' name='rating' value='<%= rating %>' /></label>
+        <span class='stat-label'><%= trait.name %></span> <input class='num-trait' type='number' name='rating' value='<%= rating %>' />
     </script>
 
     <script type='text/javascript'>
@@ -218,7 +218,7 @@
     </script>
 
     <header class="charsheet-header">
-        <h1>{% if name %}<%= name %>{% else %}New Character{% endif %}</h1>
+        <h1>{% if character.name %}{{ character.name }}{% else %}New Character{% endif %}</h1>
         <p><span class='label'>Played by:</span> {{ character.user.realname }}</p>
     </header>
 

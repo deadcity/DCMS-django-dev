@@ -29,6 +29,11 @@
 	width: 100px;
 }
 
+.num-trait {
+	width: 75px;
+	margin-left: 40px;
+}
+
 .trait-list .rating-container {
 	display: inline;
 }
