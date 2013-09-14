@@ -73,7 +73,7 @@ class CharacterHasAttribute(CharacterHasTrait):
 
 class CharacterHasSkill(CharacterHasTrait):
     trait  = models.ForeignKey(trait_models.Skill)
-    rating = models.SmallIntegerField()
+    rating = models.SmallIntegerField(default = 0)
 
     class Meta(object):
         unique_together = ('character', 'trait')
@@ -127,7 +127,7 @@ class CharacterHasDerangement(CharacterHasTrait):
 
 class CharacterHasCombatTrait(CharacterHasTrait):
     trait  = models.ForeignKey(trait_models.CombatTrait)
-    rating = models.SmallIntegerField()
+    rating = models.SmallIntegerField(null = True, blank = True)
 
     class Meta(object):
         unique_together = ('character', 'trait')
@@ -136,7 +136,7 @@ class CharacterHasCombatTrait(CharacterHasTrait):
 
 class CharacterHasMiscTrait(CharacterHasTrait):
     trait       = models.ForeignKey(trait_models.MiscTrait)
-    rating      = models.SmallIntegerField()
+    rating      = models.SmallIntegerField(null = True, blank = True)
     description = models.TextField(null = True, blank = True)
 
     class Meta(object):

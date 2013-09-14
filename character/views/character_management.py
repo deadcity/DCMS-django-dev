@@ -1,5 +1,4 @@
-from django.shortcuts import render
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from django.views import generic
 
 from rest_framework.renderers import JSONRenderer
@@ -154,6 +153,32 @@ def print_all (request):
     context = { 'character_list': Character.objects.filter(status=3) }
 
     return render(request, 'character/print_all.html', context)
+
+def new_character (request):
+    character = Character(
+        user = request.user,
+        # status =
+        creature_type = CreatureType.objects.get(name = 'Vampire')
+    )
+    character.save()
+
+    for trait in Attribute.objects.all():
+        character_trait = CharacterHasAttribute(character = character, trait = trait)
+        character_trait.save()
+
+    for trait in Skill.objects.all():
+        character_trait = CharacterHasSkill(character = character, trait = trait)
+        character_trait.save()
+
+    for trait in CombatTrait.objects.all():
+        character_trait = CharacterHasCombatTrait(character = character, trait = trait)
+        character_trait.save()
+
+    for trait in MiscTrait.objects.all():
+        character_trait = CharacterHasMiscTrait(character = character, trait = trait)
+        character_trait.save()
+
+    return redirect('character_edit', permanent = True, pk = character.pk)
 
 def character_edit (request, pk):
     user = request.user
