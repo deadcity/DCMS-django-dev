@@ -11,7 +11,7 @@ def register(request):
 				user.last_name = request.POST['last_name']
 				user.first_name = request.POST['first_name']
 				user.save()
-				redirect('login', message="Your account has been created. You can now log in below.")
+				redirect('login')
 				return
 		return render(request, 'accounts/register.html')
 

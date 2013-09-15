@@ -133,13 +133,12 @@
         <ul>
             {% block nav %}
                 <li><a href='/'>Home</a></li>
-                <li><a href='#'>Link</a></li>
-                <li><a href='#'>Link</a></li>
-                <li><a href='#'>Link</a></li>
                 {% if user.is_authenticated %}
+                    <li><a href="{% url 'character_list' %}">Characters</a></li>
                     <li><a href="{% url 'logout' %}">Log Out</a></li>
                 {% else %}
                     <li><a href="{% url 'login' %}">Log In</a></li>
+                    <li><a href="{% url 'register' %}">Register</a></li>
                 {% endif %}
             {% endblock nav %}
         </ul>

@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.views import generic
+from django.contrib.auth.decorators import login_required
 
 from rest_framework.renderers import JSONRenderer
 
@@ -119,7 +120,7 @@ def add_charcter_data_to_context (context = None, **kwargs):
 
     return context
 
-
+@login_required
 def character_list (request):
     user = request.user
     if is_storyteller(user):
@@ -147,6 +148,7 @@ def character_list (request):
 
     return render(request, 'character/character_list.html', context)
 
+@login_required
 def print_all (request):
     if not is_storyteller(request.user):
         redirect('/characters')
@@ -155,6 +157,7 @@ def print_all (request):
 
     return render(request, 'character/print_all.html', context)
 
+@login_required
 def character_edit (request, pk):
     user = request.user
     context = {
@@ -162,7 +165,7 @@ def character_edit (request, pk):
         'is_storyteller': is_storyteller(user)
     }
     if (context['character'].user != user) and not is_storyteller(user):
-        redirect('/characters')
+        return redirect('/characters')
 
     add_character_enums_to_context(context)
     add_summary_data_to_context(context)
@@ -172,7 +175,17 @@ def character_edit (request, pk):
 
     return render(request, 'character/character_edit.html', context)
 
-
 class CharacterDetailView (generic.DetailView):
     model = Character
     template_name = 'character/character_detail.html'
+
+def character_detail (request, pk):
+    user = request.user
+    context = {
+        'character': Character.objects.get(pk = pk),
+        'is_storyteller': is_storyteller(user)
+    }
+    if (context['character'].user != user) and not is_storyteller(user):
+        return redirect('/characters')
+
+    return render(request, 'character/character_detail.html', context)

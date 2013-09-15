@@ -216,7 +216,6 @@
         Character.Objects.CharacterHasText           = new Backbone.Collection({{ character_has_text            | serialize_json | safe }}, { model: Character.Models.CharacterHasText,           parse: true });
 
     </script>
-
     <header class="charsheet-header">
         <h1>{% if name %}<%= name %>{% else %}New Character{% endif %}</h1>
         <p><span class='label'>Played by:</span> {{ character.user.realname }}</p>
