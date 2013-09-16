@@ -122,7 +122,6 @@ def add_charcter_data_to_context (context = None, **kwargs):
     return context
 
 
-@login_required
 def add_character_text_to_context (user, context = None, **kwargs):
     if not context:
         context = {}
@@ -135,6 +134,7 @@ def add_character_text_to_context (user, context = None, **kwargs):
     return context
 
 
+@login_required
 def character_list (request):
     user = request.user
     if is_storyteller(user):
@@ -199,7 +199,7 @@ def new_character (request):
 
     return redirect('character_edit', permanent = True, pk = character.pk)
 
-    
+
 @login_required
 def character_edit (request, pk):
     user = request.user
@@ -219,12 +219,12 @@ def character_edit (request, pk):
 
     return render(request, 'character/character_edit.html', context)
 
-    
+
 class CharacterDetailView (generic.DetailView):
     model = Character
     template_name = 'character/character_detail.html'
 
-    
+
 def character_detail (request, pk):
     user = request.user
     context = {
