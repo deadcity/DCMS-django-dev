@@ -244,3 +244,6 @@ def character_submit (request, pk):
         if character.status == 1:
             character.status == 2
             character.save()
+            messages.success(request, "Character \"%(character.name)s\" has been submitted.")
+        else:
+            messages.error(request, "Character \"%(character.name)s\" has already been submitted.")
