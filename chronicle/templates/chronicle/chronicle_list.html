@@ -1,0 +1,68 @@
+{% extends 'table_page.html' %}
+
+{% load compress %}
+{% load model_filters %}
+{% load static %}
+
+
+{% block script_includes %}
+    {{ block.super }}
+
+    <!-- chronicle -->
+    {% compress js %}
+        <script type='text/coffeescript' src='{% static 'chronicle/coffeescript/models/chronicle.coffee' %}'></script>
+    {% endcompress %}
+{% endblock script_includes %}
+
+
+{% block pretable_content %}
+    <div>
+        <button name='new-chronicle'>new chronicle</button>
+    </div>
+{% endblock pretable_content %}
+
+
+{% block table_definition %}
+    <script type='text/html' id='template_table-row'>
+        <td><%= record.name %></td>
+        <td><button name='set-default'>set as default</button></td>
+        <td><button name='details'>details</button></td>
+    </script>
+
+    {% compress js %}
+        <script type='text/coffeescript'>
+            chronicle_table = new Table.Table {
+                el: $ '#table'
+                collection: new Backbone.Collection null, {model: Chronicle.Models.Chronicle}
+
+                columns: [
+                    { header: 'name', field: 'name' }
+                    {}  # set-as-default button
+                    {}  # goto-detail button
+                ]
+
+                RowView: class extends Table.Views.Row
+                    events: () ->
+                        _.extend {}, super,
+                            'click button[name="set-default"]' : 'set_default'
+                            'click button[name="detail"]'      : 'on_detail'
+
+                    set_default: () ->
+                        # TODO(emery): Create global default-chronicle object and
+                        #              set to this chronicle.
+
+                    goto_detail: () ->
+                        # TODO(emery): goto chronicle_detail page
+
+                row_template: _.template $('#template_table-row').html()
+            }
+
+            {% for chronicle in object_list %}
+            chronicle_table.collection.add {{ chronicle|serialize_json|safe }},
+                parse: true
+            {% endfor %}
+
+            chronicle_table.render()
+        </script>
+    {% endcompress %}
+{% endblock table_definition %}
