@@ -1,0 +1,4132 @@
+[
+{
+    "pk": 1,
+    "model": "traits.attributetype",
+    "fields": {
+        "name": "Mental"
+    }
+},
+{
+    "pk": 2,
+    "model": "traits.attributetype",
+    "fields": {
+        "name": "Physical"
+    }
+},
+{
+    "pk": 3,
+    "model": "traits.attributetype",
+    "fields": {
+        "name": "Social"
+    }
+},
+{
+    "pk": 1,
+    "model": "traits.derangementtype",
+    "fields": {
+        "name": "Mild"
+    }
+},
+{
+    "pk": 2,
+    "model": "traits.derangementtype",
+    "fields": {
+        "name": "Severe"
+    }
+},
+{
+    "pk": 3,
+    "model": "traits.derangementtype",
+    "fields": {
+        "name": "Extreme"
+    }
+},
+{
+    "pk": 1,
+    "model": "traits.flawtype",
+    "fields": {
+        "name": "Mental"
+    }
+},
+{
+    "pk": 2,
+    "model": "traits.flawtype",
+    "fields": {
+        "name": "Physical"
+    }
+},
+{
+    "pk": 3,
+    "model": "traits.flawtype",
+    "fields": {
+        "name": "Social"
+    }
+},
+{
+    "pk": 4,
+    "model": "traits.flawtype",
+    "fields": {
+        "name": "Supernatural"
+    }
+},
+{
+    "pk": 1,
+    "model": "traits.merittype",
+    "fields": {
+        "name": "Mental"
+    }
+},
+{
+    "pk": 2,
+    "model": "traits.merittype",
+    "fields": {
+        "name": "Physical"
+    }
+},
+{
+    "pk": 3,
+    "model": "traits.merittype",
+    "fields": {
+        "name": "Social"
+    }
+},
+{
+    "pk": 4,
+    "model": "traits.merittype",
+    "fields": {
+        "name": "Supernatural"
+    }
+},
+{
+    "pk": 1,
+    "model": "traits.skilltype",
+    "fields": {
+        "name": "Mental"
+    }
+},
+{
+    "pk": 2,
+    "model": "traits.skilltype",
+    "fields": {
+        "name": "Physical"
+    }
+},
+{
+    "pk": 3,
+    "model": "traits.skilltype",
+    "fields": {
+        "name": "Social"
+    }
+},
+{
+    "pk": 1, 
+    "model": "traits.status", 
+    "fields": {
+        "name": "Editing"
+    }
+},
+{
+    "pk": 2, 
+    "model": "traits.status", 
+    "fields": {
+        "name": "Submitted"
+    }
+},
+{
+    "pk": 3, 
+    "model": "traits.status", 
+    "fields": {
+        "name": "Approved"
+    }
+},
+{
+    "pk": 4, 
+    "model": "traits.status", 
+    "fields": {
+        "name": "Active"
+    }
+},
+{
+    "pk": 5, 
+    "model": "traits.status", 
+    "fields": {
+        "name": "Deceased"
+    }
+},
+{
+    "pk": 6, 
+    "model": "traits.status", 
+    "fields": {
+        "name": "Inactive"
+    }
+},
+{
+    "pk": 1, 
+    "model": "traits.vice", 
+    "fields": {
+        "name": "Envy"
+    }
+},
+{
+    "pk": 1,
+    "model": "traits.vice",
+    "fields": {
+        "name": "Envy"
+    }
+},
+{
+    "pk": 2,
+    "model": "traits.vice",
+    "fields": {
+        "name": "Gluttony"
+    }
+},
+{
+    "pk": 3,
+    "model": "traits.vice",
+    "fields": {
+        "name": "Greed"
+    }
+},
+{
+    "pk": 4,
+    "model": "traits.vice",
+    "fields": {
+        "name": "Lust"
+    }
+},
+{
+    "pk": 5,
+    "model": "traits.vice",
+    "fields": {
+        "name": "Pride"
+    }
+},
+{
+    "pk": 6,
+    "model": "traits.vice",
+    "fields": {
+        "name": "Sloth"
+    }
+},
+{
+    "pk": 7,
+    "model": "traits.vice",
+    "fields": {
+        "name": "Wrath"
+    }
+},
+{
+    "pk": 1,
+    "model": "traits.virtue",
+    "fields": {
+        "name": "Charity"
+    }
+},
+{
+    "pk": 2,
+    "model": "traits.virtue",
+    "fields": {
+        "name": "Faith"
+    }
+},
+{
+    "pk": 3,
+    "model": "traits.virtue",
+    "fields": {
+        "name": "Fortitude"
+    }
+},
+{
+    "pk": 4,
+    "model": "traits.virtue",
+    "fields": {
+        "name": "Hope"
+    }
+},
+{
+    "pk": 5,
+    "model": "traits.virtue",
+    "fields": {
+        "name": "Justice"
+    }
+},
+{
+    "pk": 6,
+    "model": "traits.virtue",
+    "fields": {
+        "name": "Prudence"
+    }
+},
+{
+    "pk": 7,
+    "model": "traits.virtue",
+    "fields": {
+        "name": "Temperance"
+    }
+},
+{
+    "pk": 1,
+    "model": "traits.affiliation",
+    "fields": {
+        "enabled": true,
+        "name": "Carthian Movement"
+    }
+},
+{
+    "pk": 2,
+    "model": "traits.affiliation",
+    "fields": {
+        "enabled": true,
+        "name": "Circle of the Crone"
+    }
+},
+{
+    "pk": 3,
+    "model": "traits.affiliation",
+    "fields": {
+        "enabled": true,
+        "name": "Invictus"
+    }
+},
+{
+    "pk": 4,
+    "model": "traits.affiliation",
+    "fields": {
+        "enabled": true,
+        "name": "Lancea Sanctum"
+    }
+},
+{
+    "pk": 5,
+    "model": "traits.affiliation",
+    "fields": {
+        "enabled": true,
+        "name": "Ordo Dracul"
+    }
+},
+{
+    "pk": 6,
+    "model": "traits.affiliation",
+    "fields": {
+        "enabled": true,
+        "name": "Unaligned"
+    }
+},
+{
+    "pk": 1,
+    "model": "traits.attribute",
+    "fields": {
+        "type": 1,
+        "enabled": true,
+        "name": "Intelligence"
+    }
+},
+{
+    "pk": 2,
+    "model": "traits.attribute",
+    "fields": {
+        "type": 1,
+        "enabled": true,
+        "name": "Wits"
+    }
+},
+{
+    "pk": 3,
+    "model": "traits.attribute",
+    "fields": {
+        "type": 1,
+        "enabled": true,
+        "name": "Resolve"
+    }
+},
+{
+    "pk": 4,
+    "model": "traits.attribute",
+    "fields": {
+        "type": 2,
+        "enabled": true,
+        "name": "Strength"
+    }
+},
+{
+    "pk": 5,
+    "model": "traits.attribute",
+    "fields": {
+        "type": 2,
+        "enabled": true,
+        "name": "Dexterity"
+    }
+},
+{
+    "pk": 6,
+    "model": "traits.attribute",
+    "fields": {
+        "type": 2,
+        "enabled": true,
+        "name": "Stamina"
+    }
+},
+{
+    "pk": 7,
+    "model": "traits.attribute",
+    "fields": {
+        "type": 3,
+        "enabled": true,
+        "name": "Presence"
+    }
+},
+{
+    "pk": 8,
+    "model": "traits.attribute",
+    "fields": {
+        "type": 3,
+        "enabled": true,
+        "name": "Manipulation"
+    }
+},
+{
+    "pk": 9,
+    "model": "traits.attribute",
+    "fields": {
+        "type": 3,
+        "enabled": true,
+        "name": "Composure"
+    }
+},
+{
+    "pk": 1,
+    "model": "traits.charactertext",
+    "fields": {
+        "enabled": true,
+        "name": "Backstory",
+        "hide_from_player": false
+    }
+},
+{
+    "pk": 2,
+    "model": "traits.charactertext",
+    "fields": {
+        "enabled": true,
+        "name": "Feeding Habits",
+        "hide_from_player": false
+    }
+},
+{
+    "pk": 3,
+    "model": "traits.charactertext",
+    "fields": {
+        "enabled": true,
+        "name": "Wishlist",
+        "hide_from_player": false
+    }
+},
+{
+    "pk": 4,
+    "model": "traits.charactertext",
+    "fields": {
+        "enabled": true,
+        "name": "ST Notes",
+        "hide_from_player": false
+    }
+},
+{
+    "pk": 1,
+    "model": "traits.combattrait",
+    "fields": {
+        "enabled": true,
+        "name": "Acting Speed"
+    }
+},
+{
+    "pk": 2,
+    "model": "traits.combattrait",
+    "fields": {
+        "enabled": true,
+        "name": "Armor"
+    }
+},
+{
+    "pk": 3,
+    "model": "traits.combattrait",
+    "fields": {
+        "enabled": true,
+        "name": "Defense"
+    }
+},
+{
+    "pk": 4,
+    "model": "traits.combattrait",
+    "fields": {
+        "enabled": true,
+        "name": "Health"
+    }
+},
+{
+    "pk": 5,
+    "model": "traits.combattrait",
+    "fields": {
+        "enabled": true,
+        "name": "Initiative"
+    }
+},
+{
+    "pk": 6,
+    "model": "traits.combattrait",
+    "fields": {
+        "enabled": true,
+        "name": "Running Speed"
+    }
+},
+{
+    "pk": 7,
+    "model": "traits.combattrait",
+    "fields": {
+        "enabled": true,
+        "name": "Size"
+    }
+},
+{
+    "pk": 1,
+    "model": "traits.creaturetype",
+    "fields": {
+        "subgroup_name": null,
+        "name": "mortal",
+        "genealogy_name": null,
+        "enabled": true,
+        "power_name": null,
+        "affiliation_name": null
+    }
+},
+{
+    "pk": 2,
+    "model": "traits.creaturetype",
+    "fields": {
+        "subgroup_name": null,
+        "name": "Ghoul",
+        "genealogy_name": null,
+        "enabled": true,
+        "power_name": "Discipline",
+        "affiliation_name": "Covenant"
+    }
+},
+{
+    "pk": 3,
+    "model": "traits.creaturetype",
+    "fields": {
+        "subgroup_name": "Bloodline",
+        "name": "Vampire",
+        "genealogy_name": "Clan",
+        "enabled": true,
+        "power_name": "Discipline",
+        "affiliation_name": "Covenant"
+    }
+},
+{
+    "pk": 1,
+    "model": "traits.derangement",
+    "fields": {
+        "type": 1,
+        "enabled": true,
+        "name": "Avoidance",
+        "requires_specification": true
+    }
+},
+{
+    "pk": 2,
+    "model": "traits.derangement",
+    "fields": {
+        "type": 1,
+        "enabled": true,
+        "name": "Depression",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 3,
+    "model": "traits.derangement",
+    "fields": {
+        "type": 1,
+        "enabled": true,
+        "name": "Fixation",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 4,
+    "model": "traits.derangement",
+    "fields": {
+        "type": 1,
+        "enabled": true,
+        "name": "Inferiority Complex",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 5,
+    "model": "traits.derangement",
+    "fields": {
+        "type": 1,
+        "enabled": true,
+        "name": "Irrationality",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 6,
+    "model": "traits.derangement",
+    "fields": {
+        "type": 1,
+        "enabled": true,
+        "name": "Narcissism",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 7,
+    "model": "traits.derangement",
+    "fields": {
+        "type": 1,
+        "enabled": true,
+        "name": "Phobia",
+        "requires_specification": true
+    }
+},
+{
+    "pk": 8,
+    "model": "traits.derangement",
+    "fields": {
+        "type": 1,
+        "enabled": true,
+        "name": "Sadism",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 9,
+    "model": "traits.derangement",
+    "fields": {
+        "type": 1,
+        "enabled": true,
+        "name": "Suspicion",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 10,
+    "model": "traits.derangement",
+    "fields": {
+        "type": 1,
+        "enabled": true,
+        "name": "Vocalization",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 11,
+    "model": "traits.derangement",
+    "fields": {
+        "type": 2,
+        "enabled": true,
+        "name": "Anxiety",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 12,
+    "model": "traits.derangement",
+    "fields": {
+        "type": 2,
+        "enabled": true,
+        "name": "Hysteria",
+        "requires_specification": true
+    }
+},
+{
+    "pk": 13,
+    "model": "traits.derangement",
+    "fields": {
+        "type": 2,
+        "enabled": true,
+        "name": "Megalomania",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 14,
+    "model": "traits.derangement",
+    "fields": {
+        "type": 2,
+        "enabled": true,
+        "name": "Melancholia",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 15,
+    "model": "traits.derangement",
+    "fields": {
+        "type": 2,
+        "enabled": true,
+        "name": "Obsessive Compulsive",
+        "requires_specification": true
+    }
+},
+{
+    "pk": 16,
+    "model": "traits.derangement",
+    "fields": {
+        "type": 2,
+        "enabled": true,
+        "name": "Paranoia",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 17,
+    "model": "traits.derangement",
+    "fields": {
+        "type": 3,
+        "enabled": true,
+        "name": "Fugue",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 18,
+    "model": "traits.derangement",
+    "fields": {
+        "type": 3,
+        "enabled": true,
+        "name": "Multiple Personality",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 19,
+    "model": "traits.derangement",
+    "fields": {
+        "type": 3,
+        "enabled": true,
+        "name": "Schizophrenia",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 1,
+    "model": "traits.flaw",
+    "fields": {
+        "type": null,
+        "requires_description": false,
+        "enabled": true,
+        "name": "ST Special Flaw",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 2,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 1,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Addiction",
+        "requires_specification": true
+    }
+},
+{
+    "pk": 3,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 1,
+        "requires_description": true,
+        "enabled": true,
+        "name": "Amnesia",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 4,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 1,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Coward",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 5,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 1,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Forgetful",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 6,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 1,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Guild Wracked",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 7,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 1,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Illiterate",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 8,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 1,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Lunacy",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 9,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 1,
+        "requires_description": true,
+        "enabled": true,
+        "name": "Nightmares",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 10,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 1,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Phobia",
+        "requires_specification": true
+    }
+},
+{
+    "pk": 11,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 1,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Prey Exclusion",
+        "requires_specification": true
+    }
+},
+{
+    "pk": 12,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 1,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Soft-Hearted",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 13,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 1,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Short Fuse",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 14,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 1,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Thirst for Innocence",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 15,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 1,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Territorial",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 16,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 1,
+        "requires_description": true,
+        "enabled": true,
+        "name": "Vengeful",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 17,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 1,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Weak-Willed",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 18,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 2,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Blind",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 19,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 2,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Child",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 20,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 2,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Conspicuous Consumption",
+        "requires_specification": true
+    }
+},
+{
+    "pk": 21,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 2,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Crippled",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 22,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 2,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Deaf",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 23,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 2,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Deep Sleeper",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 24,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 2,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Disease Carrier",
+        "requires_specification": true
+    }
+},
+{
+    "pk": 25,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 2,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Distinguishing Characteristic",
+        "requires_specification": true
+    }
+},
+{
+    "pk": 26,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 2,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Dulled Bite",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 27,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 2,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Flesh of the Corpse",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 28,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 2,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Hard of Hearing",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 29,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 2,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Infectious Bite",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 30,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 2,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Lame",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 31,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 2,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Mute",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 32,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 2,
+        "requires_description": false,
+        "enabled": true,
+        "name": "One Arm",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 33,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 2,
+        "requires_description": false,
+        "enabled": true,
+        "name": "One Eye",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 34,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 2,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Permanent Wound",
+        "requires_specification": true
+    }
+},
+{
+    "pk": 35,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 2,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Slow Healing",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 36,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 2,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Thin Blood",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 37,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 3,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Aloof",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 38,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 3,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Behavior Blind",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 39,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 3,
+        "requires_description": true,
+        "enabled": true,
+        "name": "Criminal Record",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 40,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 3,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Deformity",
+        "requires_specification": true
+    }
+},
+{
+    "pk": 41,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 3,
+        "requires_description": true,
+        "enabled": true,
+        "name": "Embarrassing Secret",
+        "requires_specification": true
+    }
+},
+{
+    "pk": 42,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 3,
+        "requires_description": true,
+        "enabled": true,
+        "name": "Enemy",
+        "requires_specification": true
+    }
+},
+{
+    "pk": 43,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 3,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Foreigner",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 44,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 3,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Honest to a Fault",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 45,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 3,
+        "requires_description": true,
+        "enabled": true,
+        "name": "Hunted",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 46,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 3,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Infamous Sire",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 47,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 3,
+        "requires_description": true,
+        "enabled": true,
+        "name": "Infamy",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 48,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 3,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Intolerable Neighbors",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 49,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 3,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Mistaken Identity",
+        "requires_specification": true
+    }
+},
+{
+    "pk": 50,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 3,
+        "requires_description": true,
+        "enabled": true,
+        "name": "Mortal Lover/Child",
+        "requires_specification": true
+    }
+},
+{
+    "pk": 51,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 3,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Nosy Neighbors",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 52,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 3,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Notoriety",
+        "requires_specification": true
+    }
+},
+{
+    "pk": 53,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 3,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Probationary Sect Member",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 54,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 3,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Racist/Sexist",
+        "requires_specification": true
+    }
+},
+{
+    "pk": 55,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 3,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Shy",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 56,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 3,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Sires Resentment",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 57,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 3,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Speech Impediment",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 58,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 3,
+        "requires_description": true,
+        "enabled": true,
+        "name": "Wanted by Law Enforcement",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 59,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 4,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Bacon of the Unholy",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 60,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 4,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Cant Cross Running Water",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 61,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 4,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Cast no Reflection",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 62,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 4,
+        "requires_description": true,
+        "enabled": true,
+        "name": "Cursed",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 63,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 4,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Dark Fate",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 64,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 4,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Eerie Presence",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 65,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 4,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Grip of the Damned",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 66,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 4,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Haunted",
+        "requires_specification": true
+    }
+},
+{
+    "pk": 67,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 4,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Infertile Vitae",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 68,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 4,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Light-Sensitive",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 69,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 4,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Obvious Predator",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 70,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 4,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Repelled by Crosses",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 71,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 4,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Repulsed by Garlic",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 72,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 4,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Touch of Frost",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 1,
+    "model": "traits.genealogy",
+    "fields": {
+        "enabled": true,
+        "name": "Daeva"
+    }
+},
+{
+    "pk": 2,
+    "model": "traits.genealogy",
+    "fields": {
+        "enabled": true,
+        "name": "Gangrel"
+    }
+},
+{
+    "pk": 3,
+    "model": "traits.genealogy",
+    "fields": {
+        "enabled": true,
+        "name": "Mekhet"
+    }
+},
+{
+    "pk": 4,
+    "model": "traits.genealogy",
+    "fields": {
+        "enabled": true,
+        "name": "Nosferatu"
+    }
+},
+{
+    "pk": 5,
+    "model": "traits.genealogy",
+    "fields": {
+        "enabled": true,
+        "name": "Ventrue"
+    }
+},
+{
+    "pk": 1,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "ST Special Merit",
+        "enabled": true,
+        "allowed_ratings": "1,2,3,4",
+        "requires_description": true,
+        "type": null
+    }
+},
+{
+    "pk": 2,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Calm Heart",
+        "enabled": true,
+        "allowed_ratings": "3",
+        "requires_description": false,
+        "type": 1
+    }
+},
+{
+    "pk": 3,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Code of Honor",
+        "enabled": true,
+        "allowed_ratings": "0",
+        "requires_description": false,
+        "type": 1
+    }
+},
+{
+    "pk": 4,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Common Sense",
+        "enabled": true,
+        "allowed_ratings": "1",
+        "requires_description": false,
+        "type": 1
+    }
+},
+{
+    "pk": 5,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Danger Sense",
+        "enabled": true,
+        "allowed_ratings": "2",
+        "requires_description": false,
+        "type": 1
+    }
+},
+{
+    "pk": 6,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Eidetic Memory",
+        "enabled": true,
+        "allowed_ratings": "0",
+        "requires_description": false,
+        "type": 1
+    }
+},
+{
+    "pk": 7,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Encyclopedic Knowledge",
+        "enabled": true,
+        "allowed_ratings": "4",
+        "requires_description": false,
+        "type": 1
+    }
+},
+{
+    "pk": 8,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Fast Reader",
+        "enabled": true,
+        "allowed_ratings": "1",
+        "requires_description": false,
+        "type": 1
+    }
+},
+{
+    "pk": 9,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Holistic Awareness",
+        "enabled": true,
+        "allowed_ratings": "3",
+        "requires_description": false,
+        "type": 1
+    }
+},
+{
+    "pk": 10,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Iron Will",
+        "enabled": true,
+        "allowed_ratings": "3",
+        "requires_description": false,
+        "type": 1
+    }
+},
+{
+    "pk": 11,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": true,
+        "name": "Language",
+        "enabled": true,
+        "allowed_ratings": "1",
+        "requires_description": false,
+        "type": 1
+    }
+},
+{
+    "pk": 12,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Meditative Mind",
+        "enabled": true,
+        "allowed_ratings": "1",
+        "requires_description": false,
+        "type": 1
+    }
+},
+{
+    "pk": 13,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Natural Linguist",
+        "enabled": true,
+        "allowed_ratings": "2",
+        "requires_description": false,
+        "type": 1
+    }
+},
+{
+    "pk": 14,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": true,
+        "name": "Special License",
+        "enabled": true,
+        "allowed_ratings": "2",
+        "requires_description": false,
+        "type": 1
+    }
+},
+{
+    "pk": 15,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Time Sense",
+        "enabled": true,
+        "allowed_ratings": "1",
+        "requires_description": false,
+        "type": 1
+    }
+},
+{
+    "pk": 16,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Unseen Sense",
+        "enabled": true,
+        "allowed_ratings": "3",
+        "requires_description": false,
+        "type": 1
+    }
+},
+{
+    "pk": 17,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": true,
+        "name": "Acute Sense",
+        "enabled": true,
+        "allowed_ratings": "1",
+        "requires_description": false,
+        "type": 2
+    }
+},
+{
+    "pk": 18,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Ambidextrous",
+        "enabled": true,
+        "allowed_ratings": "3",
+        "requires_description": false,
+        "type": 2
+    }
+},
+{
+    "pk": 19,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Blush of Health",
+        "enabled": true,
+        "allowed_ratings": "2",
+        "requires_description": false,
+        "type": 2
+    }
+},
+{
+    "pk": 20,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Brawling Dodge",
+        "enabled": true,
+        "allowed_ratings": "1",
+        "requires_description": false,
+        "type": 2
+    }
+},
+{
+    "pk": 21,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Catlike Balance",
+        "enabled": true,
+        "allowed_ratings": "1",
+        "requires_description": false,
+        "type": 2
+    }
+},
+{
+    "pk": 22,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Dardevil",
+        "enabled": true,
+        "allowed_ratings": "3",
+        "requires_description": false,
+        "type": 2
+    }
+},
+{
+    "pk": 23,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Direction Sense",
+        "enabled": true,
+        "allowed_ratings": "1",
+        "requires_description": false,
+        "type": 2
+    }
+},
+{
+    "pk": 24,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Disarm",
+        "enabled": true,
+        "allowed_ratings": "2",
+        "requires_description": false,
+        "type": 2
+    }
+},
+{
+    "pk": 25,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Eat Food",
+        "enabled": true,
+        "allowed_ratings": "1",
+        "requires_description": false,
+        "type": 2
+    }
+},
+{
+    "pk": 26,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Fast Reflexes",
+        "enabled": true,
+        "allowed_ratings": "1",
+        "requires_description": false,
+        "type": 2
+    }
+},
+{
+    "pk": 27,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": true,
+        "name": "Fighting Finesse",
+        "enabled": true,
+        "allowed_ratings": "2",
+        "requires_description": false,
+        "type": 2
+    }
+},
+{
+    "pk": 28,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Fighting Style: Boxing",
+        "enabled": true,
+        "allowed_ratings": "1,2,3,4,5",
+        "requires_description": false,
+        "type": 2
+    }
+},
+{
+    "pk": 29,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Fighting Style: Kung Fu",
+        "enabled": true,
+        "allowed_ratings": "1,2,3,4,5",
+        "requires_description": false,
+        "type": 2
+    }
+},
+{
+    "pk": 30,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Fighting Style: Two Weapons",
+        "enabled": true,
+        "allowed_ratings": "1,2,3,4,5",
+        "requires_description": false,
+        "type": 2
+    }
+},
+{
+    "pk": 31,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Fleet of Foot",
+        "enabled": true,
+        "allowed_ratings": "1",
+        "requires_description": false,
+        "type": 2
+    }
+},
+{
+    "pk": 32,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Giant",
+        "enabled": true,
+        "allowed_ratings": "4",
+        "requires_description": false,
+        "type": 2
+    }
+},
+{
+    "pk": 33,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Gunsliger",
+        "enabled": true,
+        "allowed_ratings": "3",
+        "requires_description": false,
+        "type": 2
+    }
+},
+{
+    "pk": 34,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Iron Stamina",
+        "enabled": true,
+        "allowed_ratings": "1",
+        "requires_description": false,
+        "type": 2
+    }
+},
+{
+    "pk": 35,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": true,
+        "name": "Quick Draw",
+        "enabled": true,
+        "allowed_ratings": "1",
+        "requires_description": false,
+        "type": 2
+    }
+},
+{
+    "pk": 36,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Strong Back",
+        "enabled": true,
+        "allowed_ratings": "1",
+        "requires_description": false,
+        "type": 2
+    }
+},
+{
+    "pk": 37,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Stunt Driver",
+        "enabled": true,
+        "allowed_ratings": "3",
+        "requires_description": false,
+        "type": 2
+    }
+},
+{
+    "pk": 38,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Weaponry Dodge",
+        "enabled": true,
+        "allowed_ratings": "1",
+        "requires_description": false,
+        "type": 2
+    }
+},
+{
+    "pk": 39,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": true,
+        "name": "Allies",
+        "enabled": true,
+        "allowed_ratings": "1,2,3,4,5",
+        "requires_description": true,
+        "type": 3
+    }
+},
+{
+    "pk": 40,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Barfly",
+        "enabled": true,
+        "allowed_ratings": "1",
+        "requires_description": false,
+        "type": 3
+    }
+},
+{
+    "pk": 41,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Compassionate",
+        "enabled": true,
+        "allowed_ratings": "2",
+        "requires_description": false,
+        "type": 3
+    }
+},
+{
+    "pk": 42,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": true,
+        "name": "Contacts",
+        "enabled": true,
+        "allowed_ratings": "1,2,3,4,5",
+        "requires_description": true,
+        "type": 3
+    }
+},
+{
+    "pk": 43,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Debt of Gratitude (minor)",
+        "enabled": true,
+        "allowed_ratings": "1",
+        "requires_description": true,
+        "type": 3
+    }
+},
+{
+    "pk": 44,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Debt of Gratitude (major)",
+        "enabled": true,
+        "allowed_ratings": "2",
+        "requires_description": true,
+        "type": 3
+    }
+},
+{
+    "pk": 45,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Debt of Gratitude (blood)",
+        "enabled": true,
+        "allowed_ratings": "3",
+        "requires_description": true,
+        "type": 3
+    }
+},
+{
+    "pk": 46,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Enchanting Voice",
+        "enabled": true,
+        "allowed_ratings": "2",
+        "requires_description": false,
+        "type": 3
+    }
+},
+{
+    "pk": 47,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Fame",
+        "enabled": true,
+        "allowed_ratings": "1",
+        "requires_description": false,
+        "type": 3
+    }
+},
+{
+    "pk": 48,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Good Neighbors",
+        "enabled": true,
+        "allowed_ratings": "2",
+        "requires_description": true,
+        "type": 3
+    }
+},
+{
+    "pk": 49,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Great Liar",
+        "enabled": true,
+        "allowed_ratings": "2",
+        "requires_description": false,
+        "type": 3
+    }
+},
+{
+    "pk": 50,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Haven Location",
+        "enabled": true,
+        "allowed_ratings": "1,2,3,4,5",
+        "requires_description": false,
+        "type": 3
+    }
+},
+{
+    "pk": 51,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Haven Security",
+        "enabled": true,
+        "allowed_ratings": "1,2,3,4,5",
+        "requires_description": false,
+        "type": 3
+    }
+},
+{
+    "pk": 52,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Haven Size",
+        "enabled": true,
+        "allowed_ratings": "1,2,3,4,5",
+        "requires_description": false,
+        "type": 3
+    }
+},
+{
+    "pk": 53,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Herd",
+        "enabled": true,
+        "allowed_ratings": "1,2,3,4,5",
+        "requires_description": false,
+        "type": 3
+    }
+},
+{
+    "pk": 54,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Inspiring",
+        "enabled": true,
+        "allowed_ratings": "4",
+        "requires_description": false,
+        "type": 3
+    }
+},
+{
+    "pk": 55,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": true,
+        "name": "Mentor",
+        "enabled": true,
+        "allowed_ratings": "1,2,3,4,5",
+        "requires_description": true,
+        "type": 3
+    }
+},
+{
+    "pk": 56,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Mortal ID",
+        "enabled": true,
+        "allowed_ratings": "2",
+        "requires_description": false,
+        "type": 3
+    }
+},
+{
+    "pk": 57,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Optimistic",
+        "enabled": true,
+        "allowed_ratings": "4",
+        "requires_description": false,
+        "type": 3
+    }
+},
+{
+    "pk": 58,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Personal Masquerade",
+        "enabled": true,
+        "allowed_ratings": "3",
+        "requires_description": true,
+        "type": 3
+    }
+},
+{
+    "pk": 59,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Prestigious Sire",
+        "enabled": true,
+        "allowed_ratings": "1",
+        "requires_description": true,
+        "type": 3
+    }
+},
+{
+    "pk": 60,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Resources",
+        "enabled": true,
+        "allowed_ratings": "1,2,3,4,5",
+        "requires_description": false,
+        "type": 3
+    }
+},
+{
+    "pk": 61,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": true,
+        "name": "Retainer",
+        "enabled": true,
+        "allowed_ratings": "1,2,3,4,5",
+        "requires_description": true,
+        "type": 3
+    }
+},
+{
+    "pk": 62,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Status: City",
+        "enabled": true,
+        "allowed_ratings": "1,2,3,4,5",
+        "requires_description": false,
+        "type": 3
+    }
+},
+{
+    "pk": 63,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Status: Clan",
+        "enabled": true,
+        "allowed_ratings": "1,2,3,4,5",
+        "requires_description": false,
+        "type": 3
+    }
+},
+{
+    "pk": 64,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Status: Covenant",
+        "enabled": true,
+        "allowed_ratings": "1,2,3,4,5",
+        "requires_description": false,
+        "type": 3
+    }
+},
+{
+    "pk": 65,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Striking Looks",
+        "enabled": true,
+        "allowed_ratings": "2,4",
+        "requires_description": false,
+        "type": 3
+    }
+},
+{
+    "pk": 66,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Bright Aura",
+        "enabled": true,
+        "allowed_ratings": "1",
+        "requires_description": false,
+        "type": 4
+    }
+},
+{
+    "pk": 67,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Lucky",
+        "enabled": true,
+        "allowed_ratings": "0",
+        "requires_description": false,
+        "type": 4
+    }
+},
+{
+    "pk": 68,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Magic Resistance",
+        "enabled": true,
+        "allowed_ratings": "0",
+        "requires_description": false,
+        "type": 4
+    }
+},
+{
+    "pk": 69,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Medium",
+        "enabled": true,
+        "allowed_ratings": "2",
+        "requires_description": false,
+        "type": 4
+    }
+},
+{
+    "pk": 70,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Nine Lives",
+        "enabled": true,
+        "allowed_ratings": "0",
+        "requires_description": false,
+        "type": 4
+    }
+},
+{
+    "pk": 71,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Oracular Ability",
+        "enabled": true,
+        "allowed_ratings": "4",
+        "requires_description": false,
+        "type": 4
+    }
+},
+{
+    "pk": 72,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Spirit Mentor",
+        "enabled": true,
+        "allowed_ratings": "3",
+        "requires_description": true,
+        "type": 4
+    }
+},
+{
+    "pk": 73,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Sympathetic Bond",
+        "enabled": true,
+        "allowed_ratings": "0",
+        "requires_description": false,
+        "type": 4
+    }
+},
+{
+    "pk": 74,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "True Faith",
+        "enabled": true,
+        "allowed_ratings": "0",
+        "requires_description": false,
+        "type": 4
+    }
+},
+{
+    "pk": 75,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "True Love",
+        "enabled": true,
+        "allowed_ratings": "4",
+        "requires_description": false,
+        "type": 4
+    }
+},
+{
+    "pk": 76,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Unbondable",
+        "enabled": true,
+        "allowed_ratings": "0",
+        "requires_description": false,
+        "type": 4
+    }
+},
+{
+    "pk": 1,
+    "model": "traits.misctrait",
+    "fields": {
+        "requires_description": false,
+        "enabled": true,
+        "name": "Willpower"
+    }
+},
+{
+    "pk": 2,
+    "model": "traits.misctrait",
+    "fields": {
+        "requires_description": false,
+        "enabled": true,
+        "name": "Humanity"
+    }
+},
+{
+    "pk": 3,
+    "model": "traits.misctrait",
+    "fields": {
+        "requires_description": false,
+        "enabled": true,
+        "name": "Blood Potency"
+    }
+},
+{
+    "pk": 1,
+    "model": "traits.power",
+    "fields": {
+        "rating": 1,
+        "enabled": true,
+        "name": "Feral Whispers",
+        "group": "Animalism"
+    }
+},
+{
+    "pk": 2,
+    "model": "traits.power",
+    "fields": {
+        "rating": 2,
+        "enabled": true,
+        "name": "Obedience",
+        "group": "Animalism"
+    }
+},
+{
+    "pk": 3,
+    "model": "traits.power",
+    "fields": {
+        "rating": 3,
+        "enabled": true,
+        "name": "Call of the Wild",
+        "group": "Animalism"
+    }
+},
+{
+    "pk": 4,
+    "model": "traits.power",
+    "fields": {
+        "rating": 4,
+        "enabled": true,
+        "name": "Subsume the Lesser Spirit",
+        "group": "Animalism"
+    }
+},
+{
+    "pk": 5,
+    "model": "traits.power",
+    "fields": {
+        "rating": 5,
+        "enabled": true,
+        "name": "Leashing the Beast",
+        "group": "Animalism"
+    }
+},
+{
+    "pk": 6,
+    "model": "traits.power",
+    "fields": {
+        "rating": 1,
+        "enabled": true,
+        "name": "Heightened Senses",
+        "group": "Auspex"
+    }
+},
+{
+    "pk": 7,
+    "model": "traits.power",
+    "fields": {
+        "rating": 2,
+        "enabled": true,
+        "name": "Aura Perception",
+        "group": "Auspex"
+    }
+},
+{
+    "pk": 8,
+    "model": "traits.power",
+    "fields": {
+        "rating": 3,
+        "enabled": true,
+        "name": "The Spirits Touch",
+        "group": "Auspex"
+    }
+},
+{
+    "pk": 9,
+    "model": "traits.power",
+    "fields": {
+        "rating": 4,
+        "enabled": true,
+        "name": "Telepathy",
+        "group": "Auspex"
+    }
+},
+{
+    "pk": 10,
+    "model": "traits.power",
+    "fields": {
+        "rating": 5,
+        "enabled": true,
+        "name": "Twilight Projection",
+        "group": "Auspex"
+    }
+},
+{
+    "pk": 11,
+    "model": "traits.power",
+    "fields": {
+        "rating": 1,
+        "enabled": true,
+        "name": "Celerity 1",
+        "group": "Celerity"
+    }
+},
+{
+    "pk": 12,
+    "model": "traits.power",
+    "fields": {
+        "rating": 2,
+        "enabled": true,
+        "name": "Celerity 2",
+        "group": "Celerity"
+    }
+},
+{
+    "pk": 13,
+    "model": "traits.power",
+    "fields": {
+        "rating": 3,
+        "enabled": true,
+        "name": "Celerity 3",
+        "group": "Celerity"
+    }
+},
+{
+    "pk": 14,
+    "model": "traits.power",
+    "fields": {
+        "rating": 4,
+        "enabled": true,
+        "name": "Celerity 4",
+        "group": "Celerity"
+    }
+},
+{
+    "pk": 15,
+    "model": "traits.power",
+    "fields": {
+        "rating": 5,
+        "enabled": true,
+        "name": "Celerity 5",
+        "group": "Celerity"
+    }
+},
+{
+    "pk": 16,
+    "model": "traits.power",
+    "fields": {
+        "rating": 1,
+        "enabled": true,
+        "name": "Conquer the Red Fear",
+        "group": "Coil of Banes"
+    }
+},
+{
+    "pk": 17,
+    "model": "traits.power",
+    "fields": {
+        "rating": 2,
+        "enabled": true,
+        "name": "Surmounting the Daysleep",
+        "group": "Coil of Banes"
+    }
+},
+{
+    "pk": 18,
+    "model": "traits.power",
+    "fields": {
+        "rating": 3,
+        "enabled": true,
+        "name": "Suns Forgotten Kiss",
+        "group": "Coil of Banes"
+    }
+},
+{
+    "pk": 19,
+    "model": "traits.power",
+    "fields": {
+        "rating": 1,
+        "enabled": true,
+        "name": "Blood Seeps Slowly",
+        "group": "Coil of Blood"
+    }
+},
+{
+    "pk": 20,
+    "model": "traits.power",
+    "fields": {
+        "rating": 2,
+        "enabled": true,
+        "name": "Blood of Beasts",
+        "group": "Coil of Blood"
+    }
+},
+{
+    "pk": 21,
+    "model": "traits.power",
+    "fields": {
+        "rating": 3,
+        "enabled": true,
+        "name": "Perspicacious Blood",
+        "group": "Coil of Blood"
+    }
+},
+{
+    "pk": 22,
+    "model": "traits.power",
+    "fields": {
+        "rating": 1,
+        "enabled": true,
+        "name": "Chastise the Beast",
+        "group": "Coil of the Beast"
+    }
+},
+{
+    "pk": 23,
+    "model": "traits.power",
+    "fields": {
+        "rating": 2,
+        "enabled": true,
+        "name": "Lure the Beast",
+        "group": "Coil of the Beast"
+    }
+},
+{
+    "pk": 24,
+    "model": "traits.power",
+    "fields": {
+        "rating": 3,
+        "enabled": true,
+        "name": "Exhaust the Beast",
+        "group": "Coil of the Beast"
+    }
+},
+{
+    "pk": 25,
+    "model": "traits.power",
+    "fields": {
+        "rating": 1,
+        "enabled": true,
+        "name": "The Man Wakes",
+        "group": "Coil of the Flesh"
+    }
+},
+{
+    "pk": 26,
+    "model": "traits.power",
+    "fields": {
+        "rating": 2,
+        "enabled": true,
+        "name": "A Taste of Life",
+        "group": "Coil of the Flesh"
+    }
+},
+{
+    "pk": 27,
+    "model": "traits.power",
+    "fields": {
+        "rating": 3,
+        "enabled": true,
+        "name": "The Face of Man",
+        "group": "Coil of the Flesh"
+    }
+},
+{
+    "pk": 28,
+    "model": "traits.power",
+    "fields": {
+        "rating": 1,
+        "enabled": true,
+        "name": "Enliven the Face",
+        "group": "Coil of the Soul"
+    }
+},
+{
+    "pk": 29,
+    "model": "traits.power",
+    "fields": {
+        "rating": 2,
+        "enabled": true,
+        "name": "Salve the Mind",
+        "group": "Coil of the Soul"
+    }
+},
+{
+    "pk": 30,
+    "model": "traits.power",
+    "fields": {
+        "rating": 3,
+        "enabled": true,
+        "name": "Quiet the Soul",
+        "group": "Coil of the Soul"
+    }
+},
+{
+    "pk": 31,
+    "model": "traits.power",
+    "fields": {
+        "rating": 1,
+        "enabled": true,
+        "name": "Cruac 1",
+        "group": "Cruac"
+    }
+},
+{
+    "pk": 32,
+    "model": "traits.power",
+    "fields": {
+        "rating": 2,
+        "enabled": true,
+        "name": "Cruac 2",
+        "group": "Cruac"
+    }
+},
+{
+    "pk": 33,
+    "model": "traits.power",
+    "fields": {
+        "rating": 3,
+        "enabled": true,
+        "name": "Cruac 3",
+        "group": "Cruac"
+    }
+},
+{
+    "pk": 34,
+    "model": "traits.power",
+    "fields": {
+        "rating": 4,
+        "enabled": true,
+        "name": "Cruac 4",
+        "group": "Cruac"
+    }
+},
+{
+    "pk": 35,
+    "model": "traits.power",
+    "fields": {
+        "rating": 5,
+        "enabled": true,
+        "name": "Cruac 5",
+        "group": "Cruac"
+    }
+},
+{
+    "pk": 36,
+    "model": "traits.power",
+    "fields": {
+        "rating": 1,
+        "enabled": true,
+        "name": "Confidence in Adversity",
+        "group": "Cruac Ritual"
+    }
+},
+{
+    "pk": 37,
+    "model": "traits.power",
+    "fields": {
+        "rating": 1,
+        "enabled": true,
+        "name": "Drops of Destiny",
+        "group": "Cruac Ritual"
+    }
+},
+{
+    "pk": 38,
+    "model": "traits.power",
+    "fields": {
+        "rating": 1,
+        "enabled": true,
+        "name": "Fires of Inspiration",
+        "group": "Cruac Ritual"
+    }
+},
+{
+    "pk": 39,
+    "model": "traits.power",
+    "fields": {
+        "rating": 1,
+        "enabled": true,
+        "name": "Pangs of Proserpina",
+        "group": "Cruac Ritual"
+    }
+},
+{
+    "pk": 40,
+    "model": "traits.power",
+    "fields": {
+        "rating": 1,
+        "enabled": true,
+        "name": "Rigor Mortis",
+        "group": "Cruac Ritual"
+    }
+},
+{
+    "pk": 41,
+    "model": "traits.power",
+    "fields": {
+        "rating": 1,
+        "enabled": true,
+        "name": "Taste of Knowledge",
+        "group": "Cruac Ritual"
+    }
+},
+{
+    "pk": 42,
+    "model": "traits.power",
+    "fields": {
+        "rating": 1,
+        "enabled": true,
+        "name": "Visage of the Crone",
+        "group": "Cruac Ritual"
+    }
+},
+{
+    "pk": 43,
+    "model": "traits.power",
+    "fields": {
+        "rating": 2,
+        "enabled": true,
+        "name": "Cheval",
+        "group": "Cruac Ritual"
+    }
+},
+{
+    "pk": 44,
+    "model": "traits.power",
+    "fields": {
+        "rating": 2,
+        "enabled": true,
+        "name": "Maiden Skin",
+        "group": "Cruac Ritual"
+    }
+},
+{
+    "pk": 45,
+    "model": "traits.power",
+    "fields": {
+        "rating": 2,
+        "enabled": true,
+        "name": "Path of Thorns",
+        "group": "Cruac Ritual"
+    }
+},
+{
+    "pk": 46,
+    "model": "traits.power",
+    "fields": {
+        "rating": 2,
+        "enabled": true,
+        "name": "Souls Work",
+        "group": "Cruac Ritual"
+    }
+},
+{
+    "pk": 47,
+    "model": "traits.power",
+    "fields": {
+        "rating": 2,
+        "enabled": true,
+        "name": "Succulent Buboes",
+        "group": "Cruac Ritual"
+    }
+},
+{
+    "pk": 48,
+    "model": "traits.power",
+    "fields": {
+        "rating": 2,
+        "enabled": true,
+        "name": "The Hydras Vitae",
+        "group": "Cruac Ritual"
+    }
+},
+{
+    "pk": 49,
+    "model": "traits.power",
+    "fields": {
+        "rating": 2,
+        "enabled": true,
+        "name": "Wisdom of the Soul",
+        "group": "Cruac Ritual"
+    }
+},
+{
+    "pk": 50,
+    "model": "traits.power",
+    "fields": {
+        "rating": 3,
+        "enabled": true,
+        "name": "Beloved Deodand",
+        "group": "Cruac Ritual"
+    }
+},
+{
+    "pk": 51,
+    "model": "traits.power",
+    "fields": {
+        "rating": 3,
+        "enabled": true,
+        "name": "Deflection of Wooden Doom",
+        "group": "Cruac Ritual"
+    }
+},
+{
+    "pk": 52,
+    "model": "traits.power",
+    "fields": {
+        "rating": 3,
+        "enabled": true,
+        "name": "Final Service of the Slave",
+        "group": "Cruac Ritual"
+    }
+},
+{
+    "pk": 53,
+    "model": "traits.power",
+    "fields": {
+        "rating": 3,
+        "enabled": true,
+        "name": "Rain",
+        "group": "Cruac Ritual"
+    }
+},
+{
+    "pk": 54,
+    "model": "traits.power",
+    "fields": {
+        "rating": 3,
+        "enabled": true,
+        "name": "Taste of Destiny",
+        "group": "Cruac Ritual"
+    }
+},
+{
+    "pk": 55,
+    "model": "traits.power",
+    "fields": {
+        "rating": 3,
+        "enabled": true,
+        "name": "Tiamats Offspring",
+        "group": "Cruac Ritual"
+    }
+},
+{
+    "pk": 56,
+    "model": "traits.power",
+    "fields": {
+        "rating": 3,
+        "enabled": true,
+        "name": "Touch of the Morrigan",
+        "group": "Cruac Ritual"
+    }
+},
+{
+    "pk": 57,
+    "model": "traits.power",
+    "fields": {
+        "rating": 4,
+        "enabled": true,
+        "name": "Blood Price",
+        "group": "Cruac Ritual"
+    }
+},
+{
+    "pk": 58,
+    "model": "traits.power",
+    "fields": {
+        "rating": 4,
+        "enabled": true,
+        "name": "Eye of the Norn",
+        "group": "Cruac Ritual"
+    }
+},
+{
+    "pk": 59,
+    "model": "traits.power",
+    "fields": {
+        "rating": 4,
+        "enabled": true,
+        "name": "Font of Wisdom",
+        "group": "Cruac Ritual"
+    }
+},
+{
+    "pk": 60,
+    "model": "traits.power",
+    "fields": {
+        "rating": 4,
+        "enabled": true,
+        "name": "Mask of Blood",
+        "group": "Cruac Ritual"
+    }
+},
+{
+    "pk": 61,
+    "model": "traits.power",
+    "fields": {
+        "rating": 4,
+        "enabled": true,
+        "name": "Sacrifice of Odin",
+        "group": "Cruac Ritual"
+    }
+},
+{
+    "pk": 62,
+    "model": "traits.power",
+    "fields": {
+        "rating": 4,
+        "enabled": true,
+        "name": "Willful Vitae",
+        "group": "Cruac Ritual"
+    }
+},
+{
+    "pk": 63,
+    "model": "traits.power",
+    "fields": {
+        "rating": 5,
+        "enabled": true,
+        "name": "A Child from the Stones",
+        "group": "Cruac Ritual"
+    }
+},
+{
+    "pk": 64,
+    "model": "traits.power",
+    "fields": {
+        "rating": 5,
+        "enabled": true,
+        "name": "As One",
+        "group": "Cruac Ritual"
+    }
+},
+{
+    "pk": 65,
+    "model": "traits.power",
+    "fields": {
+        "rating": 5,
+        "enabled": true,
+        "name": "Blood Blight",
+        "group": "Cruac Ritual"
+    }
+},
+{
+    "pk": 66,
+    "model": "traits.power",
+    "fields": {
+        "rating": 5,
+        "enabled": true,
+        "name": "Crones Renewal",
+        "group": "Cruac Ritual"
+    }
+},
+{
+    "pk": 67,
+    "model": "traits.power",
+    "fields": {
+        "rating": 5,
+        "enabled": true,
+        "name": "Feeding the Crone",
+        "group": "Cruac Ritual"
+    }
+},
+{
+    "pk": 68,
+    "model": "traits.power",
+    "fields": {
+        "rating": 5,
+        "enabled": true,
+        "name": "Roving Hut",
+        "group": "Cruac Ritual"
+    }
+},
+{
+    "pk": 69,
+    "model": "traits.power",
+    "fields": {
+        "rating": 1,
+        "enabled": true,
+        "name": "Command",
+        "group": "Dominate"
+    }
+},
+{
+    "pk": 70,
+    "model": "traits.power",
+    "fields": {
+        "rating": 2,
+        "enabled": true,
+        "name": "Mesmerize",
+        "group": "Dominate"
+    }
+},
+{
+    "pk": 71,
+    "model": "traits.power",
+    "fields": {
+        "rating": 3,
+        "enabled": true,
+        "name": "The Forgetful Mind",
+        "group": "Dominate"
+    }
+},
+{
+    "pk": 72,
+    "model": "traits.power",
+    "fields": {
+        "rating": 4,
+        "enabled": true,
+        "name": "Conditioning",
+        "group": "Dominate"
+    }
+},
+{
+    "pk": 73,
+    "model": "traits.power",
+    "fields": {
+        "rating": 5,
+        "enabled": true,
+        "name": "Possession",
+        "group": "Dominate"
+    }
+},
+{
+    "pk": 74,
+    "model": "traits.power",
+    "fields": {
+        "rating": 1,
+        "enabled": true,
+        "name": "Awe",
+        "group": "Majesty"
+    }
+},
+{
+    "pk": 75,
+    "model": "traits.power",
+    "fields": {
+        "rating": 2,
+        "enabled": true,
+        "name": "Revelation",
+        "group": "Majesty"
+    }
+},
+{
+    "pk": 76,
+    "model": "traits.power",
+    "fields": {
+        "rating": 3,
+        "enabled": true,
+        "name": "Entrancement",
+        "group": "Majesty"
+    }
+},
+{
+    "pk": 77,
+    "model": "traits.power",
+    "fields": {
+        "rating": 4,
+        "enabled": true,
+        "name": "Summoning",
+        "group": "Majesty"
+    }
+},
+{
+    "pk": 78,
+    "model": "traits.power",
+    "fields": {
+        "rating": 5,
+        "enabled": true,
+        "name": "Sovereignty",
+        "group": "Majesty"
+    }
+},
+{
+    "pk": 79,
+    "model": "traits.power",
+    "fields": {
+        "rating": 1,
+        "enabled": true,
+        "name": "Monstrous Countenance",
+        "group": "Nightmare"
+    }
+},
+{
+    "pk": 80,
+    "model": "traits.power",
+    "fields": {
+        "rating": 2,
+        "enabled": true,
+        "name": "Dread",
+        "group": "Nightmare"
+    }
+},
+{
+    "pk": 81,
+    "model": "traits.power",
+    "fields": {
+        "rating": 3,
+        "enabled": true,
+        "name": "Eye of the Beast",
+        "group": "Nightmare"
+    }
+},
+{
+    "pk": 82,
+    "model": "traits.power",
+    "fields": {
+        "rating": 4,
+        "enabled": true,
+        "name": "Shatter the Mind",
+        "group": "Nightmare"
+    }
+},
+{
+    "pk": 83,
+    "model": "traits.power",
+    "fields": {
+        "rating": 5,
+        "enabled": true,
+        "name": "Mortal Fear",
+        "group": "Nightmare"
+    }
+},
+{
+    "pk": 84,
+    "model": "traits.power",
+    "fields": {
+        "rating": 1,
+        "enabled": true,
+        "name": "Touch of Shadow",
+        "group": "Obfuscate"
+    }
+},
+{
+    "pk": 85,
+    "model": "traits.power",
+    "fields": {
+        "rating": 2,
+        "enabled": true,
+        "name": "Mask of Tranquility",
+        "group": "Obfuscate"
+    }
+},
+{
+    "pk": 86,
+    "model": "traits.power",
+    "fields": {
+        "rating": 3,
+        "enabled": true,
+        "name": "Cloak of Night",
+        "group": "Obfuscate"
+    }
+},
+{
+    "pk": 87,
+    "model": "traits.power",
+    "fields": {
+        "rating": 4,
+        "enabled": true,
+        "name": "The Familiar Stranger",
+        "group": "Obfuscate"
+    }
+},
+{
+    "pk": 88,
+    "model": "traits.power",
+    "fields": {
+        "rating": 5,
+        "enabled": true,
+        "name": "Cloak the Gathering",
+        "group": "Obfuscate"
+    }
+},
+{
+    "pk": 89,
+    "model": "traits.power",
+    "fields": {
+        "rating": 1,
+        "enabled": true,
+        "name": "Aspect of the Predator",
+        "group": "Protean"
+    }
+},
+{
+    "pk": 90,
+    "model": "traits.power",
+    "fields": {
+        "rating": 2,
+        "enabled": true,
+        "name": "Haven of Soil",
+        "group": "Protean"
+    }
+},
+{
+    "pk": 91,
+    "model": "traits.power",
+    "fields": {
+        "rating": 3,
+        "enabled": true,
+        "name": "Claws of the Wild",
+        "group": "Protean"
+    }
+},
+{
+    "pk": 92,
+    "model": "traits.power",
+    "fields": {
+        "rating": 4,
+        "enabled": true,
+        "name": "Shape of the Beast",
+        "group": "Protean"
+    }
+},
+{
+    "pk": 93,
+    "model": "traits.power",
+    "fields": {
+        "rating": 5,
+        "enabled": true,
+        "name": "Body of Spirit",
+        "group": "Protean"
+    }
+},
+{
+    "pk": 94,
+    "model": "traits.power",
+    "fields": {
+        "rating": 1,
+        "enabled": true,
+        "name": "Resilience 1",
+        "group": "Resilience"
+    }
+},
+{
+    "pk": 95,
+    "model": "traits.power",
+    "fields": {
+        "rating": 2,
+        "enabled": true,
+        "name": "Resilience 2",
+        "group": "Resilience"
+    }
+},
+{
+    "pk": 96,
+    "model": "traits.power",
+    "fields": {
+        "rating": 3,
+        "enabled": true,
+        "name": "Resilience 3",
+        "group": "Resilience"
+    }
+},
+{
+    "pk": 97,
+    "model": "traits.power",
+    "fields": {
+        "rating": 4,
+        "enabled": true,
+        "name": "Resilience 4",
+        "group": "Resilience"
+    }
+},
+{
+    "pk": 98,
+    "model": "traits.power",
+    "fields": {
+        "rating": 5,
+        "enabled": true,
+        "name": "Resilience 5",
+        "group": "Resilience"
+    }
+},
+{
+    "pk": 99,
+    "model": "traits.power",
+    "fields": {
+        "rating": 1,
+        "enabled": true,
+        "name": "Theban Sorcery 1",
+        "group": "Theban Sorcery"
+    }
+},
+{
+    "pk": 100,
+    "model": "traits.power",
+    "fields": {
+        "rating": 2,
+        "enabled": true,
+        "name": "Theban Sorcery 2",
+        "group": "Theban Sorcery"
+    }
+},
+{
+    "pk": 101,
+    "model": "traits.power",
+    "fields": {
+        "rating": 3,
+        "enabled": true,
+        "name": "Theban Sorcery 3",
+        "group": "Theban Sorcery"
+    }
+},
+{
+    "pk": 102,
+    "model": "traits.power",
+    "fields": {
+        "rating": 4,
+        "enabled": true,
+        "name": "Theban Sorcery 4",
+        "group": "Theban Sorcery"
+    }
+},
+{
+    "pk": 103,
+    "model": "traits.power",
+    "fields": {
+        "rating": 5,
+        "enabled": true,
+        "name": "Theban Sorcery 5",
+        "group": "Theban Sorcery"
+    }
+},
+{
+    "pk": 104,
+    "model": "traits.power",
+    "fields": {
+        "rating": 1,
+        "enabled": true,
+        "name": "Blood Scourge",
+        "group": "Theban Sorcery Ritual"
+    }
+},
+{
+    "pk": 105,
+    "model": "traits.power",
+    "fields": {
+        "rating": 1,
+        "enabled": true,
+        "name": "Celibacy",
+        "group": "Theban Sorcery Ritual"
+    }
+},
+{
+    "pk": 106,
+    "model": "traits.power",
+    "fields": {
+        "rating": 1,
+        "enabled": true,
+        "name": "Crown of Thorns",
+        "group": "Theban Sorcery Ritual"
+    }
+},
+{
+    "pk": 107,
+    "model": "traits.power",
+    "fields": {
+        "rating": 1,
+        "enabled": true,
+        "name": "Hauberk of Blood",
+        "group": "Theban Sorcery Ritual"
+    }
+},
+{
+    "pk": 108,
+    "model": "traits.power",
+    "fields": {
+        "rating": 1,
+        "enabled": true,
+        "name": "Sinner Song",
+        "group": "Theban Sorcery Ritual"
+    }
+},
+{
+    "pk": 109,
+    "model": "traits.power",
+    "fields": {
+        "rating": 1,
+        "enabled": true,
+        "name": "Theban Inscription",
+        "group": "Theban Sorcery Ritual"
+    }
+},
+{
+    "pk": 110,
+    "model": "traits.power",
+    "fields": {
+        "rating": 1,
+        "enabled": true,
+        "name": "Vitae Reliquary",
+        "group": "Theban Sorcery Ritual"
+    }
+},
+{
+    "pk": 111,
+    "model": "traits.power",
+    "fields": {
+        "rating": 2,
+        "enabled": true,
+        "name": "Bird of Sin",
+        "group": "Theban Sorcery Ritual"
+    }
+},
+{
+    "pk": 112,
+    "model": "traits.power",
+    "fields": {
+        "rating": 2,
+        "enabled": true,
+        "name": "Curse of Babel",
+        "group": "Theban Sorcery Ritual"
+    }
+},
+{
+    "pk": 113,
+    "model": "traits.power",
+    "fields": {
+        "rating": 2,
+        "enabled": true,
+        "name": "Damned Radiance",
+        "group": "Theban Sorcery Ritual"
+    }
+},
+{
+    "pk": 114,
+    "model": "traits.power",
+    "fields": {
+        "rating": 2,
+        "enabled": true,
+        "name": "Liars Plague",
+        "group": "Theban Sorcery Ritual"
+    }
+},
+{
+    "pk": 115,
+    "model": "traits.power",
+    "fields": {
+        "rating": 2,
+        "enabled": true,
+        "name": "Prison of Denial",
+        "group": "Theban Sorcery Ritual"
+    }
+},
+{
+    "pk": 116,
+    "model": "traits.power",
+    "fields": {
+        "rating": 2,
+        "enabled": true,
+        "name": "Resistance",
+        "group": "Theban Sorcery Ritual"
+    }
+},
+{
+    "pk": 117,
+    "model": "traits.power",
+    "fields": {
+        "rating": 2,
+        "enabled": true,
+        "name": "Sanctity",
+        "group": "Theban Sorcery Ritual"
+    }
+},
+{
+    "pk": 118,
+    "model": "traits.power",
+    "fields": {
+        "rating": 3,
+        "enabled": true,
+        "name": "Blandishment of Sin",
+        "group": "Theban Sorcery Ritual"
+    }
+},
+{
+    "pk": 119,
+    "model": "traits.power",
+    "fields": {
+        "rating": 3,
+        "enabled": true,
+        "name": "Blood Fire",
+        "group": "Theban Sorcery Ritual"
+    }
+},
+{
+    "pk": 120,
+    "model": "traits.power",
+    "fields": {
+        "rating": 3,
+        "enabled": true,
+        "name": "Lash Beyond Death",
+        "group": "Theban Sorcery Ritual"
+    }
+},
+{
+    "pk": 121,
+    "model": "traits.power",
+    "fields": {
+        "rating": 3,
+        "enabled": true,
+        "name": "Legionnaires Blessing",
+        "group": "Theban Sorcery Ritual"
+    }
+},
+{
+    "pk": 122,
+    "model": "traits.power",
+    "fields": {
+        "rating": 3,
+        "enabled": true,
+        "name": "Malediction of Despair",
+        "group": "Theban Sorcery Ritual"
+    }
+},
+{
+    "pk": 123,
+    "model": "traits.power",
+    "fields": {
+        "rating": 3,
+        "enabled": true,
+        "name": "Pharaohs Paces",
+        "group": "Theban Sorcery Ritual"
+    }
+},
+{
+    "pk": 124,
+    "model": "traits.power",
+    "fields": {
+        "rating": 3,
+        "enabled": true,
+        "name": "Vision of the Will",
+        "group": "Theban Sorcery Ritual"
+    }
+},
+{
+    "pk": 125,
+    "model": "traits.power",
+    "fields": {
+        "rating": 4,
+        "enabled": true,
+        "name": "Call of Amoniel",
+        "group": "Theban Sorcery Ritual"
+    }
+},
+{
+    "pk": 126,
+    "model": "traits.power",
+    "fields": {
+        "rating": 4,
+        "enabled": true,
+        "name": "Display of the Beast",
+        "group": "Theban Sorcery Ritual"
+    }
+},
+{
+    "pk": 127,
+    "model": "traits.power",
+    "fields": {
+        "rating": 4,
+        "enabled": true,
+        "name": "Gift of Lazarus",
+        "group": "Theban Sorcery Ritual"
+    }
+},
+{
+    "pk": 128,
+    "model": "traits.power",
+    "fields": {
+        "rating": 4,
+        "enabled": true,
+        "name": "Mark of the Damned",
+        "group": "Theban Sorcery Ritual"
+    }
+},
+{
+    "pk": 129,
+    "model": "traits.power",
+    "fields": {
+        "rating": 4,
+        "enabled": true,
+        "name": "Song of the Prey",
+        "group": "Theban Sorcery Ritual"
+    }
+},
+{
+    "pk": 130,
+    "model": "traits.power",
+    "fields": {
+        "rating": 4,
+        "enabled": true,
+        "name": "Spear of Faith",
+        "group": "Theban Sorcery Ritual"
+    }
+},
+{
+    "pk": 131,
+    "model": "traits.power",
+    "fields": {
+        "rating": 4,
+        "enabled": true,
+        "name": "Stigmata",
+        "group": "Theban Sorcery Ritual"
+    }
+},
+{
+    "pk": 132,
+    "model": "traits.power",
+    "fields": {
+        "rating": 5,
+        "enabled": true,
+        "name": "Damneds Day",
+        "group": "Theban Sorcery Ritual"
+    }
+},
+{
+    "pk": 133,
+    "model": "traits.power",
+    "fields": {
+        "rating": 5,
+        "enabled": true,
+        "name": "Fires of Vengeance",
+        "group": "Theban Sorcery Ritual"
+    }
+},
+{
+    "pk": 134,
+    "model": "traits.power",
+    "fields": {
+        "rating": 5,
+        "enabled": true,
+        "name": "Imprecation of Sin",
+        "group": "Theban Sorcery Ritual"
+    }
+},
+{
+    "pk": 135,
+    "model": "traits.power",
+    "fields": {
+        "rating": 5,
+        "enabled": true,
+        "name": "Night of Hell",
+        "group": "Theban Sorcery Ritual"
+    }
+},
+{
+    "pk": 136,
+    "model": "traits.power",
+    "fields": {
+        "rating": 5,
+        "enabled": true,
+        "name": "Rain of Blood",
+        "group": "Theban Sorcery Ritual"
+    }
+},
+{
+    "pk": 137,
+    "model": "traits.power",
+    "fields": {
+        "rating": 5,
+        "enabled": true,
+        "name": "Transubstantiation",
+        "group": "Theban Sorcery Ritual"
+    }
+},
+{
+    "pk": 138,
+    "model": "traits.power",
+    "fields": {
+        "rating": 5,
+        "enabled": true,
+        "name": "Wrathful Judgement",
+        "group": "Theban Sorcery Ritual"
+    }
+},
+{
+    "pk": 139,
+    "model": "traits.power",
+    "fields": {
+        "rating": 1,
+        "enabled": true,
+        "name": "Vigor 1",
+        "group": "Vigor"
+    }
+},
+{
+    "pk": 140,
+    "model": "traits.power",
+    "fields": {
+        "rating": 2,
+        "enabled": true,
+        "name": "Vigor 2",
+        "group": "Vigor"
+    }
+},
+{
+    "pk": 141,
+    "model": "traits.power",
+    "fields": {
+        "rating": 3,
+        "enabled": true,
+        "name": "Vigor 3",
+        "group": "Vigor"
+    }
+},
+{
+    "pk": 142,
+    "model": "traits.power",
+    "fields": {
+        "rating": 4,
+        "enabled": true,
+        "name": "Vigor 4",
+        "group": "Vigor"
+    }
+},
+{
+    "pk": 143,
+    "model": "traits.power",
+    "fields": {
+        "rating": 5,
+        "enabled": true,
+        "name": "Vigor 5",
+        "group": "Vigor"
+    }
+},
+{
+    "pk": 1,
+    "model": "traits.skill",
+    "fields": {
+        "type": 1,
+        "enabled": true,
+        "name": "Academics"
+    }
+},
+{
+    "pk": 2,
+    "model": "traits.skill",
+    "fields": {
+        "type": 1,
+        "enabled": true,
+        "name": "Computer"
+    }
+},
+{
+    "pk": 3,
+    "model": "traits.skill",
+    "fields": {
+        "type": 1,
+        "enabled": true,
+        "name": "Crafts"
+    }
+},
+{
+    "pk": 4,
+    "model": "traits.skill",
+    "fields": {
+        "type": 1,
+        "enabled": true,
+        "name": "Investigation"
+    }
+},
+{
+    "pk": 5,
+    "model": "traits.skill",
+    "fields": {
+        "type": 1,
+        "enabled": true,
+        "name": "Medicine"
+    }
+},
+{
+    "pk": 6,
+    "model": "traits.skill",
+    "fields": {
+        "type": 1,
+        "enabled": true,
+        "name": "Occult"
+    }
+},
+{
+    "pk": 7,
+    "model": "traits.skill",
+    "fields": {
+        "type": 1,
+        "enabled": true,
+        "name": "Politics"
+    }
+},
+{
+    "pk": 8,
+    "model": "traits.skill",
+    "fields": {
+        "type": 1,
+        "enabled": true,
+        "name": "Science"
+    }
+},
+{
+    "pk": 9,
+    "model": "traits.skill",
+    "fields": {
+        "type": 2,
+        "enabled": true,
+        "name": "Athletics"
+    }
+},
+{
+    "pk": 10,
+    "model": "traits.skill",
+    "fields": {
+        "type": 2,
+        "enabled": true,
+        "name": "Brawl"
+    }
+},
+{
+    "pk": 11,
+    "model": "traits.skill",
+    "fields": {
+        "type": 2,
+        "enabled": true,
+        "name": "Drive"
+    }
+},
+{
+    "pk": 12,
+    "model": "traits.skill",
+    "fields": {
+        "type": 2,
+        "enabled": true,
+        "name": "Firearms"
+    }
+},
+{
+    "pk": 13,
+    "model": "traits.skill",
+    "fields": {
+        "type": 2,
+        "enabled": true,
+        "name": "Larceny"
+    }
+},
+{
+    "pk": 14,
+    "model": "traits.skill",
+    "fields": {
+        "type": 2,
+        "enabled": true,
+        "name": "Stealth"
+    }
+},
+{
+    "pk": 15,
+    "model": "traits.skill",
+    "fields": {
+        "type": 2,
+        "enabled": true,
+        "name": "Survival"
+    }
+},
+{
+    "pk": 16,
+    "model": "traits.skill",
+    "fields": {
+        "type": 2,
+        "enabled": true,
+        "name": "Weaponry"
+    }
+},
+{
+    "pk": 17,
+    "model": "traits.skill",
+    "fields": {
+        "type": 3,
+        "enabled": true,
+        "name": "Animal Ken"
+    }
+},
+{
+    "pk": 18,
+    "model": "traits.skill",
+    "fields": {
+        "type": 3,
+        "enabled": true,
+        "name": "Empathy"
+    }
+},
+{
+    "pk": 19,
+    "model": "traits.skill",
+    "fields": {
+        "type": 3,
+        "enabled": true,
+        "name": "Expression"
+    }
+},
+{
+    "pk": 20,
+    "model": "traits.skill",
+    "fields": {
+        "type": 3,
+        "enabled": true,
+        "name": "Intimidation"
+    }
+},
+{
+    "pk": 21,
+    "model": "traits.skill",
+    "fields": {
+        "type": 3,
+        "enabled": true,
+        "name": "Persuasion"
+    }
+},
+{
+    "pk": 22,
+    "model": "traits.skill",
+    "fields": {
+        "type": 3,
+        "enabled": true,
+        "name": "Socialize"
+    }
+},
+{
+    "pk": 23,
+    "model": "traits.skill",
+    "fields": {
+        "type": 3,
+        "enabled": true,
+        "name": "Streetwise"
+    }
+},
+{
+    "pk": 24,
+    "model": "traits.skill",
+    "fields": {
+        "type": 3,
+        "enabled": true,
+        "name": "Subterfuge"
+    }
+}
+]
