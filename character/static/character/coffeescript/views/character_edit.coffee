@@ -99,6 +99,14 @@ class Views.NumberTraitItem extends Common.Views.Control
         @_change_field 'rating', e.target.value, { construct: @_constructors.int }
 
 
+class Views.CharacterTextItem extends Common.Views.Control
+    events:
+        'change textarea' : 'save_text'
+
+    save_text: (e) ->
+        @_change_field 'text', e.target.value
+
+
 class Views.SkillSpecialtySection extends Common.Views.ListSelection
     initialize: (options) ->
         super

@@ -119,6 +119,17 @@ def add_charcter_data_to_context (context = None, **kwargs):
     return context
 
 
+def add_character_text_to_context (user, context = None, **kwargs):
+    if not context:
+        context = {}
+
+    if is_storyteller(user):
+        context['character_has_text'] = CharacterHasText.objects.filter(**kwargs)
+    else:
+        context['character_has_text'] = CharacterHasText.objects.filter(trait__hide_from_player = False, **kwargs)
+
+    return context
+
 def character_list (request):
     user = request.user
     if is_storyteller(user):
@@ -163,20 +174,19 @@ def new_character (request):
     character.save()
 
     for trait in Attribute.objects.all():
-        character_trait = CharacterHasAttribute(character = character, trait = trait)
-        character_trait.save()
+        CharacterHasAttribute(character = character, trait = trait).save()
 
     for trait in Skill.objects.all():
-        character_trait = CharacterHasSkill(character = character, trait = trait)
-        character_trait.save()
+        CharacterHasSkill(character = character, trait = trait).save()
 
     for trait in CombatTrait.objects.all():
-        character_trait = CharacterHasCombatTrait(character = character, trait = trait)
-        character_trait.save()
+        CharacterHasCombatTrait(character = character, trait = trait).save()
 
     for trait in MiscTrait.objects.all():
-        character_trait = CharacterHasMiscTrait(character = character, trait = trait)
-        character_trait.save()
+        CharacterHasMiscTrait(character = character, trait = trait).save()
+
+    for trait in CharacterText.objects.all():
+        CharacterHasText(character = character, trait = trait).save()
 
     return redirect('character_edit', permanent = True, pk = character.pk)
 
@@ -194,6 +204,7 @@ def character_edit (request, pk):
     add_trait_enums_to_context(context)
     add_trait_data_to_context(context)
     add_charcter_data_to_context(context, character__id = pk)
+    add_character_text_to_context(user, context, character__id = pk)
 
     return render(request, 'character/character_edit.html', context)
 
