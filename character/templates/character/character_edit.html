@@ -80,14 +80,14 @@
             <span class='label'>Character Status:</span> <%= status.name %><br />
             <span class='label'><%= creature_type.genealogy_name %>:</span> <select name='genealogy'></select><br />
             <span class='label'><%= creature_type.affiliation_name %>:</span> <select name='affiliation'></select><br />
-            <span class='label'><%= creature_type.subgroup_name %>:</span> <select name='subgroup'></select><br />
+            {# <span class='label'><%= creature_type.subgroup_name %>:</span> <select name='subgroup'></select><br /> #}
             <span class='label'>Virtue:</span> <select name='virtue'></select><br />
             <span class='label'>Vice:</span> <select name='vice'></select><br />
         </div>
     </script>
 
     <script type='text/html' id='template_simple-trait-group'>
-        <<%= header_tag %>><%= header %></<%= header_tag %>>
+        <% if (typeof header_tag != 'undefined') { %><<%= header_tag %>><%= header %></<%= header_tag %>><% } %>
         <ul class='trait-list'></ul>
     </script>
 
@@ -170,7 +170,12 @@
     </script>
 
     <script type='text/html' id='template_num-trait-item'>
-        <label><%= trait.name %> <input type='number' name='rating' value='<%= rating %>' /></label>
+        <span class='stat-label'><%= trait.name %></span> <input class='num-trait' type='number' name='rating' value='<%= rating %>' />
+    </script>
+
+    <script type='text/html' id='template_character-text'>
+        <h2><%= trait.name %></h2>
+        <textarea rows='20' cols='110'><%= text %></textarea>
     </script>
 
     <script type='text/javascript'>
@@ -217,7 +222,7 @@
 
     </script>
     <header class="charsheet-header">
-        <h1>{% if name %}<%= name %>{% else %}New Character{% endif %}</h1>
+        <h1>{% if character.name %}{{ character.name }}{% else %}New Character{% endif %}</h1>
         <p><span class='label'>Played by:</span> {{ character.user.realname }}</p>
     </header>
 
@@ -251,6 +256,7 @@
         <section id='flaws'>
         </section>
     </div>
+
     <div class="row">
         <section id='combat'>
         </section>
@@ -258,6 +264,9 @@
         </section>
         <section id='derangements'>
         </section>
+    </div>
+
+    <div id='character-texts'>
     </div>
 
 
@@ -435,12 +444,18 @@
                     template: _.template $('#template_flaw-modal').html()
         derangements.render()
 
-        # derangements = new Character.Views.DerangementSection
-        #     el: $ '#derangements'
-        #     template: _.template $('#template_derangement-section').html()
-        #     modal_template: _.template $('#template_derangement-modal').html()
-        #     collection: Character.Objects.CharacterHasDerangement
-        # derangements.render()
+
+        # CHARACTER TEXTS
+
+        character_texts = new Common.Views.List
+            el: $ '#character-texts'
+            template: _.template $('#template_simple-trait-group').html()
+            collection: Character.Objects.CharacterHasText
+            ItemView: Character.Views.CharacterTextItem
+            item_options:
+                template: _.template $('#template_character-text').html()
+                className: 'character-text'
+        character_texts.render()
     </script>
     {% endcompress %}
 {% endblock content %}
