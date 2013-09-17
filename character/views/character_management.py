@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.shortcuts import redirect, render
 from django.views import generic
 from django.contrib.auth.decorators import login_required
@@ -26,6 +28,7 @@ from traits.models import (
     FlawType,
     MeritType,
     SkillType,
+    Status,
     Vice,
     Virtue
 )
@@ -57,8 +60,9 @@ def add_character_enums_to_context (context = None, **kwargs):
     if not context:
         context = {}
 
-    context['vices']   = Vice   .objects.filter(**kwargs)
-    context['virtues'] = Virtue .objects.filter(**kwargs)
+    context['statuses'] = Status .objects.filter(**kwargs)
+    context['vices']    = Vice   .objects.filter(**kwargs)
+    context['virtues']  = Virtue .objects.filter(**kwargs)
 
     return context
 
@@ -123,7 +127,6 @@ def add_charcter_data_to_context (context = None, **kwargs):
     return context
 
 
-@login_required
 def add_character_text_to_context (user, context = None, **kwargs):
     if not context:
         context = {}
@@ -136,6 +139,7 @@ def add_character_text_to_context (user, context = None, **kwargs):
     return context
 
 
+@login_required
 def character_list (request):
     user = request.user
     if is_storyteller(user):
@@ -149,12 +153,13 @@ def character_list (request):
             'is_storyteller' : True
         }
     else:
+        status_editing = Status.objects.get(name = 'Editing')
         context = {
             'character_list' : [{
                 'character'   : character,
-                'can_submit'  : True,
-                'can_edit'    : True,
-                'can_disable' : True,
+                'can_submit'  : character.status == status_editing,
+                'can_edit'    : character.status == status_editing,
+                'can_disable' : character.status == status_editing,
             } for character in Character.objects.filter(user=user.id)],
             'is_storyteller' : False
         }
@@ -178,7 +183,7 @@ def print_all (request):
 def new_character (request):
     character = Character(
         user = request.user,
-        # status =
+        status = Status.objects.get(name = 'Editing'),
         creature_type = CreatureType.objects.get(name = 'Vampire')
     )
     character.save()
@@ -198,9 +203,9 @@ def new_character (request):
     for trait in CharacterText.objects.all():
         CharacterHasText(character = character, trait = trait).save()
 
-    return redirect('character_edit', permanent = True, pk = character.pk)
+    return redirect('character_edit', pk = character.pk)
 
-    
+
 @login_required
 def character_edit (request, pk):
     user = request.user
@@ -208,8 +213,8 @@ def character_edit (request, pk):
         'character': Character.objects.get(pk = pk),
         'is_storyteller': is_storyteller(user)
     }
-    if (context['character'].user != user) and not is_storyteller(user):
-        return redirect('/characters')
+    if (context['character'].user != user or context['character'].status != Status.objects.get(name = 'Editing')) and not is_storyteller(user):
+        return redirect('character_list')
 
     add_character_enums_to_context(context)
     add_summary_data_to_context(context)
@@ -220,12 +225,23 @@ def character_edit (request, pk):
 
     return render(request, 'character/character_edit.html', context)
 
-    
+
+@login_required
+def submit_character (request, pk):
+    user = request.user
+    character = Character.objects.get(pk = pk)
+    if character.user == user and character.status == Status.objects.get(name = 'Editing'):
+        character.status = Status.objects.get(name = 'Submitted')
+        character.date_submitted = datetime.now()
+        character.save()
+    return redirect('character_list')
+
+
 class CharacterDetailView (generic.DetailView):
     model = Character
     template_name = 'character/character_detail.html'
 
-    
+
 def character_detail (request, pk):
     user = request.user
     context = {
@@ -233,17 +249,6 @@ def character_detail (request, pk):
         'is_storyteller': is_storyteller(user)
     }
     if (context['character'].user != user) and not is_storyteller(user):
-        return redirect('/characters')
+        return redirect('characters_list')
 
     return render(request, 'character/character_detail.html', context)
-
-def character_submit (request, pk):
-    if request.POST:
-        user = request.user
-        character = Character.objects.get(pk = pk)
-        if character.status == 1:
-            character.status == 2
-            character.save()
-            messages.success(request, "Character \"%(character.name)s\" has been submitted.")
-        else:
-            messages.error(request, "Character \"%(character.name)s\" has already been submitted.")

@@ -33,19 +33,19 @@
 {% block table_definition %}
     <script type='text/html' id='template_table-row'>
         <td><%= record.user.username      %></td>
-        <td><a href="/characters/<%= record.id %>/show/"><%= record.name    %></a></td>
+        <td><a href="/characters/<%= record.id %>/show/"><%= record.name %></a></td>
         <td><%= record.creature_type.name %></td>
         <td><%= record.genealogy.name     %></td>
         <td><%= record.affiliation.name   %></td>
-        <td><%= record.status             %></td>
+        <td><%= record.status.name        %></td>
         <td>
             <% if (can_submit) { %>
-                <button name='submit'>submit</button>
+                <a name='submit' href='/characters/<%= record.id %>/submit/'>submit</a>
             <% } %>
         </td>
         <td>
             <% if (can_edit) { %>
-                <a href="/characters/<%= record.id %>/edit/">edit</button>
+                <a href="/characters/<%= record.id %>/edit/">edit</a>
             <% } %>
         </td>
         <td>
@@ -57,20 +57,19 @@
         </td>
     </script>
 
-    {% compress js %}
-    <script type='text/coffeescript'>
-        Tools.create_namespace 'Traits.Enums'
-        Tools.create_namespace 'Traits.Objects'
+    <script type='text/javascript'>
+        Tools.create_namespace('Traits.Enums');
+        Tools.create_namespace('Traits.Objects');
 
-        Traits.Enums.Vice   = new Enum.Enum {{ vices   | serialize_json | safe }}
-        Traits.Enums.Virtue = new Enum.Enum {{ virtues | serialize_json | safe }}
+        Traits.Enums.Status = new Enum.Enum({{ statuses | serialize_json | safe }});
+        Traits.Enums.Vice   = new Enum.Enum({{ vices    | serialize_json | safe }});
+        Traits.Enums.Virtue = new Enum.Enum({{ virtues  | serialize_json | safe }});
 
-        Traits.Objects.Affiliation  = new Backbone.Collection {{ affiliations   | serialize_json | safe }}, {model: Traits.Models.Affiliation  }
-        Traits.Objects.CreatureType = new Backbone.Collection {{ creature_types | serialize_json | safe }}, {model: Traits.Models.CreatureType }
-        Traits.Objects.Genealogy    = new Backbone.Collection {{ genealogies    | serialize_json | safe }}, {model: Traits.Models.Genealogy    }
-        Traits.Objects.Subgroup     = new Backbone.Collection {{ subgroups      | serialize_json | safe }}, {model: Traits.Models.Subgroup     }
+        Traits.Objects.Affiliation  = new Backbone.Collection({{ affiliations   | serialize_json | safe }}, {model: Traits.Models.Affiliation  });
+        Traits.Objects.CreatureType = new Backbone.Collection({{ creature_types | serialize_json | safe }}, {model: Traits.Models.CreatureType });
+        Traits.Objects.Genealogy    = new Backbone.Collection({{ genealogies    | serialize_json | safe }}, {model: Traits.Models.Genealogy    });
+        Traits.Objects.Subgroup     = new Backbone.Collection({{ subgroups      | serialize_json | safe }}, {model: Traits.Models.Subgroup     });
     </script>
-    {% endcompress %}
 
     <script type='text/javascript'>
         var character_table;

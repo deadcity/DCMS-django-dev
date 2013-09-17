@@ -1,6 +1,8 @@
 from django.conf.urls import include, patterns, url
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
+from django.views.generic.base import RedirectView
+
 # import traits
 
 # Uncomment the next two lines to enable the admin:
@@ -11,6 +13,9 @@ urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'DCMS.views.home', name='home'),
     # url(r'^DCMS/', include('DCMS.foo.urls')),
+
+    url(r'^$', RedirectView.as_view(url = '/characters/')),
+
     url(r'^api/',        include('DCMS.urls.api')),
     url(r'^accounts/',   include('accounts.urls')),
     url(r'^characters/', include('character.urls.character_management')),

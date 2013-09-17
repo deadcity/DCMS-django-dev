@@ -7,7 +7,11 @@ class Models_NS.Character extends Backbone.Model
         enabled : false
         user    : null
 
+        # chronicle : null
+        # status : null
+
         name          : null
+        status        : null
         creature_type : null
         genealogy     : null
         affiliation   : null
@@ -27,6 +31,7 @@ class Models_NS.Character extends Backbone.Model
             user    : parseInt raw.id, 10
 
             name          : raw.name
+            status        : Traits.Enums.Status         .get parseInt raw.status,        10
             creature_type : Traits.Objects.CreatureType .get parseInt raw.creature_type, 10
             genealogy     : Traits.Objects.Genealogy    .get parseInt raw.genealogy,     10
             affiliation   : Traits.Objects.Affiliation  .get parseInt raw.affiliation,   10
