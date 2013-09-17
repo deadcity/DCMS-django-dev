@@ -258,7 +258,6 @@ def character_submit (request, pk):
     if request.POST:
         user = request.user
         character = Character.objects.get(pk = pk)
-        import pdb; pdb.set_trace()
         if character.status.id == 1:
             character.status == Status.objects.get(pk = 2)
             character.save()

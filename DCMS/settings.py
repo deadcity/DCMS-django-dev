@@ -1,11 +1,13 @@
 # Django settings for DCMS project.
 
-import os
+import os, sys
+
+import platform_settings
 
 PROJECT_PATH = os.path.dirname(os.path.dirname(__file__)).replace('\\', '/')
 
-DEBUG = True
-TEMPLATE_DEBUG = DEBUG
+DEBUG = platform_settings.DEBUG
+TEMPLATE_DEBUG = platform_settings.TEMPLATE_DEBUG
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
@@ -14,14 +16,7 @@ ADMINS = (
 MANAGERS = ADMINS
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': PROJECT_PATH + '/DCMS.db',     # Or path to database file if using sqlite3.
-        'USER': '',                      # Not used with sqlite3.
-        'PASSWORD': '',                  # Not used with sqlite3.
-        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
-        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
-    }
+    'default': platform_settings.DATABASES_default
 }
 
 # Local time zone for this installation. Choices can be found here:
