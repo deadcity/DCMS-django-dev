@@ -1,9 +1,9 @@
 from datetime import datetime
 
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 from django.views import generic
-from django.contrib.auth.decorators import login_required
-from django.contrib import messages
 
 from rest_framework.renderers import JSONRenderer
 
@@ -45,6 +45,7 @@ from traits.models import (
     MiscTrait,
     Power,
     Skill,
+    Status,
     Subgroup
 )
 import traits.serializers
@@ -230,10 +231,15 @@ def character_edit (request, pk):
 def submit_character (request, pk):
     user = request.user
     character = Character.objects.get(pk = pk)
-    if character.user == user and character.status == Status.objects.get(name = 'Editing'):
+    if character.user != user:
+        messages.error(request, "You cannot submit a character that isn't yours.")
+    elif character.status != Status.objects.get(name = 'Editing'):
+        messages.error(request, "Character \"{}\" has already been submitted.".format(character.name))
+    else:
         character.status = Status.objects.get(name = 'Submitted')
         character.date_submitted = datetime.now()
         character.save()
+        messages.success(request, "Character \"{}\" has been submitted.".format(character.name))
     return redirect('character_list')
 
 
