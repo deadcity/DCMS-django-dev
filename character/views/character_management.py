@@ -143,18 +143,18 @@ def add_character_text_to_context (user, context = None, **kwargs):
 @login_required
 def character_list (request):
     user = request.user
+    status_editing = Status.objects.get(name = 'Editing')
     if is_storyteller(user):
         context = {
             'character_list' : [{
                 'character'   : character,
-                'can_submit'  : False,
+                'can_submit'  : character.status == status_editing,
                 'can_edit'    : True,
                 'can_disable' : True,
             } for character in Character.objects.all()],
             'is_storyteller' : True
         }
     else:
-        status_editing = Status.objects.get(name = 'Editing')
         context = {
             'character_list' : [{
                 'character'   : character,
@@ -186,6 +186,12 @@ def new_character (request):
         user = request.user,
         status = Status.objects.get(name = 'Editing'),
         creature_type = CreatureType.objects.get(name = 'Vampire')
+        # TODO(emery): have these default to values like "(not selected)" instead.
+        genealogy = Genealogy.objects.get(name = 'Daeva')
+        affiliation = Genealogy.objects.get(name = 'Carthian Movement')
+        # subgroup
+        virtue = Virtue.objects.get(name = 'Charity')
+        vice = Vice.objects.get(name = 'Envy')
     )
     character.save()
 

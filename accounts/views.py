@@ -16,7 +16,7 @@ def register(request):
 					user.first_name = request.POST['first_name']
 					user.save()
 					messages.success(request, 'Your account was created. You can log in below.')
-					return redirect('login')
+					return redirect('character_list')
 				else:
 					messages.error(request, 'There was an error creating your account.')
 					return redirect('register')

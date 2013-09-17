@@ -733,16 +733,6 @@
     }
 },
 {
-    "pk": 22,
-    "model": "traits.derangement",
-    "fields": {
-        "enabled": true,
-        "name": "",
-        "type": 2,
-        "requires_specification": false
-    }
-},
-{
     "pk": 23,
     "model": "traits.derangement",
     "fields": {
@@ -1570,17 +1560,6 @@
         "enabled": true,
         "name": "Touch of Frost",
         "type": 4,
-        "requires_specification": false,
-        "requires_description": false
-    }
-},
-{
-    "pk": 73,
-    "model": "traits.flaw",
-    "fields": {
-        "enabled": true,
-        "name": "",
-        "type": 3,
         "requires_specification": false,
         "requires_description": false
     }
