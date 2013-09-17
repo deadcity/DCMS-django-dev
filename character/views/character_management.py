@@ -1,9 +1,9 @@
 from datetime import datetime
 
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 from django.views import generic
-from django.contrib.auth.decorators import login_required
-from django.contrib import messages
 
 from rest_framework.renderers import JSONRenderer
 
@@ -231,10 +231,15 @@ def character_edit (request, pk):
 def submit_character (request, pk):
     user = request.user
     character = Character.objects.get(pk = pk)
-    if character.user == user and character.status == Status.objects.get(name = 'Editing'):
+    if character.user != user:
+        messages.error(request, "You cannot submit a character that isn't yours.")
+    elif character.status != Status.objects.get(name = 'Editing'):
+        messages.error(request, "Character \"{}\" has already been submitted.".format(character.name))
+    else:
         character.status = Status.objects.get(name = 'Submitted')
         character.date_submitted = datetime.now()
         character.save()
+        messages.success(request, "Character \"{}\" has been submitted.".format(character.name))
     return redirect('character_list')
 
 
@@ -253,16 +258,3 @@ def character_detail (request, pk):
         return redirect('character_list')
 
     return render(request, 'character/character_detail.html', context)
-
-def character_submit (request, pk):
-    if request.POST:
-        user = request.user
-        character = Character.objects.get(pk = pk)
-        import pdb; pdb.set_trace()
-        if character.status.id == 1:
-            character.status == Status.objects.get(pk = 2)
-            character.save()
-            messages.success(request, "Character \"{0}\" has been submitted.".format(character.name))
-        else:
-            messages.error(request, "Character \"{0}\" has already been submitted.".format(character.name))
-    return redirect('character_list')

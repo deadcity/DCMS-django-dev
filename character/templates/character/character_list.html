@@ -40,23 +40,15 @@
         <td><%= record.status.name        %></td>
         <td>
             <% if (can_submit) { %>
-<<<<<<< local
                 <form action="/characters/1/submit/" method="POST" class="submit-character-form">
-                {% csrf_token %}
-                <input type="submit" value="submit" class="btn btn-mini" />
+                    {% csrf_token %}
+                    <input type="submit" value="submit" class="btn btn-mini" />
                 </form>
-=======
-                <a name='submit' href='/characters/<%= record.id %>/submit/'>submit</a>
->>>>>>> other
             <% } %>
         </td>
         <td>
             <% if (can_edit) { %>
-<<<<<<< local
                 <a href="/characters/<%= record.id %>/edit/" class="btn btn-mini">edit</a>
-=======
-                <a href="/characters/<%= record.id %>/edit/">edit</a>
->>>>>>> other
             <% } %>
         </td>
         <td>
