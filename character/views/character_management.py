@@ -249,6 +249,6 @@ def character_detail (request, pk):
         'is_storyteller': is_storyteller(user)
     }
     if (context['character'].user != user) and not is_storyteller(user):
-        return redirect('characters_list')
+        return redirect('character_list')
 
     return render(request, 'character/character_detail.html', context)
