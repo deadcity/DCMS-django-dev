@@ -18,6 +18,7 @@
 
 {% block style_includes %}
     {{block.super}}
+    <link rel="stylesheet" type="text/css" href='{% static 'css/bootstrap.css' %}' />
     <style type='text/css'>
         body {
             background-color: #000;
@@ -25,6 +26,10 @@
             font-family: 'Open Sans', Helvetica, Arial, sans-serif;
             font-size: 13px;
             margin-top: 75px;
+        }
+
+        a.btn {
+            text-decoration: none;
         }
 
         #page {
@@ -91,36 +96,44 @@
             color: black;
         }
 
-        section#content .character-list tr:nth-child(2n+1) td {
-            background-color: #ededed;
-        }
-
-        #login-form {
-            text-align: center;
-        }
-
-        #login-form label label {
-            width: 90px;
-            display: inline-block;
-            font-weight: bold;
-        }
-
-        #login-form input[type="submit"] {
-            display: inline-block;
-            padding: 4px 12px;
-            margin-bottom: 0;
-            font-size: 14px;
-            line-height: 20px;
-            border-radius: 4px;
-            color: #ffffff;
-            text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-            background-color: #900;
-            border: 1px #600 solid;
-        }
-
         .messages {
             list-style: none;
             margin: 0 0 20px 0;
+            padding: 0;
+            border-radius: 3px;
+            -moz-border-radius: 3px;
+            -webkit-border-radius: 3px;
+            border-width: 1px;
+            border-style: 1px;
+            padding: 5px 10px;
+        }
+
+        .info {
+            color: #3a87ad;
+            border-color: #3a87ad;
+            background-color: #B4D2E0;
+        }
+
+        .success {
+            color: #468847;
+            border-color: #468847;
+            background-color: #BEE6BF;
+        }
+
+        .warning {
+            color: #c09853;
+            border-color: #c09853;
+            background-color: #DFCEB2;
+        }
+
+        .error {
+            color: #b94a48;
+            border-color: #b94a48;
+            background-color: #E4A5A4;
+        }
+
+        .submit-character-form {
+            margin: 0;
             padding: 0;
         }
     </style>

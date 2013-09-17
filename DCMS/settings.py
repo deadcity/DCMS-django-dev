@@ -1,6 +1,6 @@
 # Django settings for DCMS project.
 
-import os
+import os, sys
 
 import platform_settings
 

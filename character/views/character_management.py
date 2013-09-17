@@ -45,6 +45,7 @@ from traits.models import (
     MiscTrait,
     Power,
     Skill,
+    Status,
     Subgroup
 )
 import traits.serializers
@@ -252,3 +253,16 @@ def character_detail (request, pk):
         return redirect('character_list')
 
     return render(request, 'character/character_detail.html', context)
+
+def character_submit (request, pk):
+    if request.POST:
+        user = request.user
+        character = Character.objects.get(pk = pk)
+        import pdb; pdb.set_trace()
+        if character.status.id == 1:
+            character.status == Status.objects.get(pk = 2)
+            character.save()
+            messages.success(request, "Character \"{0}\" has been submitted.".format(character.name))
+        else:
+            messages.error(request, "Character \"{0}\" has already been submitted.".format(character.name))
+    return redirect('character_list')
