@@ -1,0 +1,152 @@
+{% extends 'table_page.html' %}
+
+{% load compress %}
+{% load js_filters %}
+{% load model_filters %}
+{% load static %}
+
+
+{% block script_includes %}
+    {{ block.super }}
+
+    <!-- character summary -->
+    {% compress js %}
+        <script type='text/coffeescript' src='{% static 'character/coffeescript/models/character.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'traits/coffeescript/models/creaturetype.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'traits/coffeescript/models/genealogy.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'traits/coffeescript/models/affiliation.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'traits/coffeescript/models/subgroup.coffee' %}'></script>
+    {% endcompress %}
+{% endblock script_includes %}
+
+
+{% block pretable_content %}
+    <div>
+        <label>
+            show disabled characters
+            <input type='checkbox' id='show-disabled-characters' />
+        </label>
+    </div>
+{% endblock pretable_content %}
+
+
+{% block table_definition %}
+    <script type='text/html' id='template_table-row'>
+        <td><%= record.user.username      %></td>
+        <td><a href="/characters/<%= record.id %>/show/"><%= record.name %></a></td>
+        <td><%= record.creature_type.name %></td>
+        <td><%= record.genealogy.name     %></td>
+        <td><%= record.affiliation.name   %></td>
+        <td><%= record.status.name        %></td>
+        <td>
+            <% if (can_submit) { %>
+                <a name='submit' href='/characters/<%= record.id %>/submit/'>submit</a>
+            <% } %>
+        </td>
+        <td>
+            <% if (can_edit) { %>
+                <a href="/characters/<%= record.id %>/edit/">edit</a>
+            <% } %>
+        </td>
+        <td>
+            <% if (can_disable) { %>
+                <button name='disable'>disable</button>
+            <% } else if (can_enable) { %>
+                <button name='enable'>enable</button>
+            <% } %>
+        </td>
+    </script>
+
+    <script type='text/javascript'>
+        Tools.create_namespace('Traits.Enums');
+        Tools.create_namespace('Traits.Objects');
+
+        Traits.Enums.Status = new Enum.Enum({{ statuses | serialize_json | safe }});
+        Traits.Enums.Vice   = new Enum.Enum({{ vices    | serialize_json | safe }});
+        Traits.Enums.Virtue = new Enum.Enum({{ virtues  | serialize_json | safe }});
+
+        Traits.Objects.Affiliation  = new Backbone.Collection({{ affiliations   | serialize_json | safe }}, {model: Traits.Models.Affiliation  });
+        Traits.Objects.CreatureType = new Backbone.Collection({{ creature_types | serialize_json | safe }}, {model: Traits.Models.CreatureType });
+        Traits.Objects.Genealogy    = new Backbone.Collection({{ genealogies    | serialize_json | safe }}, {model: Traits.Models.Genealogy    });
+        Traits.Objects.Subgroup     = new Backbone.Collection({{ subgroups      | serialize_json | safe }}, {model: Traits.Models.Subgroup     });
+    </script>
+
+    <script type='text/javascript'>
+        var character_table;
+    </script>
+
+    {% compress js %}
+    <script type='text/coffeescript'>
+        character_table = new Table.Table {
+            el: $ '#table'
+            collection: new Backbone.Collection null, {model: Character.Models.Character}
+            filter: (pres_model) -> pres_model.record.get 'enabled'
+
+            columns: [
+                { header: 'user' }
+                { header: 'name',          field: 'name'          }
+                { header: 'creature type', field: 'creature_type' }
+                { header: 'clan',          field: 'clan'          }
+                { header: 'covenant',      field: 'covenant'      }
+                { header: 'status' }
+                {}  # submit button
+                {}  # edit button
+                {}  # disable/enable button
+            ]
+
+            RowPresentation: class extends Table.Models.RowPresentation
+                initialize: (attributes, options) ->
+                    super attributes, options
+                    @set 'can_submit',  options.can_submit
+                    @set 'can_edit',    options.can_edit
+                    @set 'can_disable', options.can_disable
+
+                toJSON: () ->
+                    attr = super
+                    attr.can_submit  =     attr.record.enabled and attr.can_submit
+                    attr.can_edit    =     attr.record.enabled and attr.can_edit
+                    attr.can_disable =     attr.record.enabled and @attributes.can_disable
+                    attr.can_enable  = not attr.record.enabled and @attributes.can_disable
+                    attr
+
+            RowView: class extends Table.Views.Row
+                events: () ->
+                    _.extend {}, super,
+                        'click button[name="submit"]'  : 'on_submit'
+                        'click button[name="edit"]'    : 'on_edit'
+                        'click button[name="disable"]' : 'on_disable'
+                        'click button[name="enable"]'  : 'on_enable'
+
+                on_submit: () ->
+                    # TODO(emery): change status to 'submitted'
+
+                on_edit: () ->
+                    # TODO(emery): goto character_edit page
+
+                on_disable: () ->
+                    @model.record.save { 'enabled': false }, { patch: true }
+
+                on_enable: () ->
+                    @model.record.save { 'enabled': true}, { patch: true }
+
+            row_template: _.template $('#template_table-row').html()
+        }
+
+        {% for item in character_list %}
+        character_table.collection.add {{ item.character|serialize_json|safe }},
+            parse: true
+            can_submit:  {{ item.can_submit  | js_bool }}
+            can_edit:    {{ item.can_edit    | js_bool }}
+            can_disable: {{ item.can_disable | js_bool }}
+        {% endfor %}
+
+        character_table.render()
+
+        $('#show-disabled-characters').change () ->
+            if $(@).is ':checked'
+                character_table.filter null
+            else
+                character_table.filter (pres_model) -> pres_model.record.get 'enabled'
+    </script>
+    {% endcompress %}
+{% endblock table_definition %}
