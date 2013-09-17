@@ -1,0 +1,6173 @@
+[
+{
+    "pk": 1,
+    "model": "contenttypes.contenttype",
+    "fields": {
+        "model": "permission",
+        "name": "permission",
+        "app_label": "auth"
+    }
+},
+{
+    "pk": 2,
+    "model": "contenttypes.contenttype",
+    "fields": {
+        "model": "group",
+        "name": "group",
+        "app_label": "auth"
+    }
+},
+{
+    "pk": 3,
+    "model": "contenttypes.contenttype",
+    "fields": {
+        "model": "user",
+        "name": "user",
+        "app_label": "auth"
+    }
+},
+{
+    "pk": 4,
+    "model": "contenttypes.contenttype",
+    "fields": {
+        "model": "contenttype",
+        "name": "content type",
+        "app_label": "contenttypes"
+    }
+},
+{
+    "pk": 5,
+    "model": "contenttypes.contenttype",
+    "fields": {
+        "model": "session",
+        "name": "session",
+        "app_label": "sessions"
+    }
+},
+{
+    "pk": 6,
+    "model": "contenttypes.contenttype",
+    "fields": {
+        "model": "logentry",
+        "name": "log entry",
+        "app_label": "admin"
+    }
+},
+{
+    "pk": 7,
+    "model": "contenttypes.contenttype",
+    "fields": {
+        "model": "character",
+        "name": "character",
+        "app_label": "character"
+    }
+},
+{
+    "pk": 8,
+    "model": "contenttypes.contenttype",
+    "fields": {
+        "model": "characterhastext",
+        "name": "character has text",
+        "app_label": "character"
+    }
+},
+{
+    "pk": 9,
+    "model": "contenttypes.contenttype",
+    "fields": {
+        "model": "characterhasattribute",
+        "name": "character has attribute",
+        "app_label": "character"
+    }
+},
+{
+    "pk": 10,
+    "model": "contenttypes.contenttype",
+    "fields": {
+        "model": "characterhasskill",
+        "name": "character has skill",
+        "app_label": "character"
+    }
+},
+{
+    "pk": 11,
+    "model": "contenttypes.contenttype",
+    "fields": {
+        "model": "characterhasskillspecialty",
+        "name": "character has skill specialty",
+        "app_label": "character"
+    }
+},
+{
+    "pk": 12,
+    "model": "contenttypes.contenttype",
+    "fields": {
+        "model": "characterhaspower",
+        "name": "character has power",
+        "app_label": "character"
+    }
+},
+{
+    "pk": 13,
+    "model": "contenttypes.contenttype",
+    "fields": {
+        "model": "characterhasmerit",
+        "name": "character has merit",
+        "app_label": "character"
+    }
+},
+{
+    "pk": 14,
+    "model": "contenttypes.contenttype",
+    "fields": {
+        "model": "characterhasflaw",
+        "name": "character has flaw",
+        "app_label": "character"
+    }
+},
+{
+    "pk": 15,
+    "model": "contenttypes.contenttype",
+    "fields": {
+        "model": "characterhasderangement",
+        "name": "character has derangement",
+        "app_label": "character"
+    }
+},
+{
+    "pk": 16,
+    "model": "contenttypes.contenttype",
+    "fields": {
+        "model": "characterhascombattrait",
+        "name": "character has combat trait",
+        "app_label": "character"
+    }
+},
+{
+    "pk": 17,
+    "model": "contenttypes.contenttype",
+    "fields": {
+        "model": "characterhasmisctrait",
+        "name": "character has misc trait",
+        "app_label": "character"
+    }
+},
+{
+    "pk": 18,
+    "model": "contenttypes.contenttype",
+    "fields": {
+        "model": "chronicle",
+        "name": "chronicle",
+        "app_label": "chronicle"
+    }
+},
+{
+    "pk": 19,
+    "model": "contenttypes.contenttype",
+    "fields": {
+        "model": "game",
+        "name": "game",
+        "app_label": "chronicle"
+    }
+},
+{
+    "pk": 20,
+    "model": "contenttypes.contenttype",
+    "fields": {
+        "model": "attributetype",
+        "name": "attribute type",
+        "app_label": "traits"
+    }
+},
+{
+    "pk": 21,
+    "model": "contenttypes.contenttype",
+    "fields": {
+        "model": "derangementtype",
+        "name": "derangement type",
+        "app_label": "traits"
+    }
+},
+{
+    "pk": 22,
+    "model": "contenttypes.contenttype",
+    "fields": {
+        "model": "flawtype",
+        "name": "flaw type",
+        "app_label": "traits"
+    }
+},
+{
+    "pk": 23,
+    "model": "contenttypes.contenttype",
+    "fields": {
+        "model": "merittype",
+        "name": "merit type",
+        "app_label": "traits"
+    }
+},
+{
+    "pk": 24,
+    "model": "contenttypes.contenttype",
+    "fields": {
+        "model": "skilltype",
+        "name": "skill type",
+        "app_label": "traits"
+    }
+},
+{
+    "pk": 25,
+    "model": "contenttypes.contenttype",
+    "fields": {
+        "model": "status",
+        "name": "status",
+        "app_label": "traits"
+    }
+},
+{
+    "pk": 26,
+    "model": "contenttypes.contenttype",
+    "fields": {
+        "model": "vice",
+        "name": "vice",
+        "app_label": "traits"
+    }
+},
+{
+    "pk": 27,
+    "model": "contenttypes.contenttype",
+    "fields": {
+        "model": "virtue",
+        "name": "virtue",
+        "app_label": "traits"
+    }
+},
+{
+    "pk": 28,
+    "model": "contenttypes.contenttype",
+    "fields": {
+        "model": "affiliation",
+        "name": "affiliation",
+        "app_label": "traits"
+    }
+},
+{
+    "pk": 29,
+    "model": "contenttypes.contenttype",
+    "fields": {
+        "model": "attribute",
+        "name": "attribute",
+        "app_label": "traits"
+    }
+},
+{
+    "pk": 30,
+    "model": "contenttypes.contenttype",
+    "fields": {
+        "model": "charactertext",
+        "name": "character text",
+        "app_label": "traits"
+    }
+},
+{
+    "pk": 31,
+    "model": "contenttypes.contenttype",
+    "fields": {
+        "model": "combattrait",
+        "name": "combat trait",
+        "app_label": "traits"
+    }
+},
+{
+    "pk": 32,
+    "model": "contenttypes.contenttype",
+    "fields": {
+        "model": "creaturetype",
+        "name": "creature type",
+        "app_label": "traits"
+    }
+},
+{
+    "pk": 33,
+    "model": "contenttypes.contenttype",
+    "fields": {
+        "model": "derangement",
+        "name": "derangement",
+        "app_label": "traits"
+    }
+},
+{
+    "pk": 34,
+    "model": "contenttypes.contenttype",
+    "fields": {
+        "model": "flaw",
+        "name": "flaw",
+        "app_label": "traits"
+    }
+},
+{
+    "pk": 35,
+    "model": "contenttypes.contenttype",
+    "fields": {
+        "model": "genealogy",
+        "name": "genealogy",
+        "app_label": "traits"
+    }
+},
+{
+    "pk": 36,
+    "model": "contenttypes.contenttype",
+    "fields": {
+        "model": "merit",
+        "name": "merit",
+        "app_label": "traits"
+    }
+},
+{
+    "pk": 37,
+    "model": "contenttypes.contenttype",
+    "fields": {
+        "model": "misctrait",
+        "name": "misc trait",
+        "app_label": "traits"
+    }
+},
+{
+    "pk": 38,
+    "model": "contenttypes.contenttype",
+    "fields": {
+        "model": "power",
+        "name": "power",
+        "app_label": "traits"
+    }
+},
+{
+    "pk": 39,
+    "model": "contenttypes.contenttype",
+    "fields": {
+        "model": "skill",
+        "name": "skill",
+        "app_label": "traits"
+    }
+},
+{
+    "pk": 40,
+    "model": "contenttypes.contenttype",
+    "fields": {
+        "model": "subgroup",
+        "name": "subgroup",
+        "app_label": "traits"
+    }
+},
+{
+    "pk": "cgpe5ukz2p0xuofjbkgi0zfwywf8nypp",
+    "model": "sessions.session",
+    "fields": {
+        "expire_date": "2013-09-26T20:24:03.044Z",
+        "session_data": "MDQ3NjhlYTFiNmNhMzVlMjI1ODg1MWIwOTc1ZTA5NGEyMmNiZmQyMTqAAn1xAS4="
+    }
+},
+{
+    "pk": "gu108gtdcy3gpadp2wgarz59cl8nklwy",
+    "model": "sessions.session",
+    "fields": {
+        "expire_date": "2013-09-24T20:36:46.445Z",
+        "session_data": "NTcwYjUzZTQ3NmQ0ZjBhMDY1ODVhNGU2YWZiODgzMjFjODY2NmNlYTqAAn1xAShVEl9hdXRoX3VzZXJfYmFja2VuZHECVSlkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZHEDVQ1fYXV0aF91c2VyX2lkcQRLAXUu"
+    }
+},
+{
+    "pk": "y060ithgspsiast8j7gev9h2to5nl4xc",
+    "model": "sessions.session",
+    "fields": {
+        "expire_date": "2013-09-28T17:52:20.045Z",
+        "session_data": "ZWMyNzA1YzNjYWNmMmQxZDY0YjA5YTAzYmIyMmRlNjE3MjA0ZDVkNDqAAn1xAShVEl9hdXRoX3VzZXJfYmFja2VuZHECVSlkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZHEDVQ1fYXV0aF91c2VyX2lkcQRLA3Uu"
+    }
+},
+{
+    "pk": 1,
+    "model": "character.characterhastext",
+    "fields": {
+        "trait": 1,
+        "character": 1,
+        "text": "Stuff happened to me..."
+    }
+},
+{
+    "pk": 2,
+    "model": "character.characterhastext",
+    "fields": {
+        "trait": 3,
+        "character": 1,
+        "text": "Please give me stuff. :)"
+    }
+},
+{
+    "pk": 3,
+    "model": "character.characterhastext",
+    "fields": {
+        "trait": 4,
+        "character": 1,
+        "text": "I can't believe that happened to him.\r\n\r\nWe shouldn't give him stuff."
+    }
+},
+{
+    "pk": 1,
+    "model": "character.characterhasattribute",
+    "fields": {
+        "trait": 1,
+        "character": 1,
+        "rating": 3
+    }
+},
+{
+    "pk": 2,
+    "model": "character.characterhasattribute",
+    "fields": {
+        "trait": 2,
+        "character": 1,
+        "rating": 4
+    }
+},
+{
+    "pk": 3,
+    "model": "character.characterhasattribute",
+    "fields": {
+        "trait": 3,
+        "character": 1,
+        "rating": 3
+    }
+},
+{
+    "pk": 4,
+    "model": "character.characterhasattribute",
+    "fields": {
+        "trait": 4,
+        "character": 1,
+        "rating": 1
+    }
+},
+{
+    "pk": 5,
+    "model": "character.characterhasattribute",
+    "fields": {
+        "trait": 5,
+        "character": 1,
+        "rating": 4
+    }
+},
+{
+    "pk": 6,
+    "model": "character.characterhasattribute",
+    "fields": {
+        "trait": 6,
+        "character": 1,
+        "rating": 1
+    }
+},
+{
+    "pk": 7,
+    "model": "character.characterhasattribute",
+    "fields": {
+        "trait": 7,
+        "character": 1,
+        "rating": 2
+    }
+},
+{
+    "pk": 8,
+    "model": "character.characterhasattribute",
+    "fields": {
+        "trait": 8,
+        "character": 1,
+        "rating": 4
+    }
+},
+{
+    "pk": 9,
+    "model": "character.characterhasattribute",
+    "fields": {
+        "trait": 9,
+        "character": 1,
+        "rating": 2
+    }
+},
+{
+    "pk": 1,
+    "model": "character.characterhasskill",
+    "fields": {
+        "trait": 1,
+        "character": 1,
+        "rating": 0
+    }
+},
+{
+    "pk": 2,
+    "model": "character.characterhasskill",
+    "fields": {
+        "trait": 17,
+        "character": 1,
+        "rating": 0
+    }
+},
+{
+    "pk": 3,
+    "model": "character.characterhasskill",
+    "fields": {
+        "trait": 9,
+        "character": 1,
+        "rating": 3
+    }
+},
+{
+    "pk": 4,
+    "model": "character.characterhasskill",
+    "fields": {
+        "trait": 16,
+        "character": 1,
+        "rating": 3
+    }
+},
+{
+    "pk": 5,
+    "model": "character.characterhasskill",
+    "fields": {
+        "trait": 6,
+        "character": 1,
+        "rating": 3
+    }
+},
+{
+    "pk": 6,
+    "model": "character.characterhasskill",
+    "fields": {
+        "trait": 21,
+        "character": 1,
+        "rating": 4
+    }
+},
+{
+    "pk": 7,
+    "model": "character.characterhasskill",
+    "fields": {
+        "trait": 19,
+        "character": 1,
+        "rating": 3
+    }
+},
+{
+    "pk": 3,
+    "model": "character.characterhasskillspecialty",
+    "fields": {
+        "trait": 6,
+        "character": 1,
+        "specialty": "secret ritual"
+    }
+},
+{
+    "pk": 4,
+    "model": "character.characterhasskillspecialty",
+    "fields": {
+        "trait": 19,
+        "character": 1,
+        "specialty": "monologues"
+    }
+},
+{
+    "pk": 5,
+    "model": "character.characterhasskillspecialty",
+    "fields": {
+        "trait": 16,
+        "character": 1,
+        "specialty": "rapier"
+    }
+},
+{
+    "pk": 1,
+    "model": "character.characterhaspower",
+    "fields": {
+        "trait": 11,
+        "character": 1
+    }
+},
+{
+    "pk": 2,
+    "model": "character.characterhaspower",
+    "fields": {
+        "trait": 74,
+        "character": 1
+    }
+},
+{
+    "pk": 3,
+    "model": "character.characterhaspower",
+    "fields": {
+        "trait": 78,
+        "character": 1
+    }
+},
+{
+    "pk": 5,
+    "model": "character.characterhaspower",
+    "fields": {
+        "trait": 76,
+        "character": 1
+    }
+},
+{
+    "pk": 6,
+    "model": "character.characterhaspower",
+    "fields": {
+        "trait": 75,
+        "character": 1
+    }
+},
+{
+    "pk": 1,
+    "model": "character.characterhasmerit",
+    "fields": {
+        "trait": 19,
+        "specification": "",
+        "character": 1,
+        "description": "",
+        "rating": 2
+    }
+},
+{
+    "pk": 3,
+    "model": "character.characterhasmerit",
+    "fields": {
+        "trait": 46,
+        "specification": "",
+        "character": 1,
+        "description": "",
+        "rating": 2
+    }
+},
+{
+    "pk": 4,
+    "model": "character.characterhasmerit",
+    "fields": {
+        "trait": 11,
+        "specification": "French",
+        "character": 1,
+        "description": null,
+        "rating": 1
+    }
+},
+{
+    "pk": 1,
+    "model": "character.characterhasflaw",
+    "fields": {
+        "trait": 9,
+        "specification": "",
+        "character": 1,
+        "description": "These are my nightmares!"
+    }
+},
+{
+    "pk": 2,
+    "model": "character.characterhasflaw",
+    "fields": {
+        "trait": 14,
+        "specification": null,
+        "character": 1,
+        "description": null
+    }
+},
+{
+    "pk": 3,
+    "model": "character.characterhasflaw",
+    "fields": {
+        "trait": 11,
+        "specification": "redcoats",
+        "character": 1,
+        "description": null
+    }
+},
+{
+    "pk": 4,
+    "model": "character.characterhasflaw",
+    "fields": {
+        "trait": 34,
+        "specification": "bullet wounds",
+        "character": 1,
+        "description": null
+    }
+},
+{
+    "pk": 1,
+    "model": "character.characterhasderangement",
+    "fields": {
+        "trait": 7,
+        "specification": "coins",
+        "character": 1,
+        "description": null
+    }
+},
+{
+    "pk": 1,
+    "model": "character.characterhascombattrait",
+    "fields": {
+        "trait": 1,
+        "character": 1,
+        "rating": 5
+    }
+},
+{
+    "pk": 2,
+    "model": "character.characterhascombattrait",
+    "fields": {
+        "trait": 2,
+        "character": 1,
+        "rating": 0
+    }
+},
+{
+    "pk": 3,
+    "model": "character.characterhascombattrait",
+    "fields": {
+        "trait": 3,
+        "character": 1,
+        "rating": 4
+    }
+},
+{
+    "pk": 4,
+    "model": "character.characterhascombattrait",
+    "fields": {
+        "trait": 4,
+        "character": 1,
+        "rating": 6
+    }
+},
+{
+    "pk": 5,
+    "model": "character.characterhascombattrait",
+    "fields": {
+        "trait": 5,
+        "character": 1,
+        "rating": 8
+    }
+},
+{
+    "pk": 6,
+    "model": "character.characterhascombattrait",
+    "fields": {
+        "trait": 6,
+        "character": 1,
+        "rating": 10
+    }
+},
+{
+    "pk": 7,
+    "model": "character.characterhascombattrait",
+    "fields": {
+        "trait": 7,
+        "character": 1,
+        "rating": 5
+    }
+},
+{
+    "pk": 1,
+    "model": "character.characterhasmisctrait",
+    "fields": {
+        "trait": 1,
+        "character": 1,
+        "description": "",
+        "rating": 5
+    }
+},
+{
+    "pk": 2,
+    "model": "character.characterhasmisctrait",
+    "fields": {
+        "trait": 2,
+        "character": 1,
+        "description": "",
+        "rating": 5
+    }
+},
+{
+    "pk": 3,
+    "model": "character.characterhasmisctrait",
+    "fields": {
+        "trait": 3,
+        "character": 1,
+        "description": "",
+        "rating": 3
+    }
+},
+{
+    "pk": 1,
+    "model": "chronicle.game",
+    "fields": {
+        "date": "2013-08-03",
+        "enabled": true,
+        "name": "Game 1",
+        "chronicle": 1
+    }
+},
+{
+    "pk": 2,
+    "model": "chronicle.game",
+    "fields": {
+        "date": "2013-08-17",
+        "enabled": true,
+        "name": "Game 2",
+        "chronicle": 1
+    }
+},
+{
+    "pk": 3,
+    "model": "chronicle.game",
+    "fields": {
+        "date": "2013-08-31",
+        "enabled": true,
+        "name": "Game 3",
+        "chronicle": 1
+    }
+},
+{
+    "pk": 1,
+    "model": "traits.attributetype",
+    "fields": {
+        "name": "Mental"
+    }
+},
+{
+    "pk": 2,
+    "model": "traits.attributetype",
+    "fields": {
+        "name": "Physical"
+    }
+},
+{
+    "pk": 3,
+    "model": "traits.attributetype",
+    "fields": {
+        "name": "Social"
+    }
+},
+{
+    "pk": 1,
+    "model": "traits.derangementtype",
+    "fields": {
+        "name": "Mild"
+    }
+},
+{
+    "pk": 2,
+    "model": "traits.derangementtype",
+    "fields": {
+        "name": "Severe"
+    }
+},
+{
+    "pk": 3,
+    "model": "traits.derangementtype",
+    "fields": {
+        "name": "Extreme"
+    }
+},
+{
+    "pk": 1,
+    "model": "traits.flawtype",
+    "fields": {
+        "name": "Mental"
+    }
+},
+{
+    "pk": 2,
+    "model": "traits.flawtype",
+    "fields": {
+        "name": "Physical"
+    }
+},
+{
+    "pk": 3,
+    "model": "traits.flawtype",
+    "fields": {
+        "name": "Social"
+    }
+},
+{
+    "pk": 4,
+    "model": "traits.flawtype",
+    "fields": {
+        "name": "Supernatural"
+    }
+},
+{
+    "pk": 1,
+    "model": "traits.merittype",
+    "fields": {
+        "name": "Mental"
+    }
+},
+{
+    "pk": 2,
+    "model": "traits.merittype",
+    "fields": {
+        "name": "Physical"
+    }
+},
+{
+    "pk": 3,
+    "model": "traits.merittype",
+    "fields": {
+        "name": "Social"
+    }
+},
+{
+    "pk": 4,
+    "model": "traits.merittype",
+    "fields": {
+        "name": "Supernatural"
+    }
+},
+{
+    "pk": 1,
+    "model": "traits.skilltype",
+    "fields": {
+        "name": "Mental"
+    }
+},
+{
+    "pk": 2,
+    "model": "traits.skilltype",
+    "fields": {
+        "name": "Physical"
+    }
+},
+{
+    "pk": 3,
+    "model": "traits.skilltype",
+    "fields": {
+        "name": "Social"
+    }
+},
+{
+    "pk": 1,
+    "model": "traits.vice",
+    "fields": {
+        "name": "Envy"
+    }
+},
+{
+    "pk": 2,
+    "model": "traits.vice",
+    "fields": {
+        "name": "Gluttony"
+    }
+},
+{
+    "pk": 3,
+    "model": "traits.vice",
+    "fields": {
+        "name": "Greed"
+    }
+},
+{
+    "pk": 4,
+    "model": "traits.vice",
+    "fields": {
+        "name": "Lust"
+    }
+},
+{
+    "pk": 5,
+    "model": "traits.vice",
+    "fields": {
+        "name": "Pride"
+    }
+},
+{
+    "pk": 6,
+    "model": "traits.vice",
+    "fields": {
+        "name": "Sloth"
+    }
+},
+{
+    "pk": 7,
+    "model": "traits.vice",
+    "fields": {
+        "name": "Wrath"
+    }
+},
+{
+    "pk": 1,
+    "model": "traits.virtue",
+    "fields": {
+        "name": "Charity"
+    }
+},
+{
+    "pk": 2,
+    "model": "traits.virtue",
+    "fields": {
+        "name": "Faith"
+    }
+},
+{
+    "pk": 3,
+    "model": "traits.virtue",
+    "fields": {
+        "name": "Fortitude"
+    }
+},
+{
+    "pk": 4,
+    "model": "traits.virtue",
+    "fields": {
+        "name": "Hope"
+    }
+},
+{
+    "pk": 5,
+    "model": "traits.virtue",
+    "fields": {
+        "name": "Justice"
+    }
+},
+{
+    "pk": 6,
+    "model": "traits.virtue",
+    "fields": {
+        "name": "Prudence"
+    }
+},
+{
+    "pk": 7,
+    "model": "traits.virtue",
+    "fields": {
+        "name": "Temperance"
+    }
+},
+{
+    "pk": 1,
+    "model": "traits.affiliation",
+    "fields": {
+        "enabled": true,
+        "name": "Carthian Movement"
+    }
+},
+{
+    "pk": 2,
+    "model": "traits.affiliation",
+    "fields": {
+        "enabled": true,
+        "name": "Circle of the Crone"
+    }
+},
+{
+    "pk": 3,
+    "model": "traits.affiliation",
+    "fields": {
+        "enabled": true,
+        "name": "Invictus"
+    }
+},
+{
+    "pk": 4,
+    "model": "traits.affiliation",
+    "fields": {
+        "enabled": true,
+        "name": "Lancea Sanctum"
+    }
+},
+{
+    "pk": 5,
+    "model": "traits.affiliation",
+    "fields": {
+        "enabled": true,
+        "name": "Ordo Dracul"
+    }
+},
+{
+    "pk": 6,
+    "model": "traits.affiliation",
+    "fields": {
+        "enabled": true,
+        "name": "Unaligned"
+    }
+},
+{
+    "pk": 1,
+    "model": "traits.attribute",
+    "fields": {
+        "type": 1,
+        "enabled": true,
+        "name": "Intelligence"
+    }
+},
+{
+    "pk": 2,
+    "model": "traits.attribute",
+    "fields": {
+        "type": 1,
+        "enabled": true,
+        "name": "Wits"
+    }
+},
+{
+    "pk": 3,
+    "model": "traits.attribute",
+    "fields": {
+        "type": 1,
+        "enabled": true,
+        "name": "Resolve"
+    }
+},
+{
+    "pk": 4,
+    "model": "traits.attribute",
+    "fields": {
+        "type": 2,
+        "enabled": true,
+        "name": "Strength"
+    }
+},
+{
+    "pk": 5,
+    "model": "traits.attribute",
+    "fields": {
+        "type": 2,
+        "enabled": true,
+        "name": "Dexterity"
+    }
+},
+{
+    "pk": 6,
+    "model": "traits.attribute",
+    "fields": {
+        "type": 2,
+        "enabled": true,
+        "name": "Stamina"
+    }
+},
+{
+    "pk": 7,
+    "model": "traits.attribute",
+    "fields": {
+        "type": 3,
+        "enabled": true,
+        "name": "Presence"
+    }
+},
+{
+    "pk": 8,
+    "model": "traits.attribute",
+    "fields": {
+        "type": 3,
+        "enabled": true,
+        "name": "Manipulation"
+    }
+},
+{
+    "pk": 9,
+    "model": "traits.attribute",
+    "fields": {
+        "type": 3,
+        "enabled": true,
+        "name": "Composure"
+    }
+},
+{
+    "pk": 1,
+    "model": "traits.charactertext",
+    "fields": {
+        "enabled": true,
+        "name": "Backstory",
+        "hide_from_player": false
+    }
+},
+{
+    "pk": 2,
+    "model": "traits.charactertext",
+    "fields": {
+        "enabled": true,
+        "name": "Feeding Habits",
+        "hide_from_player": false
+    }
+},
+{
+    "pk": 3,
+    "model": "traits.charactertext",
+    "fields": {
+        "enabled": true,
+        "name": "Wishlist",
+        "hide_from_player": false
+    }
+},
+{
+    "pk": 4,
+    "model": "traits.charactertext",
+    "fields": {
+        "enabled": true,
+        "name": "ST Notes",
+        "hide_from_player": false
+    }
+},
+{
+    "pk": 1,
+    "model": "traits.combattrait",
+    "fields": {
+        "enabled": true,
+        "name": "Acting Speed"
+    }
+},
+{
+    "pk": 2,
+    "model": "traits.combattrait",
+    "fields": {
+        "enabled": true,
+        "name": "Armor"
+    }
+},
+{
+    "pk": 3,
+    "model": "traits.combattrait",
+    "fields": {
+        "enabled": true,
+        "name": "Defense"
+    }
+},
+{
+    "pk": 4,
+    "model": "traits.combattrait",
+    "fields": {
+        "enabled": true,
+        "name": "Health"
+    }
+},
+{
+    "pk": 5,
+    "model": "traits.combattrait",
+    "fields": {
+        "enabled": true,
+        "name": "Initiative"
+    }
+},
+{
+    "pk": 6,
+    "model": "traits.combattrait",
+    "fields": {
+        "enabled": true,
+        "name": "Running Speed"
+    }
+},
+{
+    "pk": 7,
+    "model": "traits.combattrait",
+    "fields": {
+        "enabled": true,
+        "name": "Size"
+    }
+},
+{
+    "pk": 1,
+    "model": "traits.creaturetype",
+    "fields": {
+        "subgroup_name": null,
+        "name": "mortal",
+        "genealogy_name": null,
+        "enabled": true,
+        "power_name": null,
+        "affiliation_name": null
+    }
+},
+{
+    "pk": 2,
+    "model": "traits.creaturetype",
+    "fields": {
+        "subgroup_name": null,
+        "name": "Ghoul",
+        "genealogy_name": null,
+        "enabled": true,
+        "power_name": "Discipline",
+        "affiliation_name": "Covenant"
+    }
+},
+{
+    "pk": 3,
+    "model": "traits.creaturetype",
+    "fields": {
+        "subgroup_name": "Bloodline",
+        "name": "Vampire",
+        "genealogy_name": "Clan",
+        "enabled": true,
+        "power_name": "Discipline",
+        "affiliation_name": "Covenant"
+    }
+},
+{
+    "pk": 1,
+    "model": "traits.derangement",
+    "fields": {
+        "type": 1,
+        "enabled": true,
+        "name": "Avoidance",
+        "requires_specification": true
+    }
+},
+{
+    "pk": 2,
+    "model": "traits.derangement",
+    "fields": {
+        "type": 1,
+        "enabled": true,
+        "name": "Depression",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 3,
+    "model": "traits.derangement",
+    "fields": {
+        "type": 1,
+        "enabled": true,
+        "name": "Fixation",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 4,
+    "model": "traits.derangement",
+    "fields": {
+        "type": 1,
+        "enabled": true,
+        "name": "Inferiority Complex",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 5,
+    "model": "traits.derangement",
+    "fields": {
+        "type": 1,
+        "enabled": true,
+        "name": "Irrationality",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 6,
+    "model": "traits.derangement",
+    "fields": {
+        "type": 1,
+        "enabled": true,
+        "name": "Narcissism",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 7,
+    "model": "traits.derangement",
+    "fields": {
+        "type": 1,
+        "enabled": true,
+        "name": "Phobia",
+        "requires_specification": true
+    }
+},
+{
+    "pk": 8,
+    "model": "traits.derangement",
+    "fields": {
+        "type": 1,
+        "enabled": true,
+        "name": "Sadism",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 9,
+    "model": "traits.derangement",
+    "fields": {
+        "type": 1,
+        "enabled": true,
+        "name": "Suspicion",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 10,
+    "model": "traits.derangement",
+    "fields": {
+        "type": 1,
+        "enabled": true,
+        "name": "Vocalization",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 11,
+    "model": "traits.derangement",
+    "fields": {
+        "type": 2,
+        "enabled": true,
+        "name": "Anxiety",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 12,
+    "model": "traits.derangement",
+    "fields": {
+        "type": 2,
+        "enabled": true,
+        "name": "Hysteria",
+        "requires_specification": true
+    }
+},
+{
+    "pk": 13,
+    "model": "traits.derangement",
+    "fields": {
+        "type": 2,
+        "enabled": true,
+        "name": "Megalomania",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 14,
+    "model": "traits.derangement",
+    "fields": {
+        "type": 2,
+        "enabled": true,
+        "name": "Melancholia",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 15,
+    "model": "traits.derangement",
+    "fields": {
+        "type": 2,
+        "enabled": true,
+        "name": "Obsessive Compulsive",
+        "requires_specification": true
+    }
+},
+{
+    "pk": 16,
+    "model": "traits.derangement",
+    "fields": {
+        "type": 2,
+        "enabled": true,
+        "name": "Paranoia",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 17,
+    "model": "traits.derangement",
+    "fields": {
+        "type": 3,
+        "enabled": true,
+        "name": "Fugue",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 18,
+    "model": "traits.derangement",
+    "fields": {
+        "type": 3,
+        "enabled": true,
+        "name": "Multiple Personality",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 19,
+    "model": "traits.derangement",
+    "fields": {
+        "type": 3,
+        "enabled": true,
+        "name": "Schizophrenia",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 1,
+    "model": "traits.flaw",
+    "fields": {
+        "type": null,
+        "requires_description": false,
+        "enabled": true,
+        "name": "ST Special Flaw",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 2,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 1,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Addiction",
+        "requires_specification": true
+    }
+},
+{
+    "pk": 3,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 1,
+        "requires_description": true,
+        "enabled": true,
+        "name": "Amnesia",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 4,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 1,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Coward",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 5,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 1,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Forgetful",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 6,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 1,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Guild Wracked",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 7,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 1,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Illiterate",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 8,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 1,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Lunacy",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 9,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 1,
+        "requires_description": true,
+        "enabled": true,
+        "name": "Nightmares",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 10,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 1,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Phobia",
+        "requires_specification": true
+    }
+},
+{
+    "pk": 11,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 1,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Prey Exclusion",
+        "requires_specification": true
+    }
+},
+{
+    "pk": 12,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 1,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Soft-Hearted",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 13,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 1,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Short Fuse",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 14,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 1,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Thirst for Innocence",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 15,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 1,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Territorial",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 16,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 1,
+        "requires_description": true,
+        "enabled": true,
+        "name": "Vengeful",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 17,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 1,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Weak-Willed",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 18,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 2,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Blind",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 19,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 2,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Child",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 20,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 2,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Conspicuous Consumption",
+        "requires_specification": true
+    }
+},
+{
+    "pk": 21,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 2,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Crippled",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 22,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 2,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Deaf",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 23,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 2,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Deep Sleeper",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 24,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 2,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Disease Carrier",
+        "requires_specification": true
+    }
+},
+{
+    "pk": 25,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 2,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Distinguishing Characteristic",
+        "requires_specification": true
+    }
+},
+{
+    "pk": 26,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 2,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Dulled Bite",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 27,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 2,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Flesh of the Corpse",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 28,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 2,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Hard of Hearing",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 29,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 2,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Infectious Bite",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 30,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 2,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Lame",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 31,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 2,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Mute",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 32,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 2,
+        "requires_description": false,
+        "enabled": true,
+        "name": "One Arm",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 33,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 2,
+        "requires_description": false,
+        "enabled": true,
+        "name": "One Eye",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 34,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 2,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Permanent Wound",
+        "requires_specification": true
+    }
+},
+{
+    "pk": 35,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 2,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Slow Healing",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 36,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 2,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Thin Blood",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 37,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 3,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Aloof",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 38,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 3,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Behavior Blind",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 39,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 3,
+        "requires_description": true,
+        "enabled": true,
+        "name": "Criminal Record",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 40,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 3,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Deformity",
+        "requires_specification": true
+    }
+},
+{
+    "pk": 41,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 3,
+        "requires_description": true,
+        "enabled": true,
+        "name": "Embarrassing Secret",
+        "requires_specification": true
+    }
+},
+{
+    "pk": 42,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 3,
+        "requires_description": true,
+        "enabled": true,
+        "name": "Enemy",
+        "requires_specification": true
+    }
+},
+{
+    "pk": 43,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 3,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Foreigner",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 44,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 3,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Honest to a Fault",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 45,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 3,
+        "requires_description": true,
+        "enabled": true,
+        "name": "Hunted",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 46,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 3,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Infamous Sire",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 47,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 3,
+        "requires_description": true,
+        "enabled": true,
+        "name": "Infamy",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 48,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 3,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Intolerable Neighbors",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 49,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 3,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Mistaken Identity",
+        "requires_specification": true
+    }
+},
+{
+    "pk": 50,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 3,
+        "requires_description": true,
+        "enabled": true,
+        "name": "Mortal Lover/Child",
+        "requires_specification": true
+    }
+},
+{
+    "pk": 51,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 3,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Nosy Neighbors",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 52,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 3,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Notoriety",
+        "requires_specification": true
+    }
+},
+{
+    "pk": 53,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 3,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Probationary Sect Member",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 54,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 3,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Racist/Sexist",
+        "requires_specification": true
+    }
+},
+{
+    "pk": 55,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 3,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Shy",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 56,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 3,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Sires Resentment",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 57,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 3,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Speech Impediment",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 58,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 3,
+        "requires_description": true,
+        "enabled": true,
+        "name": "Wanted by Law Enforcement",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 59,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 4,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Bacon of the Unholy",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 60,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 4,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Cant Cross Running Water",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 61,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 4,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Cast no Reflection",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 62,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 4,
+        "requires_description": true,
+        "enabled": true,
+        "name": "Cursed",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 63,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 4,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Dark Fate",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 64,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 4,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Eerie Presence",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 65,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 4,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Grip of the Damned",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 66,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 4,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Haunted",
+        "requires_specification": true
+    }
+},
+{
+    "pk": 67,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 4,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Infertile Vitae",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 68,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 4,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Light-Sensitive",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 69,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 4,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Obvious Predator",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 70,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 4,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Repelled by Crosses",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 71,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 4,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Repulsed by Garlic",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 72,
+    "model": "traits.flaw",
+    "fields": {
+        "type": 4,
+        "requires_description": false,
+        "enabled": true,
+        "name": "Touch of Frost",
+        "requires_specification": false
+    }
+},
+{
+    "pk": 1,
+    "model": "traits.genealogy",
+    "fields": {
+        "enabled": true,
+        "name": "Daeva"
+    }
+},
+{
+    "pk": 2,
+    "model": "traits.genealogy",
+    "fields": {
+        "enabled": true,
+        "name": "Gangrel"
+    }
+},
+{
+    "pk": 3,
+    "model": "traits.genealogy",
+    "fields": {
+        "enabled": true,
+        "name": "Mekhet"
+    }
+},
+{
+    "pk": 4,
+    "model": "traits.genealogy",
+    "fields": {
+        "enabled": true,
+        "name": "Nosferatu"
+    }
+},
+{
+    "pk": 5,
+    "model": "traits.genealogy",
+    "fields": {
+        "enabled": true,
+        "name": "Ventrue"
+    }
+},
+{
+    "pk": 1,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "ST Special Merit",
+        "enabled": true,
+        "allowed_ratings": "1,2,3,4",
+        "requires_description": true,
+        "type": null
+    }
+},
+{
+    "pk": 2,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Calm Heart",
+        "enabled": true,
+        "allowed_ratings": "3",
+        "requires_description": false,
+        "type": 1
+    }
+},
+{
+    "pk": 3,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Code of Honor",
+        "enabled": true,
+        "allowed_ratings": "0",
+        "requires_description": false,
+        "type": 1
+    }
+},
+{
+    "pk": 4,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Common Sense",
+        "enabled": true,
+        "allowed_ratings": "1",
+        "requires_description": false,
+        "type": 1
+    }
+},
+{
+    "pk": 5,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Danger Sense",
+        "enabled": true,
+        "allowed_ratings": "2",
+        "requires_description": false,
+        "type": 1
+    }
+},
+{
+    "pk": 6,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Eidetic Memory",
+        "enabled": true,
+        "allowed_ratings": "0",
+        "requires_description": false,
+        "type": 1
+    }
+},
+{
+    "pk": 7,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Encyclopedic Knowledge",
+        "enabled": true,
+        "allowed_ratings": "4",
+        "requires_description": false,
+        "type": 1
+    }
+},
+{
+    "pk": 8,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Fast Reader",
+        "enabled": true,
+        "allowed_ratings": "1",
+        "requires_description": false,
+        "type": 1
+    }
+},
+{
+    "pk": 9,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Holistic Awareness",
+        "enabled": true,
+        "allowed_ratings": "3",
+        "requires_description": false,
+        "type": 1
+    }
+},
+{
+    "pk": 10,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Iron Will",
+        "enabled": true,
+        "allowed_ratings": "3",
+        "requires_description": false,
+        "type": 1
+    }
+},
+{
+    "pk": 11,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": true,
+        "name": "Language",
+        "enabled": true,
+        "allowed_ratings": "1",
+        "requires_description": false,
+        "type": 1
+    }
+},
+{
+    "pk": 12,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Meditative Mind",
+        "enabled": true,
+        "allowed_ratings": "1",
+        "requires_description": false,
+        "type": 1
+    }
+},
+{
+    "pk": 13,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Natural Linguist",
+        "enabled": true,
+        "allowed_ratings": "2",
+        "requires_description": false,
+        "type": 1
+    }
+},
+{
+    "pk": 14,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": true,
+        "name": "Special License",
+        "enabled": true,
+        "allowed_ratings": "2",
+        "requires_description": false,
+        "type": 1
+    }
+},
+{
+    "pk": 15,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Time Sense",
+        "enabled": true,
+        "allowed_ratings": "1",
+        "requires_description": false,
+        "type": 1
+    }
+},
+{
+    "pk": 16,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Unseen Sense",
+        "enabled": true,
+        "allowed_ratings": "3",
+        "requires_description": false,
+        "type": 1
+    }
+},
+{
+    "pk": 17,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": true,
+        "name": "Acute Sense",
+        "enabled": true,
+        "allowed_ratings": "1",
+        "requires_description": false,
+        "type": 2
+    }
+},
+{
+    "pk": 18,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Ambidextrous",
+        "enabled": true,
+        "allowed_ratings": "3",
+        "requires_description": false,
+        "type": 2
+    }
+},
+{
+    "pk": 19,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Blush of Health",
+        "enabled": true,
+        "allowed_ratings": "2",
+        "requires_description": false,
+        "type": 2
+    }
+},
+{
+    "pk": 20,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Brawling Dodge",
+        "enabled": true,
+        "allowed_ratings": "1",
+        "requires_description": false,
+        "type": 2
+    }
+},
+{
+    "pk": 21,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Catlike Balance",
+        "enabled": true,
+        "allowed_ratings": "1",
+        "requires_description": false,
+        "type": 2
+    }
+},
+{
+    "pk": 22,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Dardevil",
+        "enabled": true,
+        "allowed_ratings": "3",
+        "requires_description": false,
+        "type": 2
+    }
+},
+{
+    "pk": 23,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Direction Sense",
+        "enabled": true,
+        "allowed_ratings": "1",
+        "requires_description": false,
+        "type": 2
+    }
+},
+{
+    "pk": 24,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Disarm",
+        "enabled": true,
+        "allowed_ratings": "2",
+        "requires_description": false,
+        "type": 2
+    }
+},
+{
+    "pk": 25,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Eat Food",
+        "enabled": true,
+        "allowed_ratings": "1",
+        "requires_description": false,
+        "type": 2
+    }
+},
+{
+    "pk": 26,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Fast Reflexes",
+        "enabled": true,
+        "allowed_ratings": "1",
+        "requires_description": false,
+        "type": 2
+    }
+},
+{
+    "pk": 27,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": true,
+        "name": "Fighting Finesse",
+        "enabled": true,
+        "allowed_ratings": "2",
+        "requires_description": false,
+        "type": 2
+    }
+},
+{
+    "pk": 28,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Fighting Style: Boxing",
+        "enabled": true,
+        "allowed_ratings": "1,2,3,4,5",
+        "requires_description": false,
+        "type": 2
+    }
+},
+{
+    "pk": 29,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Fighting Style: Kung Fu",
+        "enabled": true,
+        "allowed_ratings": "1,2,3,4,5",
+        "requires_description": false,
+        "type": 2
+    }
+},
+{
+    "pk": 30,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Fighting Style: Two Weapons",
+        "enabled": true,
+        "allowed_ratings": "1,2,3,4,5",
+        "requires_description": false,
+        "type": 2
+    }
+},
+{
+    "pk": 31,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Fleet of Foot",
+        "enabled": true,
+        "allowed_ratings": "1",
+        "requires_description": false,
+        "type": 2
+    }
+},
+{
+    "pk": 32,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Giant",
+        "enabled": true,
+        "allowed_ratings": "4",
+        "requires_description": false,
+        "type": 2
+    }
+},
+{
+    "pk": 33,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Gunsliger",
+        "enabled": true,
+        "allowed_ratings": "3",
+        "requires_description": false,
+        "type": 2
+    }
+},
+{
+    "pk": 34,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Iron Stamina",
+        "enabled": true,
+        "allowed_ratings": "1",
+        "requires_description": false,
+        "type": 2
+    }
+},
+{
+    "pk": 35,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": true,
+        "name": "Quick Draw",
+        "enabled": true,
+        "allowed_ratings": "1",
+        "requires_description": false,
+        "type": 2
+    }
+},
+{
+    "pk": 36,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Strong Back",
+        "enabled": true,
+        "allowed_ratings": "1",
+        "requires_description": false,
+        "type": 2
+    }
+},
+{
+    "pk": 37,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Stunt Driver",
+        "enabled": true,
+        "allowed_ratings": "3",
+        "requires_description": false,
+        "type": 2
+    }
+},
+{
+    "pk": 38,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Weaponry Dodge",
+        "enabled": true,
+        "allowed_ratings": "1",
+        "requires_description": false,
+        "type": 2
+    }
+},
+{
+    "pk": 39,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": true,
+        "name": "Allies",
+        "enabled": true,
+        "allowed_ratings": "1,2,3,4,5",
+        "requires_description": true,
+        "type": 3
+    }
+},
+{
+    "pk": 40,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Barfly",
+        "enabled": true,
+        "allowed_ratings": "1",
+        "requires_description": false,
+        "type": 3
+    }
+},
+{
+    "pk": 41,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Compassionate",
+        "enabled": true,
+        "allowed_ratings": "2",
+        "requires_description": false,
+        "type": 3
+    }
+},
+{
+    "pk": 42,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": true,
+        "name": "Contacts",
+        "enabled": true,
+        "allowed_ratings": "1,2,3,4,5",
+        "requires_description": true,
+        "type": 3
+    }
+},
+{
+    "pk": 43,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Debt of Gratitude (minor)",
+        "enabled": true,
+        "allowed_ratings": "1",
+        "requires_description": true,
+        "type": 3
+    }
+},
+{
+    "pk": 44,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Debt of Gratitude (major)",
+        "enabled": true,
+        "allowed_ratings": "2",
+        "requires_description": true,
+        "type": 3
+    }
+},
+{
+    "pk": 45,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Debt of Gratitude (blood)",
+        "enabled": true,
+        "allowed_ratings": "3",
+        "requires_description": true,
+        "type": 3
+    }
+},
+{
+    "pk": 46,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Enchanting Voice",
+        "enabled": true,
+        "allowed_ratings": "2",
+        "requires_description": false,
+        "type": 3
+    }
+},
+{
+    "pk": 47,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Fame",
+        "enabled": true,
+        "allowed_ratings": "1",
+        "requires_description": false,
+        "type": 3
+    }
+},
+{
+    "pk": 48,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Good Neighbors",
+        "enabled": true,
+        "allowed_ratings": "2",
+        "requires_description": true,
+        "type": 3
+    }
+},
+{
+    "pk": 49,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Great Liar",
+        "enabled": true,
+        "allowed_ratings": "2",
+        "requires_description": false,
+        "type": 3
+    }
+},
+{
+    "pk": 50,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Haven Location",
+        "enabled": true,
+        "allowed_ratings": "1,2,3,4,5",
+        "requires_description": false,
+        "type": 3
+    }
+},
+{
+    "pk": 51,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Haven Security",
+        "enabled": true,
+        "allowed_ratings": "1,2,3,4,5",
+        "requires_description": false,
+        "type": 3
+    }
+},
+{
+    "pk": 52,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Haven Size",
+        "enabled": true,
+        "allowed_ratings": "1,2,3,4,5",
+        "requires_description": false,
+        "type": 3
+    }
+},
+{
+    "pk": 53,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Herd",
+        "enabled": true,
+        "allowed_ratings": "1,2,3,4,5",
+        "requires_description": false,
+        "type": 3
+    }
+},
+{
+    "pk": 54,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Inspiring",
+        "enabled": true,
+        "allowed_ratings": "4",
+        "requires_description": false,
+        "type": 3
+    }
+},
+{
+    "pk": 55,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": true,
+        "name": "Mentor",
+        "enabled": true,
+        "allowed_ratings": "1,2,3,4,5",
+        "requires_description": true,
+        "type": 3
+    }
+},
+{
+    "pk": 56,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Mortal ID",
+        "enabled": true,
+        "allowed_ratings": "2",
+        "requires_description": false,
+        "type": 3
+    }
+},
+{
+    "pk": 57,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Optimistic",
+        "enabled": true,
+        "allowed_ratings": "4",
+        "requires_description": false,
+        "type": 3
+    }
+},
+{
+    "pk": 58,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Personal Masquerade",
+        "enabled": true,
+        "allowed_ratings": "3",
+        "requires_description": true,
+        "type": 3
+    }
+},
+{
+    "pk": 59,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Prestigious Sire",
+        "enabled": true,
+        "allowed_ratings": "1",
+        "requires_description": true,
+        "type": 3
+    }
+},
+{
+    "pk": 60,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Resources",
+        "enabled": true,
+        "allowed_ratings": "1,2,3,4,5",
+        "requires_description": false,
+        "type": 3
+    }
+},
+{
+    "pk": 61,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": true,
+        "name": "Retainer",
+        "enabled": true,
+        "allowed_ratings": "1,2,3,4,5",
+        "requires_description": true,
+        "type": 3
+    }
+},
+{
+    "pk": 62,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Status: City",
+        "enabled": true,
+        "allowed_ratings": "1,2,3,4,5",
+        "requires_description": false,
+        "type": 3
+    }
+},
+{
+    "pk": 63,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Status: Clan",
+        "enabled": true,
+        "allowed_ratings": "1,2,3,4,5",
+        "requires_description": false,
+        "type": 3
+    }
+},
+{
+    "pk": 64,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Status: Covenant",
+        "enabled": true,
+        "allowed_ratings": "1,2,3,4,5",
+        "requires_description": false,
+        "type": 3
+    }
+},
+{
+    "pk": 65,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Striking Looks",
+        "enabled": true,
+        "allowed_ratings": "2,4",
+        "requires_description": false,
+        "type": 3
+    }
+},
+{
+    "pk": 66,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Bright Aura",
+        "enabled": true,
+        "allowed_ratings": "1",
+        "requires_description": false,
+        "type": 4
+    }
+},
+{
+    "pk": 67,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Lucky",
+        "enabled": true,
+        "allowed_ratings": "0",
+        "requires_description": false,
+        "type": 4
+    }
+},
+{
+    "pk": 68,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Magic Resistance",
+        "enabled": true,
+        "allowed_ratings": "0",
+        "requires_description": false,
+        "type": 4
+    }
+},
+{
+    "pk": 69,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Medium",
+        "enabled": true,
+        "allowed_ratings": "2",
+        "requires_description": false,
+        "type": 4
+    }
+},
+{
+    "pk": 70,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Nine Lives",
+        "enabled": true,
+        "allowed_ratings": "0",
+        "requires_description": false,
+        "type": 4
+    }
+},
+{
+    "pk": 71,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Oracular Ability",
+        "enabled": true,
+        "allowed_ratings": "4",
+        "requires_description": false,
+        "type": 4
+    }
+},
+{
+    "pk": 72,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Spirit Mentor",
+        "enabled": true,
+        "allowed_ratings": "3",
+        "requires_description": true,
+        "type": 4
+    }
+},
+{
+    "pk": 73,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Sympathetic Bond",
+        "enabled": true,
+        "allowed_ratings": "0",
+        "requires_description": false,
+        "type": 4
+    }
+},
+{
+    "pk": 74,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "True Faith",
+        "enabled": true,
+        "allowed_ratings": "0",
+        "requires_description": false,
+        "type": 4
+    }
+},
+{
+    "pk": 75,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "True Love",
+        "enabled": true,
+        "allowed_ratings": "4",
+        "requires_description": false,
+        "type": 4
+    }
+},
+{
+    "pk": 76,
+    "model": "traits.merit",
+    "fields": {
+        "requires_specification": false,
+        "name": "Unbondable",
+        "enabled": true,
+        "allowed_ratings": "0",
+        "requires_description": false,
+        "type": 4
+    }
+},
+{
+    "pk": 1,
+    "model": "traits.misctrait",
+    "fields": {
+        "requires_description": false,
+        "enabled": true,
+        "name": "Willpower"
+    }
+},
+{
+    "pk": 2,
+    "model": "traits.misctrait",
+    "fields": {
+        "requires_description": false,
+        "enabled": true,
+        "name": "Humanity"
+    }
+},
+{
+    "pk": 3,
+    "model": "traits.misctrait",
+    "fields": {
+        "requires_description": false,
+        "enabled": true,
+        "name": "Blood Potency"
+    }
+},
+{
+    "pk": 1,
+    "model": "traits.power",
+    "fields": {
+        "rating": 1,
+        "enabled": true,
+        "name": "Feral Whispers",
+        "group": "Animalism"
+    }
+},
+{
+    "pk": 2,
+    "model": "traits.power",
+    "fields": {
+        "rating": 2,
+        "enabled": true,
+        "name": "Obedience",
+        "group": "Animalism"
+    }
+},
+{
+    "pk": 3,
+    "model": "traits.power",
+    "fields": {
+        "rating": 3,
+        "enabled": true,
+        "name": "Call of the Wild",
+        "group": "Animalism"
+    }
+},
+{
+    "pk": 4,
+    "model": "traits.power",
+    "fields": {
+        "rating": 4,
+        "enabled": true,
+        "name": "Subsume the Lesser Spirit",
+        "group": "Animalism"
+    }
+},
+{
+    "pk": 5,
+    "model": "traits.power",
+    "fields": {
+        "rating": 5,
+        "enabled": true,
+        "name": "Leashing the Beast",
+        "group": "Animalism"
+    }
+},
+{
+    "pk": 6,
+    "model": "traits.power",
+    "fields": {
+        "rating": 1,
+        "enabled": true,
+        "name": "Heightened Senses",
+        "group": "Auspex"
+    }
+},
+{
+    "pk": 7,
+    "model": "traits.power",
+    "fields": {
+        "rating": 2,
+        "enabled": true,
+        "name": "Aura Perception",
+        "group": "Auspex"
+    }
+},
+{
+    "pk": 8,
+    "model": "traits.power",
+    "fields": {
+        "rating": 3,
+        "enabled": true,
+        "name": "The Spirits Touch",
+        "group": "Auspex"
+    }
+},
+{
+    "pk": 9,
+    "model": "traits.power",
+    "fields": {
+        "rating": 4,
+        "enabled": true,
+        "name": "Telepathy",
+        "group": "Auspex"
+    }
+},
+{
+    "pk": 10,
+    "model": "traits.power",
+    "fields": {
+        "rating": 5,
+        "enabled": true,
+        "name": "Twilight Projection",
+        "group": "Auspex"
+    }
+},
+{
+    "pk": 11,
+    "model": "traits.power",
+    "fields": {
+        "rating": 1,
+        "enabled": true,
+        "name": "Celerity 1",
+        "group": "Celerity"
+    }
+},
+{
+    "pk": 12,
+    "model": "traits.power",
+    "fields": {
+        "rating": 2,
+        "enabled": true,
+        "name": "Celerity 2",
+        "group": "Celerity"
+    }
+},
+{
+    "pk": 13,
+    "model": "traits.power",
+    "fields": {
+        "rating": 3,
+        "enabled": true,
+        "name": "Celerity 3",
+        "group": "Celerity"
+    }
+},
+{
+    "pk": 14,
+    "model": "traits.power",
+    "fields": {
+        "rating": 4,
+        "enabled": true,
+        "name": "Celerity 4",
+        "group": "Celerity"
+    }
+},
+{
+    "pk": 15,
+    "model": "traits.power",
+    "fields": {
+        "rating": 5,
+        "enabled": true,
+        "name": "Celerity 5",
+        "group": "Celerity"
+    }
+},
+{
+    "pk": 16,
+    "model": "traits.power",
+    "fields": {
+        "rating": 1,
+        "enabled": true,
+        "name": "Conquer the Red Fear",
+        "group": "Coil of Banes"
+    }
+},
+{
+    "pk": 17,
+    "model": "traits.power",
+    "fields": {
+        "rating": 2,
+        "enabled": true,
+        "name": "Surmounting the Daysleep",
+        "group": "Coil of Banes"
+    }
+},
+{
+    "pk": 18,
+    "model": "traits.power",
+    "fields": {
+        "rating": 3,
+        "enabled": true,
+        "name": "Suns Forgotten Kiss",
+        "group": "Coil of Banes"
+    }
+},
+{
+    "pk": 19,
+    "model": "traits.power",
+    "fields": {
+        "rating": 1,
+        "enabled": true,
+        "name": "Blood Seeps Slowly",
+        "group": "Coil of Blood"
+    }
+},
+{
+    "pk": 20,
+    "model": "traits.power",
+    "fields": {
+        "rating": 2,
+        "enabled": true,
+        "name": "Blood of Beasts",
+        "group": "Coil of Blood"
+    }
+},
+{
+    "pk": 21,
+    "model": "traits.power",
+    "fields": {
+        "rating": 3,
+        "enabled": true,
+        "name": "Perspicacious Blood",
+        "group": "Coil of Blood"
+    }
+},
+{
+    "pk": 22,
+    "model": "traits.power",
+    "fields": {
+        "rating": 1,
+        "enabled": true,
+        "name": "Chastise the Beast",
+        "group": "Coil of the Beast"
+    }
+},
+{
+    "pk": 23,
+    "model": "traits.power",
+    "fields": {
+        "rating": 2,
+        "enabled": true,
+        "name": "Lure the Beast",
+        "group": "Coil of the Beast"
+    }
+},
+{
+    "pk": 24,
+    "model": "traits.power",
+    "fields": {
+        "rating": 3,
+        "enabled": true,
+        "name": "Exhaust the Beast",
+        "group": "Coil of the Beast"
+    }
+},
+{
+    "pk": 25,
+    "model": "traits.power",
+    "fields": {
+        "rating": 1,
+        "enabled": true,
+        "name": "The Man Wakes",
+        "group": "Coil of the Flesh"
+    }
+},
+{
+    "pk": 26,
+    "model": "traits.power",
+    "fields": {
+        "rating": 2,
+        "enabled": true,
+        "name": "A Taste of Life",
+        "group": "Coil of the Flesh"
+    }
+},
+{
+    "pk": 27,
+    "model": "traits.power",
+    "fields": {
+        "rating": 3,
+        "enabled": true,
+        "name": "The Face of Man",
+        "group": "Coil of the Flesh"
+    }
+},
+{
+    "pk": 28,
+    "model": "traits.power",
+    "fields": {
+        "rating": 1,
+        "enabled": true,
+        "name": "Enliven the Face",
+        "group": "Coil of the Soul"
+    }
+},
+{
+    "pk": 29,
+    "model": "traits.power",
+    "fields": {
+        "rating": 2,
+        "enabled": true,
+        "name": "Salve the Mind",
+        "group": "Coil of the Soul"
+    }
+},
+{
+    "pk": 30,
+    "model": "traits.power",
+    "fields": {
+        "rating": 3,
+        "enabled": true,
+        "name": "Quiet the Soul",
+        "group": "Coil of the Soul"
+    }
+},
+{
+    "pk": 31,
+    "model": "traits.power",
+    "fields": {
+        "rating": 1,
+        "enabled": true,
+        "name": "Cruac 1",
+        "group": "Cruac"
+    }
+},
+{
+    "pk": 32,
+    "model": "traits.power",
+    "fields": {
+        "rating": 2,
+        "enabled": true,
+        "name": "Cruac 2",
+        "group": "Cruac"
+    }
+},
+{
+    "pk": 33,
+    "model": "traits.power",
+    "fields": {
+        "rating": 3,
+        "enabled": true,
+        "name": "Cruac 3",
+        "group": "Cruac"
+    }
+},
+{
+    "pk": 34,
+    "model": "traits.power",
+    "fields": {
+        "rating": 4,
+        "enabled": true,
+        "name": "Cruac 4",
+        "group": "Cruac"
+    }
+},
+{
+    "pk": 35,
+    "model": "traits.power",
+    "fields": {
+        "rating": 5,
+        "enabled": true,
+        "name": "Cruac 5",
+        "group": "Cruac"
+    }
+},
+{
+    "pk": 36,
+    "model": "traits.power",
+    "fields": {
+        "rating": 1,
+        "enabled": true,
+        "name": "Confidence in Adversity",
+        "group": "Cruac Ritual"
+    }
+},
+{
+    "pk": 37,
+    "model": "traits.power",
+    "fields": {
+        "rating": 1,
+        "enabled": true,
+        "name": "Drops of Destiny",
+        "group": "Cruac Ritual"
+    }
+},
+{
+    "pk": 38,
+    "model": "traits.power",
+    "fields": {
+        "rating": 1,
+        "enabled": true,
+        "name": "Fires of Inspiration",
+        "group": "Cruac Ritual"
+    }
+},
+{
+    "pk": 39,
+    "model": "traits.power",
+    "fields": {
+        "rating": 1,
+        "enabled": true,
+        "name": "Pangs of Proserpina",
+        "group": "Cruac Ritual"
+    }
+},
+{
+    "pk": 40,
+    "model": "traits.power",
+    "fields": {
+        "rating": 1,
+        "enabled": true,
+        "name": "Rigor Mortis",
+        "group": "Cruac Ritual"
+    }
+},
+{
+    "pk": 41,
+    "model": "traits.power",
+    "fields": {
+        "rating": 1,
+        "enabled": true,
+        "name": "Taste of Knowledge",
+        "group": "Cruac Ritual"
+    }
+},
+{
+    "pk": 42,
+    "model": "traits.power",
+    "fields": {
+        "rating": 1,
+        "enabled": true,
+        "name": "Visage of the Crone",
+        "group": "Cruac Ritual"
+    }
+},
+{
+    "pk": 43,
+    "model": "traits.power",
+    "fields": {
+        "rating": 2,
+        "enabled": true,
+        "name": "Cheval",
+        "group": "Cruac Ritual"
+    }
+},
+{
+    "pk": 44,
+    "model": "traits.power",
+    "fields": {
+        "rating": 2,
+        "enabled": true,
+        "name": "Maiden Skin",
+        "group": "Cruac Ritual"
+    }
+},
+{
+    "pk": 45,
+    "model": "traits.power",
+    "fields": {
+        "rating": 2,
+        "enabled": true,
+        "name": "Path of Thorns",
+        "group": "Cruac Ritual"
+    }
+},
+{
+    "pk": 46,
+    "model": "traits.power",
+    "fields": {
+        "rating": 2,
+        "enabled": true,
+        "name": "Souls Work",
+        "group": "Cruac Ritual"
+    }
+},
+{
+    "pk": 47,
+    "model": "traits.power",
+    "fields": {
+        "rating": 2,
+        "enabled": true,
+        "name": "Succulent Buboes",
+        "group": "Cruac Ritual"
+    }
+},
+{
+    "pk": 48,
+    "model": "traits.power",
+    "fields": {
+        "rating": 2,
+        "enabled": true,
+        "name": "The Hydras Vitae",
+        "group": "Cruac Ritual"
+    }
+},
+{
+    "pk": 49,
+    "model": "traits.power",
+    "fields": {
+        "rating": 2,
+        "enabled": true,
+        "name": "Wisdom of the Soul",
+        "group": "Cruac Ritual"
+    }
+},
+{
+    "pk": 50,
+    "model": "traits.power",
+    "fields": {
+        "rating": 3,
+        "enabled": true,
+        "name": "Beloved Deodand",
+        "group": "Cruac Ritual"
+    }
+},
+{
+    "pk": 51,
+    "model": "traits.power",
+    "fields": {
+        "rating": 3,
+        "enabled": true,
+        "name": "Deflection of Wooden Doom",
+        "group": "Cruac Ritual"
+    }
+},
+{
+    "pk": 52,
+    "model": "traits.power",
+    "fields": {
+        "rating": 3,
+        "enabled": true,
+        "name": "Final Service of the Slave",
+        "group": "Cruac Ritual"
+    }
+},
+{
+    "pk": 53,
+    "model": "traits.power",
+    "fields": {
+        "rating": 3,
+        "enabled": true,
+        "name": "Rain",
+        "group": "Cruac Ritual"
+    }
+},
+{
+    "pk": 54,
+    "model": "traits.power",
+    "fields": {
+        "rating": 3,
+        "enabled": true,
+        "name": "Taste of Destiny",
+        "group": "Cruac Ritual"
+    }
+},
+{
+    "pk": 55,
+    "model": "traits.power",
+    "fields": {
+        "rating": 3,
+        "enabled": true,
+        "name": "Tiamats Offspring",
+        "group": "Cruac Ritual"
+    }
+},
+{
+    "pk": 56,
+    "model": "traits.power",
+    "fields": {
+        "rating": 3,
+        "enabled": true,
+        "name": "Touch of the Morrigan",
+        "group": "Cruac Ritual"
+    }
+},
+{
+    "pk": 57,
+    "model": "traits.power",
+    "fields": {
+        "rating": 4,
+        "enabled": true,
+        "name": "Blood Price",
+        "group": "Cruac Ritual"
+    }
+},
+{
+    "pk": 58,
+    "model": "traits.power",
+    "fields": {
+        "rating": 4,
+        "enabled": true,
+        "name": "Eye of the Norn",
+        "group": "Cruac Ritual"
+    }
+},
+{
+    "pk": 59,
+    "model": "traits.power",
+    "fields": {
+        "rating": 4,
+        "enabled": true,
+        "name": "Font of Wisdom",
+        "group": "Cruac Ritual"
+    }
+},
+{
+    "pk": 60,
+    "model": "traits.power",
+    "fields": {
+        "rating": 4,
+        "enabled": true,
+        "name": "Mask of Blood",
+        "group": "Cruac Ritual"
+    }
+},
+{
+    "pk": 61,
+    "model": "traits.power",
+    "fields": {
+        "rating": 4,
+        "enabled": true,
+        "name": "Sacrifice of Odin",
+        "group": "Cruac Ritual"
+    }
+},
+{
+    "pk": 62,
+    "model": "traits.power",
+    "fields": {
+        "rating": 4,
+        "enabled": true,
+        "name": "Willful Vitae",
+        "group": "Cruac Ritual"
+    }
+},
+{
+    "pk": 63,
+    "model": "traits.power",
+    "fields": {
+        "rating": 5,
+        "enabled": true,
+        "name": "A Child from the Stones",
+        "group": "Cruac Ritual"
+    }
+},
+{
+    "pk": 64,
+    "model": "traits.power",
+    "fields": {
+        "rating": 5,
+        "enabled": true,
+        "name": "As One",
+        "group": "Cruac Ritual"
+    }
+},
+{
+    "pk": 65,
+    "model": "traits.power",
+    "fields": {
+        "rating": 5,
+        "enabled": true,
+        "name": "Blood Blight",
+        "group": "Cruac Ritual"
+    }
+},
+{
+    "pk": 66,
+    "model": "traits.power",
+    "fields": {
+        "rating": 5,
+        "enabled": true,
+        "name": "Crones Renewal",
+        "group": "Cruac Ritual"
+    }
+},
+{
+    "pk": 67,
+    "model": "traits.power",
+    "fields": {
+        "rating": 5,
+        "enabled": true,
+        "name": "Feeding the Crone",
+        "group": "Cruac Ritual"
+    }
+},
+{
+    "pk": 68,
+    "model": "traits.power",
+    "fields": {
+        "rating": 5,
+        "enabled": true,
+        "name": "Roving Hut",
+        "group": "Cruac Ritual"
+    }
+},
+{
+    "pk": 69,
+    "model": "traits.power",
+    "fields": {
+        "rating": 1,
+        "enabled": true,
+        "name": "Command",
+        "group": "Dominate"
+    }
+},
+{
+    "pk": 70,
+    "model": "traits.power",
+    "fields": {
+        "rating": 2,
+        "enabled": true,
+        "name": "Mesmerize",
+        "group": "Dominate"
+    }
+},
+{
+    "pk": 71,
+    "model": "traits.power",
+    "fields": {
+        "rating": 3,
+        "enabled": true,
+        "name": "The Forgetful Mind",
+        "group": "Dominate"
+    }
+},
+{
+    "pk": 72,
+    "model": "traits.power",
+    "fields": {
+        "rating": 4,
+        "enabled": true,
+        "name": "Conditioning",
+        "group": "Dominate"
+    }
+},
+{
+    "pk": 73,
+    "model": "traits.power",
+    "fields": {
+        "rating": 5,
+        "enabled": true,
+        "name": "Possession",
+        "group": "Dominate"
+    }
+},
+{
+    "pk": 74,
+    "model": "traits.power",
+    "fields": {
+        "rating": 1,
+        "enabled": true,
+        "name": "Awe",
+        "group": "Majesty"
+    }
+},
+{
+    "pk": 75,
+    "model": "traits.power",
+    "fields": {
+        "rating": 2,
+        "enabled": true,
+        "name": "Revelation",
+        "group": "Majesty"
+    }
+},
+{
+    "pk": 76,
+    "model": "traits.power",
+    "fields": {
+        "rating": 3,
+        "enabled": true,
+        "name": "Entrancement",
+        "group": "Majesty"
+    }
+},
+{
+    "pk": 77,
+    "model": "traits.power",
+    "fields": {
+        "rating": 4,
+        "enabled": true,
+        "name": "Summoning",
+        "group": "Majesty"
+    }
+},
+{
+    "pk": 78,
+    "model": "traits.power",
+    "fields": {
+        "rating": 5,
+        "enabled": true,
+        "name": "Sovereignty",
+        "group": "Majesty"
+    }
+},
+{
+    "pk": 79,
+    "model": "traits.power",
+    "fields": {
+        "rating": 1,
+        "enabled": true,
+        "name": "Monstrous Countenance",
+        "group": "Nightmare"
+    }
+},
+{
+    "pk": 80,
+    "model": "traits.power",
+    "fields": {
+        "rating": 2,
+        "enabled": true,
+        "name": "Dread",
+        "group": "Nightmare"
+    }
+},
+{
+    "pk": 81,
+    "model": "traits.power",
+    "fields": {
+        "rating": 3,
+        "enabled": true,
+        "name": "Eye of the Beast",
+        "group": "Nightmare"
+    }
+},
+{
+    "pk": 82,
+    "model": "traits.power",
+    "fields": {
+        "rating": 4,
+        "enabled": true,
+        "name": "Shatter the Mind",
+        "group": "Nightmare"
+    }
+},
+{
+    "pk": 83,
+    "model": "traits.power",
+    "fields": {
+        "rating": 5,
+        "enabled": true,
+        "name": "Mortal Fear",
+        "group": "Nightmare"
+    }
+},
+{
+    "pk": 84,
+    "model": "traits.power",
+    "fields": {
+        "rating": 1,
+        "enabled": true,
+        "name": "Touch of Shadow",
+        "group": "Obfuscate"
+    }
+},
+{
+    "pk": 85,
+    "model": "traits.power",
+    "fields": {
+        "rating": 2,
+        "enabled": true,
+        "name": "Mask of Tranquility",
+        "group": "Obfuscate"
+    }
+},
+{
+    "pk": 86,
+    "model": "traits.power",
+    "fields": {
+        "rating": 3,
+        "enabled": true,
+        "name": "Cloak of Night",
+        "group": "Obfuscate"
+    }
+},
+{
+    "pk": 87,
+    "model": "traits.power",
+    "fields": {
+        "rating": 4,
+        "enabled": true,
+        "name": "The Familiar Stranger",
+        "group": "Obfuscate"
+    }
+},
+{
+    "pk": 88,
+    "model": "traits.power",
+    "fields": {
+        "rating": 5,
+        "enabled": true,
+        "name": "Cloak the Gathering",
+        "group": "Obfuscate"
+    }
+},
+{
+    "pk": 89,
+    "model": "traits.power",
+    "fields": {
+        "rating": 1,
+        "enabled": true,
+        "name": "Aspect of the Predator",
+        "group": "Protean"
+    }
+},
+{
+    "pk": 90,
+    "model": "traits.power",
+    "fields": {
+        "rating": 2,
+        "enabled": true,
+        "name": "Haven of Soil",
+        "group": "Protean"
+    }
+},
+{
+    "pk": 91,
+    "model": "traits.power",
+    "fields": {
+        "rating": 3,
+        "enabled": true,
+        "name": "Claws of the Wild",
+        "group": "Protean"
+    }
+},
+{
+    "pk": 92,
+    "model": "traits.power",
+    "fields": {
+        "rating": 4,
+        "enabled": true,
+        "name": "Shape of the Beast",
+        "group": "Protean"
+    }
+},
+{
+    "pk": 93,
+    "model": "traits.power",
+    "fields": {
+        "rating": 5,
+        "enabled": true,
+        "name": "Body of Spirit",
+        "group": "Protean"
+    }
+},
+{
+    "pk": 94,
+    "model": "traits.power",
+    "fields": {
+        "rating": 1,
+        "enabled": true,
+        "name": "Resilience 1",
+        "group": "Resilience"
+    }
+},
+{
+    "pk": 95,
+    "model": "traits.power",
+    "fields": {
+        "rating": 2,
+        "enabled": true,
+        "name": "Resilience 2",
+        "group": "Resilience"
+    }
+},
+{
+    "pk": 96,
+    "model": "traits.power",
+    "fields": {
+        "rating": 3,
+        "enabled": true,
+        "name": "Resilience 3",
+        "group": "Resilience"
+    }
+},
+{
+    "pk": 97,
+    "model": "traits.power",
+    "fields": {
+        "rating": 4,
+        "enabled": true,
+        "name": "Resilience 4",
+        "group": "Resilience"
+    }
+},
+{
+    "pk": 98,
+    "model": "traits.power",
+    "fields": {
+        "rating": 5,
+        "enabled": true,
+        "name": "Resilience 5",
+        "group": "Resilience"
+    }
+},
+{
+    "pk": 99,
+    "model": "traits.power",
+    "fields": {
+        "rating": 1,
+        "enabled": true,
+        "name": "Theban Sorcery 1",
+        "group": "Theban Sorcery"
+    }
+},
+{
+    "pk": 100,
+    "model": "traits.power",
+    "fields": {
+        "rating": 2,
+        "enabled": true,
+        "name": "Theban Sorcery 2",
+        "group": "Theban Sorcery"
+    }
+},
+{
+    "pk": 101,
+    "model": "traits.power",
+    "fields": {
+        "rating": 3,
+        "enabled": true,
+        "name": "Theban Sorcery 3",
+        "group": "Theban Sorcery"
+    }
+},
+{
+    "pk": 102,
+    "model": "traits.power",
+    "fields": {
+        "rating": 4,
+        "enabled": true,
+        "name": "Theban Sorcery 4",
+        "group": "Theban Sorcery"
+    }
+},
+{
+    "pk": 103,
+    "model": "traits.power",
+    "fields": {
+        "rating": 5,
+        "enabled": true,
+        "name": "Theban Sorcery 5",
+        "group": "Theban Sorcery"
+    }
+},
+{
+    "pk": 104,
+    "model": "traits.power",
+    "fields": {
+        "rating": 1,
+        "enabled": true,
+        "name": "Blood Scourge",
+        "group": "Theban Sorcery Ritual"
+    }
+},
+{
+    "pk": 105,
+    "model": "traits.power",
+    "fields": {
+        "rating": 1,
+        "enabled": true,
+        "name": "Celibacy",
+        "group": "Theban Sorcery Ritual"
+    }
+},
+{
+    "pk": 106,
+    "model": "traits.power",
+    "fields": {
+        "rating": 1,
+        "enabled": true,
+        "name": "Crown of Thorns",
+        "group": "Theban Sorcery Ritual"
+    }
+},
+{
+    "pk": 107,
+    "model": "traits.power",
+    "fields": {
+        "rating": 1,
+        "enabled": true,
+        "name": "Hauberk of Blood",
+        "group": "Theban Sorcery Ritual"
+    }
+},
+{
+    "pk": 108,
+    "model": "traits.power",
+    "fields": {
+        "rating": 1,
+        "enabled": true,
+        "name": "Sinner Song",
+        "group": "Theban Sorcery Ritual"
+    }
+},
+{
+    "pk": 109,
+    "model": "traits.power",
+    "fields": {
+        "rating": 1,
+        "enabled": true,
+        "name": "Theban Inscription",
+        "group": "Theban Sorcery Ritual"
+    }
+},
+{
+    "pk": 110,
+    "model": "traits.power",
+    "fields": {
+        "rating": 1,
+        "enabled": true,
+        "name": "Vitae Reliquary",
+        "group": "Theban Sorcery Ritual"
+    }
+},
+{
+    "pk": 111,
+    "model": "traits.power",
+    "fields": {
+        "rating": 2,
+        "enabled": true,
+        "name": "Bird of Sin",
+        "group": "Theban Sorcery Ritual"
+    }
+},
+{
+    "pk": 112,
+    "model": "traits.power",
+    "fields": {
+        "rating": 2,
+        "enabled": true,
+        "name": "Curse of Babel",
+        "group": "Theban Sorcery Ritual"
+    }
+},
+{
+    "pk": 113,
+    "model": "traits.power",
+    "fields": {
+        "rating": 2,
+        "enabled": true,
+        "name": "Damned Radiance",
+        "group": "Theban Sorcery Ritual"
+    }
+},
+{
+    "pk": 114,
+    "model": "traits.power",
+    "fields": {
+        "rating": 2,
+        "enabled": true,
+        "name": "Liars Plague",
+        "group": "Theban Sorcery Ritual"
+    }
+},
+{
+    "pk": 115,
+    "model": "traits.power",
+    "fields": {
+        "rating": 2,
+        "enabled": true,
+        "name": "Prison of Denial",
+        "group": "Theban Sorcery Ritual"
+    }
+},
+{
+    "pk": 116,
+    "model": "traits.power",
+    "fields": {
+        "rating": 2,
+        "enabled": true,
+        "name": "Resistance",
+        "group": "Theban Sorcery Ritual"
+    }
+},
+{
+    "pk": 117,
+    "model": "traits.power",
+    "fields": {
+        "rating": 2,
+        "enabled": true,
+        "name": "Sanctity",
+        "group": "Theban Sorcery Ritual"
+    }
+},
+{
+    "pk": 118,
+    "model": "traits.power",
+    "fields": {
+        "rating": 3,
+        "enabled": true,
+        "name": "Blandishment of Sin",
+        "group": "Theban Sorcery Ritual"
+    }
+},
+{
+    "pk": 119,
+    "model": "traits.power",
+    "fields": {
+        "rating": 3,
+        "enabled": true,
+        "name": "Blood Fire",
+        "group": "Theban Sorcery Ritual"
+    }
+},
+{
+    "pk": 120,
+    "model": "traits.power",
+    "fields": {
+        "rating": 3,
+        "enabled": true,
+        "name": "Lash Beyond Death",
+        "group": "Theban Sorcery Ritual"
+    }
+},
+{
+    "pk": 121,
+    "model": "traits.power",
+    "fields": {
+        "rating": 3,
+        "enabled": true,
+        "name": "Legionnaires Blessing",
+        "group": "Theban Sorcery Ritual"
+    }
+},
+{
+    "pk": 122,
+    "model": "traits.power",
+    "fields": {
+        "rating": 3,
+        "enabled": true,
+        "name": "Malediction of Despair",
+        "group": "Theban Sorcery Ritual"
+    }
+},
+{
+    "pk": 123,
+    "model": "traits.power",
+    "fields": {
+        "rating": 3,
+        "enabled": true,
+        "name": "Pharaohs Paces",
+        "group": "Theban Sorcery Ritual"
+    }
+},
+{
+    "pk": 124,
+    "model": "traits.power",
+    "fields": {
+        "rating": 3,
+        "enabled": true,
+        "name": "Vision of the Will",
+        "group": "Theban Sorcery Ritual"
+    }
+},
+{
+    "pk": 125,
+    "model": "traits.power",
+    "fields": {
+        "rating": 4,
+        "enabled": true,
+        "name": "Call of Amoniel",
+        "group": "Theban Sorcery Ritual"
+    }
+},
+{
+    "pk": 126,
+    "model": "traits.power",
+    "fields": {
+        "rating": 4,
+        "enabled": true,
+        "name": "Display of the Beast",
+        "group": "Theban Sorcery Ritual"
+    }
+},
+{
+    "pk": 127,
+    "model": "traits.power",
+    "fields": {
+        "rating": 4,
+        "enabled": true,
+        "name": "Gift of Lazarus",
+        "group": "Theban Sorcery Ritual"
+    }
+},
+{
+    "pk": 128,
+    "model": "traits.power",
+    "fields": {
+        "rating": 4,
+        "enabled": true,
+        "name": "Mark of the Damned",
+        "group": "Theban Sorcery Ritual"
+    }
+},
+{
+    "pk": 129,
+    "model": "traits.power",
+    "fields": {
+        "rating": 4,
+        "enabled": true,
+        "name": "Song of the Prey",
+        "group": "Theban Sorcery Ritual"
+    }
+},
+{
+    "pk": 130,
+    "model": "traits.power",
+    "fields": {
+        "rating": 4,
+        "enabled": true,
+        "name": "Spear of Faith",
+        "group": "Theban Sorcery Ritual"
+    }
+},
+{
+    "pk": 131,
+    "model": "traits.power",
+    "fields": {
+        "rating": 4,
+        "enabled": true,
+        "name": "Stigmata",
+        "group": "Theban Sorcery Ritual"
+    }
+},
+{
+    "pk": 132,
+    "model": "traits.power",
+    "fields": {
+        "rating": 5,
+        "enabled": true,
+        "name": "Damneds Day",
+        "group": "Theban Sorcery Ritual"
+    }
+},
+{
+    "pk": 133,
+    "model": "traits.power",
+    "fields": {
+        "rating": 5,
+        "enabled": true,
+        "name": "Fires of Vengeance",
+        "group": "Theban Sorcery Ritual"
+    }
+},
+{
+    "pk": 134,
+    "model": "traits.power",
+    "fields": {
+        "rating": 5,
+        "enabled": true,
+        "name": "Imprecation of Sin",
+        "group": "Theban Sorcery Ritual"
+    }
+},
+{
+    "pk": 135,
+    "model": "traits.power",
+    "fields": {
+        "rating": 5,
+        "enabled": true,
+        "name": "Night of Hell",
+        "group": "Theban Sorcery Ritual"
+    }
+},
+{
+    "pk": 136,
+    "model": "traits.power",
+    "fields": {
+        "rating": 5,
+        "enabled": true,
+        "name": "Rain of Blood",
+        "group": "Theban Sorcery Ritual"
+    }
+},
+{
+    "pk": 137,
+    "model": "traits.power",
+    "fields": {
+        "rating": 5,
+        "enabled": true,
+        "name": "Transubstantiation",
+        "group": "Theban Sorcery Ritual"
+    }
+},
+{
+    "pk": 138,
+    "model": "traits.power",
+    "fields": {
+        "rating": 5,
+        "enabled": true,
+        "name": "Wrathful Judgement",
+        "group": "Theban Sorcery Ritual"
+    }
+},
+{
+    "pk": 139,
+    "model": "traits.power",
+    "fields": {
+        "rating": 1,
+        "enabled": true,
+        "name": "Vigor 1",
+        "group": "Vigor"
+    }
+},
+{
+    "pk": 140,
+    "model": "traits.power",
+    "fields": {
+        "rating": 2,
+        "enabled": true,
+        "name": "Vigor 2",
+        "group": "Vigor"
+    }
+},
+{
+    "pk": 141,
+    "model": "traits.power",
+    "fields": {
+        "rating": 3,
+        "enabled": true,
+        "name": "Vigor 3",
+        "group": "Vigor"
+    }
+},
+{
+    "pk": 142,
+    "model": "traits.power",
+    "fields": {
+        "rating": 4,
+        "enabled": true,
+        "name": "Vigor 4",
+        "group": "Vigor"
+    }
+},
+{
+    "pk": 143,
+    "model": "traits.power",
+    "fields": {
+        "rating": 5,
+        "enabled": true,
+        "name": "Vigor 5",
+        "group": "Vigor"
+    }
+},
+{
+    "pk": 1,
+    "model": "traits.skill",
+    "fields": {
+        "type": 1,
+        "enabled": true,
+        "name": "Academics"
+    }
+},
+{
+    "pk": 2,
+    "model": "traits.skill",
+    "fields": {
+        "type": 1,
+        "enabled": true,
+        "name": "Computer"
+    }
+},
+{
+    "pk": 3,
+    "model": "traits.skill",
+    "fields": {
+        "type": 1,
+        "enabled": true,
+        "name": "Crafts"
+    }
+},
+{
+    "pk": 4,
+    "model": "traits.skill",
+    "fields": {
+        "type": 1,
+        "enabled": true,
+        "name": "Investigation"
+    }
+},
+{
+    "pk": 5,
+    "model": "traits.skill",
+    "fields": {
+        "type": 1,
+        "enabled": true,
+        "name": "Medicine"
+    }
+},
+{
+    "pk": 6,
+    "model": "traits.skill",
+    "fields": {
+        "type": 1,
+        "enabled": true,
+        "name": "Occult"
+    }
+},
+{
+    "pk": 7,
+    "model": "traits.skill",
+    "fields": {
+        "type": 1,
+        "enabled": true,
+        "name": "Politics"
+    }
+},
+{
+    "pk": 8,
+    "model": "traits.skill",
+    "fields": {
+        "type": 1,
+        "enabled": true,
+        "name": "Science"
+    }
+},
+{
+    "pk": 9,
+    "model": "traits.skill",
+    "fields": {
+        "type": 2,
+        "enabled": true,
+        "name": "Athletics"
+    }
+},
+{
+    "pk": 10,
+    "model": "traits.skill",
+    "fields": {
+        "type": 2,
+        "enabled": true,
+        "name": "Brawl"
+    }
+},
+{
+    "pk": 11,
+    "model": "traits.skill",
+    "fields": {
+        "type": 2,
+        "enabled": true,
+        "name": "Drive"
+    }
+},
+{
+    "pk": 12,
+    "model": "traits.skill",
+    "fields": {
+        "type": 2,
+        "enabled": true,
+        "name": "Firearms"
+    }
+},
+{
+    "pk": 13,
+    "model": "traits.skill",
+    "fields": {
+        "type": 2,
+        "enabled": true,
+        "name": "Larceny"
+    }
+},
+{
+    "pk": 14,
+    "model": "traits.skill",
+    "fields": {
+        "type": 2,
+        "enabled": true,
+        "name": "Stealth"
+    }
+},
+{
+    "pk": 15,
+    "model": "traits.skill",
+    "fields": {
+        "type": 2,
+        "enabled": true,
+        "name": "Survival"
+    }
+},
+{
+    "pk": 16,
+    "model": "traits.skill",
+    "fields": {
+        "type": 2,
+        "enabled": true,
+        "name": "Weaponry"
+    }
+},
+{
+    "pk": 17,
+    "model": "traits.skill",
+    "fields": {
+        "type": 3,
+        "enabled": true,
+        "name": "Animal Ken"
+    }
+},
+{
+    "pk": 18,
+    "model": "traits.skill",
+    "fields": {
+        "type": 3,
+        "enabled": true,
+        "name": "Empathy"
+    }
+},
+{
+    "pk": 19,
+    "model": "traits.skill",
+    "fields": {
+        "type": 3,
+        "enabled": true,
+        "name": "Expression"
+    }
+},
+{
+    "pk": 20,
+    "model": "traits.skill",
+    "fields": {
+        "type": 3,
+        "enabled": true,
+        "name": "Intimidation"
+    }
+},
+{
+    "pk": 21,
+    "model": "traits.skill",
+    "fields": {
+        "type": 3,
+        "enabled": true,
+        "name": "Persuasion"
+    }
+},
+{
+    "pk": 22,
+    "model": "traits.skill",
+    "fields": {
+        "type": 3,
+        "enabled": true,
+        "name": "Socialize"
+    }
+},
+{
+    "pk": 23,
+    "model": "traits.skill",
+    "fields": {
+        "type": 3,
+        "enabled": true,
+        "name": "Streetwise"
+    }
+},
+{
+    "pk": 24,
+    "model": "traits.skill",
+    "fields": {
+        "type": 3,
+        "enabled": true,
+        "name": "Subterfuge"
+    }
+},
+{
+    "pk": 1,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "add_permission",
+        "name": "Can add permission",
+        "content_type": 1
+    }
+},
+{
+    "pk": 2,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "change_permission",
+        "name": "Can change permission",
+        "content_type": 1
+    }
+},
+{
+    "pk": 3,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "delete_permission",
+        "name": "Can delete permission",
+        "content_type": 1
+    }
+},
+{
+    "pk": 4,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "add_group",
+        "name": "Can add group",
+        "content_type": 2
+    }
+},
+{
+    "pk": 5,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "change_group",
+        "name": "Can change group",
+        "content_type": 2
+    }
+},
+{
+    "pk": 6,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "delete_group",
+        "name": "Can delete group",
+        "content_type": 2
+    }
+},
+{
+    "pk": 7,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "add_user",
+        "name": "Can add user",
+        "content_type": 3
+    }
+},
+{
+    "pk": 8,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "change_user",
+        "name": "Can change user",
+        "content_type": 3
+    }
+},
+{
+    "pk": 9,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "delete_user",
+        "name": "Can delete user",
+        "content_type": 3
+    }
+},
+{
+    "pk": 10,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "add_contenttype",
+        "name": "Can add content type",
+        "content_type": 4
+    }
+},
+{
+    "pk": 11,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "change_contenttype",
+        "name": "Can change content type",
+        "content_type": 4
+    }
+},
+{
+    "pk": 12,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "delete_contenttype",
+        "name": "Can delete content type",
+        "content_type": 4
+    }
+},
+{
+    "pk": 13,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "add_session",
+        "name": "Can add session",
+        "content_type": 5
+    }
+},
+{
+    "pk": 14,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "change_session",
+        "name": "Can change session",
+        "content_type": 5
+    }
+},
+{
+    "pk": 15,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "delete_session",
+        "name": "Can delete session",
+        "content_type": 5
+    }
+},
+{
+    "pk": 16,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "add_logentry",
+        "name": "Can add log entry",
+        "content_type": 6
+    }
+},
+{
+    "pk": 17,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "change_logentry",
+        "name": "Can change log entry",
+        "content_type": 6
+    }
+},
+{
+    "pk": 18,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "delete_logentry",
+        "name": "Can delete log entry",
+        "content_type": 6
+    }
+},
+{
+    "pk": 19,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "add_character",
+        "name": "Can add character",
+        "content_type": 7
+    }
+},
+{
+    "pk": 20,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "change_character",
+        "name": "Can change character",
+        "content_type": 7
+    }
+},
+{
+    "pk": 21,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "delete_character",
+        "name": "Can delete character",
+        "content_type": 7
+    }
+},
+{
+    "pk": 22,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "add_characterhastext",
+        "name": "Can add character has text",
+        "content_type": 8
+    }
+},
+{
+    "pk": 23,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "change_characterhastext",
+        "name": "Can change character has text",
+        "content_type": 8
+    }
+},
+{
+    "pk": 24,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "delete_characterhastext",
+        "name": "Can delete character has text",
+        "content_type": 8
+    }
+},
+{
+    "pk": 25,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "add_characterhasattribute",
+        "name": "Can add character has attribute",
+        "content_type": 9
+    }
+},
+{
+    "pk": 26,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "change_characterhasattribute",
+        "name": "Can change character has attribute",
+        "content_type": 9
+    }
+},
+{
+    "pk": 27,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "delete_characterhasattribute",
+        "name": "Can delete character has attribute",
+        "content_type": 9
+    }
+},
+{
+    "pk": 28,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "add_characterhasskill",
+        "name": "Can add character has skill",
+        "content_type": 10
+    }
+},
+{
+    "pk": 29,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "change_characterhasskill",
+        "name": "Can change character has skill",
+        "content_type": 10
+    }
+},
+{
+    "pk": 30,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "delete_characterhasskill",
+        "name": "Can delete character has skill",
+        "content_type": 10
+    }
+},
+{
+    "pk": 31,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "add_characterhasskillspecialty",
+        "name": "Can add character has skill specialty",
+        "content_type": 11
+    }
+},
+{
+    "pk": 32,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "change_characterhasskillspecialty",
+        "name": "Can change character has skill specialty",
+        "content_type": 11
+    }
+},
+{
+    "pk": 33,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "delete_characterhasskillspecialty",
+        "name": "Can delete character has skill specialty",
+        "content_type": 11
+    }
+},
+{
+    "pk": 34,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "add_characterhaspower",
+        "name": "Can add character has power",
+        "content_type": 12
+    }
+},
+{
+    "pk": 35,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "change_characterhaspower",
+        "name": "Can change character has power",
+        "content_type": 12
+    }
+},
+{
+    "pk": 36,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "delete_characterhaspower",
+        "name": "Can delete character has power",
+        "content_type": 12
+    }
+},
+{
+    "pk": 37,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "add_characterhasmerit",
+        "name": "Can add character has merit",
+        "content_type": 13
+    }
+},
+{
+    "pk": 38,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "change_characterhasmerit",
+        "name": "Can change character has merit",
+        "content_type": 13
+    }
+},
+{
+    "pk": 39,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "delete_characterhasmerit",
+        "name": "Can delete character has merit",
+        "content_type": 13
+    }
+},
+{
+    "pk": 40,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "add_characterhasflaw",
+        "name": "Can add character has flaw",
+        "content_type": 14
+    }
+},
+{
+    "pk": 41,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "change_characterhasflaw",
+        "name": "Can change character has flaw",
+        "content_type": 14
+    }
+},
+{
+    "pk": 42,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "delete_characterhasflaw",
+        "name": "Can delete character has flaw",
+        "content_type": 14
+    }
+},
+{
+    "pk": 43,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "add_characterhasderangement",
+        "name": "Can add character has derangement",
+        "content_type": 15
+    }
+},
+{
+    "pk": 44,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "change_characterhasderangement",
+        "name": "Can change character has derangement",
+        "content_type": 15
+    }
+},
+{
+    "pk": 45,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "delete_characterhasderangement",
+        "name": "Can delete character has derangement",
+        "content_type": 15
+    }
+},
+{
+    "pk": 46,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "add_characterhascombattrait",
+        "name": "Can add character has combat trait",
+        "content_type": 16
+    }
+},
+{
+    "pk": 47,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "change_characterhascombattrait",
+        "name": "Can change character has combat trait",
+        "content_type": 16
+    }
+},
+{
+    "pk": 48,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "delete_characterhascombattrait",
+        "name": "Can delete character has combat trait",
+        "content_type": 16
+    }
+},
+{
+    "pk": 49,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "add_characterhasmisctrait",
+        "name": "Can add character has misc trait",
+        "content_type": 17
+    }
+},
+{
+    "pk": 50,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "change_characterhasmisctrait",
+        "name": "Can change character has misc trait",
+        "content_type": 17
+    }
+},
+{
+    "pk": 51,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "delete_characterhasmisctrait",
+        "name": "Can delete character has misc trait",
+        "content_type": 17
+    }
+},
+{
+    "pk": 52,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "add_chronicle",
+        "name": "Can add chronicle",
+        "content_type": 18
+    }
+},
+{
+    "pk": 53,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "change_chronicle",
+        "name": "Can change chronicle",
+        "content_type": 18
+    }
+},
+{
+    "pk": 54,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "delete_chronicle",
+        "name": "Can delete chronicle",
+        "content_type": 18
+    }
+},
+{
+    "pk": 55,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "add_game",
+        "name": "Can add game",
+        "content_type": 19
+    }
+},
+{
+    "pk": 56,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "change_game",
+        "name": "Can change game",
+        "content_type": 19
+    }
+},
+{
+    "pk": 57,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "delete_game",
+        "name": "Can delete game",
+        "content_type": 19
+    }
+},
+{
+    "pk": 58,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "add_attributetype",
+        "name": "Can add attribute type",
+        "content_type": 20
+    }
+},
+{
+    "pk": 59,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "change_attributetype",
+        "name": "Can change attribute type",
+        "content_type": 20
+    }
+},
+{
+    "pk": 60,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "delete_attributetype",
+        "name": "Can delete attribute type",
+        "content_type": 20
+    }
+},
+{
+    "pk": 61,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "add_derangementtype",
+        "name": "Can add derangement type",
+        "content_type": 21
+    }
+},
+{
+    "pk": 62,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "change_derangementtype",
+        "name": "Can change derangement type",
+        "content_type": 21
+    }
+},
+{
+    "pk": 63,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "delete_derangementtype",
+        "name": "Can delete derangement type",
+        "content_type": 21
+    }
+},
+{
+    "pk": 64,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "add_flawtype",
+        "name": "Can add flaw type",
+        "content_type": 22
+    }
+},
+{
+    "pk": 65,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "change_flawtype",
+        "name": "Can change flaw type",
+        "content_type": 22
+    }
+},
+{
+    "pk": 66,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "delete_flawtype",
+        "name": "Can delete flaw type",
+        "content_type": 22
+    }
+},
+{
+    "pk": 67,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "add_merittype",
+        "name": "Can add merit type",
+        "content_type": 23
+    }
+},
+{
+    "pk": 68,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "change_merittype",
+        "name": "Can change merit type",
+        "content_type": 23
+    }
+},
+{
+    "pk": 69,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "delete_merittype",
+        "name": "Can delete merit type",
+        "content_type": 23
+    }
+},
+{
+    "pk": 70,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "add_skilltype",
+        "name": "Can add skill type",
+        "content_type": 24
+    }
+},
+{
+    "pk": 71,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "change_skilltype",
+        "name": "Can change skill type",
+        "content_type": 24
+    }
+},
+{
+    "pk": 72,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "delete_skilltype",
+        "name": "Can delete skill type",
+        "content_type": 24
+    }
+},
+{
+    "pk": 73,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "add_vice",
+        "name": "Can add vice",
+        "content_type": 25
+    }
+},
+{
+    "pk": 74,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "change_vice",
+        "name": "Can change vice",
+        "content_type": 25
+    }
+},
+{
+    "pk": 75,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "delete_vice",
+        "name": "Can delete vice",
+        "content_type": 25
+    }
+},
+{
+    "pk": 76,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "add_virtue",
+        "name": "Can add virtue",
+        "content_type": 26
+    }
+},
+{
+    "pk": 77,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "change_virtue",
+        "name": "Can change virtue",
+        "content_type": 26
+    }
+},
+{
+    "pk": 78,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "delete_virtue",
+        "name": "Can delete virtue",
+        "content_type": 26
+    }
+},
+{
+    "pk": 79,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "add_affiliation",
+        "name": "Can add affiliation",
+        "content_type": 27
+    }
+},
+{
+    "pk": 80,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "change_affiliation",
+        "name": "Can change affiliation",
+        "content_type": 27
+    }
+},
+{
+    "pk": 81,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "delete_affiliation",
+        "name": "Can delete affiliation",
+        "content_type": 27
+    }
+},
+{
+    "pk": 82,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "add_attribute",
+        "name": "Can add attribute",
+        "content_type": 28
+    }
+},
+{
+    "pk": 83,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "change_attribute",
+        "name": "Can change attribute",
+        "content_type": 28
+    }
+},
+{
+    "pk": 84,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "delete_attribute",
+        "name": "Can delete attribute",
+        "content_type": 28
+    }
+},
+{
+    "pk": 85,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "add_charactertext",
+        "name": "Can add character text",
+        "content_type": 29
+    }
+},
+{
+    "pk": 86,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "change_charactertext",
+        "name": "Can change character text",
+        "content_type": 29
+    }
+},
+{
+    "pk": 87,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "delete_charactertext",
+        "name": "Can delete character text",
+        "content_type": 29
+    }
+},
+{
+    "pk": 88,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "add_combattrait",
+        "name": "Can add combat trait",
+        "content_type": 30
+    }
+},
+{
+    "pk": 89,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "change_combattrait",
+        "name": "Can change combat trait",
+        "content_type": 30
+    }
+},
+{
+    "pk": 90,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "delete_combattrait",
+        "name": "Can delete combat trait",
+        "content_type": 30
+    }
+},
+{
+    "pk": 91,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "add_creaturetype",
+        "name": "Can add creature type",
+        "content_type": 31
+    }
+},
+{
+    "pk": 92,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "change_creaturetype",
+        "name": "Can change creature type",
+        "content_type": 31
+    }
+},
+{
+    "pk": 93,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "delete_creaturetype",
+        "name": "Can delete creature type",
+        "content_type": 31
+    }
+},
+{
+    "pk": 94,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "add_derangement",
+        "name": "Can add derangement",
+        "content_type": 32
+    }
+},
+{
+    "pk": 95,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "change_derangement",
+        "name": "Can change derangement",
+        "content_type": 32
+    }
+},
+{
+    "pk": 96,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "delete_derangement",
+        "name": "Can delete derangement",
+        "content_type": 32
+    }
+},
+{
+    "pk": 97,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "add_flaw",
+        "name": "Can add flaw",
+        "content_type": 33
+    }
+},
+{
+    "pk": 98,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "change_flaw",
+        "name": "Can change flaw",
+        "content_type": 33
+    }
+},
+{
+    "pk": 99,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "delete_flaw",
+        "name": "Can delete flaw",
+        "content_type": 33
+    }
+},
+{
+    "pk": 100,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "add_genealogy",
+        "name": "Can add genealogy",
+        "content_type": 34
+    }
+},
+{
+    "pk": 101,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "change_genealogy",
+        "name": "Can change genealogy",
+        "content_type": 34
+    }
+},
+{
+    "pk": 102,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "delete_genealogy",
+        "name": "Can delete genealogy",
+        "content_type": 34
+    }
+},
+{
+    "pk": 103,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "add_merit",
+        "name": "Can add merit",
+        "content_type": 35
+    }
+},
+{
+    "pk": 104,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "change_merit",
+        "name": "Can change merit",
+        "content_type": 35
+    }
+},
+{
+    "pk": 105,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "delete_merit",
+        "name": "Can delete merit",
+        "content_type": 35
+    }
+},
+{
+    "pk": 106,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "add_misctrait",
+        "name": "Can add misc trait",
+        "content_type": 36
+    }
+},
+{
+    "pk": 107,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "change_misctrait",
+        "name": "Can change misc trait",
+        "content_type": 36
+    }
+},
+{
+    "pk": 108,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "delete_misctrait",
+        "name": "Can delete misc trait",
+        "content_type": 36
+    }
+},
+{
+    "pk": 109,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "add_power",
+        "name": "Can add power",
+        "content_type": 37
+    }
+},
+{
+    "pk": 110,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "change_power",
+        "name": "Can change power",
+        "content_type": 37
+    }
+},
+{
+    "pk": 111,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "delete_power",
+        "name": "Can delete power",
+        "content_type": 37
+    }
+},
+{
+    "pk": 112,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "add_skill",
+        "name": "Can add skill",
+        "content_type": 38
+    }
+},
+{
+    "pk": 113,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "change_skill",
+        "name": "Can change skill",
+        "content_type": 38
+    }
+},
+{
+    "pk": 114,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "delete_skill",
+        "name": "Can delete skill",
+        "content_type": 38
+    }
+},
+{
+    "pk": 115,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "add_subgroup",
+        "name": "Can add subgroup",
+        "content_type": 39
+    }
+},
+{
+    "pk": 116,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "change_subgroup",
+        "name": "Can change subgroup",
+        "content_type": 39
+    }
+},
+{
+    "pk": 117,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "delete_subgroup",
+        "name": "Can delete subgroup",
+        "content_type": 39
+    }
+},
+{
+    "pk": 118,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "add_subgroup",
+        "name": "Can add subgroup",
+        "content_type": 40
+    }
+},
+{
+    "pk": 119,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "change_subgroup",
+        "name": "Can change subgroup",
+        "content_type": 40
+    }
+},
+{
+    "pk": 120,
+    "model": "auth.permission",
+    "fields": {
+        "codename": "delete_subgroup",
+        "name": "Can delete subgroup",
+        "content_type": 40
+    }
+},
+{
+    "pk": 1,
+    "model": "auth.group",
+    "fields": {
+        "name": "storyteller",
+        "permissions": []
+    }
+},
+{
+    "pk": 1, 
+    "model": "auth.group", 
+    "fields": {
+        "name": "Mainstage 2013-14 Storytellers", 
+        "permissions": []
+    }
+},
+{
+    "pk": 1,
+    "model": "auth.user",
+    "fields": {
+        "username": "admin",
+        "first_name": "",
+        "last_name": "",
+        "is_active": true,
+        "is_superuser": true,
+        "is_staff": true,
+        "last_login": "2013-09-14T17:51:39.765Z",
+        "groups": [],
+        "user_permissions": [],
+        "password": "pbkdf2_sha256$10000$fc3Y9iOTr6Ul$NcWH0M0zT1FXM+gmReXesvBrLEEAT2yhKPzxWz6IXFY=",
+        "email": "test@fake.com",
+        "date_joined": "2013-08-05T22:09:12.942Z"
+    }
+},
+{
+    "pk": 2,
+    "model": "auth.user",
+    "fields": {
+        "username": "player_1",
+        "first_name": "",
+        "last_name": "",
+        "is_active": true,
+        "is_superuser": false,
+        "is_staff": false,
+        "last_login": "2013-09-14T17:42:14.988Z",
+        "groups": [],
+        "user_permissions": [],
+        "password": "pbkdf2_sha256$10000$vVriwetYscFr$W1JPPT/1GfKG2YGu0yk7j/tesest0E7pyDH3ilZq8MA=",
+        "email": "",
+        "date_joined": "2013-08-05T22:10:46.364Z"
+    }
+},
+{
+    "pk": 3,
+    "model": "auth.user",
+    "fields": {
+        "username": "st_1",
+        "first_name": "Storyteller I",
+        "last_name": "",
+        "is_active": true,
+        "is_superuser": false,
+        "is_staff": false,
+        "last_login": "2013-09-14T17:52:20.026Z",
+        "groups": [
+            1
+        ],
+        "user_permissions": [],
+        "password": "pbkdf2_sha256$10000$4NW8hObh4JrZ$VB5wLTaFpUadJpoFIyKHaf+MKS6e+320xms52uPYwFo=",
+        "email": "",
+        "date_joined": "2013-09-14T17:49:20Z"
+    }
+},
+{
+    "pk": 1,
+    "model": "admin.logentry",
+    "fields": {
+        "action_flag": 2,
+        "action_time": "2013-09-13T12:55:37.216Z",
+        "object_repr": "Morgan Edwards",
+        "object_id": "1",
+        "change_message": "Changed enabled and status.",
+        "user": 1,
+        "content_type": 7
+    }
+},
+{
+    "pk": 2,
+    "model": "admin.logentry",
+    "fields": {
+        "action_flag": 2,
+        "action_time": "2013-09-13T12:56:20.084Z",
+        "object_repr": "Morgan Edwards",
+        "object_id": "1",
+        "change_message": "Changed enabled.",
+        "user": 1,
+        "content_type": 7
+    }
+},
+{
+    "pk": 3,
+    "model": "admin.logentry",
+    "fields": {
+        "action_flag": 1,
+        "action_time": "2013-09-14T17:49:21.049Z",
+        "object_repr": "st_1",
+        "object_id": "3",
+        "change_message": "",
+        "user": 1,
+        "content_type": 3
+    }
+},
+{
+    "pk": 4,
+    "model": "admin.logentry",
+    "fields": {
+        "action_flag": 2,
+        "action_time": "2013-09-14T17:49:56.590Z",
+        "object_repr": "st_1",
+        "object_id": "3",
+        "change_message": "Changed password and first_name.",
+        "user": 1,
+        "content_type": 3
+    }
+},
+{
+    "pk": 5,
+    "model": "admin.logentry",
+    "fields": {
+        "action_flag": 1,
+        "action_time": "2013-09-14T17:51:50.536Z",
+        "object_repr": "storyteller",
+        "object_id": "1",
+        "change_message": "",
+        "user": 1,
+        "content_type": 2
+    }
+},
+{
+    "pk": 6,
+    "model": "admin.logentry",
+    "fields": {
+        "action_flag": 2,
+        "action_time": "2013-09-14T17:52:05.415Z",
+        "object_repr": "st_1",
+        "object_id": "3",
+        "change_message": "Changed password and groups.",
+        "user": 1,
+        "content_type": 3
+    }
+},
+{
+    "pk": 1,
+    "model": "character.character",
+    "fields": {
+        "status": null,
+        "virtue": 4,
+        "name": "Morgan Edwards",
+        "genealogy": 1,
+        "vice": 4,
+        "date_submitted": null,
+        "date_last_edited": "2013-09-14T17:52:44.725Z",
+        "enabled": true,
+        "affiliation": 3,
+        "user": 2,
+        "creature_type": 3,
+        "date_created": "2013-08-06T12:37:41.816Z",
+        "date_approved": null,
+        "subgroup": null
+    }
+},
+{
+    "pk": 1,
+    "model": "chronicle.chronicle",
+    "fields": {
+        "storytellers": [
+            1
+        ],
+        "enabled": true,
+        "name": "A Table Before Me; A Knife in my Back",
+        "description": ""
+    }
+}
+]

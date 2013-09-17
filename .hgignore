@@ -1,0 +1,8 @@
+syntax: glob
+*.pyc
+*.db
+CACHE
+New folder/*
+DCMS/platform_settings.py
+syntax: glob
+*.sublime-workspace
