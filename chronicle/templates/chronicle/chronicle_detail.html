@@ -1,0 +1,161 @@
+{% extends 'base_page.html' %}
+
+{% load compress %}
+{% load model_filters %}
+{% load static %}
+
+
+{% block style_includes %}
+    {{ block.super }}
+
+    <link rel='stylesheet' type='text/css' href='{% static 'css/table.css' %}' />
+{% endblock style_includes %}
+
+
+{% block script_includes %}
+    {{ block.super }}
+
+    <!-- libs -->
+    {% compress js %}
+        <script type='text/coffeescript' src='{% static 'coffeescript/tools.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'coffeescript/enum.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'coffeescript/svg_tools.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'coffeescript/datetime.coffee' %}'></script>
+    {% endcompress %}
+
+    <!-- table -->
+    {% compress js %}
+        <script type='text/coffeescript' src='{% static 'coffeescript/table/column.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'coffeescript/table/row.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'coffeescript/table/table.coffee' %}'></script>
+    {% endcompress %}
+
+    <!-- chronicle -->
+    {% compress js %}
+        <script type='text/coffeescript' src='{% static 'chronicle/coffeescript/models/chronicle.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'chronicle/coffeescript/models/game.coffee' %}'></script>
+    {% endcompress %}
+{% endblock script_includes %}
+
+
+{% block content %}
+    <script type='text/html' id='template_game-table-row'>
+        <td><% if (record.date) { %><%= record.date.to_builtin_date().toDateString() %><% } %></td>
+        <td><%= record.name %></td>
+    </script>
+
+    <script type='text/html' id='template_edit-game-table-row'>
+        <td><input type='date' name='date' value='<% if (record.date) { %><%= record.date.toString() %><% } %>' /></td>
+        <td><input type='text' name='name' value='<%= record.name %>' /></td>
+    </script>
+
+    <h2>{{ chronicle.name }}</h2>
+    <p>{{ chronicle.description }}</p>
+
+    <section id='games'>
+        <h3>Games</h3>
+        <button name='edit'>edit</button>
+        <table id='game-table' class='list-table stripped'></table>
+        <button name='add-new-game'>add new game</button>
+
+        {% compress js %}
+        <script type='text/coffeescript'>
+            template_game_table_row      = _.template $('#template_game-table-row').html()
+            template_edit_game_table_row = _.template $('#template_edit-game-table-row').html()
+
+            class EditGameRowView extends Table.Views.Row
+                initialize: (options) ->
+                    super
+                    @listenTo @model, 'command:remove-view', @save_on_remove
+                    # @on 'remove', 'save_on_remove', @
+
+                events: () ->
+                    _.extend {}, super,
+                        'change input[name="date"]': 'on_change_date'
+                        'change input[name="name"]': 'on_change_name'
+
+                _change_field: (e, field, construct) ->
+                    if e.target.value == ''
+                        @model.record.set field, null
+                    else
+                        @model.record.set field, construct e.target.value
+
+                on_change_date: (e) ->
+                    @_change_field e, 'date', (v) -> new Datetime.Date v
+
+                on_change_name: (e) ->
+                    @_change_field e, 'name', (v) -> v
+
+                save_on_remove: () ->
+                    @stopListening @model.record, 'change'
+                    @model.record.save
+                        date: new Datetime.Date @$('input[name="date"]').val()
+                        name: @$('input[name="name"]').val()
+                    @$el.remove()
+
+
+            game_table = new Table.Table {
+                el: $ '#game-table'
+                collection: new Backbone.Collection null, {model: Chronicle.Models.Game}
+                filter: (pres_model) -> pres_model.record.get 'enabled'
+
+                columns: [
+                    { header: 'date', field: 'date' }
+                    { header: 'name', field: 'name' }
+                ]
+
+                RowView: Table.Views.Row
+
+                row_template: template_game_table_row
+            }
+
+            {% for game in chronicle.game_set.all %}
+            game_table.collection.add {{ game|serialize_json|safe }},
+                parse: true
+            {% endfor %}
+
+            game_table.render()
+
+            game_edit_toggle_button = $ 'button[name="edit"]', $ '#games'
+            new_game_button = $ 'button[name="add-new-game"]', $ '#games'
+
+            new_game_button.click (e) ->
+                game_table.collection.add enabled: true
+            new_game_button.hide()
+
+            lock_game_edit = (e) ->
+                game_edit_toggle_button.text 'edit'
+                game_edit_toggle_button.off 'click'
+                game_edit_toggle_button.click enable_game_edit
+                new_game_button.hide()
+                game_table.RowView = Table.Views.Row
+                game_table.row_template = template_game_table_row
+                for row_pres_model in game_table.rows.models
+                    row_pres_model.trigger 'command:remove-view'
+                game_table.render()
+                e.preventDefault()
+
+            enable_game_edit = (e) ->
+                game_edit_toggle_button.text 'lock'
+                game_edit_toggle_button.off 'click'
+                game_edit_toggle_button.click lock_game_edit
+                new_game_button.show()
+                game_table.RowView = EditGameRowView
+                game_table.row_template = template_edit_game_table_row
+                for row_pres_model in game_table.rows.models
+                    row_pres_model.trigger 'command:remove-view'
+                game_table.render()
+                e.preventDefault()
+
+            game_edit_toggle_button.click enable_game_edit
+        </script>
+        {% endcompress %}
+    </section>
+
+    <section id='storytellers'>
+        <select name='username'>
+        </select>
+        <button></button>
+        <!-- list of storytellers -->
+    </section>
+{% endblock content %}

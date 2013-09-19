@@ -1,0 +1,44 @@
+{% extends 'base_page.html' %}
+
+{% block content %}
+
+<form method='post' action='' class="form-horizontal">
+	{% csrf_token %}
+	<div class="row control-group">
+		<label for="username" class="control-label">Username</label>
+		<div class="controls">
+			<input type="text" name="username" />
+		</div>
+	</div>
+	<div class="row control-group">
+		<label for="password" class="control-label">Password</label>
+		<div class="controls">
+			<input type="password" name="password" />
+		</div>
+	</div>
+	<div class="row control-group">
+		<label for="email" class="control-label">Email</label>
+		<div class="controls">
+			<input type="text" name="email" />
+		</div>
+	</div>
+	<div class="row control-group">
+		<label for="first_name" class="control-label">First Name</label>
+		<div class="controls">
+			<input type="text" name="first_name" />
+		</div>
+	</div>
+	<div class="row control-group">
+		<label for="last_name" class="control-label">Last Name</label>
+		<div class="controls">
+			<input type="text" name="last_name" />
+		</div>
+	</div>
+	<div class="control-group">
+		<div class="controls">
+			<input type="submit" value="Register" class="btn btn-primary" />
+		</div>
+	</div>
+</form>
+
+{% endblock %}

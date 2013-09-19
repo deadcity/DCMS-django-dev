@@ -1,0 +1,176 @@
+{% extends 'base.html' %}
+
+{% load compress %}
+{% load static %}
+
+
+{% block script_includes %}
+    {{ block.super }}
+
+    <script type='text/javascript' src='{% static 'js/libraries/underscore-1.4.4.js' %}'></script>
+    <script type='text/javascript' src='{% static 'js/libraries/backbone-1.0.0.js' %}'></script>
+
+    {% compress js %}
+        <script type='text/coffeescript' src='{% static 'accounts/coffeescript/csrf_ajax.coffee' %}'></script>
+    {% endcompress %}
+{% endblock script_includes %}
+
+
+{% block style_includes %}
+    {{block.super}}
+    <link rel="stylesheet" type="text/css" href='{% static 'css/bootstrap.css' %}' />
+    <style type='text/css'>
+        body {
+            background-color: #000;
+            text-align: center;
+            font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+            font-size: 13px;
+            margin-top: 75px;
+        }
+
+        a.btn {
+            text-decoration: none;
+        }
+
+        #page {
+            width: 960px;
+            text-align: left;
+            margin: 0 auto;
+            background-color: #FFF;
+            color: #444;
+            padding: 0 40px;
+        }
+
+        .page-header {
+            padding: 40px 0 30px;
+            color: #000;
+        }
+
+        .page-header h1 {
+            margin: 0;
+        }
+
+        .page-header h2.site-description {
+            font-size: 1em;
+            font-weight: normal;
+            margin: 0;
+        }
+
+        nav {
+            text-transform: uppercase;
+        }
+
+        nav a {
+            text-decoration: none;
+            display: block;
+            line-height: 44px;
+            color: #6a6a6a;
+        }
+
+        nav a:hover {
+            color: #000;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            border-top: 1px solid #ededed;
+            border-bottom: 1px solid #ededed;
+        }
+
+        nav ul li {
+            display: inline-block;
+            margin-right: 40px;
+        }
+
+        section#content {
+            padding: 40px 0;
+        }
+
+        section#content h1 {
+            margin-top: 0;
+        }
+
+        section#content .list-table {
+            color: black;
+        }
+
+        .messages {
+            list-style: none;
+            margin: 0 0 20px 0;
+            padding: 0;
+            border-radius: 3px;
+            -moz-border-radius: 3px;
+            -webkit-border-radius: 3px;
+            border-width: 1px;
+            border-style: 1px;
+            padding: 5px 10px;
+        }
+
+        .info {
+            color: #3a87ad;
+            border-color: #3a87ad;
+            background-color: #B4D2E0;
+        }
+
+        .success {
+            color: #468847;
+            border-color: #468847;
+            background-color: #BEE6BF;
+        }
+
+        .warning {
+            color: #c09853;
+            border-color: #c09853;
+            background-color: #DFCEB2;
+        }
+
+        .error {
+            color: #b94a48;
+            border-color: #b94a48;
+            background-color: #E4A5A4;
+        }
+
+        .submit-character-form {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+{% endblock style_includes %}
+
+
+{% block page %}
+    <header class="page-header">
+        <hgroup>
+            {% block branding %}<h1>Dead City Productions</h1>{% endblock %}
+            {% block page_description %}<h2 class="site-description">Digital Character Management System</h2>{% endblock %}
+        </hgroup>
+    </header>
+
+    <nav>
+        <ul>
+            {% block nav %}
+                <li><a href='/'>Home</a></li>
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'character_list' %}">Characters</a></li>
+                    <li><a href="{% url 'logout' %}">Log Out</a></li>
+                {% else %}
+                    <li><a href="{% url 'login' %}">Log In</a></li>
+                    <li><a href="{% url 'register' %}">Register</a></li>
+                {% endif %}
+            {% endblock nav %}
+        </ul>
+    </nav>
+
+    <section id='content'>
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% block content %}{% endblock %}
+    </section>
+{% endblock page %}
