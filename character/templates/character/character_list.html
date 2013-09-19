@@ -32,7 +32,8 @@
 
 {% block table_definition %}
     <script type='text/html' id='template_table-row'>
-        <td><%= record.user.username      %></td>
+        {# <td><%= record.user.username      %></td> #}
+        <td><%= record.playername         %></td>
         <td><a href="{{ URL_PREFIX }}/characters/<%= record.id %>/show/"><%= record.name %></a></td>
         <td><%= record.creature_type.name %></td>
         <td><%= record.genealogy.name     %></td>
@@ -86,7 +87,7 @@
             filter: (pres_model) -> pres_model.record.get 'enabled'
 
             columns: [
-                { header: 'user' }
+                { header: 'player' }
                 { header: 'name',          field: 'name'          }
                 { header: 'creature type', field: 'creature_type' }
                 { header: 'clan',          field: 'clan'          }

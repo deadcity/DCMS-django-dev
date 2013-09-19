@@ -68,7 +68,7 @@ class Command (NoArgsCommand):
                 character_traits.append(Model)
 
         Character = [character_models.Character]
-        self.__gen_serializers     ('character', Character + character_traits, 'character_serializers')
+        self.__gen_serializers     ('character', character_traits, 'character_trait_serializers')
         self.__gen_view_sets       ('character', Character + character_traits, 'character_ajax')
         self.__gen_urls            ('character', Character + character_traits, 'character_ajax')
         self.__gen_backbone_models ('character', character_traits)

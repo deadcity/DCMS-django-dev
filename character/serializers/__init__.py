@@ -1,1 +1,2 @@
-from character_serializers import *
+from character_serializer import CharacterSerializer
+from character_trait_serializers import *

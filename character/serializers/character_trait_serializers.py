@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# 2013-09-10 11:58:03.321986
+# 2013-09-19 12:00:52.149617
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -12,13 +12,7 @@
 
 from rest_framework import serializers
 
-from character.models import Character, CharacterHasAttribute, CharacterHasCombatTrait, CharacterHasDerangement, CharacterHasFlaw, CharacterHasMerit, CharacterHasMiscTrait, CharacterHasPower, CharacterHasSkill, CharacterHasSkillSpecialty, CharacterHasText
-
-
-class CharacterSerializer (serializers.ModelSerializer):
-    class Meta (object):
-        model = Character
-Character.Serializer = CharacterSerializer
+from character.models import CharacterHasAttribute, CharacterHasCombatTrait, CharacterHasDerangement, CharacterHasFlaw, CharacterHasMerit, CharacterHasMiscTrait, CharacterHasPower, CharacterHasSkill, CharacterHasSkillSpecialty, CharacterHasText
 
 
 class CharacterHasAttributeSerializer (serializers.ModelSerializer):

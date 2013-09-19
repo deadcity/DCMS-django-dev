@@ -5,10 +5,11 @@ class Models_NS.Character extends Backbone.Model
     defaults:
         id      : null
         enabled : false
-        user    : null
 
+        # user      : null
         # chronicle : null
-        # status : null
+        status    : null
+        playername : null
 
         name          : null
         status        : null
@@ -28,10 +29,13 @@ class Models_NS.Character extends Backbone.Model
         {
             id      : parseInt raw.id, 10
             enabled : raw.enabled
-            user    : parseInt raw.id, 10
+
+            # user      : Auth.Objects.User           .get parseInt raw.user,      10
+            # chronicle : Chronicle.Objects.Chronicle .get parseInt raw.chronicle, 10
+            status    : Traits.Enums.Status         .get parseInt raw.status,    10
+            playername : raw.playername
 
             name          : raw.name
-            status        : Traits.Enums.Status         .get parseInt raw.status,        10
             creature_type : Traits.Objects.CreatureType .get parseInt raw.creature_type, 10
             genealogy     : Traits.Objects.Genealogy    .get parseInt raw.genealogy,     10
             affiliation   : Traits.Objects.Affiliation  .get parseInt raw.affiliation,   10
@@ -51,6 +55,13 @@ class Models_NS.Character extends Backbone.Model
     toJSON: () ->
         attr = _.clone @attributes
 
+        # attr.user      = attr.user      ?.id
+        # attr.chronicle = attr.chronicle ?.id
+        attr.status    = attr.status    ?.valueOf()
+
+        attr.creature_type = attr.creature_type ?.id
+        attr.creature_type = attr.creature_type ?.id
+
         attr.creature_type = attr.creature_type ?.id
         attr.genealogy     = attr.genealogy     ?.id
         attr.affiliation   = attr.affiliation   ?.id
@@ -67,6 +78,10 @@ class Models_NS.Character extends Backbone.Model
 
     toHumanJSON: () ->
         attr = _.clone @attributes
+
+        # attr.user      = attr.user      ?.toHumanJSON() ? new Object()
+        # attr.chronicle = attr.chronicle ?.toHumanJSON() ? new Object()
+        attr.status    = attr.status    ? new Object()
 
         attr.creature_type = attr.creature_type ?.toHumanJSON() ? new Object()
         attr.genealogy     = attr.genealogy     ?.toHumanJSON() ? new Object()
