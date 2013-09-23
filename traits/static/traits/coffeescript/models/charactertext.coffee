@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# 2013-09-17 09:45:58.563058
+# 2013-09-23 10:18:14.789000
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -15,15 +15,15 @@ Models_NS = Tools.create_namespace 'Traits.Models'
 class Models_NS.CharacterText extends Backbone.Model
     defaults:
         id: null
-        name: null
         enabled: null
+        name: null
         hide_from_player: null
 
     parse: (raw) ->
         {
             id: parseInt raw.id, 10
-            name: raw.name,
             enabled: raw.enabled,
+            name: raw.name,
             hide_from_player: raw.hide_from_player,
         }
 

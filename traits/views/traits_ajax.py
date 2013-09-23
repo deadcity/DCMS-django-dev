@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# 2013-09-10 11:58:03.321986
+# 2013-09-23 10:18:14.789000
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -12,8 +12,8 @@
 
 from rest_framework import viewsets
 
-from traits.models import AttributeType, DerangementType, FlawType, MeritType, SkillType, Status, Vice, Virtue, Affiliation, Attribute, CharacterText, CombatTrait, CreatureType, Derangement, Flaw, Genealogy, Merit, MiscTrait, Power, Skill, Subgroup
-from traits.serializers import AttributeTypeSerializer, DerangementTypeSerializer, FlawTypeSerializer, MeritTypeSerializer, SkillTypeSerializer, StatusSerializer, ViceSerializer, VirtueSerializer, AffiliationSerializer, AttributeSerializer, CharacterTextSerializer, CombatTraitSerializer, CreatureTypeSerializer, DerangementSerializer, FlawSerializer, GenealogySerializer, MeritSerializer, MiscTraitSerializer, PowerSerializer, SkillSerializer, SubgroupSerializer
+from traits.models import AttributeType, DerangementType, FlawType, MeritType, SkillType, Vice, Virtue, Affiliation, Attribute, CharacterText, CombatTrait, CreatureType, Derangement, Flaw, Genealogy, Merit, MiscTrait, Power, Skill, Subgroup
+from traits.serializers import AttributeTypeSerializer, DerangementTypeSerializer, FlawTypeSerializer, MeritTypeSerializer, SkillTypeSerializer, ViceSerializer, VirtueSerializer, AffiliationSerializer, AttributeSerializer, CharacterTextSerializer, CombatTraitSerializer, CreatureTypeSerializer, DerangementSerializer, FlawSerializer, GenealogySerializer, MeritSerializer, MiscTraitSerializer, PowerSerializer, SkillSerializer, SubgroupSerializer
 
 
 class AttributeTypeViewSet (viewsets.ModelViewSet):
@@ -39,11 +39,6 @@ class MeritTypeViewSet (viewsets.ModelViewSet):
 class SkillTypeViewSet (viewsets.ModelViewSet):
     model            = SkillType
     serializer_class = SkillTypeSerializer
-
-
-class StatusViewSet (viewsets.ModelViewSet):
-    model            = Status
-    serializer_class = StatusSerializer
 
 
 class ViceViewSet (viewsets.ModelViewSet):

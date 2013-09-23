@@ -11,6 +11,7 @@ from django.db import models
 
 from character import models as character_models
 from chronicle import models as chronicle_models
+from common import fields
 from traits import models as trait_models
 
 
@@ -29,16 +30,16 @@ class Command (NoArgsCommand):
         traits = []
 
         for attr in dir(trait_models):
-            if attr is 'Enum' or attr is 'Trait':
+            if attr is 'EnumModel' or attr is 'TraitModel':
                 continue
 
             Model = getattr(trait_models, attr)
             if not isinstance(Model, type):
                 continue
 
-            if issubclass(Model, trait_models.Enum):
+            if issubclass(Model, trait_models.EnumModel):
                 trait_types.append(Model)
-            elif issubclass(Model, trait_models.Trait):
+            elif issubclass(Model, trait_models.TraitModel):
                 traits.append(Model)
 
         self.__gen_serializers     ('traits', trait_types + traits, 'trait_serializers')
@@ -57,14 +58,14 @@ class Command (NoArgsCommand):
         character_traits = []
 
         for attr in dir(character_models):
-            if attr is 'Character' or attr is 'CharacterHasTrait':
+            if attr is 'Character' or attr is 'CharacterHasTraitModel':
                 continue
 
             Model = getattr(character_models, attr)
             if not isinstance(Model, type):
                 continue
 
-            if issubclass(Model, character_models.CharacterHasTrait):
+            if issubclass(Model, character_models.CharacterHasTraitModel):
                 character_traits.append(Model)
 
         Character = [character_models.Character]
@@ -168,14 +169,14 @@ class ${MODEL_NAME}Inline (admin.TabularInline):
         with open(path.join(settings.PROJECT_PATH, project, 'admin', file_name + '.py'), 'wb') as out:
             out.write(self.__standard_header);
             out.write(self.__admin_template__header.substitute(
-                MODULE_NAME = model_list[0].__module__,
-                MODEL_LIST = ', '.join([Model.__name__ for Model in model_list])
+                MODULE_NAME = model_list[0]._meta.app_label + '.models',
+                MODEL_LIST = ', '.join([Model._meta.object_name for Model in model_list])
             ))
 
             for Model in model_list:
-                fields = ["'" + field_name + "'" for field_name, field in Model.fields.items()]
+                fields = ["'" + field.name + "'" for field in Model._meta.fields if not isinstance(field, models.AutoField)]
                 out.write(template.substitute(
-                    MODEL_NAME = Model.__name__,
+                    MODEL_NAME = Model._meta.object_name,
                     LIST_DISPLAY_FIELDS = ', '.join(fields),
                     LIST_FILTER_FIELDS  = ', '.join([field_name for field_name in fields if field_name != "'name'"])
                 ))
@@ -193,12 +194,10 @@ Models_NS = Tools.create_namespace '${PROJECT}.Models'
 
 class Models_NS.${MODEL_NAME} extends Backbone.Model
     defaults:
-        id: null
 ${FIELD_LIST__DEFAULT}
 
     parse: (raw) ->
         {
-            id: parseInt raw.id, 10
 ${FIELD_LIST__PARSE}
         }
 
@@ -243,33 +242,39 @@ ${FIELD_LIST__HUMAN_JSON}
                 field_list__json = []
                 field_list__human_json = []
 
-                for field_name, field in Model.fields.items():
-                    field_list__default.append(self.__backbone_model_template__default.substitute(FIELD_NAME = field_name))
-                    if field_name == 'character':
-                        field_list__parse.append(self.__backbone_model_template__parse_integer.substitute(FIELD_NAME = field_name))
-                    elif isinstance(field, models.IntegerField):
-                        field_list__parse.append(self.__backbone_model_template__parse_integer.substitute(FIELD_NAME = field_name))
+                for field in Model._meta.fields:
+                    field_list__default.append(self.__backbone_model_template__default.substitute(FIELD_NAME = field.name))
+                    if field.name == 'character':
+                        field_list__parse.append(self.__backbone_model_template__parse_integer.substitute(FIELD_NAME = field.name))
+                    elif isinstance(field, models.AutoField) or isinstance(field, models.IntegerField):
+                        field_list__parse.append(self.__backbone_model_template__parse_integer.substitute(FIELD_NAME = field.name))
                     elif isinstance(field, models.CommaSeparatedIntegerField):
-                        field_list__parse.append(self.__backbone_model_template__parse_int_list.substitute(FIELD_NAME = field_name))
-                        field_list__json.append(self.__backbone_model_template__json_int_list.substitute(FIELD_NAME = field_name))
+                        field_list__parse.append(self.__backbone_model_template__parse_int_list.substitute(FIELD_NAME = field.name))
+                        field_list__json.append(self.__backbone_model_template__json_int_list.substitute(FIELD_NAME = field.name))
                     elif isinstance(field, models.CharField) or isinstance(field, models.TextField):
-                        field_list__parse.append(self.__backbone_model_template__parse_text.substitute(FIELD_NAME = field_name))
-                    elif isinstance(field, trait_models.EnumField):
+                        field_list__parse.append(self.__backbone_model_template__parse_text.substitute(FIELD_NAME = field.name))
+                    elif isinstance(field, trait_models.EnumModelKey):
                         field_list__parse.append(self.__backbone_model_template__parse_enum.substitute(
-                            FIELD_NAME      = field_name,
-                            RELATED_PROJECT = field.related.parent_model.__module__.split('.')[0].title(),
-                            RELATED_MODEL   = field.related.parent_model.__name__
+                            FIELD_NAME      = field.name,
+                            RELATED_PROJECT = field.related.parent_model._meta.app_label.title(),
+                            RELATED_MODEL   = field.related.parent_model._meta.object_name
+                        ))
+                    elif isinstance(field, fields.EnumField):
+                        field_list__parse.append(self.__backbone_model_template__parse_enum.substitute(
+                            FIELD_NAME      = field.name,
+                            RELATED_PROJECT = field.model._meta.app_label.title(),
+                            RELATED_MODEL   = field.model._meta.object_name
                         ))
                     elif isinstance(field, models.ForeignKey):
                         field_list__parse.append(self.__backbone_model_template__parse_foreign.substitute(
-                            FIELD_NAME      = field_name,
-                            RELATED_PROJECT = field.related.parent_model.__module__.split('.')[0].title(),
-                            RELATED_MODEL   = field.related.parent_model.__name__
+                            FIELD_NAME      = field.name,
+                            RELATED_PROJECT = field.related.parent_model._meta.app_label.title(),
+                            RELATED_MODEL   = field.related.parent_model._meta.object_name
                         ))
-                        field_list__json.append(self.__backbone_model_template__json_foreign.substitute(FIELD_NAME = field_name))
-                        field_list__human_json.append(self.__backbone_model_template__human_json_foreign.substitute(FIELD_NAME = field_name))
+                        field_list__json.append(self.__backbone_model_template__json_foreign.substitute(FIELD_NAME = field.name))
+                        field_list__human_json.append(self.__backbone_model_template__human_json_foreign.substitute(FIELD_NAME = field.name))
                     else:
-                        field_list__parse.append(self.__backbone_model_template__parse_text.substitute(FIELD_NAME = field_name))
+                        field_list__parse.append(self.__backbone_model_template__parse_text.substitute(FIELD_NAME = field.name))
 
                 out.write(self.__backbone_model_template__main.substitute(
                     PROJECT    = project.title(),
@@ -311,11 +316,11 @@ ${MODEL_NAME}.Serializer = ${MODEL_NAME}Serializer
             out.write(self.__standard_header);
             out.write(self.__serializer_template__header.substitute(
                 PROJECT     = project,
-                MODEL_NAMES = ', '.join([Model.__name__ for Model in model_list])
+                MODEL_NAMES = ', '.join([Model._meta.object_name for Model in model_list])
             ))
             for Model in model_list:
                 out.write(self.__serializer_template__serializer.substitute(
-                    MODEL_NAME = Model.__name__
+                    MODEL_NAME = Model._meta.object_name
                 ))
 
         print 'done'
@@ -341,11 +346,11 @@ router = DefaultRouter()
             out.write(self.__standard_header);
             out.write(self.__url_template__header.substitute(
                 PROJECT   = project,
-                VIEW_SETS = ', '.join([Model.__name__ + 'ViewSet' for Model in model_list]),
+                VIEW_SETS = ', '.join([Model._meta.object_name + 'ViewSet' for Model in model_list]),
             ))
             for Model in model_list:
                 out.write(self.__url_template__urls.substitute(
-                    MODEL_NAME = Model.__name__
+                    MODEL_NAME = Model._meta.object_name
                 ))
 
         print 'done'
@@ -378,12 +383,12 @@ class ${MODEL_NAME}ViewSet (viewsets.ModelViewSet):
             out.write(self.__standard_header);
             out.write(self.__list_detail_view_template__header.substitute(
                 PROJECT          = project,
-                MODEL_NAMES      = ', '.join([Model.__name__                for Model in model_list]),
-                SERIALIZER_NAMES = ', '.join([Model.__name__ + 'Serializer' for Model in model_list])
+                MODEL_NAMES      = ', '.join([Model._meta.object_name                for Model in model_list]),
+                SERIALIZER_NAMES = ', '.join([Model._meta.object_name + 'Serializer' for Model in model_list])
             ))
             for Model in model_list:
                 out.write(self.__list_detail_view_template__views.substitute(
-                    MODEL_NAME = Model.__name__
+                    MODEL_NAME = Model._meta.object_name
                 ))
 
         print 'done'

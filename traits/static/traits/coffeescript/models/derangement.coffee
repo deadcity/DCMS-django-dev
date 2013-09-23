@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# 2013-09-17 09:45:58.563058
+# 2013-09-23 10:18:14.789000
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -15,18 +15,18 @@ Models_NS = Tools.create_namespace 'Traits.Models'
 class Models_NS.Derangement extends Backbone.Model
     defaults:
         id: null
-        name: null
         enabled: null
-        requires_specification: null
+        name: null
         type: null
+        requires_specification: null
 
     parse: (raw) ->
         {
             id: parseInt raw.id, 10
-            name: raw.name,
             enabled: raw.enabled,
-            requires_specification: raw.requires_specification,
+            name: raw.name,
             type: Traits.Enums.DerangementType.get raw.type
+            requires_specification: raw.requires_specification,
         }
 
     toJSON: () ->

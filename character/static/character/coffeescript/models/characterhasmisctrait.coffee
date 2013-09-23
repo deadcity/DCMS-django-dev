@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# 2013-09-17 09:45:58.563058
+# 2013-09-23 10:18:14.789000
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -17,16 +17,16 @@ class Models_NS.CharacterHasMiscTrait extends Backbone.Model
         id: null
         character: null
         trait: null
-        description: null
         rating: null
+        description: null
 
     parse: (raw) ->
         {
             id: parseInt raw.id, 10
             character: parseInt raw.character, 10
             trait: Traits.Objects.MiscTrait.get raw.trait
-            description: raw.description,
             rating: parseInt raw.rating, 10
+            description: raw.description,
         }
 
     toJSON: () ->

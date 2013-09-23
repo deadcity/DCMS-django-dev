@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# 2013-09-10 11:58:03.321986
+# 2013-09-23 10:18:14.789000
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -12,7 +12,7 @@
 
 from rest_framework import serializers
 
-from traits.models import AttributeType, DerangementType, FlawType, MeritType, SkillType, Status, Vice, Virtue, Affiliation, Attribute, CharacterText, CombatTrait, CreatureType, Derangement, Flaw, Genealogy, Merit, MiscTrait, Power, Skill, Subgroup
+from traits.models import AttributeType, DerangementType, FlawType, MeritType, SkillType, Vice, Virtue, Affiliation, Attribute, CharacterText, CombatTrait, CreatureType, Derangement, Flaw, Genealogy, Merit, MiscTrait, Power, Skill, Subgroup
 
 
 class AttributeTypeSerializer (serializers.ModelSerializer):
@@ -43,12 +43,6 @@ class SkillTypeSerializer (serializers.ModelSerializer):
     class Meta (object):
         model = SkillType
 SkillType.Serializer = SkillTypeSerializer
-
-
-class StatusSerializer (serializers.ModelSerializer):
-    class Meta (object):
-        model = Status
-Status.Serializer = StatusSerializer
 
 
 class ViceSerializer (serializers.ModelSerializer):

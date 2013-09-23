@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# 2013-09-10 11:58:03.321986
+# 2013-09-23 10:18:14.789000
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -12,7 +12,7 @@
 
 from django.contrib import admin
 
-from traits.models import AttributeType, DerangementType, FlawType, MeritType, SkillType, Status, Vice, Virtue
+from traits.models import AttributeType, DerangementType, FlawType, MeritType, SkillType, Vice, Virtue
 
 
 class AttributeTypeAdmin (admin.ModelAdmin):
@@ -34,10 +34,6 @@ admin.site.register(MeritType, MeritTypeAdmin)
 class SkillTypeAdmin (admin.ModelAdmin):
     list_display = ('name',)
 admin.site.register(SkillType, SkillTypeAdmin)
-
-class StatusAdmin (admin.ModelAdmin):
-    list_display = ('name',)
-admin.site.register(Status, StatusAdmin)
 
 class ViceAdmin (admin.ModelAdmin):
     list_display = ('name',)

@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# 2013-09-10 11:58:03.321986
+# 2013-09-23 10:18:14.789000
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -36,13 +36,13 @@ class CharacterHasFlawAdmin (admin.ModelAdmin):
 admin.site.register(CharacterHasFlaw, CharacterHasFlawAdmin)
 
 class CharacterHasMeritAdmin (admin.ModelAdmin):
-    list_display = ('character', 'rating', 'description', 'trait', 'specification',)
-    list_filter  = ('character', 'rating', 'description', 'trait', 'specification',)
+    list_display = ('character', 'trait', 'rating', 'specification', 'description',)
+    list_filter  = ('character', 'trait', 'rating', 'specification', 'description',)
 admin.site.register(CharacterHasMerit, CharacterHasMeritAdmin)
 
 class CharacterHasMiscTraitAdmin (admin.ModelAdmin):
-    list_display = ('character', 'trait', 'description', 'rating',)
-    list_filter  = ('character', 'trait', 'description', 'rating',)
+    list_display = ('character', 'trait', 'rating', 'description',)
+    list_filter  = ('character', 'trait', 'rating', 'description',)
 admin.site.register(CharacterHasMiscTrait, CharacterHasMiscTraitAdmin)
 
 class CharacterHasPowerAdmin (admin.ModelAdmin):
