@@ -50,7 +50,7 @@ class Models_NS.Character extends Backbone.Model
         }
 
     url: () ->
-        "/DCMS/api/character/Character/#{ if @id? then "#{@id}/" else '' }"
+        "#{ DCMS.Settings.URL_PREFIX }/api/character/Character/#{ if @id? then "#{@id}/" else '' }"
 
     toJSON: () ->
         attr = _.clone @attributes

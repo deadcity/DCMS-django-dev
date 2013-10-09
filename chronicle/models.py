@@ -10,7 +10,7 @@ class Chronicle(models.Model):
     enabled = models.BooleanField(default = True)
     name    = models.CharField(max_length = 255, unique = True)
 
-    storytellers = models.ManyToManyField(User, related_name = 'storyteller_for_chronicles')
+    storytellers = models.ManyToManyField(User, related_name = 'storyteller_for_chronicles', blank = True)
     description = models.TextField(blank = True)
 
     def __unicode__ (self):

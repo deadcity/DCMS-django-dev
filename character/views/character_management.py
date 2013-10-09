@@ -175,7 +175,7 @@ def print_all (request):
     if not is_storyteller(request.user):
         redirect('/characters')
 
-    context = { 'character_list': Character.objects.filter(status=3) }
+    context = { 'character_list': Character.objects.filter(status = 4) }
 
     return render(request, 'character/print_all.html', context)
 
@@ -204,10 +204,10 @@ def new_character (request):
     for trait in CombatTrait.objects.all():
         CharacterHasCombatTrait(character = character, trait = trait).save()
 
-    for trait in MiscTrait.objects.all():
+    for trait in MiscTrait.objects.filter(enabled = True):
         CharacterHasMiscTrait(character = character, trait = trait).save()
 
-    for trait in CharacterText.objects.all():
+    for trait in CharacterText.objects.filter(enabled = True):
         CharacterHasText(character = character, trait = trait).save()
 
     return redirect('character_edit', pk = character.pk)

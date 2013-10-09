@@ -34,7 +34,7 @@ class Views.Control extends Views.Item
         , options ? {}
 
         if _.has options, 'construct'
-            construct = construct
+            construct = options.construct
             delete options.construct
         else
             construct = null

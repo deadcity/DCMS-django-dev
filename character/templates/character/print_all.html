@@ -3,6 +3,7 @@
 {% load compress %}
 {% load js_filters %}
 {% load model_filters %}
+{% load numeric_filters %}
 {% load static %}
 
 {% block style_includes %}
@@ -18,6 +19,14 @@
 			.character-item {
 				page-break-after: always;
 			}
+
+            #character-basics {
+                font-size: 9;
+            }
+
+            .trait-list {
+                font-size: 9;
+            }
     </style>
 {% endblock style_includes %}
 
@@ -26,7 +35,7 @@
 		<div class="character-item">
 			<header class="charsheet-header">
 	        <h1>{{ character.name }}</h1>
-	        <p><span class='label'>Played by:</span> {{ character.user.realname }}</p>
+	        <p><span class='label'>Played by:</span> {{ character.user.first_name }} {{ character.user.last_name }}</p>
 	    </header>
 	    <section id='general-character-traits'>
 	        <div id='character-basics'>
@@ -76,7 +85,7 @@
 	    </section>
 	    <section id='skill-specialties'>
 	        <h2>Skill Specialties</h2>
-	        <ul>
+	        <ul class='trait-list'>
 	            {% for specialty in character.characterhasskillspecialty_set.all %}
 	            <li>
 	                <span class='stat-label'>{{ specialty.trait.name }}:</span> {{ specialty.specialty }}
@@ -88,7 +97,7 @@
 	    <div class="row">
 	        <section id='powers'>
 	            <h2>{{ character.creature_type.power_name }}s</h2>
-	            <ul>
+	            <ul class='trait-list'>
 	                {% for power in character.characterhaspower_set.all %}
 	                <li>
 	                    {{ power.trait.group }}{% if power.trait.rating %} {{ power.trait.rating }}{% endif %}{% if power.trait.name %}: {{ power.trait.name }}{% endif %}
@@ -99,10 +108,10 @@
 
 	        <section id='merits'>
 	            <h2>Merits</h2>
-	            <ul>
+	            <ul class='trait-list'>
 	                {% for merit in character.characterhasmerit_set.all %}
 	                <li>
-	                    {{ merit.trait.name }}{% if merit.trait.min_rating != merit.trait.max_rating %} {{ merit.rating }}{% endif %}{% if merit.trait.requires_specification %} ({{ merit.specification }}){% endif %}
+	                    {{ merit.trait.name }}{% if ',' in merit.trait.allowed_ratings %} {{ merit.rating }}{% endif %}{% if merit.trait.requires_specification %} ({{ merit.specification }}){% endif %}
 	                </li>
 	                {% endfor %}
 	            </ul>
@@ -110,7 +119,7 @@
 
 	        <section id='flaws'>
 	            <h2>Flaws</h2>
-	            <ul>
+	            <ul class='trait-list'>
 	                {% for flaw in character.characterhasflaw_set.all %}
 	                <li>
 	                    {{ flaw.trait.name }}{% if flaw.trait.requires_specification %} ({{ flaw.specification }}){% endif %}
@@ -123,7 +132,7 @@
 	    <div class="row">
 	        <section id='combat'>
 	            <h2>Combat</h2>
-	            <ul>
+	            <ul class='trait-list'>
 	                {% for combat_trait in character.characterhascombattrait_set.all %}
 	                <li>
 	                    <span class='stat-label'>{{ combat_trait.trait.name }}:</span> {{ combat_trait.rating }}
@@ -133,7 +142,7 @@
 	        </section>
 	        <section id='supernatural'>
 	            <h2>Supernatural</h2>
-	            <ul>
+	            <ul class='trait-list'>
 	                {% for misc_trait in character.characterhasmisctrait_set.all %}
 	                <li>
 	                    <span class='stat-label'>{{ misc_trait.trait.name }}:</span> {{ misc_trait.rating }}
@@ -143,7 +152,7 @@
 	        </section>
 	        <section id='derangement'>
 	            <h2>Derangements</h2>
-	            <ul>
+	            <ul class='trait-list'>
 	                {% for derangement in character.characterhasderangement_set.all %}
 	                <li>
 	                    {{ derangement.trait.name }}{% if derangement.trait.requires_specification %} ({{ derangement.specification }}){% endif %}
@@ -152,6 +161,16 @@
 	            </ul>
 	        </section>
 	    </div>
+
+        <div class="row">
+            {% for character_text in character.characterhastext_set.all %}
+                {% if character_text.trait.name == 'Printed Notes' and character_text.text and character_text.text != '' %}
+                    <h2>Notes</h2>
+                    {{ character_text.text|linebreaks }}
+                {% endif %}
+            {% endfor %}
+        </div>
+
 	  </div>
 	{% endfor %}
 {% endblock page %}

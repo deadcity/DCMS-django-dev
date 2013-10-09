@@ -132,7 +132,7 @@
             <ul>
                 {% for merit in character.characterhasmerit_set.all %}
                 <li>
-                    {{ merit.trait.name }}{% if merit.trait.min_rating != merit.trait.max_rating %} {{ merit.rating }}{% endif %}{% if merit.trait.requires_specification %} ({{ merit.specification }}){% endif %}
+                    {{ merit.trait.name }}{% if ',' in merit.trait.allowed_ratings %} {{ merit.rating }}{% endif %}{% if merit.trait.requires_specification %} ({{ merit.specification }}){% endif %}
                 </li>
                 {% endfor %}
             </ul>
