@@ -74,7 +74,7 @@
             <div class="trait-set" style='width: {% widthratio 1 all_attributes|length 100 %}%'>
                 <h3>{{ attribute_group.grouper }}</h3>
                 <ul class='trait-list'>
-                    {% for character_attribute in attribute_group.list %}
+                    {% for character_attribute in attribute_group.list|dictsort:'id' %}
                     <li>
                         <span class='stat-label'>{{ character_attribute.trait.name }}</span>
                         <div class='rating-container'>{{ character_attribute.rating }}</div>
@@ -93,7 +93,7 @@
             <div class="trait-set" style='width: {% widthratio 1 all_attributes|length 100 %}%'>
                 <h3>{{ skill_group.grouper }}</h3>
                 <ul class='trait-list'>
-                    {% for character_skill in skill_group.list %}
+                    {% for character_skill in skill_group.list|dictsort:'id' %}
                     <li>
                         <span class='stat-label'>{{ character_skill.trait.name }}</span>
                         <div class='rating-container'>{{ character_skill.rating }}</div>

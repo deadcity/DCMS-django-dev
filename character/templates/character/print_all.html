@@ -16,6 +16,14 @@
 				font-family: Helvetica, Arial, sans-serif;
 			}
 
+            h2 {
+                font-size: 14;
+            }
+
+            h3 {
+                font-size: 12;
+            }
+
 			.character-item {
 				page-break-after: always;
 			}
@@ -24,7 +32,7 @@
                 font-size: 9;
             }
 
-            .trait-list {
+            .trait-list, p {
                 font-size: 9;
             }
     </style>
@@ -53,7 +61,7 @@
 	            <div class="trait-set" style='width: {% widthratio 1 all_attributes|length 100 %}%'>
 	                <h3>{{ attribute_group.grouper }}</h3>
 	                <ul class='trait-list'>
-	                    {% for character_attribute in attribute_group.list %}
+	                    {% for character_attribute in attribute_group.list|dictsort:'id' %}
 	                    <li>
 	                        <span class='stat-label'>{{ character_attribute.trait.name }}</span>
 	                        <div class='rating-container'>{{ character_attribute.rating }}</div>
@@ -72,7 +80,7 @@
 	            <div class="trait-set" style='width: {% widthratio 1 all_attributes|length 100 %}%'>
 	                <h3>{{ skill_group.grouper }}</h3>
 	                <ul class='trait-list'>
-	                    {% for character_skill in skill_group.list %}
+	                    {% for character_skill in skill_group.list|dictsort:'id' %}
 	                    <li>
 	                        <span class='stat-label'>{{ character_skill.trait.name }}</span>
 	                        <div class='rating-container'>{{ character_skill.rating }}</div>
@@ -135,7 +143,11 @@
 	            <ul class='trait-list'>
 	                {% for combat_trait in character.characterhascombattrait_set.all %}
 	                <li>
+                        {% if combat_trait.trait.name == 'Health' %}
+                        <span class='stat-label'>Current Health:</span> {% for i in combat_trait.rating|get_range %}[{% if forloop.revcounter0 == 0 %}-2{% elif forloop.revcounter0 == 1 %}-1{% else %}&nbsp;&nbsp;{% endif %}]&nbsp;&nbsp;&nbsp;{% endfor %}
+                        {% else %}
 	                    <span class='stat-label'>{{ combat_trait.trait.name }}:</span> {{ combat_trait.rating }}
+                        {% endif %}
 	                </li>
 	                {% endfor %}
 	            </ul>
@@ -145,7 +157,11 @@
 	            <ul class='trait-list'>
 	                {% for misc_trait in character.characterhasmisctrait_set.all %}
 	                <li>
+                        {% if misc_trait.trait.name == 'Willpower' %}
+                        <span class='stat-label'>Willpower:</span> {% for i in misc_trait.rating|get_range %}[&nbsp;&nbsp;]&nbsp;&nbsp;&nbsp;{% endfor %}
+                        {% else %}
 	                    <span class='stat-label'>{{ misc_trait.trait.name }}:</span> {{ misc_trait.rating }}
+                        {% endif %}
 	                </li>
 	                {% endfor %}
 	            </ul>
