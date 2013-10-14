@@ -29,11 +29,15 @@
         <td><button name='details'>details</button></td>
     </script>
 
+    <script type='text/javascript'>
+        window.chronicle_table = undefined;
+    </script>
+
     {% compress js %}
         <script type='text/coffeescript'>
-            chronicle_table = new Table.Table {
+            chronicle_table = new Table.Table
                 el: $ '#table'
-                collection: new Backbone.Collection null, {model: Chronicle.Models.Chronicle}
+                collection: new Backbone.Collection null, { model: Chronicle.Models.Chronicle }
 
                 columns: [
                     { header: 'name', field: 'name' }
@@ -55,14 +59,14 @@
                         # TODO(emery): goto chronicle_detail page
 
                 row_template: _.template $('#template_table-row').html()
-            }
-
-            {% for chronicle in object_list %}
-            chronicle_table.collection.add {{ chronicle|serialize_json|safe }},
-                parse: true
-            {% endfor %}
-
-            chronicle_table.render()
         </script>
     {% endcompress %}
+
+    <script type='text/javascript'>
+        {% for chronicle in object_list %}
+        chronicle_table.collection.add({{ chronicle|serialize_json|safe }}, { parse: true });
+        {% endfor %}
+
+        chronicle_table.render()
+    </script>
 {% endblock table_definition %}

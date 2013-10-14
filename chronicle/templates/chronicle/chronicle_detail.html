@@ -58,6 +58,10 @@
         <table id='game-table' class='list-table stripped'></table>
         <button name='add-new-game'>add new game</button>
 
+        <script type='text/javascript'>
+            window.game_table = undefined
+        </script>
+
         {% compress js %}
         <script type='text/coffeescript'>
             template_game_table_row      = _.template $('#template_game-table-row').html()
@@ -109,11 +113,6 @@
                 row_template: template_game_table_row
             }
 
-            {% for game in chronicle.game_set.all %}
-            game_table.collection.add {{ game|serialize_json|safe }},
-                parse: true
-            {% endfor %}
-
             game_table.render()
 
             game_edit_toggle_button = $ 'button[name="edit"]', $ '#games'
@@ -151,6 +150,12 @@
         </script>
         {% endcompress %}
     </section>
+
+    <script type='text/javascript'>
+        {% for game in chronicle.game_set.all %}
+        game_table.collection.add({{ game|serialize_json|safe }}, { parse: true });
+        {% endfor %}
+    </script>
 
     <section id='storytellers'>
         <select name='username'>
