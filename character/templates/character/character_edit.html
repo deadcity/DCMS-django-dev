@@ -267,6 +267,20 @@
         </section>
     </div>
 
+    <div class='row'>
+        <section id='xp'>
+            <h2>XP</h2>
+            <ul class='trait-list'>
+                {% for xp_record in character.xprecord_set.all %}
+                <li>
+                    <strong>{% if xp_record.amount >= 0 %}+{% endif %}{{ xp_record.amount}}</strong> - {{ xp_record.game.name }} - {{ xp_record.note }}
+                </li>
+                {% endfor %}
+            </ul>
+            <span class='stat-label'>Net XP:</span> {{ net_xp }}
+        </section>
+    </div>
+
     <div id='character-texts'>
     </div>
 

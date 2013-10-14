@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# 2013-09-10 11:58:03.321986
+# 2013-10-14 12:00:06.268298
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -12,13 +12,18 @@
 
 from rest_framework import viewsets
 
-from character.models import Character, CharacterHasAttribute, CharacterHasCombatTrait, CharacterHasDerangement, CharacterHasFlaw, CharacterHasMerit, CharacterHasMiscTrait, CharacterHasPower, CharacterHasSkill, CharacterHasSkillSpecialty, CharacterHasText
-from character.serializers import CharacterSerializer, CharacterHasAttributeSerializer, CharacterHasCombatTraitSerializer, CharacterHasDerangementSerializer, CharacterHasFlawSerializer, CharacterHasMeritSerializer, CharacterHasMiscTraitSerializer, CharacterHasPowerSerializer, CharacterHasSkillSerializer, CharacterHasSkillSpecialtySerializer, CharacterHasTextSerializer
+from character.models import Character, XPRecord, CharacterHasAttribute, CharacterHasCombatTrait, CharacterHasDerangement, CharacterHasFlaw, CharacterHasMerit, CharacterHasMiscTrait, CharacterHasPower, CharacterHasSkill, CharacterHasSkillSpecialty, CharacterHasText
+from character.serializers import CharacterSerializer, XPRecordSerializer, CharacterHasAttributeSerializer, CharacterHasCombatTraitSerializer, CharacterHasDerangementSerializer, CharacterHasFlawSerializer, CharacterHasMeritSerializer, CharacterHasMiscTraitSerializer, CharacterHasPowerSerializer, CharacterHasSkillSerializer, CharacterHasSkillSpecialtySerializer, CharacterHasTextSerializer
 
 
 class CharacterViewSet (viewsets.ModelViewSet):
     model            = Character
     serializer_class = CharacterSerializer
+
+
+class XPRecordViewSet (viewsets.ModelViewSet):
+    model            = XPRecord
+    serializer_class = XPRecordSerializer
 
 
 class CharacterHasAttributeViewSet (viewsets.ModelViewSet):

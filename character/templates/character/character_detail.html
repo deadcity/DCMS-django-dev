@@ -182,9 +182,17 @@
             </ul>
         </section>
     </div>
-    
+
     <section id='xp'>
         <h2>XP</h2>
+        <ul>
+            {% for xp_record in character.xprecord_set.all %}
+            <li>
+                <strong>{% if xp_record.amount >= 0 %}+{% endif %}{{ xp_record.amount }}</strong> - {{ xp_record.game.name }} - {{ xp_record.note }}
+            </li>
+            {% endfor %}
+        </ul>
+        <span class='stat-label'>Net XP:</span> {{ net_xp }}
     </section>
     <section id='text'>
         {% for character_text in character.characterhastext_set.all %}

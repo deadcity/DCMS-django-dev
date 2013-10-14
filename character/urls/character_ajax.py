@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# 2013-09-10 11:58:03.321986
+# 2013-10-14 12:00:06.268298
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -12,10 +12,11 @@
 
 from rest_framework.routers import DefaultRouter
 
-from character.views import CharacterViewSet, CharacterHasAttributeViewSet, CharacterHasCombatTraitViewSet, CharacterHasDerangementViewSet, CharacterHasFlawViewSet, CharacterHasMeritViewSet, CharacterHasMiscTraitViewSet, CharacterHasPowerViewSet, CharacterHasSkillViewSet, CharacterHasSkillSpecialtyViewSet, CharacterHasTextViewSet
+from character.views import CharacterViewSet, XPRecordViewSet, CharacterHasAttributeViewSet, CharacterHasCombatTraitViewSet, CharacterHasDerangementViewSet, CharacterHasFlawViewSet, CharacterHasMeritViewSet, CharacterHasMiscTraitViewSet, CharacterHasPowerViewSet, CharacterHasSkillViewSet, CharacterHasSkillSpecialtyViewSet, CharacterHasTextViewSet
 
 router = DefaultRouter()
 router.register('Character', CharacterViewSet)
+router.register('XPRecord', XPRecordViewSet)
 router.register('CharacterHasAttribute', CharacterHasAttributeViewSet)
 router.register('CharacterHasCombatTrait', CharacterHasCombatTraitViewSet)
 router.register('CharacterHasDerangement', CharacterHasDerangementViewSet)

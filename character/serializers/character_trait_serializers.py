@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# 2013-09-19 12:00:52.149617
+# 2013-10-14 12:00:06.268298
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -12,7 +12,13 @@
 
 from rest_framework import serializers
 
-from character.models import CharacterHasAttribute, CharacterHasCombatTrait, CharacterHasDerangement, CharacterHasFlaw, CharacterHasMerit, CharacterHasMiscTrait, CharacterHasPower, CharacterHasSkill, CharacterHasSkillSpecialty, CharacterHasText
+from character.models import XPRecord, CharacterHasAttribute, CharacterHasCombatTrait, CharacterHasDerangement, CharacterHasFlaw, CharacterHasMerit, CharacterHasMiscTrait, CharacterHasPower, CharacterHasSkill, CharacterHasSkillSpecialty, CharacterHasText
+
+
+class XPRecordSerializer (serializers.ModelSerializer):
+    class Meta (object):
+        model = XPRecord
+XPRecord.Serializer = XPRecordSerializer
 
 
 class CharacterHasAttributeSerializer (serializers.ModelSerializer):

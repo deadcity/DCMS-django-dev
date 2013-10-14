@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# 2013-09-10 11:58:03.321986
+# 2013-10-14 12:00:06.268298
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -12,8 +12,13 @@
 
 from django.contrib import admin
 
-from character.models import CharacterHasAttribute, CharacterHasCombatTrait, CharacterHasDerangement, CharacterHasFlaw, CharacterHasMerit, CharacterHasMiscTrait, CharacterHasPower, CharacterHasSkill, CharacterHasSkillSpecialty, CharacterHasText
+from character.models import XPRecord, CharacterHasAttribute, CharacterHasCombatTrait, CharacterHasDerangement, CharacterHasFlaw, CharacterHasMerit, CharacterHasMiscTrait, CharacterHasPower, CharacterHasSkill, CharacterHasSkillSpecialty, CharacterHasText
 
+
+class XPRecordAdmin (admin.ModelAdmin):
+    list_display = ('character', 'amount', 'note', 'game',)
+    list_filter  = ('character', 'amount', 'note', 'game',)
+admin.site.register(XPRecord, XPRecordAdmin)
 
 class CharacterHasAttributeAdmin (admin.ModelAdmin):
     list_display = ('character', 'trait', 'rating',)

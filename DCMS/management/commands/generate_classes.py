@@ -67,14 +67,15 @@ class Command (NoArgsCommand):
             if issubclass(Model, character_models.CharacterHasTrait):
                 character_traits.append(Model)
 
-        Character = [character_models.Character]
-        self.__gen_serializers     ('character', character_traits, 'character_trait_serializers')
-        self.__gen_view_sets       ('character', Character + character_traits, 'character_ajax')
-        self.__gen_urls            ('character', Character + character_traits, 'character_ajax')
-        self.__gen_backbone_models ('character', character_traits)
+        Character = character_models.Character
+        XPRecord = character_models.XPRecord
+        self.__gen_serializers     ('character', [            XPRecord ] + character_traits, 'character_trait_serializers')
+        self.__gen_view_sets       ('character', [ Character, XPRecord ] + character_traits, 'character_ajax')
+        self.__gen_urls            ('character', [ Character, XPRecord ] + character_traits, 'character_ajax')
+        self.__gen_backbone_models ('character', [            XPRecord ] + character_traits)
 
-        self.__gen_admin_classes ('character', character_traits, 'character_trait_admins',  self.__admin_template__model_admin)
-        self.__gen_admin_classes ('character', character_traits, 'character_traits_inline', self.__admin_template__inline_admin)
+        self.__gen_admin_classes ('character', [ XPRecord ] + character_traits, 'character_trait_admins',  self.__admin_template__model_admin)
+        self.__gen_admin_classes ('character',                character_traits, 'character_traits_inline', self.__admin_template__inline_admin)
 
 
         # # # # # # #
@@ -91,7 +92,7 @@ class Command (NoArgsCommand):
         #     if issubclass(Model, models.Model):
         #         chronicle.append(Model)
 
-        chronicle = [chronicle_models.Chronicle, chronicle_models.Game]
+        chronicle = [ chronicle_models.Chronicle, chronicle_models.Game ]
         self.__gen_serializers ('chronicle', chronicle, 'chronicle_serializers')
         self.__gen_view_sets   ('chronicle', chronicle, 'chronicle_ajax')
         self.__gen_urls        ('chronicle', chronicle, 'chronicle_ajax')
@@ -99,6 +100,18 @@ class Command (NoArgsCommand):
         # self.__gen_admin_classes ('chronicle', chronicle, 'chronicle_admins', self.__admin_template__model_admin)
         self.__gen_admin_classes ('chronicle', [chronicle_models.Game], 'chronicle_inlines', self.__admin_template__inline_admin)
 
+
+        # # # # #
+        # # XP  #
+        # # # # #
+
+        # xp = [ xp_models.XPRecord ]
+        # self.__gen_serializers     ('xp', xp, 'xp_serializers')
+        # self.__gen_view_sets       ('xp', xp, 'xp_ajax')
+        # self.__gen_urls            ('xp', xp, 'xp_ajax')
+        # self.__gen_backbone_models ('xp', xp)
+
+        # self.__gen_admin_classes ('xp', xp, 'xp_admins', self.__admin_template__model_admin)
 
     # # # # # # # # # #
     # STANDARD HEADER #

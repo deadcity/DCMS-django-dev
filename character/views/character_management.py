@@ -2,6 +2,7 @@ from datetime import datetime
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.db.models import Sum
 from django.shortcuts import redirect, render
 from django.views import generic
 
@@ -216,9 +217,11 @@ def new_character (request):
 @login_required
 def character_edit (request, pk):
     user = request.user
+    character = Character.objects.get(pk = pk)
     context = {
-        'character': Character.objects.get(pk = pk),
-        'is_storyteller': is_storyteller(user)
+        'character': character,
+        'is_storyteller': is_storyteller(user),
+        'net_xp': character.xprecord_set.aggregate(Sum('amount'))['amount__sum'],
     }
     if (context['character'].user != user or context['character'].status != Status.objects.get(name = 'Editing')) and not is_storyteller(user):
         return redirect('character_list')
@@ -249,16 +252,13 @@ def submit_character (request, pk):
     return redirect('character_list')
 
 
-class CharacterDetailView (generic.DetailView):
-    model = Character
-    template_name = 'character/character_detail.html'
-
-
 def character_detail (request, pk):
     user = request.user
+    character = Character.objects.get(pk = pk)
     context = {
-        'character': Character.objects.get(pk = pk),
-        'is_storyteller': is_storyteller(user)
+        'character': character,
+        'is_storyteller': is_storyteller(user),
+        'net_xp': character.xprecord_set.aggregate(Sum('amount'))['amount__sum'],
     }
     if (context['character'].user != user) and not is_storyteller(user):
         return redirect('character_list')
