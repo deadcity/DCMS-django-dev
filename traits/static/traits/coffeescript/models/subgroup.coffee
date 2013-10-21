@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# 2013-09-23 10:18:14.789000
+# Mon, 21 Oct 2013 07:51:51 -0500 | b2ee04db90b6a57384152b1fc589898b
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -10,30 +10,55 @@
 # forget to commit the newly generated files!)
 
 
-Models_NS = Tools.create_namespace 'Traits.Models'
+Models = Tools.create_namespace 'Traits.Models'
 
-class Models_NS.Subgroup extends Backbone.Model
+class Models.Subgroup extends Backbone.Model
     defaults:
+      
         id: null
+      
         enabled: null
+      
         name: null
+      
 
     parse: (raw) ->
-        {
-            id: parseInt raw.id, 10
-            enabled: raw.enabled,
-            name: raw.name,
-        }
+      
+      
+        id: parseInt raw.id, 10
+      
+      
+      
+        enabled: raw.enabled
+      
+      
+      
+        name: raw.name
+      
+      
 
     toJSON: () ->
-        attr = _.clone this.attributes
-
+        attr = _.clone @attributes
+      
+      
+      
+      
+      
+      
+      
         attr
 
     toHumanJSON: () ->
-        attr = _.clone this.attributes
-
+        attr = _.clone @attributes
+      
+      
+      
+      
+      
+      
+      
         attr
 
     url: () ->
-        "#{ DCMS.Settings.URL_PREFIX }/api/traits/Subgroup/#{ if @id? then "#{@id}/" else '' }"
+        "#{ DCMS.Settings.URL_PREFIX }/api/traits/subgroup/#{ if @id? then "#{ @id }/" else '' }"
+

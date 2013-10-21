@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# 2013-09-23 10:18:14.789000
+# Mon, 21 Oct 2013 07:51:51 -0500 | 2057cbcc2ea7a5396c0bcad396149d55
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -10,34 +10,75 @@
 # forget to commit the newly generated files!)
 
 
-Models_NS = Tools.create_namespace 'Traits.Models'
+Models = Tools.create_namespace 'Traits.Models'
 
-class Models_NS.Power extends Backbone.Model
+class Models.Power extends Backbone.Model
     defaults:
+      
         id: null
+      
         enabled: null
+      
         name: null
+      
         rating: null
+      
         group: null
+      
 
     parse: (raw) ->
-        {
-            id: parseInt raw.id, 10
-            enabled: raw.enabled,
-            name: raw.name,
-            rating: parseInt raw.rating, 10
-            group: raw.group,
-        }
+      
+      
+        id: parseInt raw.id, 10
+      
+      
+      
+        enabled: raw.enabled
+      
+      
+      
+        name: raw.name
+      
+      
+      
+        rating: parseInt raw.rating, 10
+      
+      
+      
+        group: raw.group
+      
+      
 
     toJSON: () ->
-        attr = _.clone this.attributes
-
+        attr = _.clone @attributes
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
         attr
 
     toHumanJSON: () ->
-        attr = _.clone this.attributes
-
+        attr = _.clone @attributes
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
         attr
 
     url: () ->
-        "#{ DCMS.Settings.URL_PREFIX }/api/traits/Power/#{ if @id? then "#{@id}/" else '' }"
+        "#{ DCMS.Settings.URL_PREFIX }/api/traits/power/#{ if @id? then "#{ @id }/" else '' }"
+

@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# 2013-09-23 10:18:14.789000
+# Mon, 21 Oct 2013 07:51:50 -0500 | 06046bd8e4ac6ffea0da65d8cbbb5a57
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -10,34 +10,78 @@
 # forget to commit the newly generated files!)
 
 
-Models_NS = Tools.create_namespace 'Traits.Models'
+Models = Tools.create_namespace 'Traits.Models'
 
-class Models_NS.Derangement extends Backbone.Model
+class Models.Derangement extends Backbone.Model
     defaults:
+      
         id: null
+      
         enabled: null
+      
         name: null
+      
         type: null
+      
         requires_specification: null
+      
 
     parse: (raw) ->
-        {
-            id: parseInt raw.id, 10
-            enabled: raw.enabled,
-            name: raw.name,
-            type: Traits.Enums.DerangementType.get raw.type
-            requires_specification: raw.requires_specification,
-        }
+      
+      
+        id: parseInt raw.id, 10
+      
+      
+      
+        enabled: raw.enabled
+      
+      
+      
+        name: raw.name
+      
+      
+      
+        type: Traits.Enums.DerangementType.get raw.type
+      
+      
+      
+        requires_specification: raw.requires_specification
+      
+      
 
     toJSON: () ->
-        attr = _.clone this.attributes
-
+        attr = _.clone @attributes
+      
+      
+      
+      
+      
+      
+      
+      
+        attr.type = attr.type.id
+      
+      
+      
+      
         attr
 
     toHumanJSON: () ->
-        attr = _.clone this.attributes
-
+        attr = _.clone @attributes
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
         attr
 
     url: () ->
-        "#{ DCMS.Settings.URL_PREFIX }/api/traits/Derangement/#{ if @id? then "#{@id}/" else '' }"
+        "#{ DCMS.Settings.URL_PREFIX }/api/traits/derangement/#{ if @id? then "#{ @id }/" else '' }"
+

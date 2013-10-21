@@ -4,7 +4,7 @@ import os, sys
 
 import platform_settings
 
-PROJECT_PATH = os.path.dirname(os.path.dirname(__file__)).replace('\\', '/')
+PROJECT_PATH = platform_settings.PROJECT_PATH
 
 DEBUG = platform_settings.DEBUG
 TEMPLATE_DEBUG = platform_settings.TEMPLATE_DEBUG

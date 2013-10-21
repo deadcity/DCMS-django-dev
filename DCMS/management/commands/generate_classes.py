@@ -2,12 +2,14 @@ from os import path
 from sys import stdout
 
 from datetime import datetime
+from hashlib import md5
 from re import sub
 from string import Template
 
 from django.conf import settings
 from django.core.management.base import NoArgsCommand
 from django.db import models
+from django.template.loader import render_to_string
 
 from character import models as character_models
 from chronicle import models as chronicle_models
@@ -15,7 +17,7 @@ from common import fields
 from traits import models as trait_models
 
 
-def to_unserscores(name):
+def to_underscores(name):
     s = sub(r'(.)([A-Z][a-z]+)', r'\1_\2', name)
     return sub(r'([a-z0-9])([A-Z])', r'\1_\2', s).lower()
 
@@ -41,6 +43,17 @@ class Command (NoArgsCommand):
                 trait_types.append(Model)
             elif issubclass(Model, trait_models.TraitModel):
                 traits.append(Model)
+
+        for trait in traits:
+            self.render(
+                path.join(settings.PROJECT_PATH, 'traits', 'static', 'traits', 'coffeescript', 'models', to_underscores(trait._meta.object_name) + '.coffee'),
+                'coffee', 'offline/coffee/backbone_model.coffee', { 'model': trait }
+            )
+
+        return
+
+
+
 
         self.__gen_serializers     ('traits', trait_types + traits, 'trait_serializers')
         self.__gen_view_sets       ('traits', trait_types + traits, 'traits_ajax')
@@ -99,6 +112,29 @@ class Command (NoArgsCommand):
 
         # self.__gen_admin_classes ('chronicle', chronicle, 'chronicle_admins', self.__admin_template__model_admin)
         self.__gen_admin_classes ('chronicle', [chronicle_models.Game], 'chronicle_inlines', self.__admin_template__inline_admin)
+
+
+    def render (self, filepath, file_type, template_name, dictionary):
+        content = render_to_string(template_name, dictionary)
+
+        if path.exists(filepath):
+            with open(filepath, 'r') as input:
+                input.readline()
+                line = input.readline().split('|')
+                old_hash = '' if len(line) < 2 else line[1].strip()
+        else:
+            old_hash = ''
+
+        new_hash = md5(content).hexdigest()
+        if old_hash == new_hash:
+            return
+
+        with open(filepath, 'wb') as out:
+            out.write(render_to_string('offline/{file_type}/header.{file_type}'.format(file_type = file_type), {
+                'timestamp': datetime.now(),
+                'hash': new_hash,
+            }))
+            out.write(content)
 
 
     # # # # # # # # # #

@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# 2013-09-23 10:18:14.789000
+# Mon, 21 Oct 2013 07:51:50 -0500 | a7266048154df9984a177971ae5a47ea
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -10,36 +10,88 @@
 # forget to commit the newly generated files!)
 
 
-Models_NS = Tools.create_namespace 'Traits.Models'
+Models = Tools.create_namespace 'Traits.Models'
 
-class Models_NS.Flaw extends Backbone.Model
+class Models.Flaw extends Backbone.Model
     defaults:
+      
         id: null
+      
         enabled: null
+      
         name: null
+      
         type: null
+      
         requires_specification: null
+      
         requires_description: null
+      
 
     parse: (raw) ->
-        {
-            id: parseInt raw.id, 10
-            enabled: raw.enabled,
-            name: raw.name,
-            type: Traits.Enums.FlawType.get raw.type
-            requires_specification: raw.requires_specification,
-            requires_description: raw.requires_description,
-        }
+      
+      
+        id: parseInt raw.id, 10
+      
+      
+      
+        enabled: raw.enabled
+      
+      
+      
+        name: raw.name
+      
+      
+      
+        type: Traits.Enums.FlawType.get raw.type
+      
+      
+      
+        requires_specification: raw.requires_specification
+      
+      
+      
+        requires_description: raw.requires_description
+      
+      
 
     toJSON: () ->
-        attr = _.clone this.attributes
-
+        attr = _.clone @attributes
+      
+      
+      
+      
+      
+      
+      
+      
+        attr.type = attr.type.id
+      
+      
+      
+      
+      
+      
         attr
 
     toHumanJSON: () ->
-        attr = _.clone this.attributes
-
+        attr = _.clone @attributes
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
         attr
 
     url: () ->
-        "#{ DCMS.Settings.URL_PREFIX }/api/traits/Flaw/#{ if @id? then "#{@id}/" else '' }"
+        "#{ DCMS.Settings.URL_PREFIX }/api/traits/flaw/#{ if @id? then "#{ @id }/" else '' }"
+

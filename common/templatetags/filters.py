@@ -26,6 +26,7 @@ def int_or_string(val):
 int_or_string.is_safe = True
 
 
+# TODO(emery): This is wrong.  Delete it and remove all uses of it.
 @register.filter
 def inherits(obj, class_name):
     Parent = type(obj)
@@ -35,6 +36,20 @@ def inherits(obj, class_name):
         elif Parent.__name__ == 'type':
             return False
         Parent = type(Parent)
+
+
+@register.filter
+def checkinstance(obj, class_name):
+    module_path = class_name.split('.')
+    fromlist = str('.'.join(module_path[:-2]))
+    module = __import__('.'.join(module_path[:-1]), fromlist = fromlist)
+    class_name = module_path[-1]
+    if not hasattr(module, class_name):
+        return False
+    class_obj = getattr(module, class_name)
+    if not isinstance(class_obj, type):
+        return False
+    return isinstance(obj, class_obj)
 
 
 @register.filter

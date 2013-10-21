@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# 2013-09-23 10:18:14.789000
+# Mon, 21 Oct 2013 07:51:50 -0500 | 905faf83220b0ed519f56c31c3708d72
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -10,38 +10,100 @@
 # forget to commit the newly generated files!)
 
 
-Models_NS = Tools.create_namespace 'Traits.Models'
+Models = Tools.create_namespace 'Traits.Models'
 
-class Models_NS.Merit extends Backbone.Model
+class Models.Merit extends Backbone.Model
     defaults:
+      
         id: null
+      
         enabled: null
+      
         name: null
+      
         type: null
+      
         allowed_ratings: null
+      
         requires_specification: null
+      
         requires_description: null
+      
 
     parse: (raw) ->
-        {
-            id: parseInt raw.id, 10
-            enabled: raw.enabled,
-            name: raw.name,
-            type: Traits.Enums.MeritType.get raw.type
-            allowed_ratings: parseInt i for i in raw.allowed_ratings.split ','
-            requires_specification: raw.requires_specification,
-            requires_description: raw.requires_description,
-        }
+      
+      
+        id: parseInt raw.id, 10
+      
+      
+      
+        enabled: raw.enabled
+      
+      
+      
+        name: raw.name
+      
+      
+      
+        type: Traits.Enums.MeritType.get raw.type
+      
+      
+      
+        allowed_ratings: parseInt i, 10 for i in raw.allowed_ratings.split ','
+      
+      
+      
+        requires_specification: raw.requires_specification
+      
+      
+      
+        requires_description: raw.requires_description
+      
+      
 
     toJSON: () ->
-        attr = _.clone this.attributes
+        attr = _.clone @attributes
+      
+      
+      
+      
+      
+      
+      
+      
+        attr.type = attr.type.id
+      
+      
+      
         attr.allowed_ratings = attr.allowed_ratings.join()
+      
+      
+      
+      
+      
+      
         attr
 
     toHumanJSON: () ->
-        attr = _.clone this.attributes
-
+        attr = _.clone @attributes
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
         attr
 
     url: () ->
-        "#{ DCMS.Settings.URL_PREFIX }/api/traits/Merit/#{ if @id? then "#{@id}/" else '' }"
+        "#{ DCMS.Settings.URL_PREFIX }/api/traits/merit/#{ if @id? then "#{ @id }/" else '' }"
+
