@@ -50,6 +50,9 @@ class Command (NoArgsCommand):
                 'coffee', 'offline/coffee/backbone_model.coffee', { 'model': trait }
             )
 
+        self.render(path.join(settings.PROJECT_PATH, 'traits', 'admin', 'trait_admins.py'), 'py', 'offline/py/admin.py',      { 'app_name': 'traits', 'models': traits })
+        self.render(path.join(settings.PROJECT_PATH, 'traits', 'admin', 'enum_admins.py'),  'py', 'offline/py/admin_enum.py', { 'app_name': 'traits', 'models': trait_types })
+
         return
 
 

@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# Mon, 21 Oct 2013 07:51:49 -0500 | 90c9a0e27d2ce884ed544b914b4ad1d8
+# Mon, 21 Oct 2013 17:12:05 -0500 | cc80da92ee64895c8cda1b8c1a72d77b
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -60,5 +60,5 @@ class Models.Affiliation extends Backbone.Model
         attr
 
     url: () ->
-        "#{ DCMS.Settings.URL_PREFIX }/api/traits/affiliation/#{ if @id? then "#{ @id }/" else '' }"
+        "#{ DCMS.Settings.URL_PREFIX }/api/traits/Affiliation/#{ if @id? then "#{ @id }/" else '' }"
 

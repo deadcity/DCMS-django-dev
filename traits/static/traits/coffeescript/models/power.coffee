@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# Mon, 21 Oct 2013 07:51:51 -0500 | 2057cbcc2ea7a5396c0bcad396149d55
+# Mon, 21 Oct 2013 17:12:07 -0500 | 21caa9ce39c9696bb57f201de369f596
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -80,5 +80,5 @@ class Models.Power extends Backbone.Model
         attr
 
     url: () ->
-        "#{ DCMS.Settings.URL_PREFIX }/api/traits/power/#{ if @id? then "#{ @id }/" else '' }"
+        "#{ DCMS.Settings.URL_PREFIX }/api/traits/Power/#{ if @id? then "#{ @id }/" else '' }"
 

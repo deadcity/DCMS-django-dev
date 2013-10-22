@@ -6,5 +6,4 @@
 # generating tool and then run `manage.py generate_classes` again.  (Don't
 # forget to commit the newly generated files!)
 
-
 {% block content %}{% endblock %}

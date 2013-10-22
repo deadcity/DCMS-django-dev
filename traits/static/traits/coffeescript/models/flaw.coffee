@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# Mon, 21 Oct 2013 07:51:50 -0500 | a7266048154df9984a177971ae5a47ea
+# Mon, 21 Oct 2013 17:12:06 -0500 | 3ae695b6005f8320bb21c1a365afa823
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -93,5 +93,5 @@ class Models.Flaw extends Backbone.Model
         attr
 
     url: () ->
-        "#{ DCMS.Settings.URL_PREFIX }/api/traits/flaw/#{ if @id? then "#{ @id }/" else '' }"
+        "#{ DCMS.Settings.URL_PREFIX }/api/traits/Flaw/#{ if @id? then "#{ @id }/" else '' }"
 

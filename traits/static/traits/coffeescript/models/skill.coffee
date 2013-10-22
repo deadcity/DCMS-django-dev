@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# Mon, 21 Oct 2013 07:51:51 -0500 | ecd5f1b9e68f6aa014a34c214763c003
+# Mon, 21 Oct 2013 17:12:07 -0500 | beffe37747cde4903be6ce71606f6b2a
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -73,5 +73,5 @@ class Models.Skill extends Backbone.Model
         attr
 
     url: () ->
-        "#{ DCMS.Settings.URL_PREFIX }/api/traits/skill/#{ if @id? then "#{ @id }/" else '' }"
+        "#{ DCMS.Settings.URL_PREFIX }/api/traits/Skill/#{ if @id? then "#{ @id }/" else '' }"
 

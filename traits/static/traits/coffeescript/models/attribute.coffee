@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# Mon, 21 Oct 2013 07:51:49 -0500 | cc8df83d18548e3f8f239755a5efe4c0
+# Mon, 21 Oct 2013 17:12:05 -0500 | 3567f81a0d8c5e55bc42048ed1ad0a19
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -73,5 +73,5 @@ class Models.Attribute extends Backbone.Model
         attr
 
     url: () ->
-        "#{ DCMS.Settings.URL_PREFIX }/api/traits/attribute/#{ if @id? then "#{ @id }/" else '' }"
+        "#{ DCMS.Settings.URL_PREFIX }/api/traits/Attribute/#{ if @id? then "#{ @id }/" else '' }"
 

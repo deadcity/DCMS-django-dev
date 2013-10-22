@@ -12,7 +12,7 @@ def display_fields (model):
         "'{}'".format(field.name)
         for field
         in model._meta.fields
-        if not field.name is 'id'
+        if not str(field.name) in ['id']
     ])
 display_fields.is_safe = True
 
@@ -23,7 +23,7 @@ def filter_fields (model):
         "'{}'".format(field.name)
         for field
         in model._meta.fields
-        if not field.name is 'id' and not field.name is 'name'
+        if not str(field.name) in ['id', 'name']
     ])
 filter_fields.is_safe = True
 

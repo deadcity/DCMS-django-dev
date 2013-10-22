@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# Mon, 21 Oct 2013 07:51:50 -0500 | 06046bd8e4ac6ffea0da65d8cbbb5a57
+# Mon, 21 Oct 2013 17:12:06 -0500 | d4ba2832bd91643afec632b991d9f8ba
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -83,5 +83,5 @@ class Models.Derangement extends Backbone.Model
         attr
 
     url: () ->
-        "#{ DCMS.Settings.URL_PREFIX }/api/traits/derangement/#{ if @id? then "#{ @id }/" else '' }"
+        "#{ DCMS.Settings.URL_PREFIX }/api/traits/Derangement/#{ if @id? then "#{ @id }/" else '' }"
 

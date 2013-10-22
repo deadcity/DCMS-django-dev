@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# Mon, 21 Oct 2013 07:51:50 -0500 | 905faf83220b0ed519f56c31c3708d72
+# Mon, 21 Oct 2013 17:12:06 -0500 | 01805419b3e4eec6ca7d99ca628a43b9
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -105,5 +105,5 @@ class Models.Merit extends Backbone.Model
         attr
 
     url: () ->
-        "#{ DCMS.Settings.URL_PREFIX }/api/traits/merit/#{ if @id? then "#{ @id }/" else '' }"
+        "#{ DCMS.Settings.URL_PREFIX }/api/traits/Merit/#{ if @id? then "#{ @id }/" else '' }"
 

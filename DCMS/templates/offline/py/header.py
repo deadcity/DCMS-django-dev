@@ -1,2 +1,3 @@
 # DCMS auto-generated file
-# {{ timestamp|date }} | {{ hash }}
+# {{ timestamp|date:'r' }} | {{ hash }}
+
