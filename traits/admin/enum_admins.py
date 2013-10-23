@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# Wed, 23 Oct 2013 07:49:03 -0500 | f49480be16b13d8054ed15de4f652506
+# Wed, 23 Oct 2013 18:19:49 -0500 | b764b94aed43a40970e4c0e0596bf1e8
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -45,12 +45,6 @@ admin.site.register(models.MeritType, MeritTypeAdmin)
 class SkillTypeAdmin (admin.ModelAdmin):
     list_display = ('name',)
 admin.site.register(models.SkillType, SkillTypeAdmin)
-
-
-
-class StatusAdmin (admin.ModelAdmin):
-    list_display = ('name',)
-admin.site.register(models.Status, StatusAdmin)
 
 
 

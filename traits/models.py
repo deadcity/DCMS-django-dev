@@ -19,7 +19,6 @@ class DerangementType (EnumModel): pass
 class FlawType        (EnumModel): pass
 class MeritType       (EnumModel): pass
 class SkillType       (EnumModel): pass
-class Status          (EnumModel): pass
 class Vice            (EnumModel): pass
 class Virtue          (EnumModel): pass
 

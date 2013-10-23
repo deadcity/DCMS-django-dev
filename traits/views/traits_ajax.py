@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# Wed, 23 Oct 2013 07:50:23 -0500 | 88ef8785770b5ee8808fc58c761fbf4f
+# Wed, 23 Oct 2013 18:19:49 -0500 | 6069bc7b3d6e2d502e728d45d19f6819
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -45,12 +45,6 @@ class MeritTypeViewSet (viewsets.ModelViewSet):
 class SkillTypeViewSet (viewsets.ModelViewSet):
     model            = models.SkillType
     serializer_class = serializers.SkillTypeSerializer
-
-
-
-class StatusViewSet (viewsets.ModelViewSet):
-    model            = models.Status
-    serializer_class = serializers.StatusSerializer
 
 
 

@@ -1,4 +1,4 @@
-from django.core import exceptions
+from django.core import exceptions, validators
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
@@ -19,15 +19,11 @@ class EnumField (models.Field):
         'invalid': _("'%s' - value must be an enum value of '%s'"),
     }
 
-    def __init__ (self, enum, store_method = Enum.Field.VALUE, db_type = 'VARCHAR', **kwargs):
+    def __init__ (self, enum, db_type = 'VARCHAR', **kwargs):
         self.enum = enum
-        self.store_method = store_method
         self._db_type = db_type
-        super(EnumField, self).__init__(**kwargs)
-
-        if not (store_method in Enum.Field._elements):
-            msg = self.error_messages['invalid_enum_config'] % (store_method, 'store_method')
-            raise exceptions.FieldError(msg)
+        choices = [(elem.value, elem) for elem in enum._elements]
+        super(EnumField, self).__init__(choices = choices, **kwargs)
 
     def _validate_enum (self, value):
         if not (value in self.enum._elements):
@@ -38,7 +34,9 @@ class EnumField (models.Field):
         return self._db_type
 
     def to_python (self, value):
-        print type(value), type
+        # print '++ to_python(value)'
+        # print "  | value = {} '{}'".format(type(value), value)
+        # print type(value), type
         if value is None or str(value) is '':
             return None
 
@@ -46,31 +44,48 @@ class EnumField (models.Field):
             return value
 
         try:
-            if self.store_method is Enum.Field.NAME:
-                return self.enum._by_name[value]
-
-            elif self.store_method is Enum.Field.LABEL:
-                return self.enum._by_label[value]
-
-            elif self.store_method is Enum.Field.VALUE:
-                return self.enum._by_value[value]
+            return self.enum.from_value(int(value))
 
         except KeyError:
-            print type(value), value
+            # print type(value), value
             msg = self.error_messages['invalid'] % (value, str(self.enum))
             raise exceptions.ValidationError(msg)
+
+    def validate(self, value, model_instance):
+        """
+        Validates value and throws ValidationError.
+        """
+        # print '++ validate(value, model_instance)'
+        # print "  | value = {} '{}'".format(type(value), value)
+        # print "  | model = {} '{}'".format(type(model_instance), model_instance)
+
+        if not self.editable:
+            # Skip validation for non-editable fields.
+            return
+
+        # print '++ validate(value, model_instance)'
+        # print "  | value = {} '{}'".format(type(value), value)
+
+        if self._choices and value not in validators.EMPTY_VALUES:
+            for opt_key, opt_value in self.choices:
+                # print "  | '{}' : {} '{}'".format(opt_key, type(opt_value), opt_value)
+                if value == opt_value:
+                    return
+
+            msg = self.error_message=['invalid_choice'] % str(value)
+            raise exceptions.ValidationError(msg)
+
+        if value is None and not self.null:
+            raise exceptions.ValidationError(self.error_message['null'])
+
+        if not self.blank and value in validators.EMPTY_VALUES:
+            raise exceptions.ValidationError(self.error_messages['blank'])
+
+        # return super(EnumField, self).validate(value, model_instance)
 
     def get_prep_value (self, value):
         if value is None:
             return None
 
         self._validate_enum(value)
-
-        if self.store_method is Enum.Field.NAME:
-            return value.name
-
-        elif self.store_method is Enum.Field.LABEL:
-            return value.label
-
-        elif self.store_method is Enum.Field.VALUE:
-            return value.value
+        return value.value

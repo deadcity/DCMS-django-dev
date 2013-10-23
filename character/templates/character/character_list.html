@@ -64,7 +64,11 @@
         Tools.create_namespace('Traits.Enums');
         Tools.create_namespace('Traits.Objects');
 
-        Traits.Enums.Status = new Enum.Enum({{ statuses | serialize_json | safe }});
+        Traits.Enums.Status = new Enum.Enum([
+            {% for elem in statuses|dictsort:'value' %}
+                { name: '{{ elem.name }}', value: {{ elem.value }} },
+            {% endfor %}
+        ]);
         Traits.Enums.Vice   = new Enum.Enum({{ vices    | serialize_json | safe }});
         Traits.Enums.Virtue = new Enum.Enum({{ virtues  | serialize_json | safe }});
 

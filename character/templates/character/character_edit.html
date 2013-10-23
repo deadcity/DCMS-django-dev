@@ -196,7 +196,11 @@
         Traits.Enums.FlawType        = new Enum.Enum({{ flaw_types        | serialize_json | safe }});
         Traits.Enums.MeritType       = new Enum.Enum({{ merit_types       | serialize_json | safe }});
         Traits.Enums.SkillType       = new Enum.Enum({{ skill_types       | serialize_json | safe }});
-        Traits.Enums.Status          = new Enum.Enum({{ statuses          | serialize_json | safe }});
+        Traits.Enums.Status          = new Enum.Enum([
+            {% for elem in statuses|dictsort:'value' %}
+                { name: '{{ elem.name }}', value: {{ elem.value }} },
+            {% endfor %}
+        ]);
 
         Traits.Objects.Attribute     = new Backbone.Collection({{ attributes      | serialize_json | safe }}, { model: Traits.Models.Attribute,     parse: true });
         Traits.Objects.CharacterText = new Backbone.Collection({{ character_texts | serialize_json | safe }}, { model: Traits.Models.CharacterText, parse: true });

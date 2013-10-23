@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# Wed, 23 Oct 2013 07:49:46 -0500 | eed898c5fcd988363bbb5c37c131a006
+# Wed, 23 Oct 2013 18:19:49 -0500 | 01ef16198868d6424f716599e10b0afe
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -50,13 +50,6 @@ class SkillTypeSerializer (serializers.ModelSerializer):
     class Meta (object):
         model = models.SkillType
 models.SkillType.Serializer = SkillTypeSerializer
-
-
-
-class StatusSerializer (serializers.ModelSerializer):
-    class Meta (object):
-        model = models.Status
-models.Status.Serializer = StatusSerializer
 
 
 

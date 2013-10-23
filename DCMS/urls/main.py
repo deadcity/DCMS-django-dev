@@ -14,7 +14,7 @@ _urlpatterns = patterns('',
     # url(r'^$', 'DCMS.views.home', name='home'),
     # url(r'^DCMS/', include('DCMS.foo.urls')),
 
-    url(r'^$', RedirectView.as_view(url = settings.URL_PREFIX+'/characters/')),
+    url(r'^$', RedirectView.as_view(url = settings.URL_PREFIX + '/characters/')),
 
     url(r'^api/',        include('DCMS.urls.api')),
     url(r'^accounts/',   include('accounts.urls')),
@@ -35,4 +35,3 @@ if settings.URL_PREFIX is '':
 else:
     url_prefix = settings.URL_PREFIX.strip('/') + '/'
     urlpatterns = patterns('', url(r'^' + url_prefix, include(_urlpatterns)))
-

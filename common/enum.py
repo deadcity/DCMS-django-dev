@@ -1,81 +1,87 @@
-from inspect import isclass
+from itertools import product
+
+
+def make_getter    (key): return property(lambda self: getattr(self, '__' + key))
+def make_enum_from (key): return classmethod(lambda cls, value: cls._indeces[key][value])
 
 
 class Element (object):
-    def __init__ (self, enum, name, label = None, value = None):
-        self.__enum  = enum
-        self.__name  = name
-        self.__label = label
-        self.__value = value
+    def __init__ (self, name, **kwargs):
+        self.__name = name
+
+        for key, value in kwargs.items():
+            setattr(self, '__' + key, value)
+            setattr(self, key, make_getter(key))
 
     @property
     def name (self):
         return self.__name
 
-    @property
-    def label (self):
-        return self.__label if self.__label else self.__name
-
-    @property
-    def value (self):
-        return self.__value
-
     def __str__ (self):
-        return self.label
+        return self.name
 
     def __repr__ (self):
-        return '<{}: {}>'.format(self.__enum._name, self.name)
+        return '<{}: {}>'.format(self._enum._name, self.name)
 
     def __unicode__ (self):
-        return str(self)
+        return unicode(self.name)
 
 
 class _Enum_Metaclass (type):
     def __new__ (mtcls, name, bases, attrs):
         elements = []
-        elem_by_name  = {}
-        elem_by_label = {}
-        elem_by_value = {}
-        new_class = super(_Enum_Metaclass, mtcls).__new__(mtcls, name, bases, {
-            '_name'     : name,
-            '_elements' : elements,
-            '_by_name'  : elem_by_name,
-            '_by_label' : elem_by_label,
-            '_by_value' : elem_by_value
-        })
+        indeces = {}
 
-        for key, item in attrs.items():
-            if key.startswith('_'): continue
-            if isclass(item): continue
+        ext_attrs = dict(attrs.items() + [
+            ('_name',     name),
+            ('_elements', elements),
+            ('_indeces',  indeces)
+        ])
 
-            if type(item) is dict:
-                elem = Element(new_class, key, **item)
-            else:
-                elem = Element(new_class, key, value = item)
-            setattr(new_class, key, elem)
+        raw_elems = {}
+        for name, fields in attrs.items():
+            if name.startswith('__') and name.endswith('__'):
+                continue
+
+            if not type(fields) is dict:
+                fields = { 'value: fields' }
+
+            raw_elems[name] = fields
+
+            # Identify enum element in each index.
+            ext_attrs[name] = make_getter(name)
+            for key, value in fields.items():
+                if not key in indeces:
+                    ext_attrs['from_' + key] = make_enum_from(key)
+                    for n,f in raw_elems.items():
+                        if not key in f:
+                            f[key] = None
+
+        # Make Enumeration and Element classes.
+        new_class = super(_Enum_Metaclass, mtcls).__new__(mtcls, name, bases, ext_attrs)
+        Elem = type(name + '_Element', (Element,), { '_enum': new_class })
+
+        for name, fields in raw_elems.items():
+            # Create enum element.
+            elem = Elem(name, **fields)
             elements.append(elem)
-            elem_by_name  [elem.name]  = elem
-            elem_by_label [elem.label] = elem
-            elem_by_value [elem.value] = elem
+            setattr(new_class, name, elem)
+
+            for key, value in fields.items():
+                if key in indeces:
+                    index = indeces[key]
+                else:
+                    index = {}
+                    indeces[key] = index
+                if value:
+                    index[value] = elem
 
         return new_class
 
-    def __str__ (cls):
-        return "<enum '{}'>".format(cls._name)
-
-    def from_label (cls, label):
-        return cls._by_label[label]
-
-    def from_value (cls, value):
-        return cls._by_value[value]
+    @property
+    def all (cls):
+        return cls._elements
 
 
 class Enum (object):
     __metaclass__ = _Enum_Metaclass
-
-
-class Field (Enum):
-    NAME  = { 'value': 0, 'label': 'name'  }
-    LABEL = { 'value': 1, 'label': 'label' }
-    VALUE = { 'value': 2, 'label': 'value' }
-setattr(Enum, 'Field', Field)

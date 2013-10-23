@@ -19,7 +19,7 @@ from character.models import (
     CharacterHasSkill,
     CharacterHasSkillSpecialty,
     CharacterHasText,
-    CharacterHasTrait
+    CharacterStatus
 )
 import character.serializers
 from traits.models import (
@@ -28,7 +28,6 @@ from traits.models import (
     FlawType,
     MeritType,
     SkillType,
-    Status,
     Vice,
     Virtue
 )
@@ -45,7 +44,6 @@ from traits.models import (
     MiscTrait,
     Power,
     Skill,
-    Status,
     Subgroup
 )
 import traits.serializers
@@ -61,7 +59,7 @@ def add_character_enums_to_context (context = None, **kwargs):
     if not context:
         context = {}
 
-    context['statuses'] = Status .objects.filter(**kwargs)
+    context['statuses'] = CharacterStatus._elements
     context['vices']    = Vice   .objects.filter(**kwargs)
     context['virtues']  = Virtue .objects.filter(**kwargs)
 
@@ -143,12 +141,11 @@ def add_character_text_to_context (user, context = None, **kwargs):
 @login_required
 def character_list (request):
     user = request.user
-    status_editing = Status.objects.get(name = 'Editing')
     if is_storyteller(user):
         context = {
             'character_list' : [{
                 'character'   : character,
-                'can_submit'  : character.status == status_editing,
+                'can_submit'  : character.status == CharacterStatus.EDITING,
                 'can_edit'    : True,
                 'can_disable' : True,
             } for character in Character.objects.all()],
@@ -158,9 +155,9 @@ def character_list (request):
         context = {
             'character_list' : [{
                 'character'   : character,
-                'can_submit'  : character.status == status_editing,
-                'can_edit'    : character.status == status_editing,
-                'can_disable' : character.status == status_editing,
+                'can_submit'  : character.status == CharacterStatus.EDITING,
+                'can_edit'    : character.status == CharacterStatus.EDITING,
+                'can_disable' : character.status == CharacterStatus.EDITING,
             } for character in Character.objects.filter(user=user.id)],
             'is_storyteller' : False
         }
@@ -184,13 +181,13 @@ def print_all (request):
 def new_character (request):
     character = Character(
         user = request.user,
-        status = Status.objects.get(name = 'Editing'),
-        creature_type = CreatureType.objects.get(name = 'Vampire')
+        status = CharacterStatus.EDITING,
+        creature_type = CreatureType.objects.get(name = 'Vampire'),
         # TODO(emery): have these default to values like "(not selected)" instead.
-        genealogy = Genealogy.objects.get(name = 'Daeva')
-        affiliation = Genealogy.objects.get(name = 'Carthian Movement')
+        genealogy = Genealogy.objects.get(name = 'Daeva'),
+        affiliation = Genealogy.objects.get(name = 'Carthian Movement'),
         # subgroup
-        virtue = Virtue.objects.get(name = 'Charity')
+        virtue = Virtue.objects.get(name = 'Charity'),
         vice = Vice.objects.get(name = 'Envy')
     )
     character.save()
@@ -242,7 +239,7 @@ def submit_character (request, pk):
     elif character.status != Status.objects.get(name = 'Editing'):
         messages.error(request, "Character \"{}\" has already been submitted.".format(character.name))
     else:
-        character.status = Status.objects.get(name = 'Submitted')
+        character.status = CharacterStatus.SUBMITTED
         character.date_submitted = datetime.now()
         character.save()
         messages.success(request, "Character \"{}\" has been submitted.".format(character.name))

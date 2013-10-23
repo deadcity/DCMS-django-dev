@@ -14,7 +14,7 @@ router = DefaultRouter()
 
 {% for model in models %}
 {% with object_name=model|meta:'object_name' %}
-router.register('{{ object_name }}', views.{{ object_name }})
+router.register('{{ object_name }}', views.{{ object_name }}ViewSet)
 {% endwith %}
 {% endfor %}
 

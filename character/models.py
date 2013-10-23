@@ -22,7 +22,7 @@ class Character (models.Model):
     enabled = models.BooleanField(default = True)
     user    = models.ForeignKey(User)
     # chronicle = models.ForeignKey(Chronicle)
-    status = EnumField(CharacterStatus, db_type = 'INTEGER')
+    status = EnumField(CharacterStatus, db_type = 'INTEGER', blank = True, null = True)
 
     name          = models.CharField(blank = True, max_length = 255)
     creature_type = models.ForeignKey(trait_models.CreatureType, null = True, blank = True)

@@ -13,7 +13,7 @@ def display_fields (model):
         for field
         in model._meta.fields
         if not str(field.name) in ['id']
-    ])
+    ]) + ','
 display_fields.is_safe = True
 
 
@@ -24,7 +24,7 @@ def filter_fields (model):
         for field
         in model._meta.fields
         if not str(field.name) in ['id', 'name']
-    ])
+    ]) + ','
 filter_fields.is_safe = True
 
 

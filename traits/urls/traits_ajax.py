@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# Wed, 23 Oct 2013 07:50:23 -0500 | 35d11303c9c11f30dd8aa8c22d76c61c
+# Wed, 23 Oct 2013 18:19:49 -0500 | 8d1e01977081e060166aa50c57a0043b
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -20,87 +20,83 @@ router = DefaultRouter()
 
 
 
-router.register('AttributeType', views.AttributeType)
+router.register('AttributeType', views.AttributeTypeViewSet)
 
 
 
-router.register('DerangementType', views.DerangementType)
+router.register('DerangementType', views.DerangementTypeViewSet)
 
 
 
-router.register('FlawType', views.FlawType)
+router.register('FlawType', views.FlawTypeViewSet)
 
 
 
-router.register('MeritType', views.MeritType)
+router.register('MeritType', views.MeritTypeViewSet)
 
 
 
-router.register('SkillType', views.SkillType)
+router.register('SkillType', views.SkillTypeViewSet)
 
 
 
-router.register('Status', views.Status)
+router.register('Vice', views.ViceViewSet)
 
 
 
-router.register('Vice', views.Vice)
+router.register('Virtue', views.VirtueViewSet)
 
 
 
-router.register('Virtue', views.Virtue)
+router.register('Affiliation', views.AffiliationViewSet)
 
 
 
-router.register('Affiliation', views.Affiliation)
+router.register('Attribute', views.AttributeViewSet)
 
 
 
-router.register('Attribute', views.Attribute)
+router.register('CharacterText', views.CharacterTextViewSet)
 
 
 
-router.register('CharacterText', views.CharacterText)
+router.register('CombatTrait', views.CombatTraitViewSet)
 
 
 
-router.register('CombatTrait', views.CombatTrait)
+router.register('CreatureType', views.CreatureTypeViewSet)
 
 
 
-router.register('CreatureType', views.CreatureType)
+router.register('Derangement', views.DerangementViewSet)
 
 
 
-router.register('Derangement', views.Derangement)
+router.register('Flaw', views.FlawViewSet)
 
 
 
-router.register('Flaw', views.Flaw)
+router.register('Genealogy', views.GenealogyViewSet)
 
 
 
-router.register('Genealogy', views.Genealogy)
+router.register('Merit', views.MeritViewSet)
 
 
 
-router.register('Merit', views.Merit)
+router.register('MiscTrait', views.MiscTraitViewSet)
 
 
 
-router.register('MiscTrait', views.MiscTrait)
+router.register('Power', views.PowerViewSet)
 
 
 
-router.register('Power', views.Power)
+router.register('Skill', views.SkillViewSet)
 
 
 
-router.register('Skill', views.Skill)
-
-
-
-router.register('Subgroup', views.Subgroup)
+router.register('Subgroup', views.SubgroupViewSet)
 
 
 
