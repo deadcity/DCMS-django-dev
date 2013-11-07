@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# 2013-09-10 11:58:03.321986
+# Mon, 4 Nov 2013 08:03:55 -0600 | 45c2cf44895951263f111720e07d8ee4
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -10,62 +10,78 @@
 # forget to commit the newly generated files!)
 
 
+
 from rest_framework import viewsets
 
-from character.models import Character, CharacterHasAttribute, CharacterHasCombatTrait, CharacterHasDerangement, CharacterHasFlaw, CharacterHasMerit, CharacterHasMiscTrait, CharacterHasPower, CharacterHasSkill, CharacterHasSkillSpecialty, CharacterHasText
-from character.serializers import CharacterSerializer, CharacterHasAttributeSerializer, CharacterHasCombatTraitSerializer, CharacterHasDerangementSerializer, CharacterHasFlawSerializer, CharacterHasMeritSerializer, CharacterHasMiscTraitSerializer, CharacterHasPowerSerializer, CharacterHasSkillSerializer, CharacterHasSkillSpecialtySerializer, CharacterHasTextSerializer
+from character import models, serializers
+
+
 
 
 class CharacterViewSet (viewsets.ModelViewSet):
-    model            = Character
-    serializer_class = CharacterSerializer
+    model            = models.Character
+    serializer_class = serializers.CharacterSerializer
+
 
 
 class CharacterHasAttributeViewSet (viewsets.ModelViewSet):
-    model            = CharacterHasAttribute
-    serializer_class = CharacterHasAttributeSerializer
+    model            = models.CharacterHasAttribute
+    serializer_class = serializers.CharacterHasAttributeSerializer
+
 
 
 class CharacterHasCombatTraitViewSet (viewsets.ModelViewSet):
-    model            = CharacterHasCombatTrait
-    serializer_class = CharacterHasCombatTraitSerializer
+    model            = models.CharacterHasCombatTrait
+    serializer_class = serializers.CharacterHasCombatTraitSerializer
+
 
 
 class CharacterHasDerangementViewSet (viewsets.ModelViewSet):
-    model            = CharacterHasDerangement
-    serializer_class = CharacterHasDerangementSerializer
+    model            = models.CharacterHasDerangement
+    serializer_class = serializers.CharacterHasDerangementSerializer
+
 
 
 class CharacterHasFlawViewSet (viewsets.ModelViewSet):
-    model            = CharacterHasFlaw
-    serializer_class = CharacterHasFlawSerializer
+    model            = models.CharacterHasFlaw
+    serializer_class = serializers.CharacterHasFlawSerializer
+
 
 
 class CharacterHasMeritViewSet (viewsets.ModelViewSet):
-    model            = CharacterHasMerit
-    serializer_class = CharacterHasMeritSerializer
+    model            = models.CharacterHasMerit
+    serializer_class = serializers.CharacterHasMeritSerializer
+
 
 
 class CharacterHasMiscTraitViewSet (viewsets.ModelViewSet):
-    model            = CharacterHasMiscTrait
-    serializer_class = CharacterHasMiscTraitSerializer
+    model            = models.CharacterHasMiscTrait
+    serializer_class = serializers.CharacterHasMiscTraitSerializer
+
 
 
 class CharacterHasPowerViewSet (viewsets.ModelViewSet):
-    model            = CharacterHasPower
-    serializer_class = CharacterHasPowerSerializer
+    model            = models.CharacterHasPower
+    serializer_class = serializers.CharacterHasPowerSerializer
+
 
 
 class CharacterHasSkillViewSet (viewsets.ModelViewSet):
-    model            = CharacterHasSkill
-    serializer_class = CharacterHasSkillSerializer
+    model            = models.CharacterHasSkill
+    serializer_class = serializers.CharacterHasSkillSerializer
+
 
 
 class CharacterHasSkillSpecialtyViewSet (viewsets.ModelViewSet):
-    model            = CharacterHasSkillSpecialty
-    serializer_class = CharacterHasSkillSpecialtySerializer
+    model            = models.CharacterHasSkillSpecialty
+    serializer_class = serializers.CharacterHasSkillSpecialtySerializer
+
 
 
 class CharacterHasTextViewSet (viewsets.ModelViewSet):
-    model            = CharacterHasText
-    serializer_class = CharacterHasTextSerializer
+    model            = models.CharacterHasText
+    serializer_class = serializers.CharacterHasTextSerializer
+
+
+
+

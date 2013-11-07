@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# 2013-09-23 10:18:14.789000
+# Mon, 4 Nov 2013 08:01:21 -0600 | feeb8582d3ba048cbd7832ef9785eab6
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -10,57 +10,82 @@
 # forget to commit the newly generated files!)
 
 
+
 from django.contrib import admin
 
-from character.models import CharacterHasAttribute, CharacterHasCombatTrait, CharacterHasDerangement, CharacterHasFlaw, CharacterHasMerit, CharacterHasMiscTrait, CharacterHasPower, CharacterHasSkill, CharacterHasSkillSpecialty, CharacterHasText
+from character import models
+
+
 
 
 class CharacterHasAttributeAdmin (admin.ModelAdmin):
     list_display = ('character', 'trait', 'rating',)
     list_filter  = ('character', 'trait', 'rating',)
-admin.site.register(CharacterHasAttribute, CharacterHasAttributeAdmin)
+admin.site.register(models.CharacterHasAttribute, CharacterHasAttributeAdmin)
+
+
 
 class CharacterHasCombatTraitAdmin (admin.ModelAdmin):
     list_display = ('character', 'trait', 'rating',)
     list_filter  = ('character', 'trait', 'rating',)
-admin.site.register(CharacterHasCombatTrait, CharacterHasCombatTraitAdmin)
+admin.site.register(models.CharacterHasCombatTrait, CharacterHasCombatTraitAdmin)
+
+
 
 class CharacterHasDerangementAdmin (admin.ModelAdmin):
     list_display = ('character', 'trait', 'specification', 'description',)
     list_filter  = ('character', 'trait', 'specification', 'description',)
-admin.site.register(CharacterHasDerangement, CharacterHasDerangementAdmin)
+admin.site.register(models.CharacterHasDerangement, CharacterHasDerangementAdmin)
+
+
 
 class CharacterHasFlawAdmin (admin.ModelAdmin):
     list_display = ('character', 'trait', 'specification', 'description',)
     list_filter  = ('character', 'trait', 'specification', 'description',)
-admin.site.register(CharacterHasFlaw, CharacterHasFlawAdmin)
+admin.site.register(models.CharacterHasFlaw, CharacterHasFlawAdmin)
+
+
 
 class CharacterHasMeritAdmin (admin.ModelAdmin):
     list_display = ('character', 'trait', 'rating', 'specification', 'description',)
     list_filter  = ('character', 'trait', 'rating', 'specification', 'description',)
-admin.site.register(CharacterHasMerit, CharacterHasMeritAdmin)
+admin.site.register(models.CharacterHasMerit, CharacterHasMeritAdmin)
+
+
 
 class CharacterHasMiscTraitAdmin (admin.ModelAdmin):
     list_display = ('character', 'trait', 'rating', 'description',)
     list_filter  = ('character', 'trait', 'rating', 'description',)
-admin.site.register(CharacterHasMiscTrait, CharacterHasMiscTraitAdmin)
+admin.site.register(models.CharacterHasMiscTrait, CharacterHasMiscTraitAdmin)
+
+
 
 class CharacterHasPowerAdmin (admin.ModelAdmin):
     list_display = ('character', 'trait',)
     list_filter  = ('character', 'trait',)
-admin.site.register(CharacterHasPower, CharacterHasPowerAdmin)
+admin.site.register(models.CharacterHasPower, CharacterHasPowerAdmin)
+
+
 
 class CharacterHasSkillAdmin (admin.ModelAdmin):
     list_display = ('character', 'trait', 'rating',)
     list_filter  = ('character', 'trait', 'rating',)
-admin.site.register(CharacterHasSkill, CharacterHasSkillAdmin)
+admin.site.register(models.CharacterHasSkill, CharacterHasSkillAdmin)
+
+
 
 class CharacterHasSkillSpecialtyAdmin (admin.ModelAdmin):
     list_display = ('character', 'trait', 'specialty',)
     list_filter  = ('character', 'trait', 'specialty',)
-admin.site.register(CharacterHasSkillSpecialty, CharacterHasSkillSpecialtyAdmin)
+admin.site.register(models.CharacterHasSkillSpecialty, CharacterHasSkillSpecialtyAdmin)
+
+
 
 class CharacterHasTextAdmin (admin.ModelAdmin):
     list_display = ('character', 'trait', 'text',)
     list_filter  = ('character', 'trait', 'text',)
-admin.site.register(CharacterHasText, CharacterHasTextAdmin)
+admin.site.register(models.CharacterHasText, CharacterHasTextAdmin)
+
+
+
+

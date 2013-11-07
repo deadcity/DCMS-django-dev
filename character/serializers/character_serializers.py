@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# 2013-09-10 11:58:03.321986
+# Mon, 4 Nov 2013 08:03:55 -0600 | 626ea2306758fa76b3a7c3ea4856f35a
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -10,72 +10,89 @@
 # forget to commit the newly generated files!)
 
 
+
 from rest_framework import serializers
 
-from character.models import Character, CharacterHasAttribute, CharacterHasCombatTrait, CharacterHasDerangement, CharacterHasFlaw, CharacterHasMerit, CharacterHasMiscTrait, CharacterHasPower, CharacterHasSkill, CharacterHasSkillSpecialty, CharacterHasText
+from character import models
+
+
 
 
 class CharacterSerializer (serializers.ModelSerializer):
     class Meta (object):
-        model = Character
-Character.Serializer = CharacterSerializer
+        model = models.Character
+models.Character.Serializer = CharacterSerializer
+
 
 
 class CharacterHasAttributeSerializer (serializers.ModelSerializer):
     class Meta (object):
-        model = CharacterHasAttribute
-CharacterHasAttribute.Serializer = CharacterHasAttributeSerializer
+        model = models.CharacterHasAttribute
+models.CharacterHasAttribute.Serializer = CharacterHasAttributeSerializer
+
 
 
 class CharacterHasCombatTraitSerializer (serializers.ModelSerializer):
     class Meta (object):
-        model = CharacterHasCombatTrait
-CharacterHasCombatTrait.Serializer = CharacterHasCombatTraitSerializer
+        model = models.CharacterHasCombatTrait
+models.CharacterHasCombatTrait.Serializer = CharacterHasCombatTraitSerializer
+
 
 
 class CharacterHasDerangementSerializer (serializers.ModelSerializer):
     class Meta (object):
-        model = CharacterHasDerangement
-CharacterHasDerangement.Serializer = CharacterHasDerangementSerializer
+        model = models.CharacterHasDerangement
+models.CharacterHasDerangement.Serializer = CharacterHasDerangementSerializer
+
 
 
 class CharacterHasFlawSerializer (serializers.ModelSerializer):
     class Meta (object):
-        model = CharacterHasFlaw
-CharacterHasFlaw.Serializer = CharacterHasFlawSerializer
+        model = models.CharacterHasFlaw
+models.CharacterHasFlaw.Serializer = CharacterHasFlawSerializer
+
 
 
 class CharacterHasMeritSerializer (serializers.ModelSerializer):
     class Meta (object):
-        model = CharacterHasMerit
-CharacterHasMerit.Serializer = CharacterHasMeritSerializer
+        model = models.CharacterHasMerit
+models.CharacterHasMerit.Serializer = CharacterHasMeritSerializer
+
 
 
 class CharacterHasMiscTraitSerializer (serializers.ModelSerializer):
     class Meta (object):
-        model = CharacterHasMiscTrait
-CharacterHasMiscTrait.Serializer = CharacterHasMiscTraitSerializer
+        model = models.CharacterHasMiscTrait
+models.CharacterHasMiscTrait.Serializer = CharacterHasMiscTraitSerializer
+
 
 
 class CharacterHasPowerSerializer (serializers.ModelSerializer):
     class Meta (object):
-        model = CharacterHasPower
-CharacterHasPower.Serializer = CharacterHasPowerSerializer
+        model = models.CharacterHasPower
+models.CharacterHasPower.Serializer = CharacterHasPowerSerializer
+
 
 
 class CharacterHasSkillSerializer (serializers.ModelSerializer):
     class Meta (object):
-        model = CharacterHasSkill
-CharacterHasSkill.Serializer = CharacterHasSkillSerializer
+        model = models.CharacterHasSkill
+models.CharacterHasSkill.Serializer = CharacterHasSkillSerializer
+
 
 
 class CharacterHasSkillSpecialtySerializer (serializers.ModelSerializer):
     class Meta (object):
-        model = CharacterHasSkillSpecialty
-CharacterHasSkillSpecialty.Serializer = CharacterHasSkillSpecialtySerializer
+        model = models.CharacterHasSkillSpecialty
+models.CharacterHasSkillSpecialty.Serializer = CharacterHasSkillSpecialtySerializer
+
 
 
 class CharacterHasTextSerializer (serializers.ModelSerializer):
     class Meta (object):
-        model = CharacterHasText
-CharacterHasText.Serializer = CharacterHasTextSerializer
+        model = models.CharacterHasText
+models.CharacterHasText.Serializer = CharacterHasTextSerializer
+
+
+
+

@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# 2013-09-10 11:58:03.321986
+# Mon, 4 Nov 2013 08:03:55 -0600 | 74e78fa434f79af99ce969a1285f06bc
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -10,19 +10,58 @@
 # forget to commit the newly generated files!)
 
 
+
 from rest_framework.routers import DefaultRouter
 
-from character.views import CharacterViewSet, CharacterHasAttributeViewSet, CharacterHasCombatTraitViewSet, CharacterHasDerangementViewSet, CharacterHasFlawViewSet, CharacterHasMeritViewSet, CharacterHasMiscTraitViewSet, CharacterHasPowerViewSet, CharacterHasSkillViewSet, CharacterHasSkillSpecialtyViewSet, CharacterHasTextViewSet
+from character import views
 
 router = DefaultRouter()
-router.register('Character', CharacterViewSet)
-router.register('CharacterHasAttribute', CharacterHasAttributeViewSet)
-router.register('CharacterHasCombatTrait', CharacterHasCombatTraitViewSet)
-router.register('CharacterHasDerangement', CharacterHasDerangementViewSet)
-router.register('CharacterHasFlaw', CharacterHasFlawViewSet)
-router.register('CharacterHasMerit', CharacterHasMeritViewSet)
-router.register('CharacterHasMiscTrait', CharacterHasMiscTraitViewSet)
-router.register('CharacterHasPower', CharacterHasPowerViewSet)
-router.register('CharacterHasSkill', CharacterHasSkillViewSet)
-router.register('CharacterHasSkillSpecialty', CharacterHasSkillSpecialtyViewSet)
-router.register('CharacterHasText', CharacterHasTextViewSet)
+
+
+
+
+router.register('Character', views.CharacterViewSet)
+
+
+
+router.register('CharacterHasAttribute', views.CharacterHasAttributeViewSet)
+
+
+
+router.register('CharacterHasCombatTrait', views.CharacterHasCombatTraitViewSet)
+
+
+
+router.register('CharacterHasDerangement', views.CharacterHasDerangementViewSet)
+
+
+
+router.register('CharacterHasFlaw', views.CharacterHasFlawViewSet)
+
+
+
+router.register('CharacterHasMerit', views.CharacterHasMeritViewSet)
+
+
+
+router.register('CharacterHasMiscTrait', views.CharacterHasMiscTraitViewSet)
+
+
+
+router.register('CharacterHasPower', views.CharacterHasPowerViewSet)
+
+
+
+router.register('CharacterHasSkill', views.CharacterHasSkillViewSet)
+
+
+
+router.register('CharacterHasSkillSpecialty', views.CharacterHasSkillSpecialtyViewSet)
+
+
+
+router.register('CharacterHasText', views.CharacterHasTextViewSet)
+
+
+
+

@@ -56,19 +56,6 @@ class Command (NoArgsCommand):
         self.render(path.join(settings.PROJECT_PATH, 'traits', 'urls',        'traits_ajax.py'),       'py', 'offline/py/urls.py',        { 'app_name': 'traits', 'models': trait_types + traits })
         self.render(path.join(settings.PROJECT_PATH, 'traits', 'views',       'traits_ajax.py'),       'py', 'offline/py/views.py',       { 'app_name': 'traits', 'models': trait_types + traits })
 
-        return
-
-
-
-
-        self.__gen_serializers     ('traits', trait_types + traits, 'trait_serializers')
-        self.__gen_view_sets       ('traits', trait_types + traits, 'traits_ajax')
-        self.__gen_urls            ('traits', trait_types + traits, 'traits_ajax')
-        self.__gen_backbone_models ('traits', traits)
-
-        self.__gen_admin_classes ('traits', trait_types, 'enum_admins',  self.__admin_template__enum_admin)
-        self.__gen_admin_classes ('traits', traits,      'trait_admins', self.__admin_template__model_admin)
-
 
         # # # # # # #
         # CHARACTER #
@@ -88,13 +75,22 @@ class Command (NoArgsCommand):
                 character_traits.append(Model)
 
         Character = [character_models.Character]
-        self.__gen_serializers     ('character', Character + character_traits, 'character_serializers')
-        self.__gen_view_sets       ('character', Character + character_traits, 'character_ajax')
-        self.__gen_urls            ('character', Character + character_traits, 'character_ajax')
-        self.__gen_backbone_models ('character', character_traits)
 
-        self.__gen_admin_classes ('character', character_traits, 'character_trait_admins',  self.__admin_template__model_admin)
-        self.__gen_admin_classes ('character', character_traits, 'character_traits_inline', self.__admin_template__inline_admin)
+        for character_trait in character_traits:
+            self.render(
+                path.join(settings.PROJECT_PATH, 'character', 'static', 'character', 'coffeescript', 'models', to_underscores(character_trait._meta.object_name) + '.coffee'),
+                'coffee', 'offline/coffee/backbone_model.coffee', { 'model': character_trait }
+            )
+
+        self.render(path.join(settings.PROJECT_PATH, 'character', 'admin',       'character_trait_admins.py'),  'py', 'offline/py/admin.py',        { 'app_name': 'character', 'models': character_traits })
+        self.render(path.join(settings.PROJECT_PATH, 'character', 'admin',       'character_traits_inline.py'), 'py', 'offline/py/admin_inline.py', { 'app_name': 'character', 'models': character_traits })
+        self.render(path.join(settings.PROJECT_PATH, 'character', 'serializers', 'character_serializers.py'),   'py', 'offline/py/serializers.py',  { 'app_name': 'character', 'models': Character + character_traits })
+        self.render(path.join(settings.PROJECT_PATH, 'character', 'urls',        'character_ajax.py'),          'py', 'offline/py/urls.py',         { 'app_name': 'character', 'models': Character + character_traits })
+        self.render(path.join(settings.PROJECT_PATH, 'character', 'views',       'character_ajax.py'),          'py', 'offline/py/views.py',        { 'app_name': 'character', 'models': Character + character_traits })
+
+        return
+
+
 
 
         # # # # # # #
