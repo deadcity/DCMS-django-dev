@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# Thu, 7 Nov 2013 07:49:55 -0600 | 0c9d317c43a8116ff7ebf6fb9632d7d4
+# Tue, 12 Nov 2013 07:44:40 -0600 | 2cb9f60359dadf8cef5e822aae69a6ad
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -11,20 +11,15 @@
 
 
 
-from rest_framework.routers import DefaultRouter
+from django.contrib import admin
 
-from chronicle import views
-
-router = DefaultRouter()
+from chronicle import models
 
 
 
 
-router.register('Chronicle', views.ChronicleViewSet)
-
-
-
-router.register('Game', views.GameViewSet)
+class GameInline (admin.TabularInline):
+    model = models.Game
 
 
 

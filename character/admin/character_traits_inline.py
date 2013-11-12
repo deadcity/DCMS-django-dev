@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# Mon, 4 Nov 2013 08:01:21 -0600 | 2b2f62b6de7ae83fc58a19af1d0b1f9f
+# Thu, 7 Nov 2013 07:55:52 -0600 | 83b102326202b88a39e306bd84020820
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -19,52 +19,52 @@ from character import models
 
 
 class CharacterHasAttributeInline (admin.TabularInline):
-    model = model.CharacterHasAttribute
+    model = models.CharacterHasAttribute
 
 
 
 class CharacterHasCombatTraitInline (admin.TabularInline):
-    model = model.CharacterHasCombatTrait
+    model = models.CharacterHasCombatTrait
 
 
 
 class CharacterHasDerangementInline (admin.TabularInline):
-    model = model.CharacterHasDerangement
+    model = models.CharacterHasDerangement
 
 
 
 class CharacterHasFlawInline (admin.TabularInline):
-    model = model.CharacterHasFlaw
+    model = models.CharacterHasFlaw
 
 
 
 class CharacterHasMeritInline (admin.TabularInline):
-    model = model.CharacterHasMerit
+    model = models.CharacterHasMerit
 
 
 
 class CharacterHasMiscTraitInline (admin.TabularInline):
-    model = model.CharacterHasMiscTrait
+    model = models.CharacterHasMiscTrait
 
 
 
 class CharacterHasPowerInline (admin.TabularInline):
-    model = model.CharacterHasPower
+    model = models.CharacterHasPower
 
 
 
 class CharacterHasSkillInline (admin.TabularInline):
-    model = model.CharacterHasSkill
+    model = models.CharacterHasSkill
 
 
 
 class CharacterHasSkillSpecialtyInline (admin.TabularInline):
-    model = model.CharacterHasSkillSpecialty
+    model = models.CharacterHasSkillSpecialty
 
 
 
 class CharacterHasTextInline (admin.TabularInline):
-    model = model.CharacterHasText
+    model = models.CharacterHasText
 
 
 
