@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# Mon, 21 Oct 2013 17:12:06 -0500 | 3ae695b6005f8320bb21c1a365afa823
+# Thu, 14 Nov 2013 16:56:13 -0600 | ca9ad0d564330dc2e4e4e2e117989b6b
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -12,84 +12,31 @@
 
 Models = Tools.create_namespace 'Traits.Models'
 
+
 class Models.Flaw extends Backbone.Model
     defaults:
-      
         id: null
-      
         enabled: null
-      
         name: null
-      
         type: null
-      
         requires_specification: null
-      
         requires_description: null
-      
 
     parse: (raw) ->
-      
-      
         id: parseInt raw.id, 10
-      
-      
-      
         enabled: raw.enabled
-      
-      
-      
         name: raw.name
-      
-      
-      
         type: Traits.Enums.FlawType.get raw.type
-      
-      
-      
         requires_specification: raw.requires_specification
-      
-      
-      
         requires_description: raw.requires_description
-      
-      
 
     toJSON: () ->
         attr = _.clone @attributes
-      
-      
-      
-      
-      
-      
-      
-      
         attr.type = attr.type.id
-      
-      
-      
-      
-      
-      
         attr
 
     toHumanJSON: () ->
         attr = _.clone @attributes
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
         attr
 
     url: () ->

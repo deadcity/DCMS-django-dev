@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# Mon, 21 Oct 2013 17:12:07 -0500 | 21caa9ce39c9696bb57f201de369f596
+# Thu, 14 Nov 2013 16:56:14 -0600 | 1d636ca4cb3e6643e7ad79f00c8444d0
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -12,71 +12,28 @@
 
 Models = Tools.create_namespace 'Traits.Models'
 
+
 class Models.Power extends Backbone.Model
     defaults:
-      
         id: null
-      
         enabled: null
-      
         name: null
-      
         rating: null
-      
         group: null
-      
 
     parse: (raw) ->
-      
-      
         id: parseInt raw.id, 10
-      
-      
-      
         enabled: raw.enabled
-      
-      
-      
         name: raw.name
-      
-      
-      
         rating: parseInt raw.rating, 10
-      
-      
-      
         group: raw.group
-      
-      
 
     toJSON: () ->
         attr = _.clone @attributes
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
         attr
 
     toHumanJSON: () ->
         attr = _.clone @attributes
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
         attr
 
     url: () ->

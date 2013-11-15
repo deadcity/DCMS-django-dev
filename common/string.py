@@ -1,6 +1,8 @@
-import re
+from re import compile
 
 
-def camel_to_underscore(str):
-    str = re.sub(r'(((?<=[a-z])[A-Z])|([A-Z](?![A-Z]|$)))', '_\\1', str)
-    return str.lower()[1:] if str[1].isupper() else str.lower()
+_find_pascal = compile(r'((?<=[a-z0-9])[A-Z]|(?!^)[A-Z](?=[a-z]))')
+
+
+def pascal_to_delimited (target, delim = '_'):
+    return _find_pascal.sub(delim + r'\1', target).lower()

@@ -1,18 +1,23 @@
 {% extends 'offline/coffee/base.coffee' %}
 
 {% load filters %}
+{% load formatting_tags %}
 {% load model_filters %}
 
 
 {% block content %}
 Models = Tools.create_namespace '{{ model|meta:'app_label'|title }}.Models'
 
+
 class Models.{{ model|meta:'object_name' }} extends Backbone.Model
+    {% trimlines %}
     defaults:
       {% for field in model|meta:'fields' %}
         {{ field.name }}: null
       {% endfor %}
+    {% endtrimlines %}
 
+    {% trimlines %}
     parse: (raw) ->
       {% for field in model|meta:'fields' %}
       {% if field.name == 'character' %}
@@ -38,7 +43,9 @@ class Models.{{ model|meta:'object_name' }} extends Backbone.Model
         {{ field.name }}: raw.{{ field.name }}
       {% endif %}
       {% endfor %}
+    {% endtrimlines %}
 
+    {% trimlines %}
     toJSON: () ->
         attr = _.clone @attributes
       {% for field in model|meta:'fields' %}
@@ -49,7 +56,9 @@ class Models.{{ model|meta:'object_name' }} extends Backbone.Model
       {% endif %}
       {% endfor %}
         attr
+    {% endtrimlines %}
 
+    {% trimlines %}
     toHumanJSON: () ->
         attr = _.clone @attributes
       {% for field in model|meta:'fields' %}
@@ -59,6 +68,7 @@ class Models.{{ model|meta:'object_name' }} extends Backbone.Model
       {% endif %}
       {% endfor %}
         attr
+    {% endtrimlines %}
 
     url: () ->
         "#{ DCMS.Settings.URL_PREFIX }/api/{{ model|meta:'app_label' }}/{{ model|meta:'object_name' }}/#{ if @id? then "#{ @id }/" else '' }"

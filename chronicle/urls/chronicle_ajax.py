@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# Thu, 7 Nov 2013 07:49:55 -0600 | 0c9d317c43a8116ff7ebf6fb9632d7d4
+# Fri, 15 Nov 2013 07:34:34 -0600 | b94734211d8eb0777a0301e35bb0032b
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -15,17 +15,10 @@ from rest_framework.routers import DefaultRouter
 
 from chronicle import views
 
+
 router = DefaultRouter()
 
-
-
-
 router.register('Chronicle', views.ChronicleViewSet)
-
-
-
 router.register('Game', views.GameViewSet)
-
-
 
 

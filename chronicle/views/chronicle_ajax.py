@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# Thu, 7 Nov 2013 07:49:55 -0600 | 6d37c862cbc127704918eb2a41d90ee1
+# Fri, 15 Nov 2013 07:37:00 -0600 | df9a64121d8facdb7d8b93b585110f26
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -16,18 +16,13 @@ from rest_framework import viewsets
 from chronicle import models, serializers
 
 
-
-
 class ChronicleViewSet (viewsets.ModelViewSet):
     model            = models.Chronicle
     serializer_class = serializers.ChronicleSerializer
 
 
-
 class GameViewSet (viewsets.ModelViewSet):
     model            = models.Game
     serializer_class = serializers.GameSerializer
-
-
 
 

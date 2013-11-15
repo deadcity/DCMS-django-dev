@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# Mon, 21 Oct 2013 17:12:07 -0500 | beffe37747cde4903be6ce71606f6b2a
+# Thu, 14 Nov 2013 16:56:14 -0600 | 760fe46988ef9e734d07e94d17d2783e
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -12,64 +12,27 @@
 
 Models = Tools.create_namespace 'Traits.Models'
 
+
 class Models.Skill extends Backbone.Model
     defaults:
-      
         id: null
-      
         enabled: null
-      
         name: null
-      
         type: null
-      
 
     parse: (raw) ->
-      
-      
         id: parseInt raw.id, 10
-      
-      
-      
         enabled: raw.enabled
-      
-      
-      
         name: raw.name
-      
-      
-      
         type: Traits.Enums.SkillType.get raw.type
-      
-      
 
     toJSON: () ->
         attr = _.clone @attributes
-      
-      
-      
-      
-      
-      
-      
-      
         attr.type = attr.type.id
-      
-      
         attr
 
     toHumanJSON: () ->
         attr = _.clone @attributes
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
         attr
 
     url: () ->

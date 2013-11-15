@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# Mon, 4 Nov 2013 08:03:55 -0600 | 626ea2306758fa76b3a7c3ea4856f35a
+# Fri, 15 Nov 2013 07:32:07 -0600 | f5e5fa1fff04a445a302992ff2a98909
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -16,13 +16,10 @@ from rest_framework import serializers
 from character import models
 
 
-
-
 class CharacterSerializer (serializers.ModelSerializer):
     class Meta (object):
         model = models.Character
 models.Character.Serializer = CharacterSerializer
-
 
 
 class CharacterHasAttributeSerializer (serializers.ModelSerializer):
@@ -31,12 +28,10 @@ class CharacterHasAttributeSerializer (serializers.ModelSerializer):
 models.CharacterHasAttribute.Serializer = CharacterHasAttributeSerializer
 
 
-
 class CharacterHasCombatTraitSerializer (serializers.ModelSerializer):
     class Meta (object):
         model = models.CharacterHasCombatTrait
 models.CharacterHasCombatTrait.Serializer = CharacterHasCombatTraitSerializer
-
 
 
 class CharacterHasDerangementSerializer (serializers.ModelSerializer):
@@ -45,12 +40,10 @@ class CharacterHasDerangementSerializer (serializers.ModelSerializer):
 models.CharacterHasDerangement.Serializer = CharacterHasDerangementSerializer
 
 
-
 class CharacterHasFlawSerializer (serializers.ModelSerializer):
     class Meta (object):
         model = models.CharacterHasFlaw
 models.CharacterHasFlaw.Serializer = CharacterHasFlawSerializer
-
 
 
 class CharacterHasMeritSerializer (serializers.ModelSerializer):
@@ -59,12 +52,10 @@ class CharacterHasMeritSerializer (serializers.ModelSerializer):
 models.CharacterHasMerit.Serializer = CharacterHasMeritSerializer
 
 
-
 class CharacterHasMiscTraitSerializer (serializers.ModelSerializer):
     class Meta (object):
         model = models.CharacterHasMiscTrait
 models.CharacterHasMiscTrait.Serializer = CharacterHasMiscTraitSerializer
-
 
 
 class CharacterHasPowerSerializer (serializers.ModelSerializer):
@@ -73,12 +64,10 @@ class CharacterHasPowerSerializer (serializers.ModelSerializer):
 models.CharacterHasPower.Serializer = CharacterHasPowerSerializer
 
 
-
 class CharacterHasSkillSerializer (serializers.ModelSerializer):
     class Meta (object):
         model = models.CharacterHasSkill
 models.CharacterHasSkill.Serializer = CharacterHasSkillSerializer
-
 
 
 class CharacterHasSkillSpecialtySerializer (serializers.ModelSerializer):
@@ -87,12 +76,9 @@ class CharacterHasSkillSpecialtySerializer (serializers.ModelSerializer):
 models.CharacterHasSkillSpecialty.Serializer = CharacterHasSkillSpecialtySerializer
 
 
-
 class CharacterHasTextSerializer (serializers.ModelSerializer):
     class Meta (object):
         model = models.CharacterHasText
 models.CharacterHasText.Serializer = CharacterHasTextSerializer
-
-
 
 

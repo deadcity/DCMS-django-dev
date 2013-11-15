@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# Wed, 23 Oct 2013 07:49:01 -0500 | e32a4739c06ce212561171e7f5612944
+# Thu, 14 Nov 2013 16:56:12 -0600 | 811265d09036664268e9ef2832b5d4f7
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -12,51 +12,24 @@
 
 Models = Tools.create_namespace 'Traits.Models'
 
+
 class Models.CombatTrait extends Backbone.Model
     defaults:
-      
         id: null
-      
         enabled: null
-      
         name: null
-      
 
     parse: (raw) ->
-      
-      
         id: parseInt raw.id, 10
-      
-      
-      
         enabled: raw.enabled
-      
-      
-      
         name: raw.name
-      
-      
 
     toJSON: () ->
         attr = _.clone @attributes
-      
-      
-      
-      
-      
-      
-      
         attr
 
     toHumanJSON: () ->
         attr = _.clone @attributes
-      
-      
-      
-      
-      
-      
-      
         attr
 
     url: () ->

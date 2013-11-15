@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# Wed, 23 Oct 2013 07:49:02 -0500 | 9617b5524dcd891940ef6b84c24c8634
+# Thu, 14 Nov 2013 16:56:14 -0600 | 76a70b80b00a7fbcfeb974d5b21d12ef
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -12,61 +12,26 @@
 
 Models = Tools.create_namespace 'Traits.Models'
 
+
 class Models.MiscTrait extends Backbone.Model
     defaults:
-      
         id: null
-      
         enabled: null
-      
         name: null
-      
         requires_description: null
-      
 
     parse: (raw) ->
-      
-      
         id: parseInt raw.id, 10
-      
-      
-      
         enabled: raw.enabled
-      
-      
-      
         name: raw.name
-      
-      
-      
         requires_description: raw.requires_description
-      
-      
 
     toJSON: () ->
         attr = _.clone @attributes
-      
-      
-      
-      
-      
-      
-      
-      
-      
         attr
 
     toHumanJSON: () ->
         attr = _.clone @attributes
-      
-      
-      
-      
-      
-      
-      
-      
-      
         attr
 
     url: () ->

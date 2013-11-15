@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# Wed, 23 Oct 2013 07:49:01 -0500 | 438d46f42269fa15a2d4dbdbb56f7e28
+# Thu, 14 Nov 2013 16:56:12 -0600 | c588ffd47fd8e6c5201b63372703593e
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -12,61 +12,26 @@
 
 Models = Tools.create_namespace 'Traits.Models'
 
+
 class Models.CharacterText extends Backbone.Model
     defaults:
-      
         id: null
-      
         enabled: null
-      
         name: null
-      
         hide_from_player: null
-      
 
     parse: (raw) ->
-      
-      
         id: parseInt raw.id, 10
-      
-      
-      
         enabled: raw.enabled
-      
-      
-      
         name: raw.name
-      
-      
-      
         hide_from_player: raw.hide_from_player
-      
-      
 
     toJSON: () ->
         attr = _.clone @attributes
-      
-      
-      
-      
-      
-      
-      
-      
-      
         attr
 
     toHumanJSON: () ->
         attr = _.clone @attributes
-      
-      
-      
-      
-      
-      
-      
-      
-      
         attr
 
     url: () ->

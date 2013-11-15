@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# Mon, 4 Nov 2013 08:03:55 -0600 | 45c2cf44895951263f111720e07d8ee4
+# Fri, 15 Nov 2013 07:37:00 -0600 | 9c52dd233ac3b342bc780ea6a841844d
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -16,12 +16,9 @@ from rest_framework import viewsets
 from character import models, serializers
 
 
-
-
 class CharacterViewSet (viewsets.ModelViewSet):
     model            = models.Character
     serializer_class = serializers.CharacterSerializer
-
 
 
 class CharacterHasAttributeViewSet (viewsets.ModelViewSet):
@@ -29,11 +26,9 @@ class CharacterHasAttributeViewSet (viewsets.ModelViewSet):
     serializer_class = serializers.CharacterHasAttributeSerializer
 
 
-
 class CharacterHasCombatTraitViewSet (viewsets.ModelViewSet):
     model            = models.CharacterHasCombatTrait
     serializer_class = serializers.CharacterHasCombatTraitSerializer
-
 
 
 class CharacterHasDerangementViewSet (viewsets.ModelViewSet):
@@ -41,11 +36,9 @@ class CharacterHasDerangementViewSet (viewsets.ModelViewSet):
     serializer_class = serializers.CharacterHasDerangementSerializer
 
 
-
 class CharacterHasFlawViewSet (viewsets.ModelViewSet):
     model            = models.CharacterHasFlaw
     serializer_class = serializers.CharacterHasFlawSerializer
-
 
 
 class CharacterHasMeritViewSet (viewsets.ModelViewSet):
@@ -53,11 +46,9 @@ class CharacterHasMeritViewSet (viewsets.ModelViewSet):
     serializer_class = serializers.CharacterHasMeritSerializer
 
 
-
 class CharacterHasMiscTraitViewSet (viewsets.ModelViewSet):
     model            = models.CharacterHasMiscTrait
     serializer_class = serializers.CharacterHasMiscTraitSerializer
-
 
 
 class CharacterHasPowerViewSet (viewsets.ModelViewSet):
@@ -65,11 +56,9 @@ class CharacterHasPowerViewSet (viewsets.ModelViewSet):
     serializer_class = serializers.CharacterHasPowerSerializer
 
 
-
 class CharacterHasSkillViewSet (viewsets.ModelViewSet):
     model            = models.CharacterHasSkill
     serializer_class = serializers.CharacterHasSkillSerializer
-
 
 
 class CharacterHasSkillSpecialtyViewSet (viewsets.ModelViewSet):
@@ -77,11 +66,8 @@ class CharacterHasSkillSpecialtyViewSet (viewsets.ModelViewSet):
     serializer_class = serializers.CharacterHasSkillSpecialtySerializer
 
 
-
 class CharacterHasTextViewSet (viewsets.ModelViewSet):
     model            = models.CharacterHasText
     serializer_class = serializers.CharacterHasTextSerializer
-
-
 
 

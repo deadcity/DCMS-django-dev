@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# Wed, 23 Oct 2013 18:19:49 -0500 | 6069bc7b3d6e2d502e728d45d19f6819
+# Fri, 15 Nov 2013 07:36:58 -0600 | 76d7f7fbf6828cdd7ee0efe7cc31671c
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -16,12 +16,9 @@ from rest_framework import viewsets
 from traits import models, serializers
 
 
-
-
 class AttributeTypeViewSet (viewsets.ModelViewSet):
     model            = models.AttributeType
     serializer_class = serializers.AttributeTypeSerializer
-
 
 
 class DerangementTypeViewSet (viewsets.ModelViewSet):
@@ -29,11 +26,9 @@ class DerangementTypeViewSet (viewsets.ModelViewSet):
     serializer_class = serializers.DerangementTypeSerializer
 
 
-
 class FlawTypeViewSet (viewsets.ModelViewSet):
     model            = models.FlawType
     serializer_class = serializers.FlawTypeSerializer
-
 
 
 class MeritTypeViewSet (viewsets.ModelViewSet):
@@ -41,11 +36,9 @@ class MeritTypeViewSet (viewsets.ModelViewSet):
     serializer_class = serializers.MeritTypeSerializer
 
 
-
 class SkillTypeViewSet (viewsets.ModelViewSet):
     model            = models.SkillType
     serializer_class = serializers.SkillTypeSerializer
-
 
 
 class ViceViewSet (viewsets.ModelViewSet):
@@ -53,11 +46,9 @@ class ViceViewSet (viewsets.ModelViewSet):
     serializer_class = serializers.ViceSerializer
 
 
-
 class VirtueViewSet (viewsets.ModelViewSet):
     model            = models.Virtue
     serializer_class = serializers.VirtueSerializer
-
 
 
 class AffiliationViewSet (viewsets.ModelViewSet):
@@ -65,11 +56,9 @@ class AffiliationViewSet (viewsets.ModelViewSet):
     serializer_class = serializers.AffiliationSerializer
 
 
-
 class AttributeViewSet (viewsets.ModelViewSet):
     model            = models.Attribute
     serializer_class = serializers.AttributeSerializer
-
 
 
 class CharacterTextViewSet (viewsets.ModelViewSet):
@@ -77,11 +66,9 @@ class CharacterTextViewSet (viewsets.ModelViewSet):
     serializer_class = serializers.CharacterTextSerializer
 
 
-
 class CombatTraitViewSet (viewsets.ModelViewSet):
     model            = models.CombatTrait
     serializer_class = serializers.CombatTraitSerializer
-
 
 
 class CreatureTypeViewSet (viewsets.ModelViewSet):
@@ -89,11 +76,9 @@ class CreatureTypeViewSet (viewsets.ModelViewSet):
     serializer_class = serializers.CreatureTypeSerializer
 
 
-
 class DerangementViewSet (viewsets.ModelViewSet):
     model            = models.Derangement
     serializer_class = serializers.DerangementSerializer
-
 
 
 class FlawViewSet (viewsets.ModelViewSet):
@@ -101,11 +86,9 @@ class FlawViewSet (viewsets.ModelViewSet):
     serializer_class = serializers.FlawSerializer
 
 
-
 class GenealogyViewSet (viewsets.ModelViewSet):
     model            = models.Genealogy
     serializer_class = serializers.GenealogySerializer
-
 
 
 class MeritViewSet (viewsets.ModelViewSet):
@@ -113,11 +96,9 @@ class MeritViewSet (viewsets.ModelViewSet):
     serializer_class = serializers.MeritSerializer
 
 
-
 class MiscTraitViewSet (viewsets.ModelViewSet):
     model            = models.MiscTrait
     serializer_class = serializers.MiscTraitSerializer
-
 
 
 class PowerViewSet (viewsets.ModelViewSet):
@@ -125,17 +106,13 @@ class PowerViewSet (viewsets.ModelViewSet):
     serializer_class = serializers.PowerSerializer
 
 
-
 class SkillViewSet (viewsets.ModelViewSet):
     model            = models.Skill
     serializer_class = serializers.SkillSerializer
 
 
-
 class SubgroupViewSet (viewsets.ModelViewSet):
     model            = models.Subgroup
     serializer_class = serializers.SubgroupSerializer
-
-
 
 

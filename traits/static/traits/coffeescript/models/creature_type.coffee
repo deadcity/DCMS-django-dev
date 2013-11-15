@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# Wed, 23 Oct 2013 07:49:01 -0500 | 07dec4003b32abe556b9eaea818b925c
+# Thu, 14 Nov 2013 16:56:13 -0600 | a4cdf0a183ef65ef410b4423f8050b8f
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -12,91 +12,32 @@
 
 Models = Tools.create_namespace 'Traits.Models'
 
+
 class Models.CreatureType extends Backbone.Model
     defaults:
-      
         id: null
-      
         enabled: null
-      
         name: null
-      
         genealogy_name: null
-      
         affiliation_name: null
-      
         subgroup_name: null
-      
         power_name: null
-      
 
     parse: (raw) ->
-      
-      
         id: parseInt raw.id, 10
-      
-      
-      
         enabled: raw.enabled
-      
-      
-      
         name: raw.name
-      
-      
-      
         genealogy_name: raw.genealogy_name
-      
-      
-      
         affiliation_name: raw.affiliation_name
-      
-      
-      
         subgroup_name: raw.subgroup_name
-      
-      
-      
         power_name: raw.power_name
-      
-      
 
     toJSON: () ->
         attr = _.clone @attributes
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
         attr
 
     toHumanJSON: () ->
         attr = _.clone @attributes
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
         attr
 
     url: () ->

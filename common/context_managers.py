@@ -29,3 +29,4 @@ class db_user(object):
     @property
     def old_user(self):
         return self._old_user
+

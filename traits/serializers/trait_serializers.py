@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# Wed, 23 Oct 2013 18:19:49 -0500 | 01ef16198868d6424f716599e10b0afe
+# Fri, 15 Nov 2013 07:32:05 -0600 | 47223c4d6fb606170fdbca0843542a35
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -16,13 +16,10 @@ from rest_framework import serializers
 from traits import models
 
 
-
-
 class AttributeTypeSerializer (serializers.ModelSerializer):
     class Meta (object):
         model = models.AttributeType
 models.AttributeType.Serializer = AttributeTypeSerializer
-
 
 
 class DerangementTypeSerializer (serializers.ModelSerializer):
@@ -31,12 +28,10 @@ class DerangementTypeSerializer (serializers.ModelSerializer):
 models.DerangementType.Serializer = DerangementTypeSerializer
 
 
-
 class FlawTypeSerializer (serializers.ModelSerializer):
     class Meta (object):
         model = models.FlawType
 models.FlawType.Serializer = FlawTypeSerializer
-
 
 
 class MeritTypeSerializer (serializers.ModelSerializer):
@@ -45,12 +40,10 @@ class MeritTypeSerializer (serializers.ModelSerializer):
 models.MeritType.Serializer = MeritTypeSerializer
 
 
-
 class SkillTypeSerializer (serializers.ModelSerializer):
     class Meta (object):
         model = models.SkillType
 models.SkillType.Serializer = SkillTypeSerializer
-
 
 
 class ViceSerializer (serializers.ModelSerializer):
@@ -59,12 +52,10 @@ class ViceSerializer (serializers.ModelSerializer):
 models.Vice.Serializer = ViceSerializer
 
 
-
 class VirtueSerializer (serializers.ModelSerializer):
     class Meta (object):
         model = models.Virtue
 models.Virtue.Serializer = VirtueSerializer
-
 
 
 class AffiliationSerializer (serializers.ModelSerializer):
@@ -73,12 +64,10 @@ class AffiliationSerializer (serializers.ModelSerializer):
 models.Affiliation.Serializer = AffiliationSerializer
 
 
-
 class AttributeSerializer (serializers.ModelSerializer):
     class Meta (object):
         model = models.Attribute
 models.Attribute.Serializer = AttributeSerializer
-
 
 
 class CharacterTextSerializer (serializers.ModelSerializer):
@@ -87,12 +76,10 @@ class CharacterTextSerializer (serializers.ModelSerializer):
 models.CharacterText.Serializer = CharacterTextSerializer
 
 
-
 class CombatTraitSerializer (serializers.ModelSerializer):
     class Meta (object):
         model = models.CombatTrait
 models.CombatTrait.Serializer = CombatTraitSerializer
-
 
 
 class CreatureTypeSerializer (serializers.ModelSerializer):
@@ -101,12 +88,10 @@ class CreatureTypeSerializer (serializers.ModelSerializer):
 models.CreatureType.Serializer = CreatureTypeSerializer
 
 
-
 class DerangementSerializer (serializers.ModelSerializer):
     class Meta (object):
         model = models.Derangement
 models.Derangement.Serializer = DerangementSerializer
-
 
 
 class FlawSerializer (serializers.ModelSerializer):
@@ -115,12 +100,10 @@ class FlawSerializer (serializers.ModelSerializer):
 models.Flaw.Serializer = FlawSerializer
 
 
-
 class GenealogySerializer (serializers.ModelSerializer):
     class Meta (object):
         model = models.Genealogy
 models.Genealogy.Serializer = GenealogySerializer
-
 
 
 class MeritSerializer (serializers.ModelSerializer):
@@ -129,12 +112,10 @@ class MeritSerializer (serializers.ModelSerializer):
 models.Merit.Serializer = MeritSerializer
 
 
-
 class MiscTraitSerializer (serializers.ModelSerializer):
     class Meta (object):
         model = models.MiscTrait
 models.MiscTrait.Serializer = MiscTraitSerializer
-
 
 
 class PowerSerializer (serializers.ModelSerializer):
@@ -143,19 +124,15 @@ class PowerSerializer (serializers.ModelSerializer):
 models.Power.Serializer = PowerSerializer
 
 
-
 class SkillSerializer (serializers.ModelSerializer):
     class Meta (object):
         model = models.Skill
 models.Skill.Serializer = SkillSerializer
 
 
-
 class SubgroupSerializer (serializers.ModelSerializer):
     class Meta (object):
         model = models.Subgroup
 models.Subgroup.Serializer = SubgroupSerializer
-
-
 
 
