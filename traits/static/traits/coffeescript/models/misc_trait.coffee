@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# Thu, 14 Nov 2013 16:56:14 -0600 | 76a70b80b00a7fbcfeb974d5b21d12ef
+# Thu, 21 Nov 2013 07:25:39 -0600 | 59b2a93aace5e33e767a525a7c9a75d7
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -26,12 +26,14 @@ class Models.MiscTrait extends Backbone.Model
         name: raw.name
         requires_description: raw.requires_description
 
-    toJSON: () ->
+    toJSON: (options) ->
+        options = {} if not options?
         attr = _.clone @attributes
-        attr
 
-    toHumanJSON: () ->
-        attr = _.clone @attributes
+        if options.nest
+
+        else
+
         attr
 
     url: () ->

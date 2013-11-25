@@ -1,8 +1,8 @@
-Models_NS = Tools.create_namespace 'Table.Models'
-Views_NS  = Tools.create_namespace 'Table.Views'
+Models = Tools.create_namespace 'Table.Models'
+Views  = Tools.create_namespace 'Table.Views'
 
 
-class Models_NS.RowPresentation extends Backbone.Model
+class Models.RowPresentation extends Backbone.Model
     defaults:
         selected: false
 
@@ -10,11 +10,11 @@ class Models_NS.RowPresentation extends Backbone.Model
         @record = options.record
         @listenTo @record, 'destroy', @destroy
         @listenTo @record, 'remove',  @destroy
-        @on 'destroy', @on_destroy, @
+        @once 'destroy', @on_destroy, @
 
-    toJSON: () ->
+    toJSON: (options) ->
         attr = _.clone @attributes
-        attr.record = (@record.toHumanJSON ? @record.toJSON).apply @record
+        attr.record = @record.toJSON options
         attr
 
     on_destroy: () ->
@@ -28,15 +28,13 @@ class Models_NS.RowPresentation extends Backbone.Model
   @prop model - underlying row presentation model
 ###
 
-class Views_NS.Row extends Backbone.View
+class Views.Row extends Backbone.View
     tagName: 'tr'
 
-    template: null
+    options:
+        template: null
 
     initialize: (options) ->
-        if options?.template?
-            @template = options.template
-
         @listenTo @model, 'destroy', @remove
         @listenTo @model, 'remove',  @remove
         @listenTo @model.record, 'change', @render
@@ -49,7 +47,7 @@ class Views_NS.Row extends Backbone.View
         'click': 'on_click'
 
     render: () ->
-        @$el.html @template @model.toJSON()
+        @$el.html @options.template @model.toJSON nest: true
         @delegateEvents()
         @
 

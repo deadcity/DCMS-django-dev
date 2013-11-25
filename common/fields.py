@@ -40,7 +40,7 @@ class EnumField (models.Field):
         if value is None or str(value) is '':
             return None
 
-        if isinstance(value, Element) and value in self.enum._elements:
+        if isinstance(value, self.enum._Element):
             return value
 
         try:

@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# Thu, 14 Nov 2013 16:56:15 -0600 | 0fd08397e944dbe99c1c7310049af10d
+# Thu, 21 Nov 2013 07:25:40 -0600 | e4ee72384d92fb92d55114d7e8cc0de9
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -21,19 +21,21 @@ class Models.CharacterHasPower extends Backbone.Model
 
     parse: (raw) ->
         id: parseInt raw.id, 10
-        character: parseInt raw.character, 10
-        trait: raw.trait
+        character: Character.Objects.Character
+        trait: Traits.Objects.Power.get raw.trait
 
-    toJSON: () ->
+    toJSON: (options) ->
+        options = {} if not options?
         attr = _.clone @attributes
-        attr.character = attr.character.id
-        attr.trait = attr.trait.id
-        attr
 
-    toHumanJSON: () ->
-        attr = _.clone @attributes
-        attr.character = attr.character.toHumanJSON()
-        attr.trait = attr.trait.toHumanJSON()
+        if options.nest
+            attr.character = attr.character.toJSON options
+            attr.trait = attr.trait.toJSON options
+
+        else
+            attr.character = attr.character.id
+            attr.trait = attr.trait.id
+
         attr
 
     url: () ->

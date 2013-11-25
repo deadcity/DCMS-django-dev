@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# Thu, 14 Nov 2013 16:56:14 -0600 | 1d636ca4cb3e6643e7ad79f00c8444d0
+# Thu, 21 Nov 2013 07:25:39 -0600 | 4f04f4274a03e1902fa5af66d073b1b7
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -28,12 +28,14 @@ class Models.Power extends Backbone.Model
         rating: parseInt raw.rating, 10
         group: raw.group
 
-    toJSON: () ->
+    toJSON: (options) ->
+        options = {} if not options?
         attr = _.clone @attributes
-        attr
 
-    toHumanJSON: () ->
-        attr = _.clone @attributes
+        if options.nest
+
+        else
+
         attr
 
     url: () ->

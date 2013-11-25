@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# Thu, 14 Nov 2013 16:56:13 -0600 | f134a5dc712bd0ec519fe8279f411fdc
+# Thu, 21 Nov 2013 07:25:38 -0600 | 9fbcf6cdebd063d58badc4df09af08e1
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -32,14 +32,16 @@ class Models.Merit extends Backbone.Model
         requires_specification: raw.requires_specification
         requires_description: raw.requires_description
 
-    toJSON: () ->
+    toJSON: (options) ->
+        options = {} if not options?
         attr = _.clone @attributes
-        attr.type = attr.type.id
-        attr.allowed_ratings = attr.allowed_ratings.join()
-        attr
 
-    toHumanJSON: () ->
-        attr = _.clone @attributes
+        if options.nest
+
+        else
+            attr.type = attr.type.id
+            attr.allowed_ratings = attr.allowed_ratings.join()
+
         attr
 
     url: () ->

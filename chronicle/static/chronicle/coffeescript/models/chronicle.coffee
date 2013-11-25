@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# Thu, 14 Nov 2013 16:56:16 -0600 | 0e6b150baa5e76826154d669ddb90afe
+# Thu, 21 Nov 2013 07:25:40 -0600 | b96235060595d378ae96bfbcf76d3524
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -26,12 +26,14 @@ class Models.Chronicle extends Backbone.Model
         name: raw.name
         description: raw.description
 
-    toJSON: () ->
+    toJSON: (options) ->
+        options = {} if not options?
         attr = _.clone @attributes
-        attr
 
-    toHumanJSON: () ->
-        attr = _.clone @attributes
+        if options.nest
+
+        else
+
         attr
 
     url: () ->

@@ -1,6 +1,7 @@
-Table_NS = Tools.create_namespace 'Table'
+Models = Tools.create_namespace 'Table.Models'
+Views  = Tools.create_namespace 'Table.Views'
 
-SORT_DIRECTION = Table.Enum.SORT_DIRECTION
+SORT_DIRECTION = Table.Enums.SORT_DIRECTION
 
 
 ###
@@ -10,7 +11,7 @@ SORT_DIRECTION = Table.Enum.SORT_DIRECTION
   @prop collection - backbone collection for domain models
 ###
 
-class Table_NS.Table extends Backbone.View
+class Table.Table extends Backbone.View
     tagName: 'table'
 
     template: _.template '<thead><tr></tr></thead><tbody></tbody>'
@@ -31,9 +32,9 @@ class Table_NS.Table extends Backbone.View
         options = options ? {}
 
         # default options
-        @ColumnPresentation = options.ColumnPresentation ? Table_NS.Models.ColumnPresentation
-        @RowPresentation    = options.RowPresentation    ? Table_NS.Models.RowPresentation
-        @RowView            = options.RowView            ? Table_NS.Views.Row
+        @ColumnPresentation = options.ColumnPresentation ? Models.ColumnPresentation
+        @RowPresentation    = options.RowPresentation    ? Models.RowPresentation
+        @RowView            = options.RowView            ? Views.Row
         @_filter            = options.filter
         @row_template       = options.row_template
 
@@ -104,9 +105,10 @@ class Table_NS.Table extends Backbone.View
             return
 
         field = column.get 'field'
+        sort_func = column.get 'sort_func'
         comp = (a, b) ->
-            a_ = a.record.get field
-            b_ = b.record.get field
+            a_ = sort_func a.record.get field
+            b_ = sort_func b.record.get field
             if a_ <  b_ then return -1
             if a_ == b_ then return 0
             return 1
@@ -124,9 +126,27 @@ class Table_NS.Table extends Backbone.View
 
     sync_row_order: () ->
         tbody = @$ 'tbody'
+
+        # Identify active element.  Save cursor position if active element is a
+        # descendent of the table.
+        active_element = $ document.activeElement
+        cursor_pos = null
+        if $.contains tbody[0], active_element[0]
+            if (active_element.is 'input') or (active_element.is 'textarea')
+                cursor_pos = active_element.caret()
+        else
+            active_element = null
+
+        # Sync row order.
         @rows.each (row_pres, idx) ->
             row_pres.trigger 'command:move_to', tbody, idx, @
         , @
+
+        # Restore active element and cursor position.
+        if active_element?
+            active_element.focus()
+            if cursor_pos?
+                active_element.caret cursor_pos
 
     on_add_record: (model, collection, options) ->
         pres_model = new @RowPresentation null, _.extend {record: model}, options
@@ -137,3 +157,5 @@ class Table_NS.Table extends Backbone.View
         pres_model.record.on 'change', () ->
             @filter_pres_model pres_model
         , @
+
+        pres_model

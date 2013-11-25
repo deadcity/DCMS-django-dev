@@ -120,48 +120,6 @@
 },
 {
     "pk": 1,
-    "model": "traits.status",
-    "fields": {
-        "name": "Editing"
-    }
-},
-{
-    "pk": 2,
-    "model": "traits.status",
-    "fields": {
-        "name": "Submitted"
-    }
-},
-{
-    "pk": 3,
-    "model": "traits.status",
-    "fields": {
-        "name": "Approved"
-    }
-},
-{
-    "pk": 4,
-    "model": "traits.status",
-    "fields": {
-        "name": "Active"
-    }
-},
-{
-    "pk": 5,
-    "model": "traits.status",
-    "fields": {
-        "name": "Deceased"
-    }
-},
-{
-    "pk": 6,
-    "model": "traits.status",
-    "fields": {
-        "name": "Inactive"
-    }
-},
-{
-    "pk": 1,
     "model": "traits.vice",
     "fields": {
         "name": "Envy"

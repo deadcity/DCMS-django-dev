@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# Thu, 14 Nov 2013 16:56:12 -0600 | 811265d09036664268e9ef2832b5d4f7
+# Thu, 21 Nov 2013 07:25:38 -0600 | d776a9a7c931661eae0310ae984a9436
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -24,12 +24,14 @@ class Models.CombatTrait extends Backbone.Model
         enabled: raw.enabled
         name: raw.name
 
-    toJSON: () ->
+    toJSON: (options) ->
+        options = {} if not options?
         attr = _.clone @attributes
-        attr
 
-    toHumanJSON: () ->
-        attr = _.clone @attributes
+        if options.nest
+
+        else
+
         attr
 
     url: () ->

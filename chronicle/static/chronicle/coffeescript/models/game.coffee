@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# Thu, 14 Nov 2013 16:56:16 -0600 | 16bf6f6d46725c8f5f1fe8c77e150816
+# Thu, 21 Nov 2013 07:25:40 -0600 | 65d886a90ed080238c9604da256d9d42
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -25,17 +25,19 @@ class Models.Game extends Backbone.Model
         id: parseInt raw.id, 10
         enabled: raw.enabled
         name: raw.name
-        chronicle: raw.chronicle
+        chronicle: Chronicle.Objects.Chronicle.get raw.chronicle
         date: raw.date
 
-    toJSON: () ->
+    toJSON: (options) ->
+        options = {} if not options?
         attr = _.clone @attributes
-        attr.chronicle = attr.chronicle.id
-        attr
 
-    toHumanJSON: () ->
-        attr = _.clone @attributes
-        attr.chronicle = attr.chronicle.toHumanJSON()
+        if options.nest
+            attr.chronicle = attr.chronicle.toJSON options
+
+        else
+            attr.chronicle = attr.chronicle.id
+
         attr
 
     url: () ->

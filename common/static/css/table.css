@@ -1,6 +1,51 @@
-table.list-table {
+
+table {
+    margin: 20;  /*temporary*/
+
     border: 0;
     border-collapse: collapse;
-    width: 100%;
-    font-size: 13px;
+}
+
+table thead {
+    font-weight: bold;
+    text-align: left;
+    border-bottom: 2px #000 solid;
+}
+
+th.sortable {
+    cursor: pointer;
+}
+
+tbody tr.odd /*td*/,
+table.stripped tbody tr:nth-child(2n+1) /*td*/ {
+    background-color: #e0e0e0;
+}
+
+tbody tr.selected,
+tbody .selected.odd /*td*/,
+table.stripped tbody tr.selected:nth-child(2n+1) /*td*/ {
+    background-color: rgb(160,204,218);
+}
+
+tbody tr:hover,
+tbody tr.odd:hover /*td*/,
+table.stripped tbody tr:nth-child(2n+1):hover /*td*/ {
+    background-color: rgb(155,177,219);
+}
+
+tbody tr:active,
+tbody tr.odd:active /*td*/,
+table.stripped tbody tr:nth-child(2n+1):active /*td*/ {
+    color: white;
+    background-color: rgb(81,106,149);
+}
+
+table th { padding: 2px 10px; }
+table td { padding: 2px 10px; }
+
+.table-header-sortable { cursor: pointer; }
+.table-sort-indicator  { color: #b0b0b0; }
+
+table td.number {
+    text-align: right;
 }

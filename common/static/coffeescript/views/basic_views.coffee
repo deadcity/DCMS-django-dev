@@ -17,7 +17,7 @@ class Views.Item extends Backbone.View
         if options?.source is @
             return @
 
-        @$el.html @options.template @model.toHumanJSON()
+        @$el.html @options.template @model.toJSON { nest: true }
         @delegateEvents()
         @
 
@@ -96,11 +96,11 @@ class Views.ListSelection extends Views.List
         _.each _.pairs(@options.groups), (pair) ->
             if pair[0] is 'null'
                 _.each pair[1], (item) =>
-                    select.append @options.option_template item.toHumanJSON()
+                    select.append @options.option_template item.toJSON { nest: true }
             else
                 group_element = $ @options.group_template { name: pair[0] }
                 _.each pair[1], (item) =>
-                    group_element.append @options.option_template item.toHumanJSON()
+                    group_element.append @options.option_template item.toJSON { nest: true }
                 select.append group_element
         , @
         @

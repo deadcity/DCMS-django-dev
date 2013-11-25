@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# Thu, 14 Nov 2013 16:56:15 -0600 | 60d12b2d33672a750028d86fbc9cc457
+# Thu, 21 Nov 2013 07:25:40 -0600 | 9eeaaa6535e2bb17008cbbc85b49d827
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -23,21 +23,23 @@ class Models.CharacterHasMiscTrait extends Backbone.Model
 
     parse: (raw) ->
         id: parseInt raw.id, 10
-        character: parseInt raw.character, 10
-        trait: raw.trait
+        character: Character.Objects.Character
+        trait: Traits.Objects.MiscTrait.get raw.trait
         rating: parseInt raw.rating, 10
         description: raw.description
 
-    toJSON: () ->
+    toJSON: (options) ->
+        options = {} if not options?
         attr = _.clone @attributes
-        attr.character = attr.character.id
-        attr.trait = attr.trait.id
-        attr
 
-    toHumanJSON: () ->
-        attr = _.clone @attributes
-        attr.character = attr.character.toHumanJSON()
-        attr.trait = attr.trait.toHumanJSON()
+        if options.nest
+            attr.character = attr.character.toJSON options
+            attr.trait = attr.trait.toJSON options
+
+        else
+            attr.character = attr.character.id
+            attr.trait = attr.trait.id
+
         attr
 
     url: () ->

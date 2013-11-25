@@ -21,7 +21,7 @@ Traits.Models.Derangement.prototype.requires_modal = Traits.Models.Flaw.prototyp
 
 class Views.RatingControl extends Backbone.View
     render: () ->
-        @$el.html @options.template @model.toHumanJSON()
+        @$el.html @options.template @model.toJSON { nest: true }
         @rating = new UI.Rating
             el     : @$ 'div'
             field  : 'rating'

@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# Thu, 14 Nov 2013 16:56:15 -0600 | 8ccaf3f386d529ebdb8596a99e35de25
+# Thu, 21 Nov 2013 07:25:40 -0600 | 33bda4738350927e0368768bba515824
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -24,22 +24,24 @@ class Models.CharacterHasMerit extends Backbone.Model
 
     parse: (raw) ->
         id: parseInt raw.id, 10
-        character: parseInt raw.character, 10
-        trait: raw.trait
+        character: Character.Objects.Character
+        trait: Traits.Objects.Merit.get raw.trait
         rating: parseInt raw.rating, 10
         specification: raw.specification
         description: raw.description
 
-    toJSON: () ->
+    toJSON: (options) ->
+        options = {} if not options?
         attr = _.clone @attributes
-        attr.character = attr.character.id
-        attr.trait = attr.trait.id
-        attr
 
-    toHumanJSON: () ->
-        attr = _.clone @attributes
-        attr.character = attr.character.toHumanJSON()
-        attr.trait = attr.trait.toHumanJSON()
+        if options.nest
+            attr.character = attr.character.toJSON options
+            attr.trait = attr.trait.toJSON options
+
+        else
+            attr.character = attr.character.id
+            attr.trait = attr.trait.id
+
         attr
 
     url: () ->

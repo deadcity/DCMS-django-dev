@@ -1,28 +1,29 @@
 Datetime = Tools.create_namespace 'Datetime'
 
-Datetime.MAX_DATE = 100000 * 24 * 60 * 60 * 1000000;
+Datetime.MILLISECONDS_PER_DAY = 24 * 60 * 60 * 1000
+Datetime.MAX_DATE = 100000000 * Datetime.MILLISECONDS_PER_DAY;
 
 _truncate = (x) -> parseInt x, 10
 
 
 ###
   Simple example: Find the tens and hundredths of x = 234.117.
-    call:    _non_standard_base 234.117, 10, 100
+    call:    _non_standard_base 10, 234.117, 100
     returns: [23, 4, 11.7]
 
   Practical example: Extract the days, hours and minutes from 30.2 hours.
-    call:    _non_standard_base 30.2, 24, 60
+    call:    _non_standard_base 24, 30.2, 60
     returns: [1, 6, 12]
 
   @brief Break out the overflow and underflow from a number with a non-standard base.
-  @arg x The number to break apart.
   @arg upper The upper limit of x.  (Quantity of x per upper unit.)
+  @arg x The number to break apart.
   @arg lower Quantity of lower unit per unit of x.
 ###
-_non_standard_base = (x, upper, lower) ->
+_non_standard_base = (upper, x, lower) ->
     over  = _truncate x / upper
-    under = x - _truncate x
     mid   = _truncate x % upper
+    under = x - _truncate x
 
     [
         if over  != 0 then over          else null
@@ -31,7 +32,7 @@ _non_standard_base = (x, upper, lower) ->
     ]
 
 
-Datetime.Month = new Enum.Enum [
+Datetime.Month = new Tools.Enum [
     { name: 'January',   value:  1 }
     { name: 'February',  }
     { name: 'March',     }
@@ -46,7 +47,7 @@ Datetime.Month = new Enum.Enum [
     { name: 'December',  }
 ]
 
-Datetime.Day_of_Week = new Enum.Enum [
+Datetime.Day_of_Week = new Tools.Enum [
     { name: 'Sunday',    value: 1 }
     { name: 'Monday',    }
     { name: 'Tuesday',   }
@@ -61,13 +62,19 @@ class Datetime.Date
     constructor: (value, options) ->
         options = options ? {}
 
-        if _.isNumber value
-            date = new window.Date value
-        else if _.isString value
-            date = new window.Date value
-            options.UTC = true
-        else if value instanceof window.Date
-            date = value
+        if value instanceof Datetime.Date
+            @_year  = value._year
+            @_month = value._month
+            @_day   = value._day
+            return @
+
+        date = switch
+            when value instanceof window.Date then value
+            when _.isNumber value             then new window.Date value
+            when _.isString value
+                options.UTC = true
+                new window.Date value
+            else null
 
         if date?
             if options.UTC then @_from_utc_date date else @_from_date date
@@ -103,7 +110,7 @@ class Datetime.Date
     day: (value) ->
         if value?
             if target <= 28
-                @_month = value
+                @_day = value
             else
                 @_from_date(@to_builtin_date().setDate value)
         @_day
@@ -112,8 +119,11 @@ class Datetime.Date
     time: () ->
         @to_builtin_date().getTime()
 
+    day_of_week: () ->
+        Datetime.Day_of_Week.get(@to_builtin_date().getDay() + 1)
+
     toString: () ->
-        "#{@_year}-#{if @_month < 10 then '0' else ''}#{@_month.value}-#{if @_day < 10 then '0' else ''}#{@_day}"
+        "#{ @_year }-#{ if @_month < 10 then '0' else '' }#{ @_month.value }-#{ if @_day < 10 then '0' else '' }#{ @_day }"
 
     valueOf: () ->
         @time()
@@ -126,15 +136,18 @@ class Datetime.Time
     constructor: (value, options) ->
         options = options ? {}
 
-        if _.isNumber value
-            time = new Date value
+        if value instanceof Datetime.Time
+            @_hour        = value._hour
+            @_minute      = value._minute
+            @_second      = value._second
+            @_millisecond = value._millisecond
+            return @
 
-        # TODO(emery): parse manually
-        else if _.isString value
-            time = new Date value
-
-        else if value instanceof Date
-            time = value
+        time = switch
+            when value instanceof Date then value
+            when _.isNumber value      then new Date value
+            when _.isString value      then new Date value
+            else null
 
         if time?
             if options.UTC then @_from_utc_time time else @_from_time time
@@ -155,27 +168,27 @@ class Datetime.Time
 
     hour: (value) ->
         if value?
-            [day, @_hour, minute] = _non_standard_base value, 24, 60
+            [day, @_hour, minute] = _non_standard_base 24, value, 60
             @minute minute
         @_hour
 
     minute: (value) ->
         if value?
-            [hour, @_minute, second] = _non_standard_base value, 60, 60
+            [hour, @_minute, second] = _non_standard_base 60, value, 60
             @hour hour
             @second second
         @_minute
 
     second: (value) ->
         if value?
-            [minute, @_second, millisecond] = _non_standard_base value, 60, 1000
+            [minute, @_second, millisecond] = _non_standard_base 60, value, 1000
             @minute minute
             @millisecond millisecond
         @_second
 
     millisecond: (value) ->
         if value?
-            [second, @_millisecond, microsecond] = _non_standard_base value, 1000, 1000
+            [second, @_millisecond, microsecond] = _non_standard_base 1000, value, 1000
             @second second
         @_millisecond
 
@@ -187,6 +200,9 @@ class Datetime.Time
             @_second,
             @_millisecond
         ).valueOf()
+
+    toString: () ->
+        "#{ @_hour }:#{ if @_minute < 10 then '0' else '' }#{ @_minute }:#{ if @_second < 10 then '0' else '' }#{ @_second }"
 
     valueOf: () ->
         @time()

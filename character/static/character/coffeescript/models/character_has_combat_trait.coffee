@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# Thu, 14 Nov 2013 16:56:14 -0600 | 70944cb548f00437c7102d99b1e49e00
+# Thu, 21 Nov 2013 07:25:39 -0600 | 9e931493f755e668b20391b8c2ee367b
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -22,20 +22,22 @@ class Models.CharacterHasCombatTrait extends Backbone.Model
 
     parse: (raw) ->
         id: parseInt raw.id, 10
-        character: parseInt raw.character, 10
-        trait: raw.trait
+        character: Character.Objects.Character
+        trait: Traits.Objects.CombatTrait.get raw.trait
         rating: parseInt raw.rating, 10
 
-    toJSON: () ->
+    toJSON: (options) ->
+        options = {} if not options?
         attr = _.clone @attributes
-        attr.character = attr.character.id
-        attr.trait = attr.trait.id
-        attr
 
-    toHumanJSON: () ->
-        attr = _.clone @attributes
-        attr.character = attr.character.toHumanJSON()
-        attr.trait = attr.trait.toHumanJSON()
+        if options.nest
+            attr.character = attr.character.toJSON options
+            attr.trait = attr.trait.toJSON options
+
+        else
+            attr.character = attr.character.id
+            attr.trait = attr.trait.id
+
         attr
 
     url: () ->

@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# Thu, 14 Nov 2013 16:56:13 -0600 | ca9ad0d564330dc2e4e4e2e117989b6b
+# Thu, 21 Nov 2013 07:25:38 -0600 | 0d5aeee0570819b676188042e6861185
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -30,13 +30,15 @@ class Models.Flaw extends Backbone.Model
         requires_specification: raw.requires_specification
         requires_description: raw.requires_description
 
-    toJSON: () ->
+    toJSON: (options) ->
+        options = {} if not options?
         attr = _.clone @attributes
-        attr.type = attr.type.id
-        attr
 
-    toHumanJSON: () ->
-        attr = _.clone @attributes
+        if options.nest
+
+        else
+            attr.type = attr.type.id
+
         attr
 
     url: () ->

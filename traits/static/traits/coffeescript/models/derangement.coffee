@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# Thu, 14 Nov 2013 16:56:13 -0600 | 6279623c68313b314bf53d3039691200
+# Thu, 21 Nov 2013 07:25:38 -0600 | e5d37256a9f54621930da1e08e544618
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -28,13 +28,15 @@ class Models.Derangement extends Backbone.Model
         type: Traits.Enums.DerangementType.get raw.type
         requires_specification: raw.requires_specification
 
-    toJSON: () ->
+    toJSON: (options) ->
+        options = {} if not options?
         attr = _.clone @attributes
-        attr.type = attr.type.id
-        attr
 
-    toHumanJSON: () ->
-        attr = _.clone @attributes
+        if options.nest
+
+        else
+            attr.type = attr.type.id
+
         attr
 
     url: () ->

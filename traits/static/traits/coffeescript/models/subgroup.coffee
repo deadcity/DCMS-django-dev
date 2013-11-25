@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# Thu, 14 Nov 2013 16:56:14 -0600 | 90603b66460fba2c1250b31dfa163b84
+# Thu, 21 Nov 2013 07:25:39 -0600 | 7d212cbc185fcdb905d464e20e43cb85
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -24,12 +24,14 @@ class Models.Subgroup extends Backbone.Model
         enabled: raw.enabled
         name: raw.name
 
-    toJSON: () ->
+    toJSON: (options) ->
+        options = {} if not options?
         attr = _.clone @attributes
-        attr
 
-    toHumanJSON: () ->
-        attr = _.clone @attributes
+        if options.nest
+
+        else
+
         attr
 
     url: () ->

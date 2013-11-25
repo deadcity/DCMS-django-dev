@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# Thu, 14 Nov 2013 16:56:12 -0600 | 98f7813c6cc4709d1c86c2bdb3955c06
+# Thu, 21 Nov 2013 07:25:37 -0600 | b88cfb149427f73a46123dbd9e128007
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -26,13 +26,15 @@ class Models.Attribute extends Backbone.Model
         name: raw.name
         type: Traits.Enums.AttributeType.get raw.type
 
-    toJSON: () ->
+    toJSON: (options) ->
+        options = {} if not options?
         attr = _.clone @attributes
-        attr.type = attr.type.id
-        attr
 
-    toHumanJSON: () ->
-        attr = _.clone @attributes
+        if options.nest
+
+        else
+            attr.type = attr.type.id
+
         attr
 
     url: () ->

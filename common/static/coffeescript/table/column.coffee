@@ -1,8 +1,8 @@
-Enum_NS   = Tools.create_namespace 'Table.Enum'
-Models_NS = Tools.create_namespace 'Table.Models'
-Views_NS  = Tools.create_namespace 'Table.Views'
+Enums  = Tools.create_namespace 'Table.Enums'
+Models = Tools.create_namespace 'Table.Models'
+Views  = Tools.create_namespace 'Table.Views'
 
-SORT_DIRECTION = Enum_NS.SORT_DIRECTION = new Enum.Enum [
+SORT_DIRECTION = Enums.SORT_DIRECTION = new Tools.Enum [
     { name: 'UNSORTED',   symbol: '', },
     { name: 'ASCENDING',  symbol: ' ▲', },
     { name: 'DESCENDING', symbol: ' ▼', },
@@ -15,10 +15,10 @@ SORT_DIRECTION = Enum_NS.SORT_DIRECTION = new Enum.Enum [
   @prop model - the column presentation model for this column
 ###
 
-class Views_NS.Header extends Backbone.View
+class Views.Header extends Backbone.View
     tagName: 'th'
     template: _.template '<%= header %>' +
-        "<span class='table-sort-indicator'><%= sort_direction.symbol %></span>"
+        "<% if (sort_func) { %><span class='table-sort-indicator'><%= sort_direction.symbol %></span><% } %>"
 
     initialize: (options) ->
         @listenTo @model, 'destroy', @remove
@@ -30,7 +30,7 @@ class Views_NS.Header extends Backbone.View
 
     render: () ->
         @$el.html @template @model.toJSON()
-        if @model.get 'sortable'
+        if @model.has 'sort_func'
             @$el.addClass 'sortable'
         else
             @$el.removeClass 'sortable'
@@ -47,24 +47,27 @@ class Views_NS.Header extends Backbone.View
 
   @attr header         - text displayed as the column's header
   @attr field          - attribute name in the domain model this column corresponds to
+  @attr sort_func      - function used to extract a sortable value from fields
   @attr sort_direction - enumeration used interally for sorting
-                         default: Table.Enum.SORT_DIRECTION.UNSORTED
+                         default: Table.Enums.SORT_DIRECTION.UNSORTED
 ###
 
-class Models_NS.ColumnPresentation extends Backbone.Model
+class Models.ColumnPresentation extends Backbone.Model
     defaults:
         header: null
         field:  null
 
-        sortable:       true
+        sort_func:      undefined
         sort_direction: SORT_DIRECTION.UNSORTED
 
     initialize: (attributes, options) ->
-        @HeaderView = options?.HeaderView ? Views_NS.Header
+        if attributes.sort_func is undefined
+            @set 'sort_func', (field) -> field ? ''
+        @HeaderView = options?.HeaderView ? Views.Header
         @on 'change:sort_direction', @sort_cascade, @
 
     sort_cascade: () ->
-        if not @get 'sortable' then return
+        if not @has 'sort_func' then return
 
         sort_direction = @get 'sort_direction'
         if sort_direction is SORT_DIRECTION.UNSORTED
@@ -73,7 +76,7 @@ class Models_NS.ColumnPresentation extends Backbone.Model
             @trigger 'sort:set',   @, sort_direction
 
     cycle_sort: () ->
-        if not @get 'sortable' then return
+        if not @has 'sort_func' then return
 
         switch @get 'sort_direction'
             when SORT_DIRECTION.UNSORTED   then @set 'sort_direction', SORT_DIRECTION.ASCENDING

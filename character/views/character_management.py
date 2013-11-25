@@ -182,13 +182,7 @@ def new_character (request):
     character = Character(
         user = request.user,
         status = CharacterStatus.EDITING,
-        creature_type = CreatureType.objects.get(name = 'Vampire'),
-        # TODO(emery): have these default to values like "(not selected)" instead.
-        genealogy = Genealogy.objects.get(name = 'Daeva'),
-        affiliation = Genealogy.objects.get(name = 'Carthian Movement'),
-        # subgroup
-        virtue = Virtue.objects.get(name = 'Charity'),
-        vice = Vice.objects.get(name = 'Envy')
+        creature_type = CreatureType.objects.get(name = 'Vampire')
     )
     character.save()
 
@@ -217,7 +211,7 @@ def character_edit (request, pk):
         'character': Character.objects.get(pk = pk),
         'is_storyteller': is_storyteller(user)
     }
-    if (context['character'].user != user or context['character'].status != Status.objects.get(name = 'Editing')) and not is_storyteller(user):
+    if (context['character'].user != user or context['character'].status != CharacterStatus.EDITING) and not is_storyteller(user):
         return redirect('character_list')
 
     add_character_enums_to_context(context)

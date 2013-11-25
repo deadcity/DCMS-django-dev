@@ -1,7 +1,7 @@
-Enum_NS = Tools.create_namespace 'Enum'
+Tools.create_namespace 'Tools'
 
 
-class Enum_NS.Element
+class EnumElement
     constructor: (pairs...) ->
         @[key] = value for [key, value] in pairs
 
@@ -19,7 +19,7 @@ class Enum_NS.Element
         attrs
 
 
-class Enum_NS.Enum
+class Tools.Enum
     constructor: (elements) ->
         cur_val = -1
         @_elements = []
@@ -28,7 +28,7 @@ class Enum_NS.Enum
                 el.value = el.id
             cur_val = el.value ? ++cur_val
             el = _.extend _.clone(el), {value: cur_val}
-            @_elements.push new Enum_NS.Element _.pairs(el)...
+            @_elements.push new EnumElement _.pairs(el)...
 
         @[el.name] = el for el in @_elements
         @_by_value = {}

@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# Thu, 14 Nov 2013 16:56:13 -0600 | 45434e4b99db085afdc85192491b329d
+# Thu, 21 Nov 2013 07:25:38 -0600 | 2d90036a46cd75a870f47eebbaa72e37
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -24,12 +24,14 @@ class Models.Genealogy extends Backbone.Model
         enabled: raw.enabled
         name: raw.name
 
-    toJSON: () ->
+    toJSON: (options) ->
+        options = {} if not options?
         attr = _.clone @attributes
-        attr
 
-    toHumanJSON: () ->
-        attr = _.clone @attributes
+        if options.nest
+
+        else
+
         attr
 
     url: () ->

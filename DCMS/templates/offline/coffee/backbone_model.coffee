@@ -21,7 +21,7 @@ class Models.{{ model|meta:'object_name' }} extends Backbone.Model
     parse: (raw) ->
       {% for field in model|meta:'fields' %}
       {% if field.name == 'character' %}
-        {{ field.name }}: parseInt raw.character, 10
+        {{ field.name }}: Character.Objects.Character
       {% elif field|checkinstance:'django.db.models.fields.AutoField' %}
         {{ field.name }}: parseInt raw.{{ field.name }}, 10
       {% elif field|checkinstance:'django.db.models.fields.IntegerField' %}
@@ -35,9 +35,8 @@ class Models.{{ model|meta:'object_name' }} extends Backbone.Model
       {% elif field|checkinstance:'traits.models.EnumModelKey' %}
         {{ field.name }}: {{ field|related_parent|meta:'app_label'|title }}.Enums.{{ field|related_parent|meta:'object_name' }}.get raw.{{ field.name }}
       {% elif field|checkinstance:'common.fields.EnumField' %}
-        {# TODO(emery): finish defining #}
-        {# {{ field.name }}: {{ model|meta:'app_label'|title }}.Enum.{{ field.enum. }} #}
-      {% elif field|checkinstance:'django.db.models.fields.ForeignKey' %}
+        {{ field.name }}: {{ model|meta:'app_label'|title }}.Enums.{{ field.enum. }}
+      {% elif field|checkinstance:'django.db.models.fields.related.ForeignKey' %}
         {{ field.name }}: {{ field|related_parent|meta:'app_label'|title }}.Objects.{{ field|related_parent|meta:'object_name' }}.get raw.{{ field.name }}
       {% else %}
         {{ field.name }}: raw.{{ field.name }}
@@ -45,30 +44,32 @@ class Models.{{ model|meta:'object_name' }} extends Backbone.Model
       {% endfor %}
     {% endtrimlines %}
 
-    {% trimlines %}
-    toJSON: () ->
+    toJSON: (options) ->
+        options = {} if not options?
         attr = _.clone @attributes
-      {% for field in model|meta:'fields' %}
-      {% if field|checkinstance:'django.db.models.CommaSeparatedIntegerField' %}
-        attr.{{ field.name }} = attr.{{ field.name }}.join()
-      {% elif field|checkinstance:'django.db.models.ForeignKey' %}
-        attr.{{ field.name }} = attr.{{ field.name }}.id
-      {% endif %}
-      {% endfor %}
-        attr
-    {% endtrimlines %}
 
-    {% trimlines %}
-    toHumanJSON: () ->
-        attr = _.clone @attributes
-      {% for field in model|meta:'fields' %}
-      {% if field|checkinstance:'traits.models.EnumModelKey' %}
-      {% elif field|checkinstance:'django.db.models.ForeignKey' %}
-        attr.{{ field.name }} = attr.{{ field.name }}.toHumanJSON()
-      {% endif %}
-      {% endfor %}
+        {% trimlines %}
+        if options.nest
+          {% for field in model|meta:'fields' %}
+          {% if field|checkinstance:'traits.models.EnumModelKey' %}
+          {% elif field|checkinstance:'django.db.models.ForeignKey' %}
+            attr.{{ field.name }} = attr.{{ field.name }}.toJSON options
+          {% endif %}
+          {% endfor %}
+        {% endtrimlines %}
+
+        {% trimlines %}
+        else
+          {% for field in model|meta:'fields' %}
+          {% if field|checkinstance:'django.db.models.CommaSeparatedIntegerField' %}
+            attr.{{ field.name }} = attr.{{ field.name }}.join()
+          {% elif field|checkinstance:'django.db.models.fields.related.ForeignKey' %}
+            attr.{{ field.name }} = attr.{{ field.name }}.id
+          {% endif %}
+          {% endfor %}
+        {% endtrimlines %}
+
         attr
-    {% endtrimlines %}
 
     url: () ->
         "#{ DCMS.Settings.URL_PREFIX }/api/{{ model|meta:'app_label' }}/{{ model|meta:'object_name' }}/#{ if @id? then "#{ @id }/" else '' }"

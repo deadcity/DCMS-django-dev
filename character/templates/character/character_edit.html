@@ -71,11 +71,23 @@
         <div id='character-basics'>
             <span class='label'>Character Name:</span> <input type='text' name='name' value='<%= name %>' /><br />
             <span class='label'>Character Status:</span> <%= status.name %><br />
-            <span class='label'><%= creature_type.genealogy_name %>:</span> <select name='genealogy'></select><br />
-            <span class='label'><%= creature_type.affiliation_name %>:</span> <select name='affiliation'></select><br />
-            {# <span class='label'><%= creature_type.subgroup_name %>:</span> <select name='subgroup'></select><br /> #}
-            <span class='label'>Virtue:</span> <select name='virtue'></select><br />
-            <span class='label'>Vice:</span> <select name='vice'></select><br />
+            <span class='label'><%= creature_type.genealogy_name %>:</span> <select name='genealogy'>
+                <option disabled=true<% if (genealogy) { %> selected=true<% } %>>select <%= creature_type.genealogy_name %>...</option>
+            </select><br />
+            <span class='label'><%= creature_type.affiliation_name %>:</span> <select name='affiliation'>
+                <option disabled=true<% if (affiliation) { %> selected=true<% } %>>select <%= creature_type.affiliation_name %>...</option>
+            </select><br />
+        {% comment %}
+            <span class='label'><%= creature_type.subgroup_name %>:</span> <select name='subgroup'>
+                <option disabled=true<% if (subgroup) { %> selected=true<% } %>>select <%= creature_type.subgroup_name %>...</option>
+            </select><br />
+        {% endcomment %}
+            <span class='label'>Virtue:</span> <select name='virtue'>
+                <option disabled=true<% if (virtue) { %> selected=true<% } %>>select virtue...</option>
+            </select><br />
+            <span class='label'>Vice:</span> <select name='vice'>
+                <option disabled=true<% if (vice) { %> selected=true<% } %>>select vice...</option>
+            </select><br />
         </div>
     </script>
 
@@ -174,26 +186,22 @@
     <script type='text/javascript'>
         Tools.create_namespace('Traits.Enums');
         Tools.create_namespace('Traits.Objects');
+        Tools.create_namespace('Character.Enums');
         Tools.create_namespace('Character.Objects');
 
-        Traits.Enums.Vice   = new Enum.Enum({{ vices   | serialize_json | safe }});
-        Traits.Enums.Virtue = new Enum.Enum({{ virtues | serialize_json | safe }});
+        Traits.Enums.Vice   = new Tools.Enum({{ vices   | serialize_json | safe }});
+        Traits.Enums.Virtue = new Tools.Enum({{ virtues | serialize_json | safe }});
 
         Traits.Objects.Affiliation  = new Backbone.Collection({{ affiliations   | serialize_json | safe }}, { model: Traits.Models.Affiliation  });
         Traits.Objects.CreatureType = new Backbone.Collection({{ creature_types | serialize_json | safe }}, { model: Traits.Models.CreatureType });
         Traits.Objects.Genealogy    = new Backbone.Collection({{ genealogies    | serialize_json | safe }}, { model: Traits.Models.Genealogy    });
         Traits.Objects.Subgroup     = new Backbone.Collection({{ subgroups      | serialize_json | safe }}, { model: Traits.Models.Subgroup     });
 
-        Traits.Enums.AttributeType   = new Enum.Enum({{ attribute_types   | serialize_json | safe }});
-        Traits.Enums.DerangementType = new Enum.Enum({{ derangement_types | serialize_json | safe }});
-        Traits.Enums.FlawType        = new Enum.Enum({{ flaw_types        | serialize_json | safe }});
-        Traits.Enums.MeritType       = new Enum.Enum({{ merit_types       | serialize_json | safe }});
-        Traits.Enums.SkillType       = new Enum.Enum({{ skill_types       | serialize_json | safe }});
-        Traits.Enums.Status          = new Enum.Enum([
-            {% for elem in statuses|dictsort:'value' %}
-                { name: '{{ elem.name }}', value: {{ elem.value }} },
-            {% endfor %}
-        ]);
+        Traits.Enums.AttributeType   = new Tools.Enum({{ attribute_types   | serialize_json | safe }});
+        Traits.Enums.DerangementType = new Tools.Enum({{ derangement_types | serialize_json | safe }});
+        Traits.Enums.FlawType        = new Tools.Enum({{ flaw_types        | serialize_json | safe }});
+        Traits.Enums.MeritType       = new Tools.Enum({{ merit_types       | serialize_json | safe }});
+        Traits.Enums.SkillType       = new Tools.Enum({{ skill_types       | serialize_json | safe }});
 
         Traits.Objects.Attribute     = new Backbone.Collection({{ attributes      | serialize_json | safe }}, { model: Traits.Models.Attribute,     parse: true });
         Traits.Objects.CharacterText = new Backbone.Collection({{ character_texts | serialize_json | safe }}, { model: Traits.Models.CharacterText, parse: true });
@@ -204,6 +212,12 @@
         Traits.Objects.MiscTrait     = new Backbone.Collection({{ misc_traits     | serialize_json | safe }}, { model: Traits.Models.MiscTrait,     parse: true });
         Traits.Objects.Power         = new Backbone.Collection({{ powers          | serialize_json | safe }}, { model: Traits.Models.Power,         parse: true });
         Traits.Objects.Skill         = new Backbone.Collection({{ skills          | serialize_json | safe }}, { model: Traits.Models.Skill,         parse: true });
+
+        Character.Enums.Status = new Tools.Enum([
+            {% for elem in statuses|dictsort:'value' %}
+                { name: '{{ elem.name }}', value: {{ elem.value }} },
+            {% endfor %}
+        ]);
 
         Character.Objects.Character = new Character.Models.Character({{ character | serialize_json | safe }}, { parse: true });
 

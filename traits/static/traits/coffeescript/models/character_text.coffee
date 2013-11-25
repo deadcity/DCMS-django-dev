@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# Thu, 14 Nov 2013 16:56:12 -0600 | c588ffd47fd8e6c5201b63372703593e
+# Thu, 21 Nov 2013 07:25:37 -0600 | 9fd8041ae467c7beb3a3dfcb991f499a
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -26,12 +26,14 @@ class Models.CharacterText extends Backbone.Model
         name: raw.name
         hide_from_player: raw.hide_from_player
 
-    toJSON: () ->
+    toJSON: (options) ->
+        options = {} if not options?
         attr = _.clone @attributes
-        attr
 
-    toHumanJSON: () ->
-        attr = _.clone @attributes
+        if options.nest
+
+        else
+
         attr
 
     url: () ->

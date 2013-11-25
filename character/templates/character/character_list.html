@@ -63,19 +63,21 @@
     <script type='text/javascript'>
         Tools.create_namespace('Traits.Enums');
         Tools.create_namespace('Traits.Objects');
+        Tools.create_namespace('Character.Enums');
 
-        Traits.Enums.Status = new Enum.Enum([
-            {% for elem in statuses|dictsort:'value' %}
-                { name: '{{ elem.name }}', value: {{ elem.value }} },
-            {% endfor %}
-        ]);
-        Traits.Enums.Vice   = new Enum.Enum({{ vices    | serialize_json | safe }});
-        Traits.Enums.Virtue = new Enum.Enum({{ virtues  | serialize_json | safe }});
+        Traits.Enums.Vice   = new Tools.Enum({{ vices    | serialize_json | safe }});
+        Traits.Enums.Virtue = new Tools.Enum({{ virtues  | serialize_json | safe }});
 
         Traits.Objects.Affiliation  = new Backbone.Collection({{ affiliations   | serialize_json | safe }}, {model: Traits.Models.Affiliation  });
         Traits.Objects.CreatureType = new Backbone.Collection({{ creature_types | serialize_json | safe }}, {model: Traits.Models.CreatureType });
         Traits.Objects.Genealogy    = new Backbone.Collection({{ genealogies    | serialize_json | safe }}, {model: Traits.Models.Genealogy    });
         Traits.Objects.Subgroup     = new Backbone.Collection({{ subgroups      | serialize_json | safe }}, {model: Traits.Models.Subgroup     });
+
+        Character.Enums.Status = new Tools.Enum([
+            {% for elem in statuses|dictsort:'value' %}
+                { name: '{{ elem.name }}', value: {{ elem.value }} },
+            {% endfor %}
+        ]);
     </script>
 
     <script type='text/javascript'>
@@ -96,9 +98,9 @@
                 { header: 'clan',          field: 'clan'          }
                 { header: 'covenant',      field: 'covenant'      }
                 { header: 'status' }
-                {}  # submit button
-                {}  # edit button
-                {}  # disable/enable button
+                { sort_func: null }  # submit button
+                { sort_func: null }  # edit button
+                { sort_func: null }  # disable/enable button
             ]
 
             RowPresentation: class extends Table.Models.RowPresentation

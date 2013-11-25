@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# Thu, 14 Nov 2013 16:56:13 -0600 | a4cdf0a183ef65ef410b4423f8050b8f
+# Thu, 21 Nov 2013 07:25:38 -0600 | 3dd059481d39f00c145edc2f63ae3ba1
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -32,12 +32,14 @@ class Models.CreatureType extends Backbone.Model
         subgroup_name: raw.subgroup_name
         power_name: raw.power_name
 
-    toJSON: () ->
+    toJSON: (options) ->
+        options = {} if not options?
         attr = _.clone @attributes
-        attr
 
-    toHumanJSON: () ->
-        attr = _.clone @attributes
+        if options.nest
+
+        else
+
         attr
 
     url: () ->

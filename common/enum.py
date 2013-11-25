@@ -1,17 +1,12 @@
 from itertools import product
 
 
-def make_getter    (key): return property(lambda self: getattr(self, '__' + key))
-def make_enum_from (key): return classmethod(lambda cls, value: cls._indeces[key][value])
-
-
 class Element (object):
     def __init__ (self, name, **kwargs):
         self.__name = name
 
         for key, value in kwargs.items():
             setattr(self, '__' + key, value)
-            setattr(self, key, make_getter(key))
 
     @property
     def name (self):
@@ -37,44 +32,37 @@ class _Enum_Metaclass (type):
             ('_elements', elements),
             ('_indeces',  indeces)
         ])
+        new_class = super(_Enum_Metaclass, mtcls).__new__(mtcls, name, bases, ext_attrs)
+        Elem = type(name + '_Element', (Element,), { '_enum': new_class })
+        setattr(new_class, '_Element', Elem)
 
-        raw_elems = {}
         for name, fields in attrs.items():
             if name.startswith('__') and name.endswith('__'):
                 continue
 
             if not type(fields) is dict:
-                fields = { 'value: fields' }
+                fields = { 'value': fields }
 
-            raw_elems[name] = fields
-
-            # Identify enum element in each index.
-            ext_attrs[name] = make_getter(name)
-            for key, value in fields.items():
-                if not key in indeces:
-                    ext_attrs['from_' + key] = make_enum_from(key)
-                    for n,f in raw_elems.items():
-                        if not key in f:
-                            f[key] = None
-
-        # Make Enumeration and Element classes.
-        new_class = super(_Enum_Metaclass, mtcls).__new__(mtcls, name, bases, ext_attrs)
-        Elem = type(name + '_Element', (Element,), { '_enum': new_class })
-
-        for name, fields in raw_elems.items():
             # Create enum element.
             elem = Elem(name, **fields)
             elements.append(elem)
             setattr(new_class, name, elem)
 
+            # Identify enum element in each index.
+            make_elem_prop = lambda key: property(lambda self: getattr(self, '__' + key))
+            make_enum_from = lambda key: classmethod(lambda cls, value: cls._indeces[key][value])
             for key, value in fields.items():
                 if key in indeces:
                     index = indeces[key]
                 else:
-                    index = {}
-                    indeces[key] = index
-                if value:
-                    index[value] = elem
+                    index = indeces[key] = {}
+                    setattr(Elem,      key,           make_elem_prop(key))
+                    setattr(new_class, 'from_' + key, make_enum_from(key))
+                index[value] = elem
+
+        for elem, field in product(elements, indeces.keys()):
+            if not hasattr(elem, '__' + field):
+                setattr(elem, '__' + field, None)
 
         return new_class
 
