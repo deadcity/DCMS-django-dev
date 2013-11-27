@@ -46,11 +46,10 @@ class Command (NoArgsCommand):
                 'coffee', 'offline/coffee/backbone_model.coffee', { 'model': trait }
             )
 
-        self.render(path.join(settings.PROJECT_PATH, 'traits', 'admin',       'trait_admins.py'),      'py', 'offline/py/admin.py',       { 'app_name': 'traits', 'models': traits })
-        self.render(path.join(settings.PROJECT_PATH, 'traits', 'admin',       'enum_admins.py'),       'py', 'offline/py/admin_enum.py',  { 'app_name': 'traits', 'models': trait_types })
-        self.render(path.join(settings.PROJECT_PATH, 'traits', 'serializers', 'trait_serializers.py'), 'py', 'offline/py/serializers.py', { 'app_name': 'traits', 'models': trait_types + traits })
-        self.render(path.join(settings.PROJECT_PATH, 'traits', 'urls',        'traits_ajax.py'),       'py', 'offline/py/urls.py',        { 'app_name': 'traits', 'models': trait_types + traits })
-        self.render(path.join(settings.PROJECT_PATH, 'traits', 'views',       'traits_ajax.py'),       'py', 'offline/py/views.py',       { 'app_name': 'traits', 'models': trait_types + traits })
+        self.render(path.join(settings.PROJECT_PATH, 'traits', 'admin', 'trait_admins.py'), 'py', 'offline/py/admin.py',       { 'app_name': 'traits', 'models': traits })
+        self.render(path.join(settings.PROJECT_PATH, 'traits', 'admin', 'enum_admins.py'),  'py', 'offline/py/admin_enum.py',  { 'app_name': 'traits', 'models': trait_types })
+        self.render(path.join(settings.PROJECT_PATH, 'traits', 'serializers.py'),           'py', 'offline/py/serializers.py', { 'app_name': 'traits', 'models': trait_types + traits })
+        self.render(path.join(settings.PROJECT_PATH, 'traits', 'views.py'),                 'py', 'offline/py/views.py',       { 'app_name': 'traits', 'models': trait_types + traits })
 
 
         # # # # # # #
