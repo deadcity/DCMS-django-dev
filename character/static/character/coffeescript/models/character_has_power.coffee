@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# Thu, 21 Nov 2013 07:25:40 -0600 | e4ee72384d92fb92d55114d7e8cc0de9
+# Sat, 30 Nov 2013 05:25:25 -0600 | 202a608833005da6cd87c88ee7381daf
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -39,5 +39,5 @@ class Models.CharacterHasPower extends Backbone.Model
         attr
 
     url: () ->
-        "#{ DCMS.Settings.URL_PREFIX }/api/character/CharacterHasPower/#{ if @id? then "#{ @id }/" else '' }"
+        "#{ DCMS.Settings.URL_PREFIX }/character/CharacterHasPower/#{ if @id? then "#{ @id }/" else '' }"
 

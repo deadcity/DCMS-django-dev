@@ -33,14 +33,14 @@
 {% block table_definition %}
     <script type='text/html' id='template_table-row'>
         <td><%= record.user.username      %></td>
-        <td><a href="{{ URL_PREFIX }}/characters/<%= record.id %>/show/"><%= record.name %></a></td>
+        <td><a href="{{ URL_PREFIX }}/character/<%= record.id %>/"><%= record.name %></a></td>
         <td><%= record.creature_type.name %></td>
         <td><%= record.genealogy.name     %></td>
         <td><%= record.affiliation.name   %></td>
         <td><%= record.status.name        %></td>
         <td>
             <% if (can_submit) { %>
-                <form action="{{ URL_PREFIX }}/characters/<%= record.id %>/submit/" method="POST" class="submit-character-form">
+                <form action="{{ URL_PREFIX }}/character/<%= record.id %>/submit/" method="POST" class="submit-character-form">
                     {% csrf_token %}
                     <input type="submit" value="submit" class="btn btn-mini" />
                 </form>
@@ -48,7 +48,7 @@
         </td>
         <td>
             <% if (can_edit) { %>
-                <a href="{{ URL_PREFIX }}/characters/<%= record.id %>/edit/" class="btn btn-mini">edit</a>
+                <a href="{{ URL_PREFIX }}/character/<%= record.id %>/edit/" class="btn btn-mini">edit</a>
             <% } %>
         </td>
         <td>
@@ -167,7 +167,7 @@
 
 
 {% block posttable_content %}
-    <form method='link' action='{% url 'new_character' %}'>
+    <form method='post' action='{% url 'charactermanagement-new' %}'>
         <input type='submit' value='New Character' />
     </form>
 {% endblock posttable_content %}

@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# Thu, 21 Nov 2013 07:25:40 -0600 | 33bda4738350927e0368768bba515824
+# Sat, 30 Nov 2013 05:25:25 -0600 | 6482c76d035d1467227483213a099ec2
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -45,5 +45,5 @@ class Models.CharacterHasMerit extends Backbone.Model
         attr
 
     url: () ->
-        "#{ DCMS.Settings.URL_PREFIX }/api/character/CharacterHasMerit/#{ if @id? then "#{ @id }/" else '' }"
+        "#{ DCMS.Settings.URL_PREFIX }/character/CharacterHasMerit/#{ if @id? then "#{ @id }/" else '' }"
 

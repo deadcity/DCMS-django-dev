@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# Thu, 21 Nov 2013 07:25:37 -0600 | 9fd8041ae467c7beb3a3dfcb991f499a
+# Sat, 30 Nov 2013 05:25:23 -0600 | d2884db06c579768becf29ff26d3f0d5
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -37,5 +37,5 @@ class Models.CharacterText extends Backbone.Model
         attr
 
     url: () ->
-        "#{ DCMS.Settings.URL_PREFIX }/api/traits/CharacterText/#{ if @id? then "#{ @id }/" else '' }"
+        "#{ DCMS.Settings.URL_PREFIX }/traits/CharacterText/#{ if @id? then "#{ @id }/" else '' }"
 

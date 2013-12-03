@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# Thu, 21 Nov 2013 07:25:39 -0600 | 59b2a93aace5e33e767a525a7c9a75d7
+# Sat, 30 Nov 2013 05:25:24 -0600 | 8051f770630a4d566d1b7436b1eec506
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -37,5 +37,5 @@ class Models.MiscTrait extends Backbone.Model
         attr
 
     url: () ->
-        "#{ DCMS.Settings.URL_PREFIX }/api/traits/MiscTrait/#{ if @id? then "#{ @id }/" else '' }"
+        "#{ DCMS.Settings.URL_PREFIX }/traits/MiscTrait/#{ if @id? then "#{ @id }/" else '' }"
 

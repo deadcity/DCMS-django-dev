@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# Thu, 21 Nov 2013 07:25:38 -0600 | 2d90036a46cd75a870f47eebbaa72e37
+# Sat, 30 Nov 2013 05:25:24 -0600 | b161a0b680d897ff94c292ff610ec836
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -35,5 +35,5 @@ class Models.Genealogy extends Backbone.Model
         attr
 
     url: () ->
-        "#{ DCMS.Settings.URL_PREFIX }/api/traits/Genealogy/#{ if @id? then "#{ @id }/" else '' }"
+        "#{ DCMS.Settings.URL_PREFIX }/traits/Genealogy/#{ if @id? then "#{ @id }/" else '' }"
 

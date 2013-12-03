@@ -153,7 +153,7 @@
             {% block nav %}
                 <li><a href='/'>Home</a></li>
                 {% if user.is_authenticated %}
-                    <li><a href="{% url 'character_list' %}">Characters</a></li>
+                    <li><a href="{% url 'charactermanagement-list' %}">Characters</a></li>
                     <li><a href="{% url 'logout' %}">Log Out</a></li>
                 {% else %}
                     <li><a href="{% url 'login' %}">Log In</a></li>

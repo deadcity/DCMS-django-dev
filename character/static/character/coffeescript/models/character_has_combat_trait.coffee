@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# Thu, 21 Nov 2013 07:25:39 -0600 | 9e931493f755e668b20391b8c2ee367b
+# Sat, 30 Nov 2013 05:25:25 -0600 | 660516e4d6d824bfaa76cb99222afd5f
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -41,5 +41,5 @@ class Models.CharacterHasCombatTrait extends Backbone.Model
         attr
 
     url: () ->
-        "#{ DCMS.Settings.URL_PREFIX }/api/character/CharacterHasCombatTrait/#{ if @id? then "#{ @id }/" else '' }"
+        "#{ DCMS.Settings.URL_PREFIX }/character/CharacterHasCombatTrait/#{ if @id? then "#{ @id }/" else '' }"
 

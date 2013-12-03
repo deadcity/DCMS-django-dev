@@ -4,39 +4,44 @@ from rest_framework.compat import url
 from rest_framework.routers import DefaultRouter, Route, SimpleRouter
 
 
-def _replace_methodname(format_string, url_subpath, methodnamehyphen):
+def _replace_methodname(format_string, url_subpath, route_subname):
     ret = format_string
     ret = ret.replace('{url_subpath}',      url_subpath)
-    ret = ret.replace('{methodnamehyphen}', methodnamehyphen)
+    ret = ret.replace('{route_subname}', route_subname)
     return ret
 
 def _flatten(list_of_fields):
     return itertools.chain(*list_of_fields)
 
-def _route_method(bind_type, methods, url_subpath, kwargs):
+def _route_method(bind_type, methods, kwargs):
     def decorator(func):
-        func.bind_type       = bind_type
+        func.bind_type = bind_type
         func.bind_to_methods = methods
-        func.url_subpath     = url_subpath
+        if 'name' in kwargs:
+            func.name = kwargs.pop('name')
+        if 'route_subname' in kwargs:
+            func.route_subname = kwargs.pop('route_subname')
+        if 'url_subpath' in kwargs:
+            func.url_subpath = kwargs.pop('url_subpath')
         func.kwargs          = kwargs
         return func
     return decorator
 
 
-def link(url_subpath = None, **kwargs):
-    return _route_method('link', ['get'], url_subpath, kwargs)
+def link(**kwargs):
+    return _route_method('link', ['get'], kwargs)
 
 
-def action(methods = ['post'], url_subpath = None, **kwargs):
-    return _route_method('action', methods, url_subpath, kwargs)
+def action(methods = ['post'], **kwargs):
+    return _route_method('action', methods, kwargs)
 
 
-def list_link(url_subpath = None, **kwargs):
-    return _route_method('list-link', ['get'], url_subpath, kwargs)
+def list_link(**kwargs):
+    return _route_method('list-link', ['get'], kwargs)
 
 
-def list_action(methods = ['post'], url_subpath = None, **kwargs):
-    return _route_method('list-action', methods, url_subpath, kwargs)
+def list_action(methods = ['post'], **kwargs):
+    return _route_method('list-action', methods, kwargs)
 
 
 class _RouteMixin_Metaclass(type):
@@ -78,11 +83,12 @@ class BaseRouter(SimpleRouter):
         """
         base_regex = r'(?P<{lookup_field}>{lookup_pattern})'
         return base_regex.format(
-            lookup_field = getattr(viewset, 'lookup_field', 'pk'),
+            lookup_field = getattr(viewset, 'lookup_field', 'id'),
             lookup_pattern = getattr(
                 viewset,
                 'lookup_pattern',
-                '[^/]+' if self.trailing_slash else '[^/.]+'
+                # '[^/]+' if self.trailing_slash else '[^/.]+'
+                '[^/]+'
             )
         )
 
@@ -115,9 +121,12 @@ class BaseRouter(SimpleRouter):
 
                 # Build the url pattern.
                 regex = route.url
-                regex = regex.replace('{prefix}',         prefix)
-                regex = regex.replace('{lookup}',         lookup)
-                regex = regex.replace('{trailing_slash}', self.trailing_slash)
+                if prefix is '':
+                    regex = regex.replace('{prefix}/', '')
+                else:
+                    regex = regex.replace('{prefix}', prefix)
+                regex = regex.replace('{lookup}', lookup)
+                # regex = regex.replace('{trailing_slash}', self.trailing_slash)
 
                 view = viewset.as_view(mapping, **route.initkwargs)
                 name = route.name.format(basename = basename)
@@ -133,7 +142,8 @@ class BaseRouteMixin(object):
 class ListRouteMixin(BaseRouteMixin):
     routes = {
         'list': Route(
-            url        = r'^{prefix}{trailing_slash}$',
+            # url        = r'^{prefix}{trailing_slash}$',
+            url        = r'^{prefix}/$',
             mapping    = {
                 'get'  : 'list',
                 'post' : 'create',
@@ -147,7 +157,8 @@ class ListRouteMixin(BaseRouteMixin):
 class BatchUpdateListRouteMixin(BaseRouteMixin):
     routes = {
         'batch-update': Route(
-            url        = r'^{prefix}{trailing_slash}$',
+            # url        = r'^{prefix}{trailing_slash}$',
+            url        = r'^{prefix}/$',
             mapping    = {
                 'get'  : 'list',
                 'put'  : 'batch_update',
@@ -162,7 +173,8 @@ class BatchUpdateListRouteMixin(BaseRouteMixin):
 class DetailRouteMixin(BaseRouteMixin):
     routes = {
         'detail': Route(
-            url        = r'^{prefix}/{lookup}{trailing_slash}$',
+            # url        = r'^{prefix}/{lookup}{trailing_slash}$',
+            url        = r'^{prefix}/{lookup}/$',
             mapping    = {
                 'get'    : 'retrieve',
                 'put'    : 'update',
@@ -203,14 +215,15 @@ def _parse_dynamic_routes(viewset, route, dynamic_routes):
         method = getattr(viewset, methodname)
         initkwargs = route.initkwargs.copy()
         initkwargs.update(method.kwargs)
-        url_subpath = getattr(method, 'url_subpath', methodname)
-        if not url_subpath:
-            url_subpath = methodname
-        methodnamehyphen = methodname.replace('_', '-')
+
+        name          = getattr(method, 'name',          methodname)
+        route_subname = getattr(method, 'route_subname', name.replace('_', '-'))
+        url_subpath   = getattr(method, 'url_subpath',   name)
+
         ret.append(Route(
-            url        = _replace_methodname(route.url,  url_subpath, methodnamehyphen),
+            url        = _replace_methodname(route.url,  url_subpath, route_subname),
             mapping    = { httpmethod: methodname for httpmethod in httpmethods },
-            name       = _replace_methodname(route.name, url_subpath, methodnamehyphen),
+            name       = _replace_methodname(route.name, url_subpath, route_subname),
             initkwargs = initkwargs
         ))
     return ret
@@ -219,9 +232,10 @@ def _parse_dynamic_routes(viewset, route, dynamic_routes):
 class DynamicDetailRouteMixin(BaseRouteMixin):
     routes = {
         'dynamic-detail': Route(
-            url        = r'^{prefix}/{lookup}/{url_subpath}{trailing_slash}$',
+            # url        = r'^{prefix}/{lookup}/{url_subpath}{trailing_slash}$',
+            url        = r'^{prefix}/{lookup}/{url_subpath}/$',
             mapping    = None,  # Determined when route is constructed.
-            name       = '{basename}-{methodnamehyphen}',
+            name       = '{basename}-{route_subname}',
             initkwargs = {}
         )
     }
@@ -250,9 +264,10 @@ class DynamicDetailRouteMixin(BaseRouteMixin):
 class DynamicListRouteMixin(BaseRouteMixin):
     routes = {
         'dynamic-list': Route(
-            url        = r'^{prefix}/{url_subpath}{trailing_slash}$',
+            # url        = r'^{prefix}/{url_subpath}{trailing_slash}$',
+            url        = r'^{prefix}/{url_subpath}/$',
             mapping    = None,  # Determined when route is constructed.
-            name       = '{basename}-{methodnamehyphen}',
+            name       = '{basename}-{route_subname}',
             initkwargs = {}
         )
     }

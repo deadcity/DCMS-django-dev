@@ -50,7 +50,7 @@ class Character.Models.Character extends Backbone.Model
         }
 
     url: () ->
-        "#{ DCMS.Settings.URL_PREFIX }/api/character/Character/#{ if @id? then "#{@id}/" else '' }"
+        "#{ DCMS.Settings.URL_PREFIX }/character/Character/#{ if @id? then "#{@id}/" else '' }"
 
     toJSON: (options) ->
         options = {} if not options?

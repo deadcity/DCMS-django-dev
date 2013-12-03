@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# Thu, 21 Nov 2013 07:25:38 -0600 | d776a9a7c931661eae0310ae984a9436
+# Sat, 30 Nov 2013 05:25:23 -0600 | 548a57198b0a41a8aff62b7ee8bdfaa4
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -35,5 +35,5 @@ class Models.CombatTrait extends Backbone.Model
         attr
 
     url: () ->
-        "#{ DCMS.Settings.URL_PREFIX }/api/traits/CombatTrait/#{ if @id? then "#{ @id }/" else '' }"
+        "#{ DCMS.Settings.URL_PREFIX }/traits/CombatTrait/#{ if @id? then "#{ @id }/" else '' }"
 
