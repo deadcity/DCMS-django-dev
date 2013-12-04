@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# 2013-09-17 09:45:58.563058
+# Thu, 21 Nov 2013 07:25:38 -0600 | 2d90036a46cd75a870f47eebbaa72e37
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -10,30 +10,30 @@
 # forget to commit the newly generated files!)
 
 
-Models_NS = Tools.create_namespace 'Traits.Models'
+Models = Tools.create_namespace 'Traits.Models'
 
-class Models_NS.Genealogy extends Backbone.Model
+
+class Models.Genealogy extends Backbone.Model
     defaults:
         id: null
-        name: null
         enabled: null
+        name: null
 
     parse: (raw) ->
-        {
-            id: parseInt raw.id, 10
-            name: raw.name,
-            enabled: raw.enabled,
-        }
+        id: parseInt raw.id, 10
+        enabled: raw.enabled
+        name: raw.name
 
-    toJSON: () ->
-        attr = _.clone this.attributes
+    toJSON: (options) ->
+        options = {} if not options?
+        attr = _.clone @attributes
 
-        attr
+        if options.nest
 
-    toHumanJSON: () ->
-        attr = _.clone this.attributes
+        else
 
         attr
 
     url: () ->
-        "#{ DCMS.Settings.URL_PREFIX }/api/traits/Genealogy/#{ if @id? then "#{@id}/" else '' }"
+        "#{ DCMS.Settings.URL_PREFIX }/api/traits/Genealogy/#{ if @id? then "#{ @id }/" else '' }"
+

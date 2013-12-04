@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# 2013-09-10 11:58:03.321986
+# Fri, 15 Nov 2013 07:34:34 -0600 | b94734211d8eb0777a0301e35bb0032b
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -10,10 +10,15 @@
 # forget to commit the newly generated files!)
 
 
+
 from rest_framework.routers import DefaultRouter
 
-from chronicle.views import ChronicleViewSet, GameViewSet
+from chronicle import views
+
 
 router = DefaultRouter()
-router.register('Chronicle', ChronicleViewSet)
-router.register('Game', GameViewSet)
+
+router.register('Chronicle', views.ChronicleViewSet)
+router.register('Game', views.GameViewSet)
+
+

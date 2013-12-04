@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# 2013-09-10 11:58:03.321986
+# Fri, 15 Nov 2013 07:32:07 -0600 | 29060f221ccdcf5f55316ccb27dd5036
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -10,18 +10,21 @@
 # forget to commit the newly generated files!)
 
 
+
 from rest_framework import serializers
 
-from chronicle.models import Chronicle, Game
+from chronicle import models
 
 
 class ChronicleSerializer (serializers.ModelSerializer):
     class Meta (object):
-        model = Chronicle
-Chronicle.Serializer = ChronicleSerializer
+        model = models.Chronicle
+models.Chronicle.Serializer = ChronicleSerializer
 
 
 class GameSerializer (serializers.ModelSerializer):
     class Meta (object):
-        model = Game
-Game.Serializer = GameSerializer
+        model = models.Game
+models.Game.Serializer = GameSerializer
+
+

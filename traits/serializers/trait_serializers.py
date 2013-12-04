@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# 2013-09-10 11:58:03.321986
+# Fri, 15 Nov 2013 07:32:05 -0600 | 47223c4d6fb606170fdbca0843542a35
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -10,132 +10,129 @@
 # forget to commit the newly generated files!)
 
 
+
 from rest_framework import serializers
 
-from traits.models import AttributeType, DerangementType, FlawType, MeritType, SkillType, Status, Vice, Virtue, Affiliation, Attribute, CharacterText, CombatTrait, CreatureType, Derangement, Flaw, Genealogy, Merit, MiscTrait, Power, Skill, Subgroup
+from traits import models
 
 
 class AttributeTypeSerializer (serializers.ModelSerializer):
     class Meta (object):
-        model = AttributeType
-AttributeType.Serializer = AttributeTypeSerializer
+        model = models.AttributeType
+models.AttributeType.Serializer = AttributeTypeSerializer
 
 
 class DerangementTypeSerializer (serializers.ModelSerializer):
     class Meta (object):
-        model = DerangementType
-DerangementType.Serializer = DerangementTypeSerializer
+        model = models.DerangementType
+models.DerangementType.Serializer = DerangementTypeSerializer
 
 
 class FlawTypeSerializer (serializers.ModelSerializer):
     class Meta (object):
-        model = FlawType
-FlawType.Serializer = FlawTypeSerializer
+        model = models.FlawType
+models.FlawType.Serializer = FlawTypeSerializer
 
 
 class MeritTypeSerializer (serializers.ModelSerializer):
     class Meta (object):
-        model = MeritType
-MeritType.Serializer = MeritTypeSerializer
+        model = models.MeritType
+models.MeritType.Serializer = MeritTypeSerializer
 
 
 class SkillTypeSerializer (serializers.ModelSerializer):
     class Meta (object):
-        model = SkillType
-SkillType.Serializer = SkillTypeSerializer
-
-
-class StatusSerializer (serializers.ModelSerializer):
-    class Meta (object):
-        model = Status
-Status.Serializer = StatusSerializer
+        model = models.SkillType
+models.SkillType.Serializer = SkillTypeSerializer
 
 
 class ViceSerializer (serializers.ModelSerializer):
     class Meta (object):
-        model = Vice
-Vice.Serializer = ViceSerializer
+        model = models.Vice
+models.Vice.Serializer = ViceSerializer
 
 
 class VirtueSerializer (serializers.ModelSerializer):
     class Meta (object):
-        model = Virtue
-Virtue.Serializer = VirtueSerializer
+        model = models.Virtue
+models.Virtue.Serializer = VirtueSerializer
 
 
 class AffiliationSerializer (serializers.ModelSerializer):
     class Meta (object):
-        model = Affiliation
-Affiliation.Serializer = AffiliationSerializer
+        model = models.Affiliation
+models.Affiliation.Serializer = AffiliationSerializer
 
 
 class AttributeSerializer (serializers.ModelSerializer):
     class Meta (object):
-        model = Attribute
-Attribute.Serializer = AttributeSerializer
+        model = models.Attribute
+models.Attribute.Serializer = AttributeSerializer
 
 
 class CharacterTextSerializer (serializers.ModelSerializer):
     class Meta (object):
-        model = CharacterText
-CharacterText.Serializer = CharacterTextSerializer
+        model = models.CharacterText
+models.CharacterText.Serializer = CharacterTextSerializer
 
 
 class CombatTraitSerializer (serializers.ModelSerializer):
     class Meta (object):
-        model = CombatTrait
-CombatTrait.Serializer = CombatTraitSerializer
+        model = models.CombatTrait
+models.CombatTrait.Serializer = CombatTraitSerializer
 
 
 class CreatureTypeSerializer (serializers.ModelSerializer):
     class Meta (object):
-        model = CreatureType
-CreatureType.Serializer = CreatureTypeSerializer
+        model = models.CreatureType
+models.CreatureType.Serializer = CreatureTypeSerializer
 
 
 class DerangementSerializer (serializers.ModelSerializer):
     class Meta (object):
-        model = Derangement
-Derangement.Serializer = DerangementSerializer
+        model = models.Derangement
+models.Derangement.Serializer = DerangementSerializer
 
 
 class FlawSerializer (serializers.ModelSerializer):
     class Meta (object):
-        model = Flaw
-Flaw.Serializer = FlawSerializer
+        model = models.Flaw
+models.Flaw.Serializer = FlawSerializer
 
 
 class GenealogySerializer (serializers.ModelSerializer):
     class Meta (object):
-        model = Genealogy
-Genealogy.Serializer = GenealogySerializer
+        model = models.Genealogy
+models.Genealogy.Serializer = GenealogySerializer
 
 
 class MeritSerializer (serializers.ModelSerializer):
     class Meta (object):
-        model = Merit
-Merit.Serializer = MeritSerializer
+        model = models.Merit
+models.Merit.Serializer = MeritSerializer
 
 
 class MiscTraitSerializer (serializers.ModelSerializer):
     class Meta (object):
-        model = MiscTrait
-MiscTrait.Serializer = MiscTraitSerializer
+        model = models.MiscTrait
+models.MiscTrait.Serializer = MiscTraitSerializer
 
 
 class PowerSerializer (serializers.ModelSerializer):
     class Meta (object):
-        model = Power
-Power.Serializer = PowerSerializer
+        model = models.Power
+models.Power.Serializer = PowerSerializer
 
 
 class SkillSerializer (serializers.ModelSerializer):
     class Meta (object):
-        model = Skill
-Skill.Serializer = SkillSerializer
+        model = models.Skill
+models.Skill.Serializer = SkillSerializer
 
 
 class SubgroupSerializer (serializers.ModelSerializer):
     class Meta (object):
-        model = Subgroup
-Subgroup.Serializer = SubgroupSerializer
+        model = models.Subgroup
+models.Subgroup.Serializer = SubgroupSerializer
+
+

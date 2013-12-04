@@ -2,8 +2,19 @@ from django.db import models
 from django.contrib.auth.models import User
 
 from chronicle.models import Game
+from common.enum import Enum
+from common.fields import EnumField
 from common.metaclasses import Model_Metaclass
 import traits.models as trait_models
+
+
+class CharacterStatus (Enum):
+    EDITING   = { 'value': 10, 'label': 'Editing'   }
+    SUBMITTED = { 'value': 20, 'label': 'Submitted' }
+    APPROVED  = { 'value': 30, 'label': 'Approved'  }
+    ACTIVE    = { 'value': 40, 'label': 'Active'    }
+    DECEASED  = { 'value': 50, 'label': 'Deceased'  }
+    INACTIVE  = { 'value': 60, 'label': 'Inactive'  }
 
 
 class Character (models.Model):
@@ -12,10 +23,9 @@ class Character (models.Model):
     enabled = models.BooleanField(default = True)
     user    = models.ForeignKey(User)
     # chronicle = models.ForeignKey(Chronicle)
-    # status = models.EnumField()
+    status = EnumField(CharacterStatus, db_type = 'INTEGER', blank = True, null = True)
 
     name          = models.CharField(blank = True, max_length = 255)
-    status        = models.ForeignKey(trait_models.Status,       null = True, blank = True)
     creature_type = models.ForeignKey(trait_models.CreatureType, null = True, blank = True)
     genealogy     = models.ForeignKey(trait_models.Genealogy,    null = True, blank = True)
     affiliation   = models.ForeignKey(trait_models.Affiliation,  null = True, blank = True)
@@ -55,7 +65,7 @@ class XPRecord (models.Model):
         ordering = ('game__date', 'character')
 
 
-class CharacterHasTrait (models.Model):
+class CharacterHasTraitModel (models.Model):
     __metaclass__ = Model_Metaclass
     character = models.ForeignKey(Character)
 
@@ -66,7 +76,7 @@ class CharacterHasTrait (models.Model):
         abstract = True
 
 
-class CharacterHasText (CharacterHasTrait):
+class CharacterHasText (CharacterHasTraitModel):
     trait = models.ForeignKey(trait_models.CharacterText)
     text  = models.TextField(blank = True)
 
@@ -75,7 +85,7 @@ class CharacterHasText (CharacterHasTrait):
         ordering        = ('trait__name',)
 
 
-class CharacterHasAttribute (CharacterHasTrait):
+class CharacterHasAttribute (CharacterHasTraitModel):
     trait  = models.ForeignKey(trait_models.Attribute)
     rating = models.SmallIntegerField(default = 1)
 
@@ -84,7 +94,7 @@ class CharacterHasAttribute (CharacterHasTrait):
         ordering        = ('trait__type__name',)
 
 
-class CharacterHasSkill (CharacterHasTrait):
+class CharacterHasSkill (CharacterHasTraitModel):
     trait  = models.ForeignKey(trait_models.Skill)
     rating = models.SmallIntegerField(default = 0)
 
@@ -93,7 +103,7 @@ class CharacterHasSkill (CharacterHasTrait):
         ordering        = ('trait__type__name', 'trait__name')
 
 
-class CharacterHasSkillSpecialty (CharacterHasTrait):
+class CharacterHasSkillSpecialty (CharacterHasTraitModel):
     trait     = models.ForeignKey(trait_models.Skill)
     specialty = models.CharField(max_length = 255)
 
@@ -102,7 +112,7 @@ class CharacterHasSkillSpecialty (CharacterHasTrait):
         ordering        = ('trait__type__name', 'trait__name')
 
 
-class CharacterHasPower (CharacterHasTrait):
+class CharacterHasPower (CharacterHasTraitModel):
     trait = models.ForeignKey(trait_models.Power)
 
     class Meta (object):
@@ -110,7 +120,7 @@ class CharacterHasPower (CharacterHasTrait):
         ordering        = ('trait__group', 'trait__rating', 'trait__name')
 
 
-class CharacterHasMerit (CharacterHasTrait):
+class CharacterHasMerit (CharacterHasTraitModel):
     trait         = models.ForeignKey(trait_models.Merit)
     rating        = models.SmallIntegerField(null = True, blank = True)
     specification = models.CharField(null = True, blank = True, max_length = 255)
@@ -120,7 +130,7 @@ class CharacterHasMerit (CharacterHasTrait):
         ordering = ('trait__type__name', 'trait__name')
 
 
-class CharacterHasFlaw (CharacterHasTrait):
+class CharacterHasFlaw (CharacterHasTraitModel):
     trait         = models.ForeignKey(trait_models.Flaw)
     specification = models.CharField(null = True, blank = True, max_length = 255)
     description   = models.TextField(null = True, blank = True)
@@ -129,7 +139,7 @@ class CharacterHasFlaw (CharacterHasTrait):
         ordering = ('trait__type__name', 'trait__name')
 
 
-class CharacterHasDerangement (CharacterHasTrait):
+class CharacterHasDerangement (CharacterHasTraitModel):
     trait         = models.ForeignKey(trait_models.Derangement)
     specification = models.CharField(null = True, blank = True, max_length = 255)
     description   = models.TextField(null = True, blank = True)
@@ -138,7 +148,7 @@ class CharacterHasDerangement (CharacterHasTrait):
         ordering = ('trait__type__name', 'trait__name')
 
 
-class CharacterHasCombatTrait (CharacterHasTrait):
+class CharacterHasCombatTrait (CharacterHasTraitModel):
     trait  = models.ForeignKey(trait_models.CombatTrait)
     rating = models.SmallIntegerField(null = True, blank = True)
 
@@ -147,7 +157,7 @@ class CharacterHasCombatTrait (CharacterHasTrait):
         ordering        = ('trait__name',)
 
 
-class CharacterHasMiscTrait (CharacterHasTrait):
+class CharacterHasMiscTrait (CharacterHasTraitModel):
     trait       = models.ForeignKey(trait_models.MiscTrait)
     rating      = models.SmallIntegerField(null = True, blank = True)
     description = models.TextField(null = True, blank = True)

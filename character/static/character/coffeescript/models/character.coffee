@@ -1,7 +1,7 @@
-Models_NS = Tools.create_namespace 'Character.Models'
+Tools.create_namespace 'Character.Models'
 
 
-class Models_NS.Character extends Backbone.Model
+class Character.Models.Character extends Backbone.Model
     defaults:
         id      : null
         enabled : false
@@ -26,6 +26,10 @@ class Models_NS.Character extends Backbone.Model
         date_last_edited : null
 
     parse: (raw) ->
+        if raw.status?
+            status = window.Character.Enums.Status.get raw.status
+        else
+            status = null
         {
             id      : parseInt raw.id, 10
             enabled : raw.enabled
@@ -52,47 +56,38 @@ class Models_NS.Character extends Backbone.Model
     url: () ->
         "#{ DCMS.Settings.URL_PREFIX }/api/character/Character/#{ if @id? then "#{@id}/" else '' }"
 
-    toJSON: () ->
+    toJSON: (options) ->
+        options = {} if not options?
         attr = _.clone @attributes
 
-        # attr.user      = attr.user      ?.id
-        # attr.chronicle = attr.chronicle ?.id
-        attr.status    = attr.status    ?.valueOf()
+        if options.nest
+            # attr.user      = attr.user      ?.toHumanJSON() ? new Object()
+            # attr.chronicle = attr.chronicle ?.toHumanJSON() ? new Object()
+            attr.status    = attr.status    ? new Object()
 
-        attr.creature_type = attr.creature_type ?.id
-        attr.creature_type = attr.creature_type ?.id
+            attr.creature_type = attr.creature_type ?.toHumanJSON() ? new Object()
+            attr.genealogy     = attr.genealogy     ?.toHumanJSON() ? new Object()
+            attr.affiliation   = attr.affiliation   ?.toHumanJSON() ? new Object()
+            attr.subgroup      = attr.subgroup      ?.toHumanJSON() ? new Object()
+            attr.virtue        = attr.virtue        ? new Object()
+            attr.vice          = attr.vice          ? new Object()
 
-        attr.creature_type = attr.creature_type ?.id
-        attr.genealogy     = attr.genealogy     ?.id
-        attr.affiliation   = attr.affiliation   ?.id
-        attr.subgroup      = attr.subgroup      ?.id
-        attr.virtue        = attr.virtue        ?.valueOf()
-        attr.vice          = attr.vice          ?.valueOf()
+            attr.date_created     = attr.date_created     ?.toISOString() ? new Object()
+            attr.date_submitted   = attr.date_submitted   ?.toISOString() ? new Object()
+            attr.date_approved    = attr.date_approved    ?.toISOString() ? new Object()
+            attr.date_last_edited = attr.date_last_edited ?.toISOString() ? new Object()
 
-        attr.date_created     = attr.date_created     ?.toISOString()
-        attr.date_submitted   = attr.date_submitted   ?.toISOString()
-        attr.date_approved    = attr.date_approved    ?.toISOString()
-        attr.date_last_edited = attr.date_last_edited ?.toISOString()
+        else
+            attr.creature_type = attr.creature_type ?.id
+            attr.genealogy     = attr.genealogy     ?.id
+            attr.affiliation   = attr.affiliation   ?.id
+            attr.subgroup      = attr.subgroup      ?.id
+            attr.virtue        = attr.virtue        ?.valueOf()
+            attr.vice          = attr.vice          ?.valueOf()
 
-        return attr
-
-    toHumanJSON: () ->
-        attr = _.clone @attributes
-
-        # attr.user      = attr.user      ?.toHumanJSON() ? new Object()
-        # attr.chronicle = attr.chronicle ?.toHumanJSON() ? new Object()
-        attr.status    = attr.status    ? new Object()
-
-        attr.creature_type = attr.creature_type ?.toHumanJSON() ? new Object()
-        attr.genealogy     = attr.genealogy     ?.toHumanJSON() ? new Object()
-        attr.affiliation   = attr.affiliation   ?.toHumanJSON() ? new Object()
-        attr.subgroup      = attr.subgroup      ?.toHumanJSON() ? new Object()
-        attr.virtue        = attr.virtue        ? new Object()
-        attr.vice          = attr.vice          ? new Object()
-
-        attr.date_created     = attr.date_created     ?.toISOString() ? new Object()
-        attr.date_submitted   = attr.date_submitted   ?.toISOString() ? new Object()
-        attr.date_approved    = attr.date_approved    ?.toISOString() ? new Object()
-        attr.date_last_edited = attr.date_last_edited ?.toISOString() ? new Object()
+            attr.date_created     = attr.date_created     ?.toISOString()
+            attr.date_submitted   = attr.date_submitted   ?.toISOString()
+            attr.date_approved    = attr.date_approved    ?.toISOString()
+            attr.date_last_edited = attr.date_last_edited ?.toISOString()
 
         return attr

@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# 2013-09-10 11:58:03.321986
+# Thu, 14 Nov 2013 17:01:01 -0600 | 4403be15506c187ea78724fe2868a567
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -10,37 +10,49 @@
 # forget to commit the newly generated files!)
 
 
+
 from django.contrib import admin
 
-from character.models import CharacterHasAttribute, CharacterHasCombatTrait, CharacterHasDerangement, CharacterHasFlaw, CharacterHasMerit, CharacterHasMiscTrait, CharacterHasPower, CharacterHasSkill, CharacterHasSkillSpecialty, CharacterHasText
+from character import models
 
 
 class CharacterHasAttributeInline (admin.TabularInline):
-    model = CharacterHasAttribute
+    model = models.CharacterHasAttribute
+
 
 class CharacterHasCombatTraitInline (admin.TabularInline):
-    model = CharacterHasCombatTrait
+    model = models.CharacterHasCombatTrait
+
 
 class CharacterHasDerangementInline (admin.TabularInline):
-    model = CharacterHasDerangement
+    model = models.CharacterHasDerangement
+
 
 class CharacterHasFlawInline (admin.TabularInline):
-    model = CharacterHasFlaw
+    model = models.CharacterHasFlaw
+
 
 class CharacterHasMeritInline (admin.TabularInline):
-    model = CharacterHasMerit
+    model = models.CharacterHasMerit
+
 
 class CharacterHasMiscTraitInline (admin.TabularInline):
-    model = CharacterHasMiscTrait
+    model = models.CharacterHasMiscTrait
+
 
 class CharacterHasPowerInline (admin.TabularInline):
-    model = CharacterHasPower
+    model = models.CharacterHasPower
+
 
 class CharacterHasSkillInline (admin.TabularInline):
-    model = CharacterHasSkill
+    model = models.CharacterHasSkill
+
 
 class CharacterHasSkillSpecialtyInline (admin.TabularInline):
-    model = CharacterHasSkillSpecialty
+    model = models.CharacterHasSkillSpecialty
+
 
 class CharacterHasTextInline (admin.TabularInline):
-    model = CharacterHasText
+    model = models.CharacterHasText
+
+

@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# 2013-09-10 11:58:03.321986
+# Fri, 15 Nov 2013 07:36:58 -0600 | 76d7f7fbf6828cdd7ee0efe7cc31671c
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -10,112 +10,109 @@
 # forget to commit the newly generated files!)
 
 
+
 from rest_framework import viewsets
 
-from traits.models import AttributeType, DerangementType, FlawType, MeritType, SkillType, Status, Vice, Virtue, Affiliation, Attribute, CharacterText, CombatTrait, CreatureType, Derangement, Flaw, Genealogy, Merit, MiscTrait, Power, Skill, Subgroup
-from traits.serializers import AttributeTypeSerializer, DerangementTypeSerializer, FlawTypeSerializer, MeritTypeSerializer, SkillTypeSerializer, StatusSerializer, ViceSerializer, VirtueSerializer, AffiliationSerializer, AttributeSerializer, CharacterTextSerializer, CombatTraitSerializer, CreatureTypeSerializer, DerangementSerializer, FlawSerializer, GenealogySerializer, MeritSerializer, MiscTraitSerializer, PowerSerializer, SkillSerializer, SubgroupSerializer
+from traits import models, serializers
 
 
 class AttributeTypeViewSet (viewsets.ModelViewSet):
-    model            = AttributeType
-    serializer_class = AttributeTypeSerializer
+    model            = models.AttributeType
+    serializer_class = serializers.AttributeTypeSerializer
 
 
 class DerangementTypeViewSet (viewsets.ModelViewSet):
-    model            = DerangementType
-    serializer_class = DerangementTypeSerializer
+    model            = models.DerangementType
+    serializer_class = serializers.DerangementTypeSerializer
 
 
 class FlawTypeViewSet (viewsets.ModelViewSet):
-    model            = FlawType
-    serializer_class = FlawTypeSerializer
+    model            = models.FlawType
+    serializer_class = serializers.FlawTypeSerializer
 
 
 class MeritTypeViewSet (viewsets.ModelViewSet):
-    model            = MeritType
-    serializer_class = MeritTypeSerializer
+    model            = models.MeritType
+    serializer_class = serializers.MeritTypeSerializer
 
 
 class SkillTypeViewSet (viewsets.ModelViewSet):
-    model            = SkillType
-    serializer_class = SkillTypeSerializer
-
-
-class StatusViewSet (viewsets.ModelViewSet):
-    model            = Status
-    serializer_class = StatusSerializer
+    model            = models.SkillType
+    serializer_class = serializers.SkillTypeSerializer
 
 
 class ViceViewSet (viewsets.ModelViewSet):
-    model            = Vice
-    serializer_class = ViceSerializer
+    model            = models.Vice
+    serializer_class = serializers.ViceSerializer
 
 
 class VirtueViewSet (viewsets.ModelViewSet):
-    model            = Virtue
-    serializer_class = VirtueSerializer
+    model            = models.Virtue
+    serializer_class = serializers.VirtueSerializer
 
 
 class AffiliationViewSet (viewsets.ModelViewSet):
-    model            = Affiliation
-    serializer_class = AffiliationSerializer
+    model            = models.Affiliation
+    serializer_class = serializers.AffiliationSerializer
 
 
 class AttributeViewSet (viewsets.ModelViewSet):
-    model            = Attribute
-    serializer_class = AttributeSerializer
+    model            = models.Attribute
+    serializer_class = serializers.AttributeSerializer
 
 
 class CharacterTextViewSet (viewsets.ModelViewSet):
-    model            = CharacterText
-    serializer_class = CharacterTextSerializer
+    model            = models.CharacterText
+    serializer_class = serializers.CharacterTextSerializer
 
 
 class CombatTraitViewSet (viewsets.ModelViewSet):
-    model            = CombatTrait
-    serializer_class = CombatTraitSerializer
+    model            = models.CombatTrait
+    serializer_class = serializers.CombatTraitSerializer
 
 
 class CreatureTypeViewSet (viewsets.ModelViewSet):
-    model            = CreatureType
-    serializer_class = CreatureTypeSerializer
+    model            = models.CreatureType
+    serializer_class = serializers.CreatureTypeSerializer
 
 
 class DerangementViewSet (viewsets.ModelViewSet):
-    model            = Derangement
-    serializer_class = DerangementSerializer
+    model            = models.Derangement
+    serializer_class = serializers.DerangementSerializer
 
 
 class FlawViewSet (viewsets.ModelViewSet):
-    model            = Flaw
-    serializer_class = FlawSerializer
+    model            = models.Flaw
+    serializer_class = serializers.FlawSerializer
 
 
 class GenealogyViewSet (viewsets.ModelViewSet):
-    model            = Genealogy
-    serializer_class = GenealogySerializer
+    model            = models.Genealogy
+    serializer_class = serializers.GenealogySerializer
 
 
 class MeritViewSet (viewsets.ModelViewSet):
-    model            = Merit
-    serializer_class = MeritSerializer
+    model            = models.Merit
+    serializer_class = serializers.MeritSerializer
 
 
 class MiscTraitViewSet (viewsets.ModelViewSet):
-    model            = MiscTrait
-    serializer_class = MiscTraitSerializer
+    model            = models.MiscTrait
+    serializer_class = serializers.MiscTraitSerializer
 
 
 class PowerViewSet (viewsets.ModelViewSet):
-    model            = Power
-    serializer_class = PowerSerializer
+    model            = models.Power
+    serializer_class = serializers.PowerSerializer
 
 
 class SkillViewSet (viewsets.ModelViewSet):
-    model            = Skill
-    serializer_class = SkillSerializer
+    model            = models.Skill
+    serializer_class = serializers.SkillSerializer
 
 
 class SubgroupViewSet (viewsets.ModelViewSet):
-    model            = Subgroup
-    serializer_class = SubgroupSerializer
+    model            = models.Subgroup
+    serializer_class = serializers.SubgroupSerializer
+
+

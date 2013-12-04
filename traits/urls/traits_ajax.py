@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# 2013-09-10 11:58:03.321986
+# Fri, 15 Nov 2013 07:34:32 -0600 | 53acbaa14707f375c585738ddfdbf0d1
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -10,29 +10,33 @@
 # forget to commit the newly generated files!)
 
 
+
 from rest_framework.routers import DefaultRouter
 
-from traits.views import AttributeTypeViewSet, DerangementTypeViewSet, FlawTypeViewSet, MeritTypeViewSet, SkillTypeViewSet, StatusViewSet, ViceViewSet, VirtueViewSet, AffiliationViewSet, AttributeViewSet, CharacterTextViewSet, CombatTraitViewSet, CreatureTypeViewSet, DerangementViewSet, FlawViewSet, GenealogyViewSet, MeritViewSet, MiscTraitViewSet, PowerViewSet, SkillViewSet, SubgroupViewSet
+from traits import views
+
 
 router = DefaultRouter()
-router.register('AttributeType', AttributeTypeViewSet)
-router.register('DerangementType', DerangementTypeViewSet)
-router.register('FlawType', FlawTypeViewSet)
-router.register('MeritType', MeritTypeViewSet)
-router.register('SkillType', SkillTypeViewSet)
-router.register('Status', StatusViewSet)
-router.register('Vice', ViceViewSet)
-router.register('Virtue', VirtueViewSet)
-router.register('Affiliation', AffiliationViewSet)
-router.register('Attribute', AttributeViewSet)
-router.register('CharacterText', CharacterTextViewSet)
-router.register('CombatTrait', CombatTraitViewSet)
-router.register('CreatureType', CreatureTypeViewSet)
-router.register('Derangement', DerangementViewSet)
-router.register('Flaw', FlawViewSet)
-router.register('Genealogy', GenealogyViewSet)
-router.register('Merit', MeritViewSet)
-router.register('MiscTrait', MiscTraitViewSet)
-router.register('Power', PowerViewSet)
-router.register('Skill', SkillViewSet)
-router.register('Subgroup', SubgroupViewSet)
+
+router.register('AttributeType', views.AttributeTypeViewSet)
+router.register('DerangementType', views.DerangementTypeViewSet)
+router.register('FlawType', views.FlawTypeViewSet)
+router.register('MeritType', views.MeritTypeViewSet)
+router.register('SkillType', views.SkillTypeViewSet)
+router.register('Vice', views.ViceViewSet)
+router.register('Virtue', views.VirtueViewSet)
+router.register('Affiliation', views.AffiliationViewSet)
+router.register('Attribute', views.AttributeViewSet)
+router.register('CharacterText', views.CharacterTextViewSet)
+router.register('CombatTrait', views.CombatTraitViewSet)
+router.register('CreatureType', views.CreatureTypeViewSet)
+router.register('Derangement', views.DerangementViewSet)
+router.register('Flaw', views.FlawViewSet)
+router.register('Genealogy', views.GenealogyViewSet)
+router.register('Merit', views.MeritViewSet)
+router.register('MiscTrait', views.MiscTraitViewSet)
+router.register('Power', views.PowerViewSet)
+router.register('Skill', views.SkillViewSet)
+router.register('Subgroup', views.SubgroupViewSet)
+
+

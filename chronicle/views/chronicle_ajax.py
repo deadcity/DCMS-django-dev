@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# 2013-09-10 11:58:03.321986
+# Fri, 15 Nov 2013 07:37:00 -0600 | df9a64121d8facdb7d8b93b585110f26
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -10,17 +10,19 @@
 # forget to commit the newly generated files!)
 
 
+
 from rest_framework import viewsets
 
-from chronicle.models import Chronicle, Game
-from chronicle.serializers import ChronicleSerializer, GameSerializer
+from chronicle import models, serializers
 
 
 class ChronicleViewSet (viewsets.ModelViewSet):
-    model            = Chronicle
-    serializer_class = ChronicleSerializer
+    model            = models.Chronicle
+    serializer_class = serializers.ChronicleSerializer
 
 
 class GameViewSet (viewsets.ModelViewSet):
-    model            = Game
-    serializer_class = GameSerializer
+    model            = models.Game
+    serializer_class = serializers.GameSerializer
+
+

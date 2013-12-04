@@ -1,20 +1,19 @@
 from os import path
-from sys import stdout
 
 from datetime import datetime
+from hashlib import md5
 from re import sub
-from string import Template
 
 from django.conf import settings
 from django.core.management.base import NoArgsCommand
-from django.db import models
+from django.template.loader import render_to_string
 
 from character import models as character_models
 from chronicle import models as chronicle_models
 from traits import models as trait_models
 
 
-def to_unserscores(name):
+def to_underscores(name):
     s = sub(r'(.)([A-Z][a-z]+)', r'\1_\2', name)
     return sub(r'([a-z0-9])([A-Z])', r'\1_\2', s).lower()
 
@@ -29,25 +28,29 @@ class Command (NoArgsCommand):
         traits = []
 
         for attr in dir(trait_models):
-            if attr is 'Enum' or attr is 'Trait':
+            if attr is 'EnumModel' or attr is 'TraitModel':
                 continue
 
             Model = getattr(trait_models, attr)
             if not isinstance(Model, type):
                 continue
 
-            if issubclass(Model, trait_models.Enum):
+            if issubclass(Model, trait_models.EnumModel):
                 trait_types.append(Model)
-            elif issubclass(Model, trait_models.Trait):
+            elif issubclass(Model, trait_models.TraitModel):
                 traits.append(Model)
 
-        self.__gen_serializers     ('traits', trait_types + traits, 'trait_serializers')
-        self.__gen_view_sets       ('traits', trait_types + traits, 'traits_ajax')
-        self.__gen_urls            ('traits', trait_types + traits, 'traits_ajax')
-        self.__gen_backbone_models ('traits', traits)
+        for trait in traits:
+            self.render(
+                path.join(settings.PROJECT_PATH, 'traits', 'static', 'traits', 'coffeescript', 'models', to_underscores(trait._meta.object_name) + '.coffee'),
+                'coffee', 'offline/coffee/backbone_model.coffee', { 'model': trait }
+            )
 
-        self.__gen_admin_classes ('traits', trait_types, 'enum_admins',  self.__admin_template__enum_admin)
-        self.__gen_admin_classes ('traits', traits,      'trait_admins', self.__admin_template__model_admin)
+        self.render(path.join(settings.PROJECT_PATH, 'traits', 'admin',       'trait_admins.py'),      'py', 'offline/py/admin.py',       { 'app_name': 'traits', 'models': traits })
+        self.render(path.join(settings.PROJECT_PATH, 'traits', 'admin',       'enum_admins.py'),       'py', 'offline/py/admin_enum.py',  { 'app_name': 'traits', 'models': trait_types })
+        self.render(path.join(settings.PROJECT_PATH, 'traits', 'serializers', 'trait_serializers.py'), 'py', 'offline/py/serializers.py', { 'app_name': 'traits', 'models': trait_types + traits })
+        self.render(path.join(settings.PROJECT_PATH, 'traits', 'urls',        'traits_ajax.py'),       'py', 'offline/py/urls.py',        { 'app_name': 'traits', 'models': trait_types + traits })
+        self.render(path.join(settings.PROJECT_PATH, 'traits', 'views',       'traits_ajax.py'),       'py', 'offline/py/views.py',       { 'app_name': 'traits', 'models': trait_types + traits })
 
 
         # # # # # # #
@@ -57,347 +60,70 @@ class Command (NoArgsCommand):
         character_traits = []
 
         for attr in dir(character_models):
-            if attr is 'Character' or attr is 'CharacterHasTrait':
+            if attr is 'Character' or attr is 'CharacterHasTraitModel':
                 continue
 
             Model = getattr(character_models, attr)
             if not isinstance(Model, type):
                 continue
 
-            if issubclass(Model, character_models.CharacterHasTrait):
+            if issubclass(Model, character_models.CharacterHasTraitModel):
                 character_traits.append(Model)
 
         Character = character_models.Character
-        XPRecord = character_models.XPRecord
-        self.__gen_serializers     ('character', [            XPRecord ] + character_traits, 'character_trait_serializers')
-        self.__gen_view_sets       ('character', [ Character, XPRecord ] + character_traits, 'character_ajax')
-        self.__gen_urls            ('character', [ Character, XPRecord ] + character_traits, 'character_ajax')
-        self.__gen_backbone_models ('character', [            XPRecord ] + character_traits)
 
-        self.__gen_admin_classes ('character', [ XPRecord ] + character_traits, 'character_trait_admins',  self.__admin_template__model_admin)
-        self.__gen_admin_classes ('character',                character_traits, 'character_traits_inline', self.__admin_template__inline_admin)
+        for character_trait in [ XPRecord ] + character_traits:
+            self.render(
+                path.join(settings.PROJECT_PATH, 'character', 'static', 'character', 'coffeescript', 'models', to_underscores(character_trait._meta.object_name) + '.coffee'),
+                'coffee', 'offline/coffee/backbone_model.coffee', { 'model': character_trait }
+            )
+
+        self.render(path.join(settings.PROJECT_PATH, 'character', 'admin',       'character_trait_admins.py'),  'py', 'offline/py/admin.py',        { 'app_name': 'character', 'models': [            XPRecord ] + character_traits })
+        self.render(path.join(settings.PROJECT_PATH, 'character', 'admin',       'character_traits_inline.py'), 'py', 'offline/py/admin_inline.py', { 'app_name': 'character', 'models': [            XPRecord ] + character_traits })
+        self.render(path.join(settings.PROJECT_PATH, 'character', 'serializers', 'character_serializers.py'),   'py', 'offline/py/serializers.py',  { 'app_name': 'character', 'models': [ Character, XPRecord ] + character_traits })
+        self.render(path.join(settings.PROJECT_PATH, 'character', 'urls',        'character_ajax.py'),          'py', 'offline/py/urls.py',         { 'app_name': 'character', 'models': [ Character, XPRecord ] + character_traits })
+        self.render(path.join(settings.PROJECT_PATH, 'character', 'views',       'character_ajax.py'),          'py', 'offline/py/views.py',        { 'app_name': 'character', 'models': [ Character, XPRecord ] + character_traits })
 
 
         # # # # # # #
         # CHRONICLE #
         # # # # # # #
 
-        # chronicle = []
-
-        # for attr in dir(chronicle_models):
-        #     Model = getattr(chronicle_models, attr)
-        #     if not isinstance(Model, type):
-        #         continue
-
-        #     if issubclass(Model, models.Model):
-        #         chronicle.append(Model)
-
-        chronicle = [ chronicle_models.Chronicle, chronicle_models.Game ]
-        self.__gen_serializers ('chronicle', chronicle, 'chronicle_serializers')
-        self.__gen_view_sets   ('chronicle', chronicle, 'chronicle_ajax')
-        self.__gen_urls        ('chronicle', chronicle, 'chronicle_ajax')
-
-        # self.__gen_admin_classes ('chronicle', chronicle, 'chronicle_admins', self.__admin_template__model_admin)
-        self.__gen_admin_classes ('chronicle', [chronicle_models.Game], 'chronicle_inlines', self.__admin_template__inline_admin)
-
-
-        # # # # #
-        # # XP  #
-        # # # # #
-
-        # xp = [ xp_models.XPRecord ]
-        # self.__gen_serializers     ('xp', xp, 'xp_serializers')
-        # self.__gen_view_sets       ('xp', xp, 'xp_ajax')
-        # self.__gen_urls            ('xp', xp, 'xp_ajax')
-        # self.__gen_backbone_models ('xp', xp)
-
-        # self.__gen_admin_classes ('xp', xp, 'xp_admins', self.__admin_template__model_admin)
-
-    # # # # # # # # # #
-    # STANDARD HEADER #
-    # # # # # # # # # #
-
-    __standard_header = """\
-# DCMS auto-generated file
-# {}
-
-# # # # # # # # # # # # # # # # # # # # # # #
-# DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
-# # # # # # # # # # # # # # # # # # # # # # #
-
-# If you wish to alter it's contents modify either the source model, or the
-# generating tool and then run `manage.py generate_classes` again.  (Don't
-# forget to commit the newly generated files!)
-
-
-""".format(datetime.now())
-
-    __js_header = """\
-// DCMS auto-generated file
-// {}
-
-/* * * * * * * * * * * * * * * * * * * * * * *
- * DO NOT MODIFY THE CONTENTS OF THIS FILE!  *
- * * * * * * * * * * * * * * * * * * * * * * */
-
-// If you wish to alter it's contents modify either the source model, or the
-// generating tool and then run `manage.py generate_classes` again.  (Don't
-// forget to commit the newly generated files!)
-
-
-""".format(datetime.now())
-
-
-    # # # # #
-    # ADMIN #
-    # # # # #
-
-    __admin_template__header = Template("""\
-from django.contrib import admin
-
-from ${MODULE_NAME} import ${MODEL_LIST}
-
-""")
-    __admin_template__enum_admin = Template("""
-class ${MODEL_NAME}Admin (admin.ModelAdmin):
-    list_display = ('name',)
-admin.site.register(${MODEL_NAME}, ${MODEL_NAME}Admin)
-""")
-    __admin_template__model_admin = Template("""
-class ${MODEL_NAME}Admin (admin.ModelAdmin):
-    list_display = (${LIST_DISPLAY_FIELDS},)
-    list_filter  = (${LIST_FILTER_FIELDS},)
-admin.site.register(${MODEL_NAME}, ${MODEL_NAME}Admin)
-""")
-    __admin_template__inline_admin = Template("""
-class ${MODEL_NAME}Inline (admin.TabularInline):
-    model = ${MODEL_NAME}
-""")
-
-    def __gen_admin_classes (self, project, model_list, file_name, template):
-        print 'generating enum admin classes for {project}/{file_name}... '.format(project = project, file_name = file_name),
-        stdout.flush()
-
-        with open(path.join(settings.PROJECT_PATH, project, 'admin', file_name + '.py'), 'wb') as out:
-            out.write(self.__standard_header);
-            out.write(self.__admin_template__header.substitute(
-                MODULE_NAME = model_list[0].__module__,
-                MODEL_LIST = ', '.join([Model.__name__ for Model in model_list])
-            ))
-
-            for Model in model_list:
-                fields = ["'" + field_name + "'" for field_name, field in Model.fields.items()]
-                out.write(template.substitute(
-                    MODEL_NAME = Model.__name__,
-                    LIST_DISPLAY_FIELDS = ', '.join(fields),
-                    LIST_FILTER_FIELDS  = ', '.join([field_name for field_name in fields if field_name != "'name'"])
-                ))
-
-        print 'done'
-        stdout.flush()
-
-
-    # # # # # # # # # #
-    # BACKBONE MODELS #
-    # # # # # # # # # #
-
-    __backbone_model_template__main = Template("""\
-Models_NS = Tools.create_namespace '${PROJECT}.Models'
-
-class Models_NS.${MODEL_NAME} extends Backbone.Model
-    defaults:
-        id: null
-${FIELD_LIST__DEFAULT}
-
-    parse: (raw) ->
-        {
-            id: parseInt raw.id, 10
-${FIELD_LIST__PARSE}
-        }
-
-    toJSON: () ->
-        attr = _.clone this.attributes
-${FIELD_LIST__JSON}
-        attr
-
-    toHumanJSON: () ->
-        attr = _.clone this.attributes
-${FIELD_LIST__HUMAN_JSON}
-        attr
-
-    url: () ->
-        "#{ DCMS.Settings.URL_PREFIX }/api/${PROJECT_LOWERCASE}/${MODEL_NAME}/#{ if @id? then "#{@id}/" else '' }"
-""")
-
-    __backbone_model_template__default = Template("        ${FIELD_NAME}: null")
-
-    __backbone_model_template__parse_integer  = Template("            ${FIELD_NAME}: parseInt raw.${FIELD_NAME}, 10")
-    __backbone_model_template__parse_int_list = Template("            ${FIELD_NAME}: parseInt i for i in raw.${FIELD_NAME}.split ','")
-    __backbone_model_template__parse_text     = Template("            ${FIELD_NAME}: raw.${FIELD_NAME},")
-    __backbone_model_template__parse_enum     = Template("            ${FIELD_NAME}: ${RELATED_PROJECT}.Enums.${RELATED_MODEL}.get raw.${FIELD_NAME}")
-    __backbone_model_template__parse_foreign  = Template("            ${FIELD_NAME}: ${RELATED_PROJECT}.Objects.${RELATED_MODEL}.get raw.${FIELD_NAME}")
-
-    __backbone_model_template__json_foreign  = Template("        attr.${FIELD_NAME} = attr.${FIELD_NAME}.id")
-    __backbone_model_template__json_int_list = Template("        attr.${FIELD_NAME} = attr.${FIELD_NAME}.join()")
-
-    __backbone_model_template__human_json_foreign = Template("        attr.${FIELD_NAME} = attr.${FIELD_NAME}.toHumanJSON()")
-
-    def __gen_backbone_models (self, project, model_list):
-        print 'generating backbone models for {project}... '.format(project = project),
-        stdout.flush()
-
-        target_dir = path.join(settings.PROJECT_PATH, project, 'static', project, 'coffeescript', 'models')
-        for Model in model_list:
-            with open(path.join(target_dir, Model.__name__.lower() + '.coffee'), 'wb') as out:
-                out.write(self.__standard_header);
-
-                field_list__default = []
-                field_list__parse = []
-                field_list__json = []
-                field_list__human_json = []
-
-                for field_name, field in Model.fields.items():
-                    field_list__default.append(self.__backbone_model_template__default.substitute(FIELD_NAME = field_name))
-                    if field_name == 'character':
-                        field_list__parse.append(self.__backbone_model_template__parse_integer.substitute(FIELD_NAME = field_name))
-                    elif isinstance(field, models.IntegerField):
-                        field_list__parse.append(self.__backbone_model_template__parse_integer.substitute(FIELD_NAME = field_name))
-                    elif isinstance(field, models.CommaSeparatedIntegerField):
-                        field_list__parse.append(self.__backbone_model_template__parse_int_list.substitute(FIELD_NAME = field_name))
-                        field_list__json.append(self.__backbone_model_template__json_int_list.substitute(FIELD_NAME = field_name))
-                    elif isinstance(field, models.CharField) or isinstance(field, models.TextField):
-                        field_list__parse.append(self.__backbone_model_template__parse_text.substitute(FIELD_NAME = field_name))
-                    elif isinstance(field, trait_models.EnumField):
-                        field_list__parse.append(self.__backbone_model_template__parse_enum.substitute(
-                            FIELD_NAME      = field_name,
-                            RELATED_PROJECT = field.related.parent_model.__module__.split('.')[0].title(),
-                            RELATED_MODEL   = field.related.parent_model.__name__
-                        ))
-                    elif isinstance(field, models.ForeignKey):
-                        field_list__parse.append(self.__backbone_model_template__parse_foreign.substitute(
-                            FIELD_NAME      = field_name,
-                            RELATED_PROJECT = field.related.parent_model.__module__.split('.')[0].title(),
-                            RELATED_MODEL   = field.related.parent_model.__name__
-                        ))
-                        field_list__json.append(self.__backbone_model_template__json_foreign.substitute(FIELD_NAME = field_name))
-                        field_list__human_json.append(self.__backbone_model_template__human_json_foreign.substitute(FIELD_NAME = field_name))
-                    else:
-                        field_list__parse.append(self.__backbone_model_template__parse_text.substitute(FIELD_NAME = field_name))
-
-                out.write(self.__backbone_model_template__main.substitute(
-                    PROJECT    = project.title(),
-                    MODEL_NAME = Model.__name__,
-                    PROJECT_LOWERCASE    = project,
-
-                    FIELD_LIST__DEFAULT = '\n'.join(field_list__default),
-                    FIELD_LIST__PARSE   = '\n'.join(field_list__parse),
-                    FIELD_LIST__JSON    = '\n'.join(field_list__json),
-                    FIELD_LIST__HUMAN_JSON = '\n'.join(field_list__human_json)
-                ))
-
-        print 'done'
-        stdout.flush()
-
-
-    # # # # # # # #
-    # SERIALIZERS #
-    # # # # # # # #
-
-    __serializer_template__header = Template("""\
-from rest_framework import serializers
-
-from ${PROJECT}.models import ${MODEL_NAMES}
-""")
-    __serializer_template__serializer = Template("""
-
-class ${MODEL_NAME}Serializer (serializers.ModelSerializer):
-    class Meta (object):
-        model = ${MODEL_NAME}
-${MODEL_NAME}.Serializer = ${MODEL_NAME}Serializer
-""")
-
-    def __gen_serializers (self, project, model_list, file_name):
-        print 'generating serializers for {project}... '.format(project = project),
-        stdout.flush()
-
-        with open(path.join(settings.PROJECT_PATH, project, 'serializers', file_name + '.py'), 'wb') as out:
-            out.write(self.__standard_header);
-            out.write(self.__serializer_template__header.substitute(
-                PROJECT     = project,
-                MODEL_NAMES = ', '.join([Model.__name__ for Model in model_list])
-            ))
-            for Model in model_list:
-                out.write(self.__serializer_template__serializer.substitute(
-                    MODEL_NAME = Model.__name__
-                ))
-
-        print 'done'
-        stdout.flush()
-
-
-    # # # # #
-    # URLS  #
-    # # # # #
-
-    __url_template__header = Template("""\
-from rest_framework.routers import DefaultRouter
-
-from ${PROJECT}.views import ${VIEW_SETS}
-
-router = DefaultRouter()
-""")
-    __url_template__urls = Template("router.register('${MODEL_NAME}', ${MODEL_NAME}ViewSet)\n")
-
-    def __gen_urls (self, project, model_list, file_name):
-        print 'generating urls for {project}... '.format(project = project),
-        with open(path.join(settings.PROJECT_PATH, project, 'urls', file_name + '.py'), 'wb') as out:
-            out.write(self.__standard_header);
-            out.write(self.__url_template__header.substitute(
-                PROJECT   = project,
-                VIEW_SETS = ', '.join([Model.__name__ + 'ViewSet' for Model in model_list]),
-            ))
-            for Model in model_list:
-                out.write(self.__url_template__urls.substitute(
-                    MODEL_NAME = Model.__name__
-                ))
-
-        print 'done'
-        stdout.flush()
-
-
-    # # # # # # # #
-    # VIEWS : API #
-    # # # # # # # #
-
-    __list_detail_view_template__header = Template("""\
-from rest_framework import viewsets
-
-from ${PROJECT}.models import ${MODEL_NAMES}
-from ${PROJECT}.serializers import ${SERIALIZER_NAMES}
-""")
-
-    __list_detail_view_template__views = Template("""
-
-class ${MODEL_NAME}ViewSet (viewsets.ModelViewSet):
-    model            = ${MODEL_NAME}
-    serializer_class = ${MODEL_NAME}Serializer
-""")
-
-    def __gen_view_sets (self, project, model_list, file_name):
-        print 'generating views (list/detail) for {project}... '.format(project = project),
-        stdout.flush()
-
-        with open(path.join(settings.PROJECT_PATH, project, 'views', file_name + '.py'), 'wb') as out:
-            out.write(self.__standard_header);
-            out.write(self.__list_detail_view_template__header.substitute(
-                PROJECT          = project,
-                MODEL_NAMES      = ', '.join([Model.__name__                for Model in model_list]),
-                SERIALIZER_NAMES = ', '.join([Model.__name__ + 'Serializer' for Model in model_list])
-            ))
-            for Model in model_list:
-                out.write(self.__list_detail_view_template__views.substitute(
-                    MODEL_NAME = Model.__name__
-                ))
-
-        print 'done'
-        stdout.flush()
+        chronicle_model_objects = [chronicle_models.Chronicle, chronicle_models.Game]
+
+        for chronicle_model in chronicle_model_objects:
+            self.render(
+                path.join(settings.PROJECT_PATH, 'chronicle', 'static', 'chronicle', 'coffeescript', 'models', to_underscores(chronicle_model._meta.object_name) + '.coffee'),
+                'coffee', 'offline/coffee/backbone_model.coffee', { 'model': chronicle_model }
+            )
+
+        self.render(path.join(settings.PROJECT_PATH, 'chronicle', 'admin',       'chronicle_admin.py'),       'py', 'offline/py/admin.py',        { 'app_name': 'chronicle', 'models': chronicle_model_objects })
+        self.render(path.join(settings.PROJECT_PATH, 'chronicle', 'admin',       'chronicle_inline.py'),      'py', 'offline/py/admin_inline.py', { 'app_name': 'chronicle', 'models': [chronicle_models.Game] })
+        self.render(path.join(settings.PROJECT_PATH, 'chronicle', 'serializers', 'chronicle_serializers.py'), 'py', 'offline/py/serializers.py',  { 'app_name': 'chronicle', 'models': chronicle_model_objects })
+        self.render(path.join(settings.PROJECT_PATH, 'chronicle', 'urls',        'chronicle_ajax.py'),        'py', 'offline/py/urls.py',         { 'app_name': 'chronicle', 'models': chronicle_model_objects })
+        self.render(path.join(settings.PROJECT_PATH, 'chronicle', 'views',       'chronicle_ajax.py'),        'py', 'offline/py/views.py',        { 'app_name': 'chronicle', 'models': chronicle_model_objects })
+
+
+    def render (self, filepath, file_type, template_name, dictionary):
+        content = render_to_string(template_name, dictionary)
+
+        if path.exists(filepath):
+            with open(filepath, 'r') as input:
+                input.readline()
+                line = input.readline().split('|')
+                old_hash = '' if len(line) < 2 else line[1].strip()
+        else:
+            old_hash = ''
+
+        new_hash = md5(content).hexdigest()
+        if old_hash == new_hash:
+            return
+
+        print "generating '{}' ...".format(filepath)
+
+        with open(filepath, 'wb') as out:
+            out.write(render_to_string('offline/{file_type}/header.{file_type}'.format(file_type = file_type), {
+                'timestamp': datetime.now(),
+                'hash': new_hash,
+            }))
+            out.write(content)

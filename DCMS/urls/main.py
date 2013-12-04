@@ -35,4 +35,3 @@ if settings.URL_PREFIX is '':
 else:
     url_prefix = settings.URL_PREFIX.strip('/') + '/'
     urlpatterns = patterns('', url(r'^' + url_prefix, include(_urlpatterns)))
-

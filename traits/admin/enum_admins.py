@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# 2013-09-10 11:58:03.321986
+# Fri, 15 Nov 2013 07:37:44 -0600 | 0b0fbda95485e184d04256340ea0e234
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -10,39 +10,44 @@
 # forget to commit the newly generated files!)
 
 
+
 from django.contrib import admin
 
-from traits.models import AttributeType, DerangementType, FlawType, MeritType, SkillType, Status, Vice, Virtue
+from traits import models
 
 
 class AttributeTypeAdmin (admin.ModelAdmin):
     list_display = ('name',)
-admin.site.register(AttributeType, AttributeTypeAdmin)
+admin.site.register(models.AttributeType, AttributeTypeAdmin)
+
 
 class DerangementTypeAdmin (admin.ModelAdmin):
     list_display = ('name',)
-admin.site.register(DerangementType, DerangementTypeAdmin)
+admin.site.register(models.DerangementType, DerangementTypeAdmin)
+
 
 class FlawTypeAdmin (admin.ModelAdmin):
     list_display = ('name',)
-admin.site.register(FlawType, FlawTypeAdmin)
+admin.site.register(models.FlawType, FlawTypeAdmin)
+
 
 class MeritTypeAdmin (admin.ModelAdmin):
     list_display = ('name',)
-admin.site.register(MeritType, MeritTypeAdmin)
+admin.site.register(models.MeritType, MeritTypeAdmin)
+
 
 class SkillTypeAdmin (admin.ModelAdmin):
     list_display = ('name',)
-admin.site.register(SkillType, SkillTypeAdmin)
+admin.site.register(models.SkillType, SkillTypeAdmin)
 
-class StatusAdmin (admin.ModelAdmin):
-    list_display = ('name',)
-admin.site.register(Status, StatusAdmin)
 
 class ViceAdmin (admin.ModelAdmin):
     list_display = ('name',)
-admin.site.register(Vice, ViceAdmin)
+admin.site.register(models.Vice, ViceAdmin)
+
 
 class VirtueAdmin (admin.ModelAdmin):
     list_display = ('name',)
-admin.site.register(Virtue, VirtueAdmin)
+admin.site.register(models.Virtue, VirtueAdmin)
+
+

@@ -50,25 +50,25 @@ class Views_NS.CharacterSummary extends Backbone.View
         @_change_field e, 'vice', (v) -> Traits.Enums.Vice.get v
 
     render: () ->
-        @$el.html @template @model.toHumanJSON()
+        @$el.html @template @model.toJSON { nest: true }
 
         # Available genealogies.
         Traits.Objects.Genealogy.each (item) ->
-            context = item.toHumanJSON()
+            context = item.toJSON { nest: true }
             context.selected = item == @model.get 'genealogy'
             @$('[name="genealogy"]').append option_template context
         , @
 
         # Available affiliations.
         Traits.Objects.Affiliation.each (item) ->
-            context = item.toHumanJSON()
+            context = item.toJSON { nest: true }
             context.selected = item == @model.get 'affiliation'
             @$('[name="affiliation"]').append option_template context
         , @
 
         # Available subgroups.
         Traits.Objects.Subgroup.each (item) ->
-            context = item.toHumanJSON()
+            context = item.toJSON { nest: true }
             context.selected = item == @model.get 'subgroup'
             @$('[name="subgroup"]').append option_template context
         , @

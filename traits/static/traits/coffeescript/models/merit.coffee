@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# 2013-09-17 09:45:58.563058
+# Thu, 21 Nov 2013 07:25:38 -0600 | 9fbcf6cdebd063d58badc4df09af08e1
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -10,38 +10,40 @@
 # forget to commit the newly generated files!)
 
 
-Models_NS = Tools.create_namespace 'Traits.Models'
+Models = Tools.create_namespace 'Traits.Models'
 
-class Models_NS.Merit extends Backbone.Model
+
+class Models.Merit extends Backbone.Model
     defaults:
         id: null
-        name: null
         enabled: null
-        allowed_ratings: null
-        requires_description: null
+        name: null
         type: null
+        allowed_ratings: null
         requires_specification: null
+        requires_description: null
 
     parse: (raw) ->
-        {
-            id: parseInt raw.id, 10
-            name: raw.name,
-            enabled: raw.enabled,
-            allowed_ratings: parseInt i for i in raw.allowed_ratings.split ','
-            requires_description: raw.requires_description,
-            type: Traits.Enums.MeritType.get raw.type
-            requires_specification: raw.requires_specification,
-        }
+        id: parseInt raw.id, 10
+        enabled: raw.enabled
+        name: raw.name
+        type: Traits.Enums.MeritType.get raw.type
+        allowed_ratings: parseInt i, 10 for i in raw.allowed_ratings.split ','
+        requires_specification: raw.requires_specification
+        requires_description: raw.requires_description
 
-    toJSON: () ->
-        attr = _.clone this.attributes
-        attr.allowed_ratings = attr.allowed_ratings.join()
-        attr
+    toJSON: (options) ->
+        options = {} if not options?
+        attr = _.clone @attributes
 
-    toHumanJSON: () ->
-        attr = _.clone this.attributes
+        if options.nest
+
+        else
+            attr.type = attr.type.id
+            attr.allowed_ratings = attr.allowed_ratings.join()
 
         attr
 
     url: () ->
-        "#{ DCMS.Settings.URL_PREFIX }/api/traits/Merit/#{ if @id? then "#{@id}/" else '' }"
+        "#{ DCMS.Settings.URL_PREFIX }/api/traits/Merit/#{ if @id? then "#{ @id }/" else '' }"
+
