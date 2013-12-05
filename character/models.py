@@ -70,15 +70,6 @@ class CharacterHasTraitModel (models.Model):
         abstract = True
 
 
-class CharacterHasText (CharacterHasTraitModel):
-    trait = models.ForeignKey(trait_models.CharacterText)
-    text  = models.TextField(blank = True)
-
-    class Meta (object):
-        unique_together = ('character', 'trait')
-        ordering        = ('trait__name',)
-
-
 class CharacterHasAttribute (CharacterHasTraitModel):
     trait  = models.ForeignKey(trait_models.Attribute)
     rating = models.SmallIntegerField(default = 1)
@@ -86,6 +77,60 @@ class CharacterHasAttribute (CharacterHasTraitModel):
     class Meta (object):
         unique_together = ('character', 'trait')
         ordering        = ('trait__type__name',)
+
+
+class CharacterHasCombatTrait (CharacterHasTraitModel):
+    trait  = models.ForeignKey(trait_models.CombatTrait)
+    rating = models.SmallIntegerField(null = True, blank = True)
+
+    class Meta (object):
+        unique_together = ('character', 'trait')
+        ordering        = ('trait__name',)
+
+
+class CharacterHasDerangement (CharacterHasTraitModel):
+    trait         = models.ForeignKey(trait_models.Derangement)
+    specification = models.CharField(null = True, blank = True, max_length = 255)
+    description   = models.TextField(null = True, blank = True)
+
+    class Meta (object):
+        ordering = ('trait__type__name', 'trait__name')
+
+
+class CharacterHasFlaw (CharacterHasTraitModel):
+    trait         = models.ForeignKey(trait_models.Flaw)
+    specification = models.CharField(null = True, blank = True, max_length = 255)
+    description   = models.TextField(null = True, blank = True)
+
+    class Meta (object):
+        ordering = ('trait__type__name', 'trait__name')
+
+
+class CharacterHasMerit (CharacterHasTraitModel):
+    trait         = models.ForeignKey(trait_models.Merit)
+    rating        = models.SmallIntegerField(null = True, blank = True)
+    specification = models.CharField(null = True, blank = True, max_length = 255)
+    description   = models.TextField(null = True, blank = True)
+
+    class Meta (object):
+        ordering = ('trait__type__name', 'trait__name')
+
+
+class CharacterHasMiscTrait (CharacterHasTraitModel):
+    trait       = models.ForeignKey(trait_models.MiscTrait)
+    rating      = models.SmallIntegerField(null = True, blank = True)
+    description = models.TextField(null = True, blank = True)
+
+    class Meta (object):
+        ordering = ('trait__name',)
+
+
+class CharacterHasPower (CharacterHasTraitModel):
+    trait = models.ForeignKey(trait_models.Power)
+
+    class Meta (object):
+        unique_together = ('character', 'trait')
+        ordering        = ('trait__group', 'trait__rating', 'trait__name')
 
 
 class CharacterHasSkill (CharacterHasTraitModel):
@@ -106,55 +151,10 @@ class CharacterHasSkillSpecialty (CharacterHasTraitModel):
         ordering        = ('trait__type__name', 'trait__name')
 
 
-class CharacterHasPower (CharacterHasTraitModel):
-    trait = models.ForeignKey(trait_models.Power)
-
-    class Meta (object):
-        unique_together = ('character', 'trait')
-        ordering        = ('trait__group', 'trait__rating', 'trait__name')
-
-
-class CharacterHasMerit (CharacterHasTraitModel):
-    trait         = models.ForeignKey(trait_models.Merit)
-    rating        = models.SmallIntegerField(null = True, blank = True)
-    specification = models.CharField(null = True, blank = True, max_length = 255)
-    description   = models.TextField(null = True, blank = True)
-
-    class Meta (object):
-        ordering = ('trait__type__name', 'trait__name')
-
-
-class CharacterHasFlaw (CharacterHasTraitModel):
-    trait         = models.ForeignKey(trait_models.Flaw)
-    specification = models.CharField(null = True, blank = True, max_length = 255)
-    description   = models.TextField(null = True, blank = True)
-
-    class Meta (object):
-        ordering = ('trait__type__name', 'trait__name')
-
-
-class CharacterHasDerangement (CharacterHasTraitModel):
-    trait         = models.ForeignKey(trait_models.Derangement)
-    specification = models.CharField(null = True, blank = True, max_length = 255)
-    description   = models.TextField(null = True, blank = True)
-
-    class Meta (object):
-        ordering = ('trait__type__name', 'trait__name')
-
-
-class CharacterHasCombatTrait (CharacterHasTraitModel):
-    trait  = models.ForeignKey(trait_models.CombatTrait)
-    rating = models.SmallIntegerField(null = True, blank = True)
+class CharacterHasText (CharacterHasTraitModel):
+    trait = models.ForeignKey(trait_models.CharacterText)
+    text  = models.TextField(blank = True)
 
     class Meta (object):
         unique_together = ('character', 'trait')
         ordering        = ('trait__name',)
-
-
-class CharacterHasMiscTrait (CharacterHasTraitModel):
-    trait       = models.ForeignKey(trait_models.MiscTrait)
-    rating      = models.SmallIntegerField(null = True, blank = True)
-    description = models.TextField(null = True, blank = True)
-
-    class Meta (object):
-        ordering = ('trait__name',)
