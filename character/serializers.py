@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# Fri, 15 Nov 2013 07:32:07 -0600 | f5e5fa1fff04a445a302992ff2a98909
+# Thu, 5 Dec 2013 08:39:39 -0600 | 9f4c207e1870f20202041ecbc57a1220
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -16,11 +16,16 @@ from rest_framework import serializers
 from character import models
 
 
-class XPRecordSerializer (serializers.ModelSerializer):
 class CharacterSerializer (serializers.ModelSerializer):
     class Meta (object):
         model = models.Character
 models.Character.Serializer = CharacterSerializer
+
+
+class XPRecordSerializer (serializers.ModelSerializer):
+    class Meta (object):
+        model = models.XPRecord
+models.XPRecord.Serializer = XPRecordSerializer
 
 
 class CharacterHasAttributeSerializer (serializers.ModelSerializer):

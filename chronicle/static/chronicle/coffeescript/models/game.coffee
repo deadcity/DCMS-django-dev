@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# Thu, 21 Nov 2013 07:25:40 -0600 | 65d886a90ed080238c9604da256d9d42
+# Thu, 5 Dec 2013 08:39:39 -0600 | b0df5d570c26775db12ef3e72d8b58b2
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -41,5 +41,5 @@ class Models.Game extends Backbone.Model
         attr
 
     url: () ->
-        "#{ DCMS.Settings.URL_PREFIX }/api/chronicle/Game/#{ if @id? then "#{ @id }/" else '' }"
+        "#{ DCMS.Settings.URL_PREFIX }/chronicle/Game/#{ if @id? then "#{ @id }/" else '' }"
 

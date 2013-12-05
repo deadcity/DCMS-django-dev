@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# Thu, 21 Nov 2013 07:25:39 -0600 | 5ad55a14a97f159bf4dc0bacd0bc45eb
+# Sat, 30 Nov 2013 05:25:25 -0600 | 3f277725ac200972705ffb595dba4065
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -43,5 +43,5 @@ class Models.CharacterHasFlaw extends Backbone.Model
         attr
 
     url: () ->
-        "#{ DCMS.Settings.URL_PREFIX }/api/character/CharacterHasFlaw/#{ if @id? then "#{ @id }/" else '' }"
+        "#{ DCMS.Settings.URL_PREFIX }/character/CharacterHasFlaw/#{ if @id? then "#{ @id }/" else '' }"
 

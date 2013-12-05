@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# Thu, 14 Nov 2013 17:01:01 -0600 | 4403be15506c187ea78724fe2868a567
+# Thu, 5 Dec 2013 08:39:39 -0600 | 72b053599bcf8d1e813731e1a075a56c
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -14,6 +14,10 @@
 from django.contrib import admin
 
 from character import models
+
+
+class XPRecordInline (admin.TabularInline):
+    model = models.XPRecord
 
 
 class CharacterHasAttributeInline (admin.TabularInline):

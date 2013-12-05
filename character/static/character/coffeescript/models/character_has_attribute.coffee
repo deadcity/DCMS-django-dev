@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# Thu, 21 Nov 2013 07:25:39 -0600 | 398f1663d8fa25375a6fb90a65f513e4
+# Sat, 30 Nov 2013 05:25:25 -0600 | 261b890cae001a7cb7cfb31a9389e8ca
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -41,5 +41,5 @@ class Models.CharacterHasAttribute extends Backbone.Model
         attr
 
     url: () ->
-        "#{ DCMS.Settings.URL_PREFIX }/api/character/CharacterHasAttribute/#{ if @id? then "#{ @id }/" else '' }"
+        "#{ DCMS.Settings.URL_PREFIX }/character/CharacterHasAttribute/#{ if @id? then "#{ @id }/" else '' }"
 

@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# Thu, 21 Nov 2013 07:25:39 -0600 | ad4927517e241e6f99df158130699041
+# Sat, 30 Nov 2013 05:25:25 -0600 | 3fa3030257c8395d16dc52d46d14d64e
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -43,5 +43,5 @@ class Models.CharacterHasDerangement extends Backbone.Model
         attr
 
     url: () ->
-        "#{ DCMS.Settings.URL_PREFIX }/api/character/CharacterHasDerangement/#{ if @id? then "#{ @id }/" else '' }"
+        "#{ DCMS.Settings.URL_PREFIX }/character/CharacterHasDerangement/#{ if @id? then "#{ @id }/" else '' }"
 

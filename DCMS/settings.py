@@ -33,7 +33,7 @@ SITE_ID = 1
 
 URL_PREFIX = platform_settings.URL_PREFIX
 LOGIN_URL = URL_PREFIX + '/accounts/login/'
-LOGIN_REDIRECT_URL = URL_PREFIX + '/characters/'
+LOGIN_REDIRECT_URL = URL_PREFIX + '/character/'
 
 # If you set this to False, Django will make some optimizations so as not
 # to load the internationalization machinery.

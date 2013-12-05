@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# Thu, 21 Nov 2013 07:25:38 -0600 | 3dd059481d39f00c145edc2f63ae3ba1
+# Sat, 30 Nov 2013 05:25:23 -0600 | 742cad7f1465dc93b286523d9bfb77d4
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -43,5 +43,5 @@ class Models.CreatureType extends Backbone.Model
         attr
 
     url: () ->
-        "#{ DCMS.Settings.URL_PREFIX }/api/traits/CreatureType/#{ if @id? then "#{ @id }/" else '' }"
+        "#{ DCMS.Settings.URL_PREFIX }/traits/CreatureType/#{ if @id? then "#{ @id }/" else '' }"
 

@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# Thu, 21 Nov 2013 07:25:39 -0600 | 7d212cbc185fcdb905d464e20e43cb85
+# Sat, 30 Nov 2013 05:25:24 -0600 | f638ccd219703d3753be11617ecdea83
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -35,5 +35,5 @@ class Models.Subgroup extends Backbone.Model
         attr
 
     url: () ->
-        "#{ DCMS.Settings.URL_PREFIX }/api/traits/Subgroup/#{ if @id? then "#{ @id }/" else '' }"
+        "#{ DCMS.Settings.URL_PREFIX }/traits/Subgroup/#{ if @id? then "#{ @id }/" else '' }"
 

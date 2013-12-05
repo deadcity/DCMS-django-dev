@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# Thu, 21 Nov 2013 07:25:40 -0600 | 6e8e01a6d1e74ea4b912cc18d8123ad9
+# Sat, 30 Nov 2013 05:25:26 -0600 | 2ef6bc289ccc04322b74a0d31e1831bc
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -41,5 +41,5 @@ class Models.CharacterHasSkillSpecialty extends Backbone.Model
         attr
 
     url: () ->
-        "#{ DCMS.Settings.URL_PREFIX }/api/character/CharacterHasSkillSpecialty/#{ if @id? then "#{ @id }/" else '' }"
+        "#{ DCMS.Settings.URL_PREFIX }/character/CharacterHasSkillSpecialty/#{ if @id? then "#{ @id }/" else '' }"
 

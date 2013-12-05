@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# Thu, 21 Nov 2013 07:25:40 -0600 | b96235060595d378ae96bfbcf76d3524
+# Thu, 5 Dec 2013 08:39:39 -0600 | a1a647483ec81393ead2d90f9fdff9a1
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -37,5 +37,5 @@ class Models.Chronicle extends Backbone.Model
         attr
 
     url: () ->
-        "#{ DCMS.Settings.URL_PREFIX }/api/chronicle/Chronicle/#{ if @id? then "#{ @id }/" else '' }"
+        "#{ DCMS.Settings.URL_PREFIX }/chronicle/Chronicle/#{ if @id? then "#{ @id }/" else '' }"
 

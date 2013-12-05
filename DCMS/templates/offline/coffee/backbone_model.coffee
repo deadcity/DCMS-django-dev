@@ -72,5 +72,5 @@ class Models.{{ model|meta:'object_name' }} extends Backbone.Model
         attr
 
     url: () ->
-        "#{ DCMS.Settings.URL_PREFIX }/api/{{ model|meta:'app_label' }}/{{ model|meta:'object_name' }}/#{ if @id? then "#{ @id }/" else '' }"
+        "#{ DCMS.Settings.URL_PREFIX }/{{ model|meta:'app_label' }}/{{ model|meta:'object_name' }}/#{ if @id? then "#{ @id }/" else '' }"
 {% endblock content %}

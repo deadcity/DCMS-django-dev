@@ -14,11 +14,11 @@ _urlpatterns = patterns('',
     # url(r'^$', 'DCMS.views.home', name='home'),
     # url(r'^DCMS/', include('DCMS.foo.urls')),
 
-    url(r'^$', RedirectView.as_view(url = settings.URL_PREFIX + '/characters/')),
+    url(r'^$', RedirectView.as_view(url = settings.URL_PREFIX + '/character/')),
 
     url(r'^api/',        include('DCMS.urls.api')),
     url(r'^accounts/',   include('accounts.urls')),
-    url(r'^characters/', include('character.urls.character_management')),
+    url(r'^character/',  include('character.urls')),
     url(r'^chronicles/', include('chronicle.urls.chronicle_management')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
