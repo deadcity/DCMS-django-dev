@@ -511,7 +511,7 @@
     "pk": 1,
     "model": "character.character",
     "fields": {
-        "status": 3,
+        "status": 10,
         "virtue": 4,
         "name": "Morgan Edwards",
         "genealogy": 1,
