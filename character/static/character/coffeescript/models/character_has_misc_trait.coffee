@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# Sat, 30 Nov 2013 05:25:25 -0600 | 630281d789ee8d98050b1b50c4fabdc4
+# Thu, 5 Dec 2013 10:37:53 -0600 | 89337aba9bda94877d94d6e1e701727e
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -33,11 +33,9 @@ class Models.CharacterHasMiscTrait extends Backbone.Model
         attr = _.clone @attributes
 
         if options.nest
-            attr.character = attr.character.toJSON options
             attr.trait = attr.trait.toJSON options
 
         else
-            attr.character = attr.character.id
             attr.trait = attr.trait.id
 
         attr

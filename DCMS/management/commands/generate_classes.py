@@ -81,7 +81,6 @@ class Command (NoArgsCommand):
         self.render(path.join(settings.PROJECT_PATH, 'character', 'admin', 'character_trait_admins.py'),  'py', 'offline/py/admin.py',        { 'app_name': 'character', 'models': [            XPRecord ] + character_traits })
         self.render(path.join(settings.PROJECT_PATH, 'character', 'admin', 'character_traits_inline.py'), 'py', 'offline/py/admin_inline.py', { 'app_name': 'character', 'models': [            XPRecord ] + character_traits })
         self.render(path.join(settings.PROJECT_PATH, 'character', 'serializers.py'),                      'py', 'offline/py/serializers.py',  { 'app_name': 'character', 'models': [ Character, XPRecord ] + character_traits })
-        self.render(path.join(settings.PROJECT_PATH, 'character', 'urls',  'character_ajax.py'),          'py', 'offline/py/urls.py',         { 'app_name': 'character', 'models': [ Character, XPRecord ] + character_traits })
         self.render(path.join(settings.PROJECT_PATH, 'character', 'views', 'character_ajax.py'),          'py', 'offline/py/views.py',        { 'app_name': 'character', 'models': [ Character, XPRecord ] + character_traits })
 
 

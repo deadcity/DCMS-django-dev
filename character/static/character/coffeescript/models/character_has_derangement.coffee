@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# Sat, 30 Nov 2013 05:25:25 -0600 | 3fa3030257c8395d16dc52d46d14d64e
+# Thu, 5 Dec 2013 10:37:53 -0600 | 2681bf3b8e928b4e34e388c386454a32
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -33,11 +33,9 @@ class Models.CharacterHasDerangement extends Backbone.Model
         attr = _.clone @attributes
 
         if options.nest
-            attr.character = attr.character.toJSON options
             attr.trait = attr.trait.toJSON options
 
         else
-            attr.character = attr.character.id
             attr.trait = attr.trait.id
 
         attr

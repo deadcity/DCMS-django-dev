@@ -4,7 +4,6 @@ from django.contrib.auth.models import User
 from chronicle.models import Game
 from common.enum import Enum
 from common.fields import EnumField
-from common.metaclasses import Model_Metaclass
 import traits.models as trait_models
 
 
@@ -18,8 +17,6 @@ class CharacterStatus (Enum):
 
 
 class Character (models.Model):
-    __metaclass__ = Model_Metaclass
-
     enabled = models.BooleanField(default = True)
     user    = models.ForeignKey(User)
     # chronicle = models.ForeignKey(Chronicle)
@@ -54,8 +51,6 @@ class Character (models.Model):
 
 
 class XPRecord (models.Model):
-    __metaclass__ = Model_Metaclass
-
     game      = models.ForeignKey(Game)
     character = models.ForeignKey(Character)
     amount    = models.SmallIntegerField()
@@ -66,7 +61,6 @@ class XPRecord (models.Model):
 
 
 class CharacterHasTraitModel (models.Model):
-    __metaclass__ = Model_Metaclass
     character = models.ForeignKey(Character)
 
     def __unicode__(self):

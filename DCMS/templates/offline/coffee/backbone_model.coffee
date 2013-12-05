@@ -32,10 +32,10 @@ class Models.{{ model|meta:'object_name' }} extends Backbone.Model
         {{ field.name }}: raw.{{ field.name }}
       {% elif field|checkinstance:'django.db.models.fields.TextField' %}
         {{ field.name }}: raw.{{ field.name }}
-      {% elif field|checkinstance:'traits.models.EnumModelKey' %}
+      {% elif field|checkinstance:'traits.models.TraitTypeField' %}
         {{ field.name }}: {{ field|related_parent|meta:'app_label'|title }}.Enums.{{ field|related_parent|meta:'object_name' }}.get raw.{{ field.name }}
       {% elif field|checkinstance:'common.fields.EnumField' %}
-        {{ field.name }}: {{ model|meta:'app_label'|title }}.Enums.{{ field.enum. }}
+        {{ field.name }}: {{ model|meta:'app_label'|title }}.Enums.{{ field.enum.name }}
       {% elif field|checkinstance:'django.db.models.fields.related.ForeignKey' %}
         {{ field.name }}: {{ field|related_parent|meta:'app_label'|title }}.Objects.{{ field|related_parent|meta:'object_name' }}.get raw.{{ field.name }}
       {% else %}
@@ -51,7 +51,8 @@ class Models.{{ model|meta:'object_name' }} extends Backbone.Model
         {% trimlines %}
         if options.nest
           {% for field in model|meta:'fields' %}
-          {% if field|checkinstance:'traits.models.EnumModelKey' %}
+          {% if field.name == 'character' %}
+          {% elif field|checkinstance:'traits.models.TraitTypeField' %}
           {% elif field|checkinstance:'django.db.models.ForeignKey' %}
             attr.{{ field.name }} = attr.{{ field.name }}.toJSON options
           {% endif %}
@@ -61,7 +62,8 @@ class Models.{{ model|meta:'object_name' }} extends Backbone.Model
         {% trimlines %}
         else
           {% for field in model|meta:'fields' %}
-          {% if field|checkinstance:'django.db.models.CommaSeparatedIntegerField' %}
+          {% if field.name == 'character' %}
+          {% elif field|checkinstance:'django.db.models.CommaSeparatedIntegerField' %}
             attr.{{ field.name }} = attr.{{ field.name }}.join()
           {% elif field|checkinstance:'django.db.models.fields.related.ForeignKey' %}
             attr.{{ field.name }} = attr.{{ field.name }}.id

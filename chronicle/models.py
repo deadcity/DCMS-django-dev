@@ -1,12 +1,8 @@
 from django.contrib.auth.models import User
 from django.db import models
 
-from common.metaclasses import Model_Metaclass
-
 
 class Chronicle (models.Model):
-    __metaclass__ = Model_Metaclass
-
     enabled = models.BooleanField(default = True)
     name    = models.CharField(max_length = 255, unique = True)
 
@@ -18,8 +14,6 @@ class Chronicle (models.Model):
 
 
 class Game (models.Model):
-    __metaclass__ = Model_Metaclass
-
     enabled = models.BooleanField(default = True)
 
     name      = models.CharField(max_length = 255, unique = True)

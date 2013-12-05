@@ -1,5 +1,5 @@
 # DCMS auto-generated file
-# Sat, 30 Nov 2013 05:25:26 -0600 | 5026cb81f41ba1d7f1f3f75a3b19ea3b
+# Thu, 5 Dec 2013 10:37:53 -0600 | 2c6f055466d7c8f9f650c2302d9412d7
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
@@ -31,11 +31,9 @@ class Models.CharacterHasText extends Backbone.Model
         attr = _.clone @attributes
 
         if options.nest
-            attr.character = attr.character.toJSON options
             attr.trait = attr.trait.toJSON options
 
         else
-            attr.character = attr.character.id
             attr.trait = attr.trait.id
 
         attr
