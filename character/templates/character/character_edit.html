@@ -20,37 +20,50 @@
 
     <!-- libs -->
     {% compress js %}
+        <script type='text/coffeescript' src='{% static 'coffeescript/tools.coffee' %}'></script>
         <script type='text/coffeescript' src='{% static 'coffeescript/enum.coffee' %}'></script>
         <script type='text/coffeescript' src='{% static 'coffeescript/svg_tools.coffee' %}'></script>
     {% endcompress %}
 
-    {% include 'components/script_includes/character_summary.html' %}
+    <!-- character summary -->
+    {% compress js %}
+        <script type='text/coffeescript' src='{% static 'character/coffeescript/models/character.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'traits/coffeescript/models/affiliation.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'traits/coffeescript/models/creaturetype.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'traits/coffeescript/models/genealogy.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'traits/coffeescript/models/subgroup.coffee' %}'></script>
+    {% endcompress %}
 
     <!-- trait models -->
     {% compress js %}
         <script type='text/coffeescript' src='{% static 'traits/coffeescript/models/attribute.coffee' %}'></script>
-        <script type='text/coffeescript' src='{% static 'traits/coffeescript/models/character_text.coffee' %}'></script>
-        <script type='text/coffeescript' src='{% static 'traits/coffeescript/models/combat_trait.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'traits/coffeescript/models/charactertext.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'traits/coffeescript/models/combattrait.coffee' %}'></script>
         <script type='text/coffeescript' src='{% static 'traits/coffeescript/models/derangement.coffee' %}'></script>
         <script type='text/coffeescript' src='{% static 'traits/coffeescript/models/flaw.coffee' %}'></script>
         <script type='text/coffeescript' src='{% static 'traits/coffeescript/models/merit.coffee' %}'></script>
-        <script type='text/coffeescript' src='{% static 'traits/coffeescript/models/misc_trait.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'traits/coffeescript/models/misctrait.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'traits/coffeescript/models/powergroup.coffee' %}'></script>
         <script type='text/coffeescript' src='{% static 'traits/coffeescript/models/power.coffee' %}'></script>
         <script type='text/coffeescript' src='{% static 'traits/coffeescript/models/skill.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'traits/coffeescript/models/creaturetypehasgenealogy.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'traits/coffeescript/models/creaturetypehaspowergroup.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'traits/coffeescript/models/creaturetypehasmerit.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'traits/coffeescript/models/creaturetypehasaffiliation.coffee' %}'></script>
     {% endcompress %}
 
     <!-- character traits -->
     {% compress js %}
-        <script type='text/coffeescript' src='{% static 'character/coffeescript/models/character_has_attribute.coffee' %}'></script>
-        <script type='text/coffeescript' src='{% static 'character/coffeescript/models/character_has_combat_trait.coffee' %}'></script>
-        <script type='text/coffeescript' src='{% static 'character/coffeescript/models/character_has_derangement.coffee' %}'></script>
-        <script type='text/coffeescript' src='{% static 'character/coffeescript/models/character_has_flaw.coffee' %}'></script>
-        <script type='text/coffeescript' src='{% static 'character/coffeescript/models/character_has_merit.coffee' %}'></script>
-        <script type='text/coffeescript' src='{% static 'character/coffeescript/models/character_has_misc_trait.coffee' %}'></script>
-        <script type='text/coffeescript' src='{% static 'character/coffeescript/models/character_has_power.coffee' %}'></script>
-        <script type='text/coffeescript' src='{% static 'character/coffeescript/models/character_has_skill.coffee' %}'></script>
-        <script type='text/coffeescript' src='{% static 'character/coffeescript/models/character_has_skill_specialty.coffee' %}'></script>
-        <script type='text/coffeescript' src='{% static 'character/coffeescript/models/character_has_text.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'character/coffeescript/models/characterhasattribute.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'character/coffeescript/models/characterhascombattrait.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'character/coffeescript/models/characterhasderangement.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'character/coffeescript/models/characterhasflaw.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'character/coffeescript/models/characterhasmerit.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'character/coffeescript/models/characterhasmisctrait.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'character/coffeescript/models/characterhaspower.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'character/coffeescript/models/characterhasskill.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'character/coffeescript/models/characterhasskillspecialty.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'character/coffeescript/models/characterhastext.coffee' %}'></script>
     {% endcompress %}
 
     <!-- views -->
@@ -70,23 +83,11 @@
         <div id='character-basics'>
             <span class='label'>Character Name:</span> <input type='text' name='name' value='<%= name %>' /><br />
             <span class='label'>Character Status:</span> <%= status.name %><br />
-            <span class='label'><%= creature_type.genealogy_name %>:</span> <select name='genealogy'>
-                <option disabled=true<% if (genealogy) { %> selected=true<% } %>>select <%= creature_type.genealogy_name %>...</option>
-            </select><br />
-            <span class='label'><%= creature_type.affiliation_name %>:</span> <select name='affiliation'>
-                <option disabled=true<% if (affiliation) { %> selected=true<% } %>>select <%= creature_type.affiliation_name %>...</option>
-            </select><br />
-        {% comment %}
-            <span class='label'><%= creature_type.subgroup_name %>:</span> <select name='subgroup'>
-                <option disabled=true<% if (subgroup) { %> selected=true<% } %>>select <%= creature_type.subgroup_name %>...</option>
-            </select><br />
-        {% endcomment %}
-            <span class='label'>Virtue:</span> <select name='virtue'>
-                <option disabled=true<% if (virtue) { %> selected=true<% } %>>select virtue...</option>
-            </select><br />
-            <span class='label'>Vice:</span> <select name='vice'>
-                <option disabled=true<% if (vice) { %> selected=true<% } %>>select vice...</option>
-            </select><br />
+            <span class='label'><%= creature_type.genealogy_name %>:</span> <select name='genealogy'></select><br />
+            <span class='label'><%= creature_type.affiliation_name %>:</span> <select name='affiliation'></select><br />
+            <span class='label'><%= creature_type.subgroup_name %>:</span> <input type="text" name='subgroup' value='<%= subgroup.name %>' /><br />
+            <span class='label'>Virtue:</span> <select name='virtue'></select><br />
+            <span class='label'>Vice:</span> <select name='vice'></select><br />
         </div>
     </script>
 
@@ -185,41 +186,81 @@
     <script type='text/javascript'>
         Tools.create_namespace('Traits.Enums');
         Tools.create_namespace('Traits.Objects');
-        Tools.create_namespace('Character.Enums');
         Tools.create_namespace('Character.Objects');
 
-        Traits.Enums.Vice   = new Tools.Enum({{ vices   | serialize_json | safe }});
-        Traits.Enums.Virtue = new Tools.Enum({{ virtues | serialize_json | safe }});
+        Traits.Enums.Vice   = new Enum.Enum({{ vices   | serialize_json | safe }});
+        Traits.Enums.Virtue = new Enum.Enum({{ virtues | serialize_json | safe }});
 
         Traits.Objects.Affiliation  = new Backbone.Collection({{ affiliations   | serialize_json | safe }}, { model: Traits.Models.Affiliation  });
         Traits.Objects.CreatureType = new Backbone.Collection({{ creature_types | serialize_json | safe }}, { model: Traits.Models.CreatureType });
         Traits.Objects.Genealogy    = new Backbone.Collection({{ genealogies    | serialize_json | safe }}, { model: Traits.Models.Genealogy    });
         Traits.Objects.Subgroup     = new Backbone.Collection({{ subgroups      | serialize_json | safe }}, { model: Traits.Models.Subgroup     });
+        Traits.Objects.CreatureTypeHasGenealogy = new Backbone.Collection({{ creature_type_has_genealogies | serialize_json | safe }}, {model: Traits.Models.CreatureTypeHasGenealogy});
+        Traits.Objects.CreatureTypeHasAffiliation = new Backbone.Collection({{ creature_type_has_affiliations | serialize_json | safe }}, {model: Traits.Models.CreatureTypeHasAffiliation});
 
-        Traits.Enums.AttributeType   = new Tools.Enum({{ attribute_types   | serialize_json | safe }});
-        Traits.Enums.DerangementType = new Tools.Enum({{ derangement_types | serialize_json | safe }});
-        Traits.Enums.FlawType        = new Tools.Enum({{ flaw_types        | serialize_json | safe }});
-        Traits.Enums.MeritType       = new Tools.Enum({{ merit_types       | serialize_json | safe }});
-        Traits.Enums.SkillType       = new Tools.Enum({{ skill_types       | serialize_json | safe }});
+        Traits.Enums.AttributeType   = new Enum.Enum({{ attribute_types   | serialize_json | safe }});
+        Traits.Enums.DerangementType = new Enum.Enum({{ derangement_types | serialize_json | safe }});
+        Traits.Enums.FlawType        = new Enum.Enum({{ flaw_types        | serialize_json | safe }});
+        Traits.Enums.MeritType       = new Enum.Enum({{ merit_types       | serialize_json | safe }});
+        Traits.Enums.SkillType       = new Enum.Enum({{ skill_types       | serialize_json | safe }});
+        Traits.Enums.Status          = new Enum.Enum({{ statuses          | serialize_json | safe }});
+        
+        Traits.Objects.PowerGroup = new Backbone.Collection({{ power_groups | serialize_json | safe}}, {model: Traits.Models.PowerGroup});
+        Traits.Objects.CreatureTypeHasPowerGroup = new Backbone.Collection({{ creature_type_has_power_groups | serialize_json | safe }}, {model: Traits.Models.CreatureTypeHasPowerGroup});
 
         Traits.Objects.Attribute     = new Backbone.Collection({{ attributes      | serialize_json | safe }}, { model: Traits.Models.Attribute,     parse: true });
         Traits.Objects.CharacterText = new Backbone.Collection({{ character_texts | serialize_json | safe }}, { model: Traits.Models.CharacterText, parse: true });
         Traits.Objects.CombatTrait   = new Backbone.Collection({{ combat_traits   | serialize_json | safe }}, { model: Traits.Models.CombatTrait,   parse: true });
         Traits.Objects.Derangement   = new Backbone.Collection({{ derangements    | serialize_json | safe }}, { model: Traits.Models.Derangement,   parse: true });
-        Traits.Objects.Flaw          = new Backbone.Collection({{ flaws           | serialize_json | safe }}, { model: Traits.Models.Flaw,          parse: true });
+        Traits.Objects.Flaw          = new Backbone.Collection({{ flaws           | serialize_json | safe }}, { model: Traits.Models.Flaw,          parse: true })
         Traits.Objects.Merit         = new Backbone.Collection({{ merits          | serialize_json | safe }}, { model: Traits.Models.Merit,         parse: true });
         Traits.Objects.MiscTrait     = new Backbone.Collection({{ misc_traits     | serialize_json | safe }}, { model: Traits.Models.MiscTrait,     parse: true });
-        Traits.Objects.Power         = new Backbone.Collection({{ powers          | serialize_json | safe }}, { model: Traits.Models.Power,         parse: true });
+        Traits.Objects.Power         = new Backbone.Collection({{ powers          | serialize_json | safe }}, { model: Traits.Models.Power });
         Traits.Objects.Skill         = new Backbone.Collection({{ skills          | serialize_json | safe }}, { model: Traits.Models.Skill,         parse: true });
-
-        Character.Enums.Status = new Tools.Enum([
-            {% for elem in statuses|dictsort:'value' %}
-                { name: '{{ elem.name }}', value: {{ elem.value }} },
-            {% endfor %}
-        ]);
-
+                
         Character.Objects.Character = new Character.Models.Character({{ character | serialize_json | safe }}, { parse: true });
-
+        
+        var creatureTypeId = Character.Objects.Character.attributes.creature_type.attributes.id;
+        
+        
+        Traits.Objects.CreatureTypeHasMerit = new Backbone.Collection({{ character_type_has_merits | serialize_json | safe }}, {model: Traits.Models.CreatureTypeHasMerit});
+        
+        var creature_type_merits = new Backbone.Collection(Traits.Objects.CreatureTypeHasMerit.filter(function(creature_has_merit) {
+          return creature_has_merit.attributes.creature_type != creatureTypeId;
+        })).pluck("merit");
+        
+        Traits.Objects.Merit = new Backbone.Collection(Traits.Objects.Merit.filter(function(merit) {
+          return (_.contains(creature_type_merits, merit.attributes.id) === false) && (merit.attributes.enabled === true);
+        }))
+        
+        Traits.Objects.Flaw = new Backbone.Collection(Traits.Objects.Flaw.filter(function(merit) {
+          return merit.attributes.enabled === true;
+        }))
+        
+        var creature_type_families = new Backbone.Collection(Traits.Objects.CreatureTypeHasGenealogy.filter( function(creature_has_genealogy) {
+            return creature_has_genealogy.attributes.creature_type == creatureTypeId;
+        })).pluck("genealogy");
+        
+        Traits.Objects.Genealogy = new Backbone.Collection(Traits.Objects.Genealogy.filter(function(genealogy) {
+          return _.contains(creature_type_families, genealogy.attributes.id) === true;
+        }));
+        
+        var creature_type_affiliations = new Backbone.Collection(Traits.Objects.CreatureTypeHasAffiliation.filter(function(creature_has_affiliation) {
+          return creature_has_affiliation.attributes.creature_type == creatureTypeId;
+        })).pluck("affiliation");
+        
+        Traits.Objects.Affiliation = new Backbone.Collection(Traits.Objects.Affiliation.filter(function(affiliation) {
+          return _.contains(creature_type_affiliations, affiliation.attributes.id) === true;
+        }));
+        
+        var creature_type_powers = new Backbone.Collection(Traits.Objects.CreatureTypeHasPowerGroup.filter(function(creature_has_power_group) {
+          return creature_has_power_group.attributes.creature_type == creatureTypeId;
+        })).pluck("power_group");
+        
+        Traits.Objects.Power = new Backbone.Collection(Traits.Objects.Power.filter(function(power) {
+          return (_.contains(creature_type_powers, power.attributes.power_group) === true) && (power.attributes.enabled === true);
+        }));
+        
         Character.Objects.CharacterHasAttribute      = new Backbone.Collection({{ character_has_attribute       | serialize_json | safe }}, { model: Character.Models.CharacterHasAttribute,      parse: true });
         Character.Objects.CharacterHasCombatTrait    = new Backbone.Collection({{ character_has_combat_trait    | serialize_json | safe }}, { model: Character.Models.CharacterHasCombatTrait,    parse: true });
         Character.Objects.CharacterHasDerangement    = new Backbone.Collection({{ character_has_derangement     | serialize_json | safe }}, { model: Character.Models.CharacterHasDerangement,    parse: true });
@@ -373,16 +414,16 @@
 
 
         # POWERS
-
-        powers = new Character.Views.PowerSection
-            el: $ '#powers'
-            template: _.template $('#template_trait-selection-section').html()
-            template_data:
-                header: 'Disciplines'
-            collection: Character.Objects.CharacterHasPower
-            item_options:
-                template: _.template $('#template_power-item').html()
-        powers.render()
+        if Character.Objects.Character.attributes.creature_type.attributes.power_name != ""
+          powers = new Character.Views.PowerSection
+              el: $ '#powers'
+              template: _.template $('#template_trait-selection-section').html()
+              template_data:
+                  header: Character.Objects.Character.attributes.creature_type.attributes.power_name
+              collection: Character.Objects.CharacterHasPower
+              item_options:
+                  template: _.template $('#template_power-item').html()
+          powers.render()
 
 
         # MERITS

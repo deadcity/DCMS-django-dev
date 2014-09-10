@@ -64,8 +64,13 @@ def add_trait_data_to_context (context = None, **kwargs):
     context['flaws']           = trait_models.Flaw          .objects.filter(**kwargs)
     context['merits']          = trait_models.Merit         .objects.filter(**kwargs)
     context['misc_traits']     = trait_models.MiscTrait     .objects.filter(**kwargs)
+    context['power_groups']    = trait_models.PowerGroup    .objects.filter(**kwargs)
     context['powers']          = trait_models.Power         .objects.filter(**kwargs)
     context['skills']          = trait_models.Skill         .objects.filter(**kwargs)
+    context['creature_type_has_genealogies'] = CreatureTypeHasGenealogy.objects.filter(**kwargs)
+    context['creature_type_has_affiliations'] = CreatureTypeHasAffiliation.objects.filter(**kwargs)
+    context['creature_type_has_merits'] = CreatureTypeHasMerit.objects.filter(**kwargs)
+    context['creature_type_has_power_groups'] = CreatureTypeHasPowerGroup.objects.filter(**kwargs)
 
     return context
 

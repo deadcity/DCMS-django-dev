@@ -84,12 +84,35 @@ class MiscTrait (TraitModel):
     requires_description = models.BooleanField()
 
 
+class PowerGroup(Trait): pass
+
+
 class Power (TraitModel):
     rating = models.IntegerField(null = True, blank = True)
     group  = models.CharField(max_length = 255)
 
     def __unicode__ (self):
         return '{} {} - {}'.format(self.group, self.rating, self.name)
+
+
+class CreatureTypeHasPowerGroup(Trait):
+    creature_type = models.ForeignKey(CreatureType)
+    power_group = models.ForeignKey(PowerGroup)
+
+
+class CreatureTypeHasGenealogy(Trait):
+    creature_type = models.ForeignKey(CreatureType)
+    genealogy = models.ForeignKey(Genealogy)
+    
+
+class CreatureTypeHasAffiliation(Trait):
+    creature_type = models.ForeignKey(CreatureType)
+    affiliation = models.ForeignKey(Affiliation)
+    
+
+class CreatureTypeHasMerit(Trait):
+    creature_type = models.ForeignKey(CreatureType)
+    merit = models.ForeignKey(Merit)
 
 
 class Skill (TraitModel):
