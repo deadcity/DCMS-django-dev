@@ -223,7 +223,7 @@
         var creatureTypeId = Character.Objects.Character.attributes.creature_type.attributes.id;
         
         
-        Traits.Objects.CreatureTypeHasMerit = new Backbone.Collection({{ character_type_has_merits | serialize_json | safe }}, {model: Traits.Models.CreatureTypeHasMerit});
+        Traits.Objects.CreatureTypeHasMerit = new Backbone.Collection({{ creature_type_has_merits | serialize_json | safe }}, {model: Traits.Models.CreatureTypeHasMerit});
         
         var creature_type_merits = new Backbone.Collection(Traits.Objects.CreatureTypeHasMerit.filter(function(creature_has_merit) {
           return creature_has_merit.attributes.creature_type != creatureTypeId;
