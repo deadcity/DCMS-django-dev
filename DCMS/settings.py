@@ -2,7 +2,7 @@
 
 import os, sys
 
-import platform_settings
+from DCMS import platform_settings
 
 PROJECT_PATH = platform_settings.PROJECT_PATH
 
@@ -110,6 +110,8 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'dsqla.middleware.SQLATransactionMiddleware',
 )
 
 ROOT_URLCONF = 'DCMS.urls'
@@ -131,19 +133,19 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # Uncomment the next line to enable the admin:
-    'django.contrib.admin',
+    # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 
     'compressor',
-    'rest_framework',
+    # 'rest_framework',
 
-    'accounts',
-    'character',
-    'chronicle',
+    # 'accounts',
+    # 'character',
+    # 'chronicle',
     'DCMS',
-    'common',
-    'traits',
+    # 'common',
+    # 'traits',
 )
 
 if os.name == 'nt':
