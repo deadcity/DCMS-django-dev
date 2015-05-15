@@ -1,42 +1,43 @@
-# DCMS auto-generated file
-# Sat, 30 Nov 2013 05:25:24 -0600 | 50a13ba67df003d372a90ea4f704d93f
-
-# # # # # # # # # # # # # # # # # # # # # # #
-# DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
-# # # # # # # # # # # # # # # # # # # # # # #
-
-# If you wish to alter it's contents modify either the source model, or the
-# generating tool and then run `manage.py generate_classes` again.  (Don't
-# forget to commit the newly generated files!)
+###
+  @file  skill.coffee
+  @brief Model for character skills.
+###
 
 
-Models = Tools.create_namespace 'Traits.Models'
+Models = Tools.create_namespace 'ORM.Traits'
 
 
-class Models.Skill extends Backbone.Model
-    defaults:
-        id: null
-        enabled: null
-        name: null
-        type: null
+class Models.SkillType extends Models.TraitType
+    urlRoot: () ->
+        "#{ DCMS.Settings.URL_PREFIX }/traits/SkillType"
+
+Models.SkillType.setup()
+
+
+class Models.Skill extends Models.Trait
+    urlRoot: () ->
+        "#{ DCMS.Settings.URL_PREFIX }/traits/Skill"
+
+    defaults: () ->
+        _.extends super,
+            skill_type_id : undefined
+
+    relations: [{
+        type: Backbone.HasOne
+        key: 'skill_type'
+        relatedModel: Models.SkillType
+        includeInJSON: Models.SkillType.idAttribute
+        autoFetch: true
+        keySource: 'skill_type_id'
+    }]
 
     parse: (raw) ->
-        id: parseInt raw.id, 10
-        enabled: raw.enabled
-        name: raw.name
-        type: Traits.Enums.SkillType.get raw.type
+        attr = super
 
-    toJSON: (options) ->
-        options = {} if not options?
-        attr = _.clone @attributes
+        attr.skill_type_id = parseInt raw.skill_type_id, 10
 
-        if options.nest
+        attr.skill_type_id = null if _.isNaN attr.skill_type_id
 
-        else
-            attr.type = attr.type.id
+        return attr
 
-        attr
-
-    url: () ->
-        "#{ DCMS.Settings.URL_PREFIX }/traits/Skill/#{ if @id? then "#{ @id }/" else '' }"
-
+Models.Skill.setup()

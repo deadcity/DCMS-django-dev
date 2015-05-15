@@ -1,46 +1,47 @@
-# DCMS auto-generated file
-# Sat, 30 Nov 2013 05:25:24 -0600 | bc8ee83bb51ca93ebe8bc8f5842d3be3
-
-# # # # # # # # # # # # # # # # # # # # # # #
-# DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
-# # # # # # # # # # # # # # # # # # # # # # #
-
-# If you wish to alter it's contents modify either the source model, or the
-# generating tool and then run `manage.py generate_classes` again.  (Don't
-# forget to commit the newly generated files!)
+###
+  @file  flaw.coffee
+  @brief Model for character flaws.
+###
 
 
-Models = Tools.create_namespace 'Traits.Models'
+Models = Tools.create_namespace 'ORM.Traits'
 
 
-class Models.Flaw extends Backbone.Model
-    defaults:
-        id: null
-        enabled: null
-        name: null
-        type: null
-        requires_specification: null
-        requires_description: null
+class Models.FlawType extends Models.TraitType
+    urlRoot: () ->
+        "#{ DCMS.Settings.URL_PREFIX }/traits/FlawType"
+
+Models.FlawType.setup()
+
+
+class Models.Flaw extends Models.Flaw
+    urlRoot: () ->
+        "#{ DCMS.Settings.URL_PREFIX }/traits/Flaw"
+
+    defaults: () ->
+        _.extends super,
+            flaw_type_id           : undefined
+            requires_specification : undefined
+            requires_description   : undefined
+
+    relations: [{
+        type: Backbone.HasOne
+        key: 'flaw_type'
+        relatedModel: Models.FlawType
+        includeInJSON: Models.FlawType.idAttribute
+        autoFetch: true
+        keySource: 'flaw_type_id'
+    }]
 
     parse: (raw) ->
-        id: parseInt raw.id, 10
-        enabled: raw.enabled
-        name: raw.name
-        type: Traits.Enums.FlawType.get raw.type
-        requires_specification: raw.requires_specification
-        requires_description: raw.requires_description
+        attr = super
 
-    toJSON: (options) ->
-        options = {} if not options?
-        attr = _.clone @attributes
+        attr.flaw_type_id           = parseInt raw.flaw_type_id, 10
+        attr.requires_specification = raw.requires_specification
+        attr.requires_description   = raw.requires_description
 
-        if options.nest
+        attr.flaw_type_id = null if _.isNaN attr.flaw_type_id
 
-        else
-            attr.type = attr.type.id
+        return attr
 
-        attr
-
-    url: () ->
-        "#{ DCMS.Settings.URL_PREFIX }/traits/Flaw/#{ if @id? then "#{ @id }/" else '' }"
-
+Models.Flaw.setup()

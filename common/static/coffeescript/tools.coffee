@@ -13,16 +13,5 @@ Tools = create_namespace 'Tools'
 Tools.create_namespace = create_namespace
 
 
-Tools.mixin = (Base, mixins...) ->
-    class Mixed extends Base
-
-    for Mixin in mixins by -1  # earlier mixins override later ones
-        # Class members.
-        for name, member of Mixin
-            Mixed[name] = member
-
-        # Prototype members.
-        for name, member of Mixin::
-            Mixed::[name] = member
-
-    Mixed
+Function::define_property = (property_name, desc) ->
+    Object.defineProperty @prototype, property_name desc

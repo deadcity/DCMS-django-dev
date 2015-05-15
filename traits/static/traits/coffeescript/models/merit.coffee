@@ -1,49 +1,69 @@
-# DCMS auto-generated file
-# Sat, 30 Nov 2013 05:25:24 -0600 | 7ec29be23527b41daddbc71f3259e04d
-
-# # # # # # # # # # # # # # # # # # # # # # #
-# DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
-# # # # # # # # # # # # # # # # # # # # # # #
-
-# If you wish to alter it's contents modify either the source model, or the
-# generating tool and then run `manage.py generate_classes` again.  (Don't
-# forget to commit the newly generated files!)
+###
+  @file  merit.coffee
+  @brief Model for character merits.
+###
 
 
-Models = Tools.create_namespace 'Traits.Models'
+Models = Tools.create_namespace 'ORM.Traits'
 
 
-class Models.Merit extends Backbone.Model
-    defaults:
-        id: null
-        enabled: null
-        name: null
-        type: null
-        allowed_ratings: null
-        requires_specification: null
-        requires_description: null
+class Models.MeritType extends Models.TraitType
+    urlRoot: () ->
+        "#{ DCMS.Settings.URL_PREFIX }/traits/MeritType"
+
+Models.MeritType.setup()
+
+
+class Models.Merit extends Models.Merit
+    urlRoot: () ->
+        "#{ DCMS.Settings.URL_PREFIX }/traits/Merit"
+
+    defaults: () ->
+        _.extends super,
+            merit_type_id          : undefined
+            requires_specification : undefined
+            requires_description   : undefined
+
+    relations: [{
+        type: Backbone.HasOne
+        key: 'merit_type'
+        relatedModel: Models.MeritType
+        includeInJSON: Models.MeritType.idAttribute
+        autoFetch: true
+        keySource: 'merit_type_id'
+    }]
 
     parse: (raw) ->
-        id: parseInt raw.id, 10
-        enabled: raw.enabled
-        name: raw.name
-        type: Traits.Enums.MeritType.get raw.type
-        allowed_ratings: parseInt i, 10 for i in raw.allowed_ratings.split ','
-        requires_specification: raw.requires_specification
-        requires_description: raw.requires_description
+        attr = super
 
-    toJSON: (options) ->
-        options = {} if not options?
-        attr = _.clone @attributes
+        attr.merit_type_id          = parseInt raw.merit_type_id, 10
+        attr.requires_specification = raw.requires_specification
+        attr.requires_description   = raw.requires_description
 
-        if options.nest
+        attr.merit_type_id = null if _.isNaN attr.merit_type_id
 
-        else
-            attr.type = attr.type.id
-            attr.allowed_ratings = attr.allowed_ratings.join()
+        return attr
 
-        attr
+Models.Merit.setup()
 
-    url: () ->
-        "#{ DCMS.Settings.URL_PREFIX }/traits/Merit/#{ if @id? then "#{ @id }/" else '' }"
 
+class Models.AllowedMeritRating extends ORM.BaseModel
+    urlRoot: () ->
+        "#{ DCMS.Settings.URL_PREFIX }/traits/AllowedMeritRating"
+
+    defaults:
+        merit_id : undefined
+        rating   : undefined
+
+    relations: [{
+        type: Backbone.HasOne
+        key: 'merit'
+        relatedModel: Models.Merit
+        includeInJSON: Models.Merit.idAttribute
+        autoFetch: true
+        keySource: 'merit_id'
+        reverseRelation:
+            key: 'allowed_ratings'
+    }]
+
+Models.AllowedMeritRating.setup()

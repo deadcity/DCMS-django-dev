@@ -1,41 +1,25 @@
-# DCMS auto-generated file
-# Sat, 30 Nov 2013 05:25:23 -0600 | d2884db06c579768becf29ff26d3f0d5
-
-# # # # # # # # # # # # # # # # # # # # # # #
-# DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
-# # # # # # # # # # # # # # # # # # # # # # #
-
-# If you wish to alter it's contents modify either the source model, or the
-# generating tool and then run `manage.py generate_classes` again.  (Don't
-# forget to commit the newly generated files!)
+###
+  @file  character_text.coffee
+  @brief Model for character texts.
+###
 
 
-Models = Tools.create_namespace 'Traits.Models'
+Models = Tools.create_namespace 'ORM.Traits'
 
 
-class Models.CharacterText extends Backbone.Model
-    defaults:
-        id: null
-        enabled: null
-        name: null
-        hide_from_player: null
+class Models.CharacterText extends Models.Trait
+    urlRoot: () ->
+        "#{ DCMS.Settings.URL_PREFIX }/traits/CharacterText"
+
+    defaults: () ->
+        _.extends super,
+            hide_from_player : undefined
 
     parse: (raw) ->
-        id: parseInt raw.id, 10
-        enabled: raw.enabled
-        name: raw.name
-        hide_from_player: raw.hide_from_player
+        attr = super
 
-    toJSON: (options) ->
-        options = {} if not options?
-        attr = _.clone @attributes
+        attr.hide_from_player = raw.hide_from_player
 
-        if options.nest
+        return attr
 
-        else
-
-        attr
-
-    url: () ->
-        "#{ DCMS.Settings.URL_PREFIX }/traits/CharacterText/#{ if @id? then "#{ @id }/" else '' }"
-
+Models.CharacterText.setup()

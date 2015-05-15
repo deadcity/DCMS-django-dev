@@ -1,122 +1,224 @@
-from django.contrib.contenttypes import generic
-from django.contrib.contenttypes.models import ContentType
-from django.db import models
+## @module traits.models
+#  Provides models related to traits.
 
 
-class TraitTypeModel (models.Model):
-    name = models.CharField(max_length = 255)
+from sqlalchemy.orm import backref, relationship
+from sqlalchemy.schema import CheckConstraint, Column, ForeignKey, PrimaryKeyConstraint
+from sqlalchemy.sql.expression import or_
+from sqlalchemy.types import Boolean, Integer, String
 
-    def __unicode__(self):
+from DCMS.model_base import BaseModel
+
+from dsqla.models import app_label
+
+
+AppLabel = app_label('traits')
+
+
+class TraitType (AppLabel, BaseModel):
+    __abstract__ = True
+
+    def __repr__ (self):
+        return "<{}({})>".format(type(self).__name__, self.name)
+
+    def __str__ (self):
         return self.name
-
-    class Meta (object):
-        abstract = True
-
-
-class AttributeType   (TraitTypeModel): pass
-class DerangementType (TraitTypeModel): pass
-class FlawType        (TraitTypeModel): pass
-class MeritType       (TraitTypeModel): pass
-class SkillType       (TraitTypeModel): pass
-class Vice            (TraitTypeModel): pass
-class Virtue          (TraitTypeModel): pass
-
-
-class TraitTypeField (models.ForeignKey):
-    def __init__ (self, related, **kwargs):
-        return super(TraitTypeField, self).__init__(related, related_name = 'trait', **kwargs)
-
-
-class TraitModel (models.Model):
-    enabled = models.BooleanField(default = True)
-    name    = models.CharField(max_length = 255, unique = True)
-
-    def __unicode__(self):
-        return self.name
-
-    class Meta (object):
-        abstract = True
-
-
-class Affiliation (TraitModel): pass
-
-
-class Attribute (TraitModel):
-    type = TraitTypeField(AttributeType)
-
-
-class CharacterText (TraitModel):
-    hide_from_player = models.BooleanField(default = False)
-
-
-class CombatTrait (TraitModel): pass
-
-
-class CreatureType (TraitModel):
-    genealogy_name   = models.CharField(max_length = 255, null = True, blank = True)
-    affiliation_name = models.CharField(max_length = 255, null = True, blank = True)
-    subgroup_name    = models.CharField(max_length = 255, null = True, blank = True)
-    power_name       = models.CharField(max_length = 255, null = True, blank = True)
-
-
-class Derangement (TraitModel):
-    type = TraitTypeField(DerangementType)
-    requires_specification = models.BooleanField()
-
-
-class Flaw (TraitModel):
-    type = TraitTypeField(FlawType, null = True)
-    requires_specification = models.BooleanField()
-    requires_description   = models.BooleanField()
-
-
-class Genealogy (TraitModel): pass
-
-
-class Merit (TraitModel):
-    type = TraitTypeField(MeritType, null = True)
-    allowed_ratings        = models.CommaSeparatedIntegerField(max_length = 255)
-    requires_specification = models.BooleanField()
-    requires_description   = models.BooleanField()
-
-
-class MiscTrait (TraitModel):
-    requires_description = models.BooleanField()
-
-
-class PowerGroup(Trait): pass
-
-
-class Power (TraitModel):
-    rating = models.IntegerField(null = True, blank = True)
-    group  = models.CharField(max_length = 255)
 
     def __unicode__ (self):
-        return '{} {} - {}'.format(self.group, self.rating, self.name)
+        return unicode(str(self))
+
+    id = Column(Integer, primary_key = True)
+    name = Column(String, nullable = False)
 
 
-class CreatureTypeHasPowerGroup(Trait):
-    creature_type = models.ForeignKey(CreatureType)
-    power_group = models.ForeignKey(PowerGroup)
+class AttributeType   (TraitType): pass
+class DerangementType (TraitType): pass
+class FlawType        (TraitType): pass
+class MeritType       (TraitType): pass
+class SkillType       (TraitType): pass
+class Vice            (TraitType): pass
+class Virtue          (TraitType): pass
 
 
-class CreatureTypeHasGenealogy(Trait):
-    creature_type = models.ForeignKey(CreatureType)
-    genealogy = models.ForeignKey(Genealogy)
-    
+class Trait (AppLabel, BaseModel):
+    def __repr__ (self):
+        return "<{}({})>".formt(type(self.__name__), self.name)
 
-class CreatureTypeHasAffiliation(Trait):
-    creature_type = models.ForeignKey(CreatureType)
-    affiliation = models.ForeignKey(Affiliation)
-    
+    id = Column(Integer, primary_key = True)
+    _discriminator = Column(String, nullable = False)
 
-class CreatureTypeHasMerit(Trait):
-    creature_type = models.ForeignKey(CreatureType)
-    merit = models.ForeignKey(Merit)
+    enabled = Column(Boolean, nullable = False, server_default = True)
+    name = Column(String)
 
-
-class Skill (TraitModel):
-    type = TraitTypeField(SkillType)
+    __mapper_args__ = {
+        'polymorphic_on': _discriminator,
+    }
 
 
-class Subgroup (TraitModel): pass
+class Affiliation (Trait):
+    id = Column(Integer, ForeignKey(Trait.id, ondelete = 'CASCADE'), primary_key = True)
+
+    __mapper_args__ = {
+        'polymorphic_identity': 'affiliation',
+    }
+
+
+class Attribute (Trait):
+    id = Column(Integer, ForeignKey(Trait.id, ondelete = 'CASCADE'), primary_key = True)
+
+    attribute_type_id = Column(Integer, ForeignKey(AttributeType.id))
+
+    __mapper_args__ = {
+        'polymorphic_identity': 'attribute',
+    }
+
+    attribute_type = relationship(Attribute)
+
+
+class CharacterText (Trait):
+    id = Column(Integer, ForeignKey(Trait.id, ondelete = 'CASCADE'), primary_key = True)
+
+    hide_from_player = Column(Boolean, nullable = False, server_default = False)
+
+    __mapper_args__ = {
+        'polymorphic_identity': 'character_text',
+    }
+
+
+class CombatTrait (Trait):
+    id = Column(Integer, ForeignKey(Trait.id, ondelete = 'CASCADE'), primary_key = True)
+
+    rating = Column(Integer)
+
+    __table_args__ = (
+        CheckConstraint(or_(rating.isnull_(), rating >= 0), name = 'non_negative_rating'),
+    )
+
+    __mapper_args__ = {
+        'polymorphic_identity': 'combat_trait',
+    }
+
+
+class CreatureType (Trait):
+    id = Column(Integer, ForeignKey(Trait.id, ondelete = 'CASCADE'), primary_key = True)
+
+    genealogy_name   = Column(String)
+    affiliation_name = Column(String)
+    subgroup_name    = Column(String)
+    power_name       = Column(String)
+
+    __mapper_args__ = {
+        'polymorphic_identity': 'creature_type',
+    }
+
+
+class Derangement (Trait):
+    id = Column(Integer, ForeignKey(Trait.id, ondelete = 'CASCADE'), primary_key = True)
+
+    derangement_type_id = Column(Integer, ForeignKey(DerangementType.id))
+    requires_specification = Column(Boolean, nullable = False, server_default = True)
+
+    __mapper_args__ = {
+        'polymorphic_identity': 'derangement',
+    }
+
+    derangement_type = relationship(DerangementType)
+
+
+class Flaw (Trait):
+    id = Column(Integer, ForeignKey(Trait.id, ondelete = 'CASCADE'), primary_key = True)
+
+    flaw_type_id = Column(Integer, ForeignKey(FlawType.id))
+    requires_specification = Column(Boolean, nullable = False, server_default = False)
+    requires_description = Column(Boolean, nullable = False, server_default = False)
+
+    __mapper_args__ = {
+        'polymorphic_identity': 'flaw',
+    }
+
+    flaw_type = relationship(FlawType)
+
+
+class Genealogy (Trait):
+    id = Column(Integer, ForeignKey(Trait.id, ondelete = 'CASCADE'), primary_key = True)
+
+    __mapper_args__ = {
+        'polymorphic_identity': 'genealogy',
+    }
+
+
+class Merit (Trait):
+    id = Column(Integer, ForeignKey(Trait.id, ondelete = 'CASCADE'), primary_key = True)
+
+    merit_type_id = Column(Integer, ForeignKey(MeritType.id))
+    requires_specification = Column(Boolean, nullable = False, server_default = False)
+    requires_description = Column(Boolean, nullable = False, server_default = False)
+
+    __mapper_args__ = {
+        'polymorphic_identity': 'merit',
+    }
+
+    merit_type = relationship(MeritType)
+
+
+class AllowedMeritRating (BaseModel):
+    merit_id = Column(Integer, ForeignKey(Merit.id))
+    rating = Column(Integer, nullable = False)
+
+    __table_args__ = (
+        PrimaryKeyConstraint(merit_id, rating),
+        CheckConstraint(rating >= 0, name = 'non_negative_rating'),
+    )
+
+    merit = relationship(Merit, backref = backref('allowed_ratings'))
+
+
+class MiscTrait (Trait):
+    id = Column(Integer, ForeignKey(Trait.id, ondelete = 'CASCADE'), primary_key = True)
+
+    requires_description = Column(Boolean, nullable = False, server_default = False)
+
+    __mapper_args__ = {
+        'polymorphic_identity': 'misc_trait',
+    }
+
+
+class PowerGroup (Trait):
+    id = Column(Integer, ForeignKey(Trait.id, ondelete = 'CASCADE'), primary_key = True)
+
+    __mapper_args__ = {
+        'polymorphic_identity': 'power_group',
+    }
+
+
+class Power (Trait):
+    id = Column(Integer, ForeignKey(Trait.id, ondelete = 'CASCADE'), primary_key = True)
+
+    rating = Column(Integer)
+    power_group_id = Column(Integer, ForeignKey(PowerGroup.id))
+
+    __table_args__ = (
+        CheckConstraint(or_(rating.isnull_(), rating > 0), name = 'positive_rating'),
+    )
+
+    power_group = relationship(PowerGroup)
+
+
+class Skill (Trait):
+    id = Column(Integer, ForeignKey(Trait.id, ondelete = 'CASCADE'), primary_key = True)
+
+    skill_type_id = Column(Integer, ForeignKey(SkillType.id))
+
+    __mapper_args__ = {
+        'polymorphic_identity': 'skill',
+    }
+
+    skill_type = relationship(SkillType)
+
+
+class Subgroup (Trait):
+    id = Column(Integer, ForeignKey(Trait.id, ondelete = 'CASCADE'), primary_key = True)
+
+    __mapper_args__ = {
+        'polymorphic_identity': 'subgroup',
+    }

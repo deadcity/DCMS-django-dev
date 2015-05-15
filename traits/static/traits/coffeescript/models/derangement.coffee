@@ -1,44 +1,45 @@
-# DCMS auto-generated file
-# Sat, 30 Nov 2013 05:25:23 -0600 | 5d3799ddd133169275a90e32b34d0f51
-
-# # # # # # # # # # # # # # # # # # # # # # #
-# DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
-# # # # # # # # # # # # # # # # # # # # # # #
-
-# If you wish to alter it's contents modify either the source model, or the
-# generating tool and then run `manage.py generate_classes` again.  (Don't
-# forget to commit the newly generated files!)
+###
+  @file  derangement.coffee
+  @brief Model for character derangements.
+###
 
 
-Models = Tools.create_namespace 'Traits.Models'
+Models = Tools.create_namespace 'ORM.Traits'
 
 
-class Models.Derangement extends Backbone.Model
-    defaults:
-        id: null
-        enabled: null
-        name: null
-        type: null
-        requires_specification: null
+class Models.DerangementType extends Models.TraitType
+    urlRoot: () ->
+        "#{ DCMS.Settings.URL_PREFIX }/traits/DerangementType"
+
+Models.DerangementType.setup()
+
+
+class Models.Derangement extends Models.Trait
+    urlRoot: () ->
+        "#{ DCMS.Settings.URL_PREFIX }/traits/Derangement"
+
+    defaults: () ->
+        _.extends super,
+            derangement_type_id    : undefined
+            requires_specification : undefined
+
+    relations: [{
+        type: Backbone.HasOne
+        key: 'derangement_type'
+        relatedModel: Models.DerangementType
+        includeInJSON: Models.DerangementType.idAttribute
+        autoFetch: true
+        keySource: 'derangement_type_id'
+    }]
 
     parse: (raw) ->
-        id: parseInt raw.id, 10
-        enabled: raw.enabled
-        name: raw.name
-        type: Traits.Enums.DerangementType.get raw.type
-        requires_specification: raw.requires_specification
+        attr = super
 
-    toJSON: (options) ->
-        options = {} if not options?
-        attr = _.clone @attributes
+        attr.derangement_type_id    = parseInt raw.derangement_type_id, 10
+        attr.requires_specification = raw.requires_specification
 
-        if options.nest
+        attr.derangement_type_id = null if _.isNaN attr.derangement_type_id
 
-        else
-            attr.type = attr.type.id
+        return attr
 
-        attr
-
-    url: () ->
-        "#{ DCMS.Settings.URL_PREFIX }/traits/Derangement/#{ if @id? then "#{ @id }/" else '' }"
-
+Models.Derangement.setup()

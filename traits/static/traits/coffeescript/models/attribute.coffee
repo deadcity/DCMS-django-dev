@@ -1,42 +1,43 @@
-# DCMS auto-generated file
-# Sat, 30 Nov 2013 05:25:23 -0600 | 8825cd87eb76b8a546ad72a01cabaffd
-
-# # # # # # # # # # # # # # # # # # # # # # #
-# DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
-# # # # # # # # # # # # # # # # # # # # # # #
-
-# If you wish to alter it's contents modify either the source model, or the
-# generating tool and then run `manage.py generate_classes` again.  (Don't
-# forget to commit the newly generated files!)
+###
+  @file  attribute.coffee
+  @brief Model for character attributes.
+###
 
 
-Models = Tools.create_namespace 'Traits.Models'
+Models = Tools.create_namespace 'ORM.Traits'
 
 
-class Models.Attribute extends Backbone.Model
-    defaults:
-        id: null
-        enabled: null
-        name: null
-        type: null
+class Models.AttributeType extends Models.TraitType
+    urlRoot: () ->
+        "#{ DCMS.Settings.URL_PREFIX }/traits/AttributeType"
+
+Models.AttributeType.setup()
+
+
+class Models.Attribute extends Models.Trait
+    urlRoot: () ->
+        "#{ DCMS.Settings.URL_PREFIX }/traits/Attribute"
+
+    defaults: () ->
+        _.extends super,
+            attribute_type_id : undefined
+
+    relations: [{
+        type: Backbone.HasOne
+        key: 'attribute_type'
+        relatedModel: Models.AttributeType
+        includeInJSON: Models.AttributeType.idAttribute
+        autoFetch: true
+        keySource: 'attribute_type_id'
+    }]
 
     parse: (raw) ->
-        id: parseInt raw.id, 10
-        enabled: raw.enabled
-        name: raw.name
-        type: Traits.Enums.AttributeType.get raw.type
+        attr = super
 
-    toJSON: (options) ->
-        options = {} if not options?
-        attr = _.clone @attributes
+        attr.attribute_type_id = parseInt raw.attribute_type_id, 10
 
-        if options.nest
+        attr.attribute_type_id = null if _.isNaN attr.attribute_type_id
 
-        else
-            attr.type = attr.type.id
+        return attr
 
-        attr
-
-    url: () ->
-        "#{ DCMS.Settings.URL_PREFIX }/traits/Attribute/#{ if @id? then "#{ @id }/" else '' }"
-
+Models.Attribute.setup()

@@ -1,43 +1,48 @@
-# DCMS auto-generated file
-# Sat, 30 Nov 2013 05:25:24 -0600 | 9519c94ffff0f9428115b998b79503aa
-
-# # # # # # # # # # # # # # # # # # # # # # #
-# DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
-# # # # # # # # # # # # # # # # # # # # # # #
-
-# If you wish to alter it's contents modify either the source model, or the
-# generating tool and then run `manage.py generate_classes` again.  (Don't
-# forget to commit the newly generated files!)
+###
+  @file  power.coffee
+  @brief Model for character combat traits.
+###
 
 
-Models = Tools.create_namespace 'Traits.Models'
+Models = Tools.create_namespace 'ORM.Traits'
 
 
-class Models.Power extends Backbone.Model
-    defaults:
-        id: null
-        enabled: null
-        name: null
-        rating: null
-        group: null
+class Models.PowerGroup extends Models.Trait
+    urlRoot: () ->
+        "#{ DCMS.Settings.URL_PREFIX }/traits/PowerGroup"
+
+Models.PowerGroup.setup()
+
+
+class Models.Power extends Models.Trait
+    urlRoot: () ->
+        "#{ DCMS.Settings.URL_PREFIX }/traits/Power"
+
+    defaults: () ->
+        _.extends super,
+            rating         : undefined
+            power_group_id : undefined
+
+    relations: [{
+        type: Backbone.HasOne
+        key: 'power_group'
+        relatedModel: Models.PowerGroup
+        includeInJSON: Models.PowerGroup.idAttribute
+        autoFetch: true
+        keySource: 'power_group_id'
+        reverseRelationship:
+            key: 'powers'
+    }]
 
     parse: (raw) ->
-        id: parseInt raw.id, 10
-        enabled: raw.enabled
-        name: raw.name
-        rating: parseInt raw.rating, 10
-        group: raw.group
+        attr = super
 
-    toJSON: (options) ->
-        options = {} if not options?
-        attr = _.clone @attributes
+        attr.rating         = parseInt raw.rating, 10
+        attr.power_group_id = parseInt raw.power_group_id, 10
 
-        if options.nest
+        attr.rating         = null if _.isNaN attr.rating
+        attr.power_group_id = null if _.isNaN attr.power_group_id
 
-        else
+        return attr
 
-        attr
-
-    url: () ->
-        "#{ DCMS.Settings.URL_PREFIX }/traits/Power/#{ if @id? then "#{ @id }/" else '' }"
-
+Models.Power.setup()
