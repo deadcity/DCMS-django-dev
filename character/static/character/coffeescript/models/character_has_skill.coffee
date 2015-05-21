@@ -1,43 +1,60 @@
-# DCMS auto-generated file
-# Thu, 5 Dec 2013 10:37:53 -0600 | 51bcc61528fad476fd071223aa4279e1
-
-# # # # # # # # # # # # # # # # # # # # # # #
-# DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
-# # # # # # # # # # # # # # # # # # # # # # #
-
-# If you wish to alter it's contents modify either the source model, or the
-# generating tool and then run `manage.py generate_classes` again.  (Don't
-# forget to commit the newly generated files!)
+###
+  @file  character_has_skill.coffee
+  @brief Model specifying the specific skill of a specific character.
+###
 
 
-Models = Tools.create_namespace 'Character.Models'
+Models = Tools.create_namespace 'ORM.Character'
 
 
-class Models.CharacterHasSkill extends Backbone.Model
-    defaults:
-        id: null
-        character: null
-        trait: null
-        rating: null
+class Models.CharacterHasSkill extends ORM.BaseModel
+    urlRoot: () ->
+        DCMS.Settings.URL_PREFIX + '/character/CharacterHasSkill'
+
+    defaults: () ->
+        id : undefined
+
+        character_id : undefined
+        trait_id     : undefined
+
+        rating : 0
+
+    relations: [
+        # Character
+        type: Backbone.HasOne
+        key: 'character'
+        relatedModel: ORM.Character.Character
+        includeInJSON: ORM.Character.Character.idAttribute
+        autoFetch: true
+        keySource: 'character_id'
+        reverseRelationship:
+            key: 'skills'
+    ,
+        # Trait
+        type: Backbone.HasOne
+        key: 'trait'
+        relatedModel: ORM.Traits.Skill
+        includeInJSON: ORM.Traits.Skill.idAttribute
+        autoFetch: true
+        keySource: 'trait_id'
+    ]
 
     parse: (raw) ->
-        id: parseInt raw.id, 10
-        character: Character.Objects.Character
-        trait: Traits.Objects.Skill.get raw.trait
-        rating: parseInt raw.rating, 10
+        attr =
+            id : parseInt raw.id, 10
 
-    toJSON: (options) ->
-        options = {} if not options?
-        attr = _.clone @attributes
+            character_id : parseInt raw.character_id, 10
+            trait_id     : parseInt raw.trait_id,     10
 
-        if options.nest
-            attr.trait = attr.trait.toJSON options
+            rating : parseInt raw.rating, 10
 
-        else
-            attr.trait = attr.trait.id
+        attr.id = null if _.isNaN attr.id
 
-        attr
+        attr.character_id = null if _.isNaN attr.character_id
+        attr.trait_id     = null if _.isNaN attr.trait_id
 
-    url: () ->
-        "#{ DCMS.Settings.URL_PREFIX }/character/CharacterHasSkill/#{ if @id? then "#{ @id }/" else '' }"
+        attr.rating = null if _.isNaN attr.rating
 
+        return attr
+
+Models.CharacterHasSkill.setup()

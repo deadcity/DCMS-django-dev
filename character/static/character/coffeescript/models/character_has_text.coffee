@@ -1,43 +1,58 @@
-# DCMS auto-generated file
-# Thu, 5 Dec 2013 10:37:53 -0600 | 2c6f055466d7c8f9f650c2302d9412d7
-
-# # # # # # # # # # # # # # # # # # # # # # #
-# DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
-# # # # # # # # # # # # # # # # # # # # # # #
-
-# If you wish to alter it's contents modify either the source model, or the
-# generating tool and then run `manage.py generate_classes` again.  (Don't
-# forget to commit the newly generated files!)
+###
+  @file  character_has_text.coffee
+  @brief Model specifying the specific text of a specific character.
+###
 
 
-Models = Tools.create_namespace 'Character.Models'
+Models = Tools.create_namespace 'ORM.Character'
 
 
-class Models.CharacterHasText extends Backbone.Model
-    defaults:
-        id: null
-        character: null
-        trait: null
-        text: null
+class Models.CharacterHasText extends ORM.BaseModel
+    urlRoot: () ->
+        DCMS.Settings.URL_PREFIX + '/character/CharacterHasText'
+
+    defaults: () ->
+        id : undefined
+
+        character_id : undefined
+        trait_id     : undefined
+
+        text : undefined
+
+    relations: [
+        # Character
+        type: Backbone.HasOne
+        key: 'character'
+        relatedModel: ORM.Character.Character
+        includeInJSON: ORM.Character.Character.idAttribute
+        autoFetch: true
+        keySource: 'character_id'
+        reverseRelationship:
+            key: 'skill_specialties'
+    ,
+        # Trait
+        type: Backbone.HasOne
+        key: 'trait'
+        relatedModel: ORM.Traits.Skill
+        includeInJSON: ORM.Traits.Skill.idAttribute
+        autoFetch: true
+        keySource: 'trait_id'
+    ]
 
     parse: (raw) ->
-        id: parseInt raw.id, 10
-        character: Character.Objects.Character
-        trait: Traits.Objects.CharacterText.get raw.trait
-        text: raw.text
+        attr =
+            id : parseInt raw.id, 10
 
-    toJSON: (options) ->
-        options = {} if not options?
-        attr = _.clone @attributes
+            character_id : parseInt raw.character_id, 10
+            trait_id     : parseInt raw.trait_id,     10
 
-        if options.nest
-            attr.trait = attr.trait.toJSON options
+            text : raw.text
 
-        else
-            attr.trait = attr.trait.id
+        attr.id = null if _.isNaN attr.id
 
-        attr
+        attr.character_id = null if _.isNaN attr.character_id
+        attr.trait_id     = null if _.isNaN attr.trait_id
 
-    url: () ->
-        "#{ DCMS.Settings.URL_PREFIX }/character/CharacterHasText/#{ if @id? then "#{ @id }/" else '' }"
+        return attr
 
+Models.CharacterHasText.setup()

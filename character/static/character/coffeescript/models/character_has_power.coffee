@@ -1,41 +1,54 @@
-# DCMS auto-generated file
-# Thu, 5 Dec 2013 10:37:53 -0600 | 2799b03f58b5cc148cd95a7cea769716
-
-# # # # # # # # # # # # # # # # # # # # # # #
-# DO NOT MODIFY THE CONTENTS OF THIS FILE!  #
-# # # # # # # # # # # # # # # # # # # # # # #
-
-# If you wish to alter it's contents modify either the source model, or the
-# generating tool and then run `manage.py generate_classes` again.  (Don't
-# forget to commit the newly generated files!)
+###
+  @file  character_has_power.coffee
+  @brief Model specifying the specific power of a specific character.
+###
 
 
-Models = Tools.create_namespace 'Character.Models'
+Models = Tools.create_namespace 'ORM.Character'
 
 
-class Models.CharacterHasPower extends Backbone.Model
-    defaults:
-        id: null
-        character: null
-        trait: null
+class Models.CharacterHasPower extends ORM.BaseModel
+    urlRoot: () ->
+        DCMS.Settings.URL_PREFIX + '/character/CharacterHasPower'
+
+    defaults: () ->
+        id : undefined
+
+        character_id : undefined
+        trait_id     : undefined
+
+    relations: [
+        # Character
+        type: Backbone.HasOne
+        key: 'character'
+        relatedModel: ORM.Character.Character
+        includeInJSON: ORM.Character.Character.idAttribute
+        autoFetch: true
+        keySource: 'character_id'
+        reverseRelationship:
+            key: 'powers'
+    ,
+        # Trait
+        type: Backbone.HasOne
+        key: 'trait'
+        relatedModel: ORM.Traits.Power
+        includeInJSON: ORM.Traits.Power.idAttribute
+        autoFetch: true
+        keySource: 'trait_id'
+    ]
 
     parse: (raw) ->
-        id: parseInt raw.id, 10
-        character: Character.Objects.Character
-        trait: Traits.Objects.Power.get raw.trait
+        attr =
+            id : parseInt raw.id, 10
 
-    toJSON: (options) ->
-        options = {} if not options?
-        attr = _.clone @attributes
+            character_id : parseInt raw.character_id, 10
+            trait_id     : parseInt raw.trait_id,     10
 
-        if options.nest
-            attr.trait = attr.trait.toJSON options
+        attr.id = null if _.isNaN attr.id
 
-        else
-            attr.trait = attr.trait.id
+        attr.character_id = null if _.isNaN attr.character_id
+        attr.trait_id     = null if _.isNaN attr.trait_id
 
-        attr
+        return attr
 
-    url: () ->
-        "#{ DCMS.Settings.URL_PREFIX }/character/CharacterHasPower/#{ if @id? then "#{ @id }/" else '' }"
-
+Models.CharacterHasPower.setup()
