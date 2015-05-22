@@ -24,3 +24,8 @@ class ORM.ModelBase extends Backbone.RelationalModel
 
     @parse_float_field: (raw, field) ->
         return ModelBase.parse_num_field raw, field, (val) -> parseFloat val, 10
+
+    @parse_datetime_field: (raw, field) ->
+        return undefined if raw[field] is undefined
+        return null if raw[field] is null
+        return new Date raw[field]
