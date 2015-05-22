@@ -108,41 +108,24 @@ class Models.Character extends ORM.BaseModel
     ]
 
     parse: (raw) ->
-        attr =
-            id : parseInt raw.id, 10
+        id : ORM.BaseModel.parse_int_field raw, 'id'
 
-            enabled      : raw.enabled
-            user_id      : parseInt raw.user, 10
-            # chronicle_id : Chronicle.Objects.Chronicle .get parseInt raw.chronicle, 10
-            status       : Character.Status.get raw.status
+        enabled      : raw.enabled
+        user_id      : ORM.BaseModel.parse_int_field raw, 'user'
+        # chronicle_id : Chronicle.Objects.Chronicle .get ORM.BaseModel.parse_int_field raw, 'chronicle'
+        status       : Character.Status.get raw.status
 
-            name             : raw.name
-            creature_type_id : parseInt raw.creature_type_id, 10
-            genealogy_id     : parseInt raw.genealogy_id,     10
-            affiliation_id   : parseInt raw.affiliation_id,   10
-            subgroup_id      : parseInt raw.subgroup_id,      10
-            virtue_id        : parseInt raw.virtue_id,        10
-            vice_id          : parseInt raw.vice_id,          10
+        name             : raw.name
+        creature_type_id : ORM.BaseModel.parse_int_field raw, 'creature_type_id'
+        genealogy_id     : ORM.BaseModel.parse_int_field raw, 'genealogy_id'
+        affiliation_id   : ORM.BaseModel.parse_int_field raw, 'affiliation_id'
+        subgroup_id      : ORM.BaseModel.parse_int_field raw, 'subgroup_id'
+        virtue_id        : ORM.BaseModel.parse_int_field raw, 'virtue_id'
+        vice_id          : ORM.BaseModel.parse_int_field raw, 'vice_id'
 
-            date_created     : if raw.date_created?     then new Date raw.date_created     else null
-            date_submitted   : if raw.date_submitted?   then new Date raw.date_submitted   else null
-            date_approved    : if raw.date_approved?    then new Date raw.date_approved    else null
-            date_last_edited : if raw.date_last_edited? then new Date raw.date_last_edited else null
-
-        attr.user_id = null if _.isNaN attr.user_id
-
-        attr.creature_type_id = null if _.isNaN attr.creature_type_id
-        attr.genealogy_id     = null if _.isNaN attr.genealogy_id
-        attr.affiliation_id   = null if _.isNaN attr.affiliation_id
-        attr.subgroup_id      = null if _.isNaN attr.subgroup_id
-        attr.virtue_id        = null if _.isNaN attr.virtue_id
-        attr.vice_id          = null if _.isNaN attr.vice_id
-
-        attr.date_created     = null if _.isNaN attr.date_created
-        attr.date_submitted   = null if _.isNaN attr.date_submitted
-        attr.date_approved    = null if _.isNaN attr.date_approved
-        attr.date_last_edited = null if _.isNaN attr.date_last_edited
-
-        return attr
+        date_created     : ORM.BaseModel.parse_datetime_field raw, 'date_created'
+        date_submitted   : ORM.BaseModel.parse_datetime_field raw, 'date_submitted'
+        date_approved    : ORM.BaseModel.parse_datetime_field raw, 'date_approved'
+        date_last_edited : ORM.BaseModel.parse_datetime_field raw, 'date_last_edited'
 
 Models.Character.setup()

@@ -40,21 +40,11 @@ class Models.CharacterHasSkill extends ORM.BaseModel
     ]
 
     parse: (raw) ->
-        attr =
-            id : parseInt raw.id, 10
+        id : ORM.BaseModel.parse_int_field raw, 'id'
 
-            character_id : parseInt raw.character_id, 10
-            trait_id     : parseInt raw.trait_id,     10
+        character_id : ORM.BaseModel.parse_int_field raw, 'character_id'
+        trait_id     : ORM.BaseModel.parse_int_field raw, 'trait_id'
 
-            rating : parseInt raw.rating, 10
-
-        attr.id = null if _.isNaN attr.id
-
-        attr.character_id = null if _.isNaN attr.character_id
-        attr.trait_id     = null if _.isNaN attr.trait_id
-
-        attr.rating = null if _.isNaN attr.rating
-
-        return attr
+        rating : ORM.BaseModel.parse_int_field raw, 'rating'
 
 Models.CharacterHasSkill.setup()
