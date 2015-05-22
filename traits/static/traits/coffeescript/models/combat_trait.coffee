@@ -9,19 +9,14 @@ Models = Tools.create_namespace 'ORM.Traits'
 
 class Models.CombatTrait extends Models.Trait
     urlRoot: () ->
-        "#{ DCMS.Settings.URL_PREFIX }/traits/CombatTrait"
+        DCMS.Settings.URL_PREFIX + '/traits/CombatTrait'
 
     defaults: () ->
-        _.extends super,
+        return _.extend super,
             rating : undefined
 
     parse: (raw) ->
-        attr = super
-
-        attr.rating: parseInt raw.rating, 10
-
-        attr.rating = null if _.isNaN attr.rating
-
-        return attr
+        return _.extend super,
+            attr.rating: ORM.BaseModel.parse_int_field raw, 'rating'
 
 Models.CombatTrait.setup()

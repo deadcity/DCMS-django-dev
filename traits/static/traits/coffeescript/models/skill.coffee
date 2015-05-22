@@ -9,35 +9,30 @@ Models = Tools.create_namespace 'ORM.Traits'
 
 class Models.SkillType extends Models.TraitType
     urlRoot: () ->
-        "#{ DCMS.Settings.URL_PREFIX }/traits/SkillType"
+        DCMS.Settings.URL_PREFIX + '/traits/SkillType'
 
 Models.SkillType.setup()
 
 
 class Models.Skill extends Models.Trait
     urlRoot: () ->
-        "#{ DCMS.Settings.URL_PREFIX }/traits/Skill"
+        DCMS.Settings.URL_PREFIX + '/traits/Skill'
 
     defaults: () ->
-        _.extends super,
+        return _.extend super,
             skill_type_id : undefined
 
-    relations: [{
+    relations: [
         type: Backbone.HasOne
         key: 'skill_type'
         relatedModel: Models.SkillType
         includeInJSON: Models.SkillType.idAttribute
         autoFetch: true
         keySource: 'skill_type_id'
-    }]
+    ]
 
     parse: (raw) ->
-        attr = super
-
-        attr.skill_type_id = parseInt raw.skill_type_id, 10
-
-        attr.skill_type_id = null if _.isNaN attr.skill_type_id
-
-        return attr
+        return _.extend super,
+            skill_type_id : ORM.BaseModel.parse_int_field raw, 'skill_type_id'
 
 Models.Skill.setup()

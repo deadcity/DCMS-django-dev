@@ -12,3 +12,15 @@ class ORM.ModelBase extends Backbone.RelationalModel
     @define_property 'idAttribute',
         get: -> @constructor.idAttribute
         set: -> throw new Error 'Cannot set idAttribute on the instance.'
+
+    @parse_num_field: (raw, field, cstor) ->
+        return undefined if raw[field] is undefined
+        value = cstor raw[field]
+        return null if _.isNaN value
+        return value
+
+    @parse_int_field: (raw, field) ->
+        return ModelBase.parse_num_field raw, field, (val) -> parseInt val, 10
+
+    @parse_float_field: (raw, field) ->
+        return ModelBase.parse_num_field raw, field, (val) -> parseFloat val, 10

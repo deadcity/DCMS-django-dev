@@ -9,17 +9,14 @@ Models = Tools.create_namespace 'ORM.Traits'
 
 class Models.CharacterText extends Models.Trait
     urlRoot: () ->
-        "#{ DCMS.Settings.URL_PREFIX }/traits/CharacterText"
+        DCMS.Settings.URL_PREFIX + '/traits/CharacterText'
 
     defaults: () ->
-        _.extends super,
+        return _.extend super,
             hide_from_player : undefined
 
     parse: (raw) ->
-        attr = super
-
-        attr.hide_from_player = raw.hide_from_player
-
-        return attr
+        return _.extend super,
+            hide_from_player : raw.hide_from_player
 
 Models.CharacterText.setup()

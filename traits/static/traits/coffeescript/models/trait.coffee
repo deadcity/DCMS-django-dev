@@ -13,13 +13,8 @@ class Models.TraitType extends ORM.BaseModel
         name : undefined
 
     parse: (raw) ->
-        attr =
-            id   : parseInt raw.id, 10
-            name : raw.name
-
-        attr.id = null if _.isNaN attr.id
-
-        return attr
+        id   : ORM.BaseModel.parse_int_field raw, 'id'
+        name : raw.name
 
 Models.TraitType.setup()
 
@@ -42,7 +37,7 @@ class Models.Trait extends ORM.BaseModel
         'subgroup'       : 'Subgroup'
 
     urlRoot: () ->
-        "#{ DCMS.Settings.URL_PREFIX }/traits/Trait"
+        DCMS.Settings.URL_PREFIX + '/traits/Trait'
 
     defaults: () ->
         id             : undefined
@@ -51,14 +46,9 @@ class Models.Trait extends ORM.BaseModel
         name           : undefined
 
     parse: (raw) ->
-        attr =
-            id             : parseInt raw.id, 10
-            _discriminator : raw._discriminator
-            enabled        : raw.enabled
-            name           : raw.name
-
-        attr.id = null if _.isNaN attr.id
-
-        return attr
+        id             : ORM.BaseModel.parse_int_field raw, 'id'
+        _discriminator : raw._discriminator
+        enabled        : raw.enabled
+        name           : raw.name
 
 Models.Trait.setup()

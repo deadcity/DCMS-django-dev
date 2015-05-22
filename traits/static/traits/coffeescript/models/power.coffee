@@ -9,21 +9,21 @@ Models = Tools.create_namespace 'ORM.Traits'
 
 class Models.PowerGroup extends Models.Trait
     urlRoot: () ->
-        "#{ DCMS.Settings.URL_PREFIX }/traits/PowerGroup"
+        DCMS.Settings.URL_PREFIX + '/traits/PowerGroup'
 
 Models.PowerGroup.setup()
 
 
 class Models.Power extends Models.Trait
     urlRoot: () ->
-        "#{ DCMS.Settings.URL_PREFIX }/traits/Power"
+        DCMS.Settings.URL_PREFIX + '/traits/Power'
 
     defaults: () ->
-        _.extends super,
+        return _.extend super,
             rating         : undefined
             power_group_id : undefined
 
-    relations: [{
+    relations: [
         type: Backbone.HasOne
         key: 'power_group'
         relatedModel: Models.PowerGroup
@@ -32,17 +32,11 @@ class Models.Power extends Models.Trait
         keySource: 'power_group_id'
         reverseRelationship:
             key: 'powers'
-    }]
+    ]
 
     parse: (raw) ->
-        attr = super
-
-        attr.rating         = parseInt raw.rating, 10
-        attr.power_group_id = parseInt raw.power_group_id, 10
-
-        attr.rating         = null if _.isNaN attr.rating
-        attr.power_group_id = null if _.isNaN attr.power_group_id
-
-        return attr
+        return _.extend super,
+            rating         : ORM.BaseModel.parse_int_field raw, 'rating'
+            power_group_id : ORM.BaseModel.parse_int_field raw, 'power_group_id'
 
 Models.Power.setup()
