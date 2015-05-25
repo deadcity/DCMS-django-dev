@@ -6,7 +6,8 @@ from datetime import datetime
 from enum import Enum
 
 from sqlalchemy.orm import backref, relationship
-from sqlalchemy.schema import CheckConstraint, Column, ForeignKey
+from sqlalchemy.schema import CheckConstraint, Column, ForeignKey, UniqueConstraint
+from sqlalchemy.sql.expression import or_
 from sqlalchemy.types import Boolean, DateTime, Integer, SmallInteger, String, Text
 
 from DCMS.model_base import BaseModel
@@ -30,7 +31,9 @@ class Character (AppLabel, BaseModel):
         DECEASED  = 5
         INACTIVE  = 6
 
-    enabled = Column(Boolan, nullable = False, default = True)
+    id = Column(Integer, primary_key = True)
+
+    enabled = Column(Boolean, nullable = False, default = True)
     user_id = Column(Integer, ForeignKey(User.id))
     # chronicle_id = Column(Integer, ForeignKey(Chronicle.id))
     status = Column(EnumColumn(Status, name = 'character_status'), nullable = False, default = Status.EDITING)
@@ -80,18 +83,25 @@ class Character (AppLabel, BaseModel):
 
 
 class CharacterHasAttribute (AppLabel, BaseModel):
+    id = Column(Integer, primary_key = True)
+
     character_id = Column(Integer, ForeignKey(Character.id),              nullable = False)
     trait_id     = Column(Integer, ForeignKey(trait_models.Attribute.id), nullable = False)
 
-    rating = Column(SmallInteger, CheckConstraint(rating > 0), nullable = False, default = 1)
+    rating = Column(SmallInteger, nullable = False, default = 1, server_default = '1')
 
-    __table_args__ = (UniqueConstraint(character_id, trait_id),)
+    __table_args__ = (
+        UniqueConstraint(character_id, trait_id),
+        CheckConstraint(rating > 0, name = 'positive_rating'),
+    )
 
     character = relationship(Character, backref = backref('attributes'))
     trait     = relationship(trait_models.Attribute, lazy = 'joined')
 
 
 class CharacterHasCombatTrait (AppLabel, BaseModel):
+    id = Column(Integer, primary_key = True)
+
     character_id = Column(Integer, ForeignKey(Character.id),                nullable = False)
     trait_id     = Column(Integer, ForeignKey(trait_models.CombatTrait.id), nullable = False)
 
@@ -104,6 +114,8 @@ class CharacterHasCombatTrait (AppLabel, BaseModel):
 
 
 class CharacterHasDerangement (AppLabel, BaseModel):
+    id = Column(Integer, primary_key = True)
+
     character_id = Column(Integer, ForeignKey(Character.id),                nullable = False)
     trait_id     = Column(Integer, ForeignKey(trait_models.Derangement.id), nullable = False)
 
@@ -115,41 +127,58 @@ class CharacterHasDerangement (AppLabel, BaseModel):
 
 
 class CharacterHasFlaw (AppLabel, BaseModel):
+    id = Column(Integer, primary_key = True)
+
     character_id = Column(Integer, ForeignKey(Character.id),         nullable = False)
     trait_id     = Column(Integer, ForeignKey(trait_models.Flaw.id), nullable = False)
 
+    rating        = Column(SmallInteger)
     specification = Column(String)
     description   = Column(Text)
+
+    __table_args__ = (CheckConstraint(or_(rating == None, rating > 0), name = 'positive_rating'),)
 
     character = relationship(Character, backref = backref('flaws'))
     trait     = relationship(trait_models.Flaw, lazy = 'joined')
 
 
 class CharacterHasMerit (AppLabel, BaseModel):
+    id = Column(Integer, primary_key = True)
+
     character_id = Column(Integer, ForeignKey(Character.id),          nullable = False)
     trait_id     = Column(Integer, ForeignKey(trait_models.Merit.id), nullable = False)
 
+    rating        = Column(SmallInteger, nullable = False)
     specification = Column(String)
     description   = Column(Text)
+
+    __table_args__ = (CheckConstraint(rating > 0, name = 'positive_rating'),)
 
     character = relationship(Character, backref = backref('merits'))
     trait     = relationship(trait_models.Merit, lazy = 'joined')
 
 
 class CharacterHasMiscTrait (AppLabel, BaseModel):
+    id = Column(Integer, primary_key = True)
+
     character_id = Column(Integer, ForeignKey(Character.id),              nullable = False)
     trait_id     = Column(Integer, ForeignKey(trait_models.MiscTrait.id), nullable = False)
 
-    rating      = Column(SmallInteger)
+    rating      = Column(SmallInteger, nullable = False)
     description = Column(Text)
 
-    __table_args__ = (UniqueConstraint(character_id, trait_id),)
+    __table_args__ = (
+        UniqueConstraint(character_id, trait_id),
+        CheckConstraint(rating >= 0, name = 'non_negative_rating'),
+    )
 
     character = relationship(Character, backref = backref('misc_traits'))
     trait     = relationship(trait_models.MiscTrait, lazy = 'joined')
 
 
 class CharacterHasPower (AppLabel, BaseModel):
+    id = Column(Integer, primary_key = True)
+
     character_id = Column(Integer, ForeignKey(Character.id),          nullable = False)
     trait_id     = Column(Integer, ForeignKey(trait_models.Power.id), nullable = False)
 
@@ -160,18 +189,25 @@ class CharacterHasPower (AppLabel, BaseModel):
 
 
 class CharacterHasSkill (AppLabel, BaseModel):
+    id = Column(Integer, primary_key = True)
+
     character_id = Column(Integer, ForeignKey(Character.id),          nullable = False)
     trait_id     = Column(Integer, ForeignKey(trait_models.Skill.id), nullable = False)
 
     rating = Column(SmallInteger, nullable = False, default = 0)
 
-    __table_args__ = (UniqueConstraint(character_id, trait_id),)
+    __table_args__ = (
+        UniqueConstraint(character_id, trait_id),
+        CheckConstraint(rating >= 0, name = 'non_negative_rating'),
+    )
 
     character = relationship(Character, backref = backref('skills'))
     trait     = relationship(trait_models.Skill, lazy = 'joined')
 
 
 class CharacterHasSkillSpecialty (AppLabel, BaseModel):
+    id = Column(Integer, primary_key = True)
+
     character_id = Column(Integer, ForeignKey(Character.id),          nullable = False)
     trait_id     = Column(Integer, ForeignKey(trait_models.Skill.id), nullable = False)
 
@@ -184,6 +220,8 @@ class CharacterHasSkillSpecialty (AppLabel, BaseModel):
 
 
 class CharacterHasText (AppLabel, BaseModel):
+    id = Column(Integer, primary_key = True)
+
     character_id = Column(Integer, ForeignKey(Character.id),                  nullable = False)
     trait_id     = Column(Integer, ForeignKey(trait_models.CharacterText.id), nullable = False)
 

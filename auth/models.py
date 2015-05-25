@@ -13,6 +13,8 @@ AppLabel = app_label('auth')
 
 
 class User (AppLabel, BaseModel):
+    id = Column(Integer, primary_key = True)
+
     username   = Column(String(30), nullable = False, unique = True)
     first_name = Column(String(30), nullable = False, default = '')
     last_name  = Column(String(30), nullable = False, default = '')

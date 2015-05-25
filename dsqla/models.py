@@ -2,11 +2,14 @@
 #  Model tools for SQLAlchemy.
 
 
+from sys import _getframe
+
 from datetime import datetime, date, time
 from decimal import Decimal
 from enum import Enum
 from json import dumps, JSONEncoder
 
+from sqlalchemy.ext.declarative import declared_attr
 from sqlalchemy.schema import Column
 from sqlalchemy.types import INTEGER
 

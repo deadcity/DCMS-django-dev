@@ -2,7 +2,7 @@
 #  View classes to handle direct database interactions.
 
 
-from django.http import HttpResponse, JsonResponse
+from django.http import JsonResponse
 from django.views.generic import View
 
 from dsqla.models import ModelEncoder
@@ -40,7 +40,7 @@ class InstanceView (JsonBody, ModelView, View):
     def delete (self, request):
         session.delete(self.model)
         session.commit()
-        return HttpRequest(content_type = 'application/json')
+        return JsonResponse(None, safe = False)
 
 
 class CollectionView (JsonBody, ModelView, View):

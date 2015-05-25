@@ -2,13 +2,13 @@
 #  Defines base orm classes.
 
 
-from sqlalchemy.ext.declarative import declartive_base
+from sqlalchemy.ext.declarative import declarative_base
 
 from dsqla.models import DjangoTablename, ToJSON
 
 
-class Base (DjangoTablename, ToJSON):
+class BaseModel (DjangoTablename, ToJSON):
     pass
 
 
-Base = declartive_base(cls = Base)
+BaseModel = declarative_base(cls = BaseModel)
