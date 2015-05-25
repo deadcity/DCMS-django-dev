@@ -1,15 +1,15 @@
 ###
-  @file  character_has_merit.coffee
-  @brief Model specifying the specific merit of a specific character.
+  @file  character_has_text.coffee
+  @brief Model specifying the specific text of a specific character.
 ###
 
 
-Models = Tools.create_namespace 'ORM.Character'
+Models = Tools.create_namespace 'ORM.Characters'
 
 
-class Models.CharacterHasMerit extends ORM.BaseModel
+class Models.CharacterHasText extends ORM.BaseModel
     urlRoot: () ->
-        DCMS.Settings.URL_PREFIX + '/character/CharacterHasMerit'
+        DCMS.Settings.URL_PREFIX + '/characters/CharacterHasText'
 
     defaults: () ->
         id : undefined
@@ -17,8 +17,7 @@ class Models.CharacterHasMerit extends ORM.BaseModel
         character_id : undefined
         trait_id     : undefined
 
-        specification : undefined
-        description   : undefined
+        text : undefined
 
     relations: [
         # Character
@@ -29,13 +28,13 @@ class Models.CharacterHasMerit extends ORM.BaseModel
         autoFetch: true
         keySource: 'character_id'
         reverseRelationship:
-            key: 'merits'
+            key: 'skill_specialties'
     ,
         # Trait
         type: Backbone.HasOne
         key: 'trait'
-        relatedModel: ORM.Traits.Merit
-        includeInJSON: ORM.Traits.Merit.idAttribute
+        relatedModel: ORM.Traits.Skill
+        includeInJSON: ORM.Traits.Skill.idAttribute
         autoFetch: true
         keySource: 'trait_id'
     ]
@@ -46,7 +45,6 @@ class Models.CharacterHasMerit extends ORM.BaseModel
         character_id : ORM.BaseModel.parse_int_field raw, 'character_id'
         trait_id     : ORM.BaseModel.parse_int_field raw, 'trait_id'
 
-        specification : raw.specification
-        description   : raw.description
+        text : raw.text
 
-Models.CharacterHasMerit.setup()
+Models.CharacterHasText.setup()

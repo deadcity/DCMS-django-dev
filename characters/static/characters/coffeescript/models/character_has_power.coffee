@@ -4,12 +4,12 @@
 ###
 
 
-Models = Tools.create_namespace 'ORM.Character'
+Models = Tools.create_namespace 'ORM.Characters'
 
 
 class Models.CharacterHasPower extends ORM.BaseModel
     urlRoot: () ->
-        DCMS.Settings.URL_PREFIX + '/character/CharacterHasPower'
+        DCMS.Settings.URL_PREFIX + '/characters/CharacterHasPower'
 
     defaults: () ->
         id : undefined

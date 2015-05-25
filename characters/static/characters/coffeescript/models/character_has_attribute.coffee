@@ -1,15 +1,15 @@
 ###
-  @file  character_has_misc_trait.coffee
-  @brief Model specifying the specific miscellaneous trait of a specific character.
+  @file  character_has_attribute.coffee
+  @brief Model specifying the specific attribute of a specific character.
 ###
 
 
-Models = Tools.create_namespace 'ORM.Character'
+Models = Tools.create_namespace 'ORM.Characters'
 
 
-class Models.CharacterHasMiscTrait extends ORM.BaseModel
+class Models.CharacterHasAttribute extends ORM.BaseModel
     urlRoot: () ->
-        DCMS.Settings.URL_PREFIX + '/character/CharacterHasMiscTrait'
+        DCMS.Settings.URL_PREFIX + '/characters/CharacterHasAttribute'
 
     defaults: () ->
         id : undefined
@@ -17,8 +17,7 @@ class Models.CharacterHasMiscTrait extends ORM.BaseModel
         character_id : undefined
         trait_id     : undefined
 
-        rating      : undefined
-        description : undefined
+        rating : 1
 
     relations: [
         # Character
@@ -29,13 +28,13 @@ class Models.CharacterHasMiscTrait extends ORM.BaseModel
         autoFetch: true
         keySource: 'character_id'
         reverseRelationship:
-            key: 'misc_traits'
+            key: 'attributes'
     ,
         # Trait
         type: Backbone.HasOne
         key: 'trait'
-        relatedModel: ORM.Traits.MiscTrait
-        includeInJSON: ORM.Traits.MiscTrait.idAttribute
+        relatedModel: ORM.Traits.Attribute
+        includeInJSON: ORM.Traits.Attribute.idAttribute
         autoFetch: true
         keySource: 'trait_id'
     ]
@@ -46,7 +45,6 @@ class Models.CharacterHasMiscTrait extends ORM.BaseModel
         character_id : ORM.BaseModel.parse_int_field raw, 'character_id'
         trait_id     : ORM.BaseModel.parse_int_field raw, 'trait_id'
 
-        rating      : ORM.BaseModel.parse_int_field raw, 'rating'
-        description : raw.description
+        rating : ORM.BaseModel.parse_int_field raw, 'rating'
 
-Models.CharacterHasMiscTrait.setup()
+Models.CharacterHasAttribute.setup()

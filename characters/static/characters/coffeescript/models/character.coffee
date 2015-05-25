@@ -4,7 +4,7 @@
 ###
 
 
-Models = Tools.create_namespace 'ORM.Character'
+Models = Tools.create_namespace 'ORM.Characters'
 
 
 class Models.Character extends ORM.BaseModel
@@ -18,7 +18,7 @@ class Models.Character extends ORM.BaseModel
     ]
 
     urlRoot: () ->
-        DCMS.Settings.URL_PREFIX + '/character/Character'
+        DCMS.Settings.URL_PREFIX + '/characters/Character'
 
     defaults: () ->
         id : undefined

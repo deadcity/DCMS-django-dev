@@ -4,12 +4,12 @@
 ###
 
 
-Models = Tools.create_namespace 'Character.Models'
+Models = Tools.create_namespace 'ORM.Characters'
 
 
 class Models.CharacterHasCombatTrait extends ORM.BaseModel
     urlRoot: () ->
-        DCMS.Settings.URL_PREFIX + '/character/CharacterHasCombatTrait'
+        DCMS.Settings.URL_PREFIX + '/characters/CharacterHasCombatTrait'
 
     defaults: () ->
         id : undefined

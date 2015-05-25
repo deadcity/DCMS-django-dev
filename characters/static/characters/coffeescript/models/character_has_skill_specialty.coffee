@@ -1,15 +1,15 @@
 ###
-  @file  character_has_skill.coffee
-  @brief Model specifying the specific skill of a specific character.
+  @file  character_has_skill_specialty.coffee
+  @brief Model specifying the specific skill specialty of a specific character.
 ###
 
 
-Models = Tools.create_namespace 'ORM.Character'
+Models = Tools.create_namespace 'ORM.Characters'
 
 
-class Models.CharacterHasSkill extends ORM.BaseModel
+class Models.CharacterHasSkillSpecialty extends ORM.BaseModel
     urlRoot: () ->
-        DCMS.Settings.URL_PREFIX + '/character/CharacterHasSkill'
+        DCMS.Settings.URL_PREFIX + '/characters/CharacterHasSkillSpecialty'
 
     defaults: () ->
         id : undefined
@@ -17,7 +17,7 @@ class Models.CharacterHasSkill extends ORM.BaseModel
         character_id : undefined
         trait_id     : undefined
 
-        rating : 0
+        specialty : undefined
 
     relations: [
         # Character
@@ -28,7 +28,7 @@ class Models.CharacterHasSkill extends ORM.BaseModel
         autoFetch: true
         keySource: 'character_id'
         reverseRelationship:
-            key: 'skills'
+            key: 'skill_specialties'
     ,
         # Trait
         type: Backbone.HasOne
@@ -45,6 +45,6 @@ class Models.CharacterHasSkill extends ORM.BaseModel
         character_id : ORM.BaseModel.parse_int_field raw, 'character_id'
         trait_id     : ORM.BaseModel.parse_int_field raw, 'trait_id'
 
-        rating : ORM.BaseModel.parse_int_field raw, 'rating'
+        specialty : raw.specialty
 
-Models.CharacterHasSkill.setup()
+Models.CharacterHasSkillSpecialty.setup()

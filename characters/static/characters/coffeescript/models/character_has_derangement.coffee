@@ -1,15 +1,15 @@
 ###
-  @file  character_has_text.coffee
-  @brief Model specifying the specific text of a specific character.
+  @file  character_has_derangement.coffee
+  @brief Model specifying the specific derangement of a specific character.
 ###
 
 
-Models = Tools.create_namespace 'ORM.Character'
+Models = Tools.create_namespace 'ORM.Characters'
 
 
-class Models.CharacterHasText extends ORM.BaseModel
+class Models.CharacterHasDerangement extends ORM.BaseModel
     urlRoot: () ->
-        DCMS.Settings.URL_PREFIX + '/character/CharacterHasText'
+        DCMS.Settings.URL_PREFIX + '/characters/CharacterHasDerangement'
 
     defaults: () ->
         id : undefined
@@ -17,7 +17,8 @@ class Models.CharacterHasText extends ORM.BaseModel
         character_id : undefined
         trait_id     : undefined
 
-        text : undefined
+        specification : undefined
+        description   : undefined
 
     relations: [
         # Character
@@ -28,13 +29,13 @@ class Models.CharacterHasText extends ORM.BaseModel
         autoFetch: true
         keySource: 'character_id'
         reverseRelationship:
-            key: 'skill_specialties'
+            key: 'derangements'
     ,
         # Trait
         type: Backbone.HasOne
         key: 'trait'
-        relatedModel: ORM.Traits.Skill
-        includeInJSON: ORM.Traits.Skill.idAttribute
+        relatedModel: ORM.Traits.Derangement
+        includeInJSON: ORM.Traits.Derangement.idAttribute
         autoFetch: true
         keySource: 'trait_id'
     ]
@@ -45,6 +46,7 @@ class Models.CharacterHasText extends ORM.BaseModel
         character_id : ORM.BaseModel.parse_int_field raw, 'character_id'
         trait_id     : ORM.BaseModel.parse_int_field raw, 'trait_id'
 
-        text : raw.text
+        specification : raw.specification
+        description   : raw.description
 
-Models.CharacterHasText.setup()
+Models.CharacterHasDerangement.setup()

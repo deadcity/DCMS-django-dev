@@ -1,4 +1,4 @@
-## @module character.models
+## @module characters.models
 #  Provides models pertaining to storing a character.
 
 
@@ -18,7 +18,7 @@ from dsqla.models import app_label
 import traits.models as trait_models
 
 
-AppLabel = app_label('character')
+AppLabel = app_label('characters')
 
 
 class Character (AppLabel, BaseModel):

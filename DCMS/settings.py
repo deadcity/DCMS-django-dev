@@ -141,7 +141,7 @@ INSTALLED_APPS = (
     # 'rest_framework',
 
     # 'accounts',
-    # 'character',
+    'characters',
     # 'chronicle',
     'DCMS',
     # 'common',

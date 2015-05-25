@@ -1,15 +1,15 @@
 ###
-  @file  character_has_derangement.coffee
-  @brief Model specifying the specific derangement of a specific character.
+  @file  character_has_misc_trait.coffee
+  @brief Model specifying the specific miscellaneous trait of a specific character.
 ###
 
 
-Models = Tools.create_namespace 'ORM.Character'
+Models = Tools.create_namespace 'ORM.Characters'
 
 
-class Models.CharacterHasDerangement extends ORM.BaseModel
+class Models.CharacterHasMiscTrait extends ORM.BaseModel
     urlRoot: () ->
-        DCMS.Settings.URL_PREFIX + '/character/CharacterHasDerangement'
+        DCMS.Settings.URL_PREFIX + '/characters/CharacterHasMiscTrait'
 
     defaults: () ->
         id : undefined
@@ -17,8 +17,8 @@ class Models.CharacterHasDerangement extends ORM.BaseModel
         character_id : undefined
         trait_id     : undefined
 
-        specification : undefined
-        description   : undefined
+        rating      : undefined
+        description : undefined
 
     relations: [
         # Character
@@ -29,13 +29,13 @@ class Models.CharacterHasDerangement extends ORM.BaseModel
         autoFetch: true
         keySource: 'character_id'
         reverseRelationship:
-            key: 'derangements'
+            key: 'misc_traits'
     ,
         # Trait
         type: Backbone.HasOne
         key: 'trait'
-        relatedModel: ORM.Traits.Derangement
-        includeInJSON: ORM.Traits.Derangement.idAttribute
+        relatedModel: ORM.Traits.MiscTrait
+        includeInJSON: ORM.Traits.MiscTrait.idAttribute
         autoFetch: true
         keySource: 'trait_id'
     ]
@@ -46,7 +46,7 @@ class Models.CharacterHasDerangement extends ORM.BaseModel
         character_id : ORM.BaseModel.parse_int_field raw, 'character_id'
         trait_id     : ORM.BaseModel.parse_int_field raw, 'trait_id'
 
-        specification : raw.specification
-        description   : raw.description
+        rating      : ORM.BaseModel.parse_int_field raw, 'rating'
+        description : raw.description
 
-Models.CharacterHasDerangement.setup()
+Models.CharacterHasMiscTrait.setup()

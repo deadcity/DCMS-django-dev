@@ -1,15 +1,15 @@
 ###
-  @file  character_has_flaw.coffee
-  @brief Model specifying the specific flaw of a specific character.
+  @file  character_has_skill.coffee
+  @brief Model specifying the specific skill of a specific character.
 ###
 
 
-Models = Tools.create_namespace 'ORM.Character'
+Models = Tools.create_namespace 'ORM.Characters'
 
 
-class Models.CharacterHasFlaw extends ORM.BaseModel
+class Models.CharacterHasSkill extends ORM.BaseModel
     urlRoot: () ->
-        DCMS.Settings.URL_PREFIX + '/character/CharacterHasFlaw'
+        DCMS.Settings.URL_PREFIX + '/characters/CharacterHasSkill'
 
     defaults: () ->
         id : undefined
@@ -17,8 +17,7 @@ class Models.CharacterHasFlaw extends ORM.BaseModel
         character_id : undefined
         trait_id     : undefined
 
-        specification : undefined
-        description   : undefined
+        rating : 0
 
     relations: [
         # Character
@@ -29,13 +28,13 @@ class Models.CharacterHasFlaw extends ORM.BaseModel
         autoFetch: true
         keySource: 'character_id'
         reverseRelationship:
-            key: 'flaws'
+            key: 'skills'
     ,
         # Trait
         type: Backbone.HasOne
         key: 'trait'
-        relatedModel: ORM.Traits.Flaw
-        includeInJSON: ORM.Traits.Flaw.idAttribute
+        relatedModel: ORM.Traits.Skill
+        includeInJSON: ORM.Traits.Skill.idAttribute
         autoFetch: true
         keySource: 'trait_id'
     ]
@@ -46,7 +45,6 @@ class Models.CharacterHasFlaw extends ORM.BaseModel
         character_id : ORM.BaseModel.parse_int_field raw, 'character_id'
         trait_id     : ORM.BaseModel.parse_int_field raw, 'trait_id'
 
-        specification : raw.specification
-        description   : raw.description
+        rating : ORM.BaseModel.parse_int_field raw, 'rating'
 
-Models.CharacterHasFlaw.setup()
+Models.CharacterHasSkill.setup()
