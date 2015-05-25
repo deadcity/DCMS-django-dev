@@ -28,7 +28,9 @@ class TraitType (AppLabel, BaseModel):
         return unicode(str(self))
 
     id = Column(Integer, primary_key = True)
-    name = Column(String, nullable = False)
+
+    name  = Column(String, unique = True, nullable = False)
+    label = Column(String, nullable = False, server_default = '')
 
 
 class AttributeType   (TraitType): pass
@@ -47,8 +49,9 @@ class Trait (AppLabel, BaseModel):
     id = Column(Integer, primary_key = True)
     _discriminator = Column(String, nullable = False)
 
-    enabled = Column(Boolean, nullable = False, server_default = True)
-    name = Column(String)
+    enabled = Column(Boolean, nullable = False, default = True, server_default = 'TRUE')
+    name    = Column(String, unique = True, nullable = False)
+    label   = Column(String, nullable = False, default = '', server_default = '')
 
     __mapper_args__ = {
         'polymorphic_on': _discriminator,
@@ -72,13 +75,13 @@ class Attribute (Trait):
         'polymorphic_identity': 'attribute',
     }
 
-    attribute_type = relationship(Attribute)
+    attribute_type = relationship(AttributeType)
 
 
 class CharacterText (Trait):
     id = Column(Integer, ForeignKey(Trait.id, ondelete = 'CASCADE'), primary_key = True)
 
-    hide_from_player = Column(Boolean, nullable = False, server_default = False)
+    hide_from_player = Column(Boolean, nullable = False, default = False, server_default = 'FALSE')
 
     __mapper_args__ = {
         'polymorphic_identity': 'character_text',
@@ -91,7 +94,7 @@ class CombatTrait (Trait):
     rating = Column(Integer)
 
     __table_args__ = (
-        CheckConstraint(or_(rating.isnull_(), rating >= 0), name = 'non_negative_rating'),
+        CheckConstraint(or_(rating == None, rating >= 0), name = 'non_negative_rating'),
     )
 
     __mapper_args__ = {
@@ -116,7 +119,7 @@ class Derangement (Trait):
     id = Column(Integer, ForeignKey(Trait.id, ondelete = 'CASCADE'), primary_key = True)
 
     derangement_type_id = Column(Integer, ForeignKey(DerangementType.id))
-    requires_specification = Column(Boolean, nullable = False, server_default = True)
+    requires_specification = Column(Boolean, nullable = False, default = True, server_default = 'TRUE')
 
     __mapper_args__ = {
         'polymorphic_identity': 'derangement',
@@ -129,8 +132,8 @@ class Flaw (Trait):
     id = Column(Integer, ForeignKey(Trait.id, ondelete = 'CASCADE'), primary_key = True)
 
     flaw_type_id = Column(Integer, ForeignKey(FlawType.id))
-    requires_specification = Column(Boolean, nullable = False, server_default = False)
-    requires_description = Column(Boolean, nullable = False, server_default = False)
+    requires_specification = Column(Boolean, nullable = False, default = False, server_default = 'FALSE')
+    requires_description = Column(Boolean, nullable = False, default = False, server_default = 'FALSE')
 
     __mapper_args__ = {
         'polymorphic_identity': 'flaw',
@@ -151,8 +154,8 @@ class Merit (Trait):
     id = Column(Integer, ForeignKey(Trait.id, ondelete = 'CASCADE'), primary_key = True)
 
     merit_type_id = Column(Integer, ForeignKey(MeritType.id))
-    requires_specification = Column(Boolean, nullable = False, server_default = False)
-    requires_description = Column(Boolean, nullable = False, server_default = False)
+    requires_specification = Column(Boolean, nullable = False, default = False, server_default = 'FALSE')
+    requires_description = Column(Boolean, nullable = False, default = False, server_default = 'FALSE')
 
     __mapper_args__ = {
         'polymorphic_identity': 'merit',
@@ -176,7 +179,7 @@ class AllowedMeritRating (BaseModel):
 class MiscTrait (Trait):
     id = Column(Integer, ForeignKey(Trait.id, ondelete = 'CASCADE'), primary_key = True)
 
-    requires_description = Column(Boolean, nullable = False, server_default = False)
+    requires_description = Column(Boolean, nullable = False, default = False, server_default = 'FALSE')
 
     __mapper_args__ = {
         'polymorphic_identity': 'misc_trait',
@@ -198,7 +201,7 @@ class Power (Trait):
     power_group_id = Column(Integer, ForeignKey(PowerGroup.id))
 
     __table_args__ = (
-        CheckConstraint(or_(rating.isnull_(), rating > 0), name = 'positive_rating'),
+        CheckConstraint(or_(rating == None, rating > 0), name = 'positive_rating'),
     )
 
     power_group = relationship(PowerGroup)

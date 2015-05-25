@@ -1,0 +1,143 @@
+{% extends 'base_page.html' %}
+
+{% load dsqla %}
+{% load compress %}
+{% load static %}
+
+
+{% block style_includes %}
+    {{ block.super }}
+
+    <link rel='stylesheet' type='text/css' hrev='{% static 'css/table.css' %}' />
+{% endblock style_includes %}
+
+
+{% block script_includes %}
+    {{ block.super }}
+
+    {% compress js %}
+        <script type='text/coffeescript' src='{% static 'auth/coffeescript/user.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'traits/coffeescript/crature_type.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'traits/coffeescript/genealogy.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'traits/coffeescript/affiliation.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'traits/coffeescript/subgroup.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'traits/coffeescript/virtue.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'traits/coffeescript/vice.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'characters/coffeescript/character.coffee' %}'></script>
+    {% endcompress %}
+{% endblock script_includes %}
+
+
+{% block content %}
+    <div>
+        <label>
+            show disabled characters
+            <input type='checkbox' data-bind='' />
+        </label>
+    </div>
+
+    <table class='list-table stripped table table-striped'>
+        <thead>
+            <tr>
+                <th>player</th>
+                <th>name</th>
+                <th>creature type</th>
+                <th>clan</th>
+                <th>covenant</th>
+                <th>status</th>
+                <th></th>  <!-- submit button -->
+                <th></th>  <!-- edit button -->
+                <th></th>  <!-- disable/enable button -->
+            </tr>
+        </thead>
+        <tbody data-bind="foreach: characters">
+            <tr>
+                <td data-bind="text: user().username"></td>
+                <td data-bind="text: name"></td>
+                <td data-bind="text: creature_type_name()"></td>
+                <td data-bind="text: genealogy_name()"></td>
+                <td data-bind="text: affiliation_name()"></td>
+                <td data-bind="text: status().name"></td>
+                <td>
+                    <button data-bind="if: can_submit(), disable: processing(), click: submit_character" class='btn btn-mini'>submit</button>
+                </td>
+                <td>
+                    <a data-bind="if: can_edit(), disable: processing(), attr: { href: edit_url() }" class='btn btn-mini'>edit</a>
+                </td>
+                <td>
+                    <button data-bind="if: can_disable(), click: disable_character, disable: processing()" class='btn btn-mini btn-danger'>disable</button>
+                    <button data-bind="if: can_enable(), click: enable_character, disable: processing()" class='btn btn-mini btn-success'>enable</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <form method='post' action='{% url 'charactermanagement-new' %}'>
+        <input type='submit' value='New Character' />
+    </form>
+
+    <!-- bootstrap data -->
+    <script type='text/javascript'>
+{{ records | create_js_records | safe }}
+
+window.current_user_id = {{ user.id }};
+
+window.characters = new Backbone.Collection(
+    {{ characters | serialize_json | safe }},
+    { model: ORM.Character.Character, parse: true }
+);
+    </script>
+
+    <script type='text/coffeescript'>
+        class window.CharacterViewModel extends kb.ViewModel
+            constructor: (model, options) ->
+                super
+
+                # Nested model accessors for nullable models.
+                @creature_type_name = ko.computed => @creature_type()?.name()
+                @genealogy_name     = ko.computed => @genealogy()?.name()
+                @affiliation_name   = ko.computed => @affiliation()?.name()
+
+                @processing = ko.observable false
+
+                # permissions
+                @can_submit = ko.computed =>
+                    not @processing() and
+                    @user().id() == window.user_id and
+                    @status() == ORM.Character.Character.Status.EDITING
+                @can_edit    = ko.computed => @can_submit()
+                @can_enable  = ko.computed => @can_edit() and not @enabled()
+                @can_disable = ko.computed => @can_edit() and     @enabled()
+
+                @edit_url = ko.computed => "#{ Settings.URL_PREFIX }/characters/#{ @id() }/edit"
+
+            submit_character: ->
+                @processing true
+                $.ajax "#{ Settings.URL_PREFIX }/characters/#{ @id() }/submit",
+                    type: 'PUT'
+                    dataType: 'json'
+                    success: (data) =>
+                        model = @model()
+                        model.set model.parse data
+                        window.alert 'Character submitted successfully.'
+                    error: -> window.alert 'ERROR: Character submission failed.'
+                    complete: => @processing false
+
+            disable_character: ->
+                @processing true
+                $.ajax "#{ Settings.URL_PREFIX }/characters/#{ @id() }/disable",
+                    type: 'PUT'
+                    success: => @model().set 'enabled', false
+                    error: -> window.alert 'ERROR: disable character failed'
+                    complete: => @processing false
+
+            enable_character: ->
+                @processing true
+                $.ajax "#{ Settings.URL_PREFIX }/characters/#{ @id() }/enable",
+                    type: 'PUT'
+                    success: => @model().set 'enabled', true
+                    error: -> window.alert 'ERROR: enable character failed'
+                    complete: => @processing false
+
+    </script>
+{% endblock content %}
