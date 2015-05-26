@@ -3,6 +3,7 @@
 import os, sys
 
 from DCMS import platform_settings
+from DCMS.model_base import BaseModel
 
 PROJECT_PATH = platform_settings.PROJECT_PATH
 
@@ -144,9 +145,12 @@ INSTALLED_APPS = (
     'characters',
     # 'chronicle',
     'DCMS',
+    'dsqla',
     # 'common',
     # 'traits',
 )
+
+DSQLA_BASE_MODEL = BaseModel
 
 if os.name == 'nt':
     COMPRESS_PRECOMPILERS = (

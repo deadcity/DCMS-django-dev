@@ -28,12 +28,14 @@ def get_session (database_alias = 'default'):
 
     if _session is None:
         db_settings = settings.DATABASES[database_alias]
+        port = db_settings['PORT']
+
         engine = create_engine(URL(
             ENGINE[db_settings['ENGINE'].split('.')[-1]],
             username = db_settings['USER'],
             password = db_settings['PASSWORD'],
             host     = db_settings['HOST'],
-            port     = db_settings['PORT'],
+            port     = None if port == '' else port,
             database = db_settings['NAME']
         ), echo = settings.DEBUG)
 

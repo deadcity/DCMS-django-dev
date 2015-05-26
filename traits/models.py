@@ -164,7 +164,7 @@ class Merit (Trait):
     merit_type = relationship(MeritType)
 
 
-class AllowedMeritRating (BaseModel):
+class AllowedMeritRating (AppLabel, BaseModel):
     merit_id = Column(Integer, ForeignKey(Merit.id))
     rating = Column(Integer, nullable = False)
 
