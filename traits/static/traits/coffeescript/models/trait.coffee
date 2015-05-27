@@ -47,15 +47,13 @@ class Models.Trait extends ORM.BaseModel
         id             : undefined
         _discriminator : undefined
 
-        enabled : undefined
-        name    : undefined
-        label   : ''
+        name  : undefined
+        label : ''
 
     parse: (raw) ->
         id             : ORM.BaseModel.parse_int_field raw, 'id'
         _discriminator : raw._discriminator
 
-        enabled : raw.enabled
         name    : raw.name
         label   : raw.label
 

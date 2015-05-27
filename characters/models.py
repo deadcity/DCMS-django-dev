@@ -88,7 +88,7 @@ class CharacterHasAttribute (AppLabel, BaseModel):
     character_id = Column(Integer, ForeignKey(Character.id),              nullable = False)
     trait_id     = Column(Integer, ForeignKey(trait_models.Attribute.id), nullable = False)
 
-    rating = Column(SmallInteger, nullable = False, default = 1, server_default = '1')
+    rating = Column(SmallInteger, nullable = False, default = 1)
 
     __table_args__ = (
         UniqueConstraint(character_id, trait_id),

@@ -30,7 +30,7 @@ class TraitType (AppLabel, BaseModel):
     id = Column(Integer, primary_key = True)
 
     name  = Column(String, unique = True, nullable = False)
-    label = Column(String, nullable = False, server_default = '')
+    label = Column(String, nullable = False, default = '')
 
 
 class AttributeType   (TraitType): pass
@@ -49,9 +49,8 @@ class Trait (AppLabel, BaseModel):
     id = Column(Integer, primary_key = True)
     _discriminator = Column(String, nullable = False)
 
-    enabled = Column(Boolean, nullable = False, default = True, server_default = 'TRUE')
-    name    = Column(String, unique = True, nullable = False)
-    label   = Column(String, nullable = False, default = '', server_default = '')
+    name  = Column(String, unique = True, nullable = False)
+    label = Column(String, nullable = False, default = '')
 
     __mapper_args__ = {
         'polymorphic_on': _discriminator,
@@ -81,7 +80,7 @@ class Attribute (Trait):
 class CharacterText (Trait):
     id = Column(Integer, ForeignKey(Trait.id, ondelete = 'CASCADE'), primary_key = True)
 
-    hide_from_player = Column(Boolean, nullable = False, default = False, server_default = 'FALSE')
+    hide_from_player = Column(Boolean, nullable = False, default = False)
 
     __mapper_args__ = {
         'polymorphic_identity': 'character_text',
@@ -119,7 +118,7 @@ class Derangement (Trait):
     id = Column(Integer, ForeignKey(Trait.id, ondelete = 'CASCADE'), primary_key = True)
 
     derangement_type_id = Column(Integer, ForeignKey(DerangementType.id))
-    requires_specification = Column(Boolean, nullable = False, default = True, server_default = 'TRUE')
+    requires_specification = Column(Boolean, nullable = False, default = True)
 
     __mapper_args__ = {
         'polymorphic_identity': 'derangement',
@@ -132,8 +131,8 @@ class Flaw (Trait):
     id = Column(Integer, ForeignKey(Trait.id, ondelete = 'CASCADE'), primary_key = True)
 
     flaw_type_id = Column(Integer, ForeignKey(FlawType.id))
-    requires_specification = Column(Boolean, nullable = False, default = False, server_default = 'FALSE')
-    requires_description = Column(Boolean, nullable = False, default = False, server_default = 'FALSE')
+    requires_specification = Column(Boolean, nullable = False, default = False)
+    requires_description = Column(Boolean, nullable = False, default = False)
 
     __mapper_args__ = {
         'polymorphic_identity': 'flaw',
@@ -154,8 +153,8 @@ class Merit (Trait):
     id = Column(Integer, ForeignKey(Trait.id, ondelete = 'CASCADE'), primary_key = True)
 
     merit_type_id = Column(Integer, ForeignKey(MeritType.id))
-    requires_specification = Column(Boolean, nullable = False, default = False, server_default = 'FALSE')
-    requires_description = Column(Boolean, nullable = False, default = False, server_default = 'FALSE')
+    requires_specification = Column(Boolean, nullable = False, default = False)
+    requires_description = Column(Boolean, nullable = False, default = False)
 
     __mapper_args__ = {
         'polymorphic_identity': 'merit',
@@ -179,7 +178,7 @@ class AllowedMeritRating (AppLabel, BaseModel):
 class MiscTrait (Trait):
     id = Column(Integer, ForeignKey(Trait.id, ondelete = 'CASCADE'), primary_key = True)
 
-    requires_description = Column(Boolean, nullable = False, default = False, server_default = 'FALSE')
+    requires_description = Column(Boolean, nullable = False, default = False)
 
     __mapper_args__ = {
         'polymorphic_identity': 'misc_trait',
@@ -204,7 +203,7 @@ class Power (Trait):
         CheckConstraint(or_(rating == None, rating > 0), name = 'positive_rating'),
     )
 
-    power_group = relationship(PowerGroup)
+    power_group = relationship(PowerGroup, foreign_keys = (power_group_id,))
 
 
 class Skill (Trait):
