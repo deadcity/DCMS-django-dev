@@ -51,18 +51,11 @@ class Character (AppLabel, BaseModel):
     date_approved    = Column(DateTime)
     date_last_edited = Column(DateTime, nullable = False, default = datetime.utcnow, onupdate = datetime.utcnow)
 
-    # attributes        = models.ManyToManyField(trait_models.Attribute,   through = 'CharacterHasAttribute')
-    # skills            = models.ManyToManyField(trait_models.Skill,       through = 'CharacterHasSkill')
-    # skill_specialties = models.ManyToManyField(trait_models.Skill,       through = 'CharacterHasSkillSpecialty', related_name = 'character_specialties_set')
-    # powers            = models.ManyToManyField(trait_models.Power,       through = 'CharacterHasPower')
-    # merits            = models.ManyToManyField(trait_models.Merit,       through = 'CharacterHasMerit')
-    # flaws             = models.ManyToManyField(trait_models.Flaw,        through = 'CharacterHasFlaw')
-    # derangements      = models.ManyToManyField(trait_models.Derangement, through = 'CharacterHasDerangement')
-    # combat_traits     = models.ManyToManyField(trait_models.CombatTrait, through = 'CharacterHasCombatTrait')
-    # misc_traits       = models.ManyToManyField(trait_models.MiscTrait,   through = 'CharacterHasMiscTrait')
-
     def __unicode__(self):
         return self.name
+
+    user      = relationship(User)
+    # chronicle = relationship(Chronicle)
 
     creature_type = relationship(trait_models.CreatureType)
     genealogy     = relationship(trait_models.Genealogy)
@@ -70,6 +63,16 @@ class Character (AppLabel, BaseModel):
     subgroup      = relationship(trait_models.Subgroup)
     virtue        = relationship(trait_models.Virtue)
     vice          = relationship(trait_models.Vice)
+
+    attributes        = relationship('CharacterHasAttribute')
+    skills            = relationship('CharacterHasSkill')
+    skill_specialties = relationship('CharacterHasSkillSpecialty')
+    powers            = relationship('CharacterHasPower')
+    merits            = relationship('CharacterHasMerit')
+    flaws             = relationship('CharacterHasFlaw')
+    derangements      = relationship('CharacterHasDerangement')
+    combat_traits     = relationship('CharacterHasCombatTrait')
+    misc_traits       = relationship('CharacterHasMiscTrait')
 
 
 # class XPRecord (models.Model):
@@ -82,71 +85,112 @@ class Character (AppLabel, BaseModel):
 #         ordering = ('game__date', 'character')
 
 
-class CharacterHasAttribute (AppLabel, BaseModel):
-    id = Column(Integer, primary_key = True)
+class CharacterHasTrait (AppLabel, BaseModel):
+    def __repr__ (self):
+        return "<{}({}, {}, {})>".format(
+            type(self).__name__,
+            '(un-named chronicle)' if not self.character.chronicle
+                else self.character.chronicle.name,
+            self.character.name,
+            self.trait.name
+        )
 
-    character_id = Column(Integer, ForeignKey(Character.id),              nullable = False)
-    trait_id     = Column(Integer, ForeignKey(trait_models.Attribute.id), nullable = False)
+    id = Column(Integer, primary_key = True)
+    _discriminator = Column(String, nullable = False)
+
+    character_id = Column(Integer, ForeignKey(Character.id),          nullable = False)
+    trait_id     = Column(Integer, ForeignKey(trait_models.Trait.id), nullable = False)
+
+    # TODO(Emery): Limit the value of `_discriminator` to enforce using the
+    #              appropriate child class when linking to the appropriate type
+    #              of trait.
+    # possible solution: composite foreign key using ForeignKeyConstraint
+    #      e.g. ForeignKeyConstraint(
+    #               (trait_id, _discriminator),
+    #               (Trait.id, Trait._discriminator)
+    #           )
+    #    (This won't work right now.  It will break skill-specialties.)
+
+    __mapper_args__ = {
+        'polymorphic_on': _discriminator,
+    }
+
+    character = relationship(Character)
+    trait     = relationship(trait_models.Trait, lazy = 'joined')
+
+
+class CharacterHasAttribute (CharacterHasTrait):
+    id = Column(Integer, ForeignKey(CharacterHasTrait.id, ondelete = 'CASCADE'), primary_key = True)
 
     rating = Column(SmallInteger, nullable = False, default = 1)
 
     __table_args__ = (
-        UniqueConstraint(character_id, trait_id),
+        # UniqueConstraint(character_id, trait_id),  # TODO(Emery): enforce this
         CheckConstraint(rating > 0, name = 'positive_rating'),
     )
 
-    character = relationship(Character, backref = backref('attributes'))
-    trait     = relationship(trait_models.Attribute, lazy = 'joined')
+    __mapper_args__ = {
+        'polymorphic_identity': 'attribute',
+    }
 
 
-class CharacterHasCombatTrait (AppLabel, BaseModel):
-    id = Column(Integer, primary_key = True)
+class CharacterHasCharacterText (CharacterHasTrait):
+    id = Column(Integer, ForeignKey(CharacterHasTrait.id, ondelete = 'CASCADE'), primary_key = True)
 
-    character_id = Column(Integer, ForeignKey(Character.id),                nullable = False)
-    trait_id     = Column(Integer, ForeignKey(trait_models.CombatTrait.id), nullable = False)
+    text = Column(Text, nullable = False, default = '')
+
+    __table_args__ = (
+        # UniqueConstraint(character_id, trait_id),  # TODO(Emery): enforce this
+    )
+
+    __mapper_args__ = {
+        'polymorphic_identity': 'character_text',
+    }
+
+
+class CharacterHasCombatTrait (CharacterHasTrait):
+    id = Column(Integer, ForeignKey(CharacterHasTrait.id, ondelete = 'CASCADE'), primary_key = True)
 
     rating = Column(SmallInteger)
 
-    __table_args__ = (UniqueConstraint(character_id, trait_id),)
+    __table_args__ = (
+        # UniqueConstraint(character_id, trait_id),  # TODO(Emery): enforce this
+    )
 
-    character = relationship(Character, backref = backref('combat_traits'))
-    trait     = relationship(trait_models.CombatTrait, lazy = 'joined')
+    __mapper_args__ = {
+        'polymorphic_identity': 'combat_trait',
+    }
 
 
-class CharacterHasDerangement (AppLabel, BaseModel):
-    id = Column(Integer, primary_key = True)
-
-    character_id = Column(Integer, ForeignKey(Character.id),                nullable = False)
-    trait_id     = Column(Integer, ForeignKey(trait_models.Derangement.id), nullable = False)
+class CharacterHasDerangement (CharacterHasTrait):
+    id = Column(Integer, ForeignKey(CharacterHasTrait.id, ondelete = 'CASCADE'), primary_key = True)
 
     specification = Column(String)
     description   = Column(Text)
 
-    character = relationship(Character, backref = backref('derangements'))
-    trait     = relationship(trait_models.Derangement, lazy = 'joined')
+    __mapper_args__ = {
+        'polymorphic_identity': 'derangement',
+    }
 
 
-class CharacterHasFlaw (AppLabel, BaseModel):
-    id = Column(Integer, primary_key = True)
-
-    character_id = Column(Integer, ForeignKey(Character.id),         nullable = False)
-    trait_id     = Column(Integer, ForeignKey(trait_models.Flaw.id), nullable = False)
+class CharacterHasFlaw (CharacterHasTrait):
+    id = Column(Integer, ForeignKey(CharacterHasTrait.id, ondelete = 'CASCADE'), primary_key = True)
 
     rating        = Column(SmallInteger)
     specification = Column(String)
     description   = Column(Text)
 
-    __table_args__ = (CheckConstraint(or_(rating == None, rating > 0), name = 'positive_rating'),)
+    __table_args__ = (
+        CheckConstraint(or_(rating == None, rating > 0), name = 'positive_rating'),
+    )
 
-    character = relationship(Character, backref = backref('flaws'))
-    trait     = relationship(trait_models.Flaw, lazy = 'joined')
+    __mapper_args__ = {
+        'polymorphic_identity': 'flaw',
+    }
 
 
-class CharacterHasMerit (AppLabel, BaseModel):
-    id = Column(Integer, primary_key = True)
-
-    character_id = Column(Integer, ForeignKey(Character.id),          nullable = False)
-    trait_id     = Column(Integer, ForeignKey(trait_models.Merit.id), nullable = False)
+class CharacterHasMerit (CharacterHasTrait):
+    id = Column(Integer, ForeignKey(CharacterHasTrait.id, ondelete = 'CASCADE'), primary_key = True)
 
     rating        = Column(SmallInteger, nullable = False)
     specification = Column(String)
@@ -154,80 +198,63 @@ class CharacterHasMerit (AppLabel, BaseModel):
 
     __table_args__ = (CheckConstraint(rating > 0, name = 'positive_rating'),)
 
-    character = relationship(Character, backref = backref('merits'))
-    trait     = relationship(trait_models.Merit, lazy = 'joined')
+    __mapper_args__ = {
+        'polymorphic_identity': 'merit',
+    }
 
 
-class CharacterHasMiscTrait (AppLabel, BaseModel):
-    id = Column(Integer, primary_key = True)
-
-    character_id = Column(Integer, ForeignKey(Character.id),              nullable = False)
-    trait_id     = Column(Integer, ForeignKey(trait_models.MiscTrait.id), nullable = False)
+class CharacterHasMiscTrait (CharacterHasTrait):
+    id = Column(Integer, ForeignKey(CharacterHasTrait.id, ondelete = 'CASCADE'), primary_key = True)
 
     rating      = Column(SmallInteger, nullable = False)
     description = Column(Text)
 
     __table_args__ = (
-        UniqueConstraint(character_id, trait_id),
+        # UniqueConstraint(character_id, trait_id),  # TODO(Emery): enforce this
         CheckConstraint(rating >= 0, name = 'non_negative_rating'),
     )
 
-    character = relationship(Character, backref = backref('misc_traits'))
-    trait     = relationship(trait_models.MiscTrait, lazy = 'joined')
+    __mapper_args__ = {
+        'polymorphic_identity': 'misc_trait',
+    }
 
 
-class CharacterHasPower (AppLabel, BaseModel):
-    id = Column(Integer, primary_key = True)
+class CharacterHasPower (CharacterHasTrait):
+    id = Column(Integer, ForeignKey(CharacterHasTrait.id, ondelete = 'CASCADE'), primary_key = True)
 
-    character_id = Column(Integer, ForeignKey(Character.id),          nullable = False)
-    trait_id     = Column(Integer, ForeignKey(trait_models.Power.id), nullable = False)
+    __table_args__ = (
+        # UniqueConstraint(character_id, trait_id),  # TODO(Emery): enforce this
+    )
 
-    __table_args__ = (UniqueConstraint(character_id, trait_id),)
+    __mapper_args__ = {
+        'polymorphic_identity': 'power',
+    }
 
-    character = relationship(Character, backref = backref('powers'))
-    trait     = relationship(trait_models.Power, lazy = 'joined')
 
-
-class CharacterHasSkill (AppLabel, BaseModel):
-    id = Column(Integer, primary_key = True)
-
-    character_id = Column(Integer, ForeignKey(Character.id),          nullable = False)
-    trait_id     = Column(Integer, ForeignKey(trait_models.Skill.id), nullable = False)
+class CharacterHasSkill (CharacterHasTrait):
+    id = Column(Integer, ForeignKey(CharacterHasTrait.id, ondelete = 'CASCADE'), primary_key = True)
 
     rating = Column(SmallInteger, nullable = False, default = 0)
 
     __table_args__ = (
-        UniqueConstraint(character_id, trait_id),
+        # UniqueConstraint(character_id, trait_id),  # TODO(Emery): enforce this
         CheckConstraint(rating >= 0, name = 'non_negative_rating'),
     )
 
-    character = relationship(Character, backref = backref('skills'))
-    trait     = relationship(trait_models.Skill, lazy = 'joined')
+    __mapper_args__ = {
+        'polymorphic_identity': 'skill',
+    }
 
 
-class CharacterHasSkillSpecialty (AppLabel, BaseModel):
-    id = Column(Integer, primary_key = True)
-
-    character_id = Column(Integer, ForeignKey(Character.id),          nullable = False)
-    trait_id     = Column(Integer, ForeignKey(trait_models.Skill.id), nullable = False)
+class CharacterHasSkillSpecialty (CharacterHasTrait):
+    id = Column(Integer, ForeignKey(CharacterHasTrait.id, ondelete = 'CASCADE'), primary_key = True)
 
     specialty = Column(String, nullable = False)
 
-    __table_args__ = (UniqueConstraint(character_id, trait_id, specialty),)
+    __table_args__ = (
+        # UniqueConstraint(character_id, trait_id, specialty),  # TODO(Emery): enforce this
+    )
 
-    character = relationship(Character, backref = backref('skill_secialties'))
-    trait     = relationship(trait_models.Skill, lazy = 'joined')
-
-
-class CharacterHasText (AppLabel, BaseModel):
-    id = Column(Integer, primary_key = True)
-
-    character_id = Column(Integer, ForeignKey(Character.id),                  nullable = False)
-    trait_id     = Column(Integer, ForeignKey(trait_models.CharacterText.id), nullable = False)
-
-    text = Column(Text, nullable = False, default = '')
-
-    __table_args__ = (UniqueConstraint(character_id, trait_id),)
-
-    character = relationship(Character, backref = backref('texts'))
-    trait     = relationship(trait_models.CharacterText, lazy = 'joined')
+    __mapper_args__ = {
+        'polymorphic_identity': 'skill_specialty',
+    }

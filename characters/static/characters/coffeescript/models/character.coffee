@@ -50,14 +50,15 @@ class Models.Character extends ORM.BaseModel
         autoFetch: true
         keySource: 'user_id'
     ,
-        # Chronicle
-        type: Backbone.HasOne
-        key: 'chronicle'
-        relatedModel: ORM.Chronicle.Chronicle
-        includeInJSON: ORM.Chronicle.Chronicle.idAttribute
-        autoFetch: true
-        keySource: 'chronicle_id'
-    ,
+    #     # Chronicle
+    #     type: Backbone.HasOne
+    #     key: 'chronicle'
+    #     relatedModel: ORM.Chronicle.Chronicle
+    #     includeInJSON: ORM.Chronicle.Chronicle.idAttribute
+    #     autoFetch: true
+    #     keySource: 'chronicle_id'
+    # ,
+
         # Crature Type
         type: Backbone.HasOne
         key: 'creature_type'
@@ -105,6 +106,61 @@ class Models.Character extends ORM.BaseModel
         includeInJSON: ORM.Traits.Vice.idAttribute
         autoFetch: true
         keySource: 'vice_id'
+    ,
+
+        # Attributes
+        type: Backbone.HasMany
+        key: 'attributes'
+        relatedModel: ORM.Characters.CharacterHasAttribute
+        includeInJSON: false
+    ,
+        # Skills
+        type: Backbone.HasMany
+        key: 'skills'
+        relatedModel: ORM.Characters.CharacterHasSkill
+        includeInJSON: false
+    ,
+        # Skil Specialties
+        type: Backbone.HasMany
+        key: 'skill_specialties'
+        relatedModel: ORM.Characters.CharacterHasSkillSpecialty
+        includeInJSON: false
+    ,
+        # Powers
+        type: Backbone.HasMany
+        key: 'powers'
+        relatedModel: ORM.Characters.CharacterHasPower
+        includeInJSON: false
+    ,
+        # Merits
+        type: Backbone.HasMany
+        key: 'merits'
+        relatedModel: ORM.Characters.CharacterHasMerit
+        includeInJSON: false
+    ,
+        # Flaws
+        type: Backbone.HasMany
+        key: 'flaws'
+        relatedModel: ORM.Characters.CharacterHasFlaw
+        includeInJSON: false
+    ,
+        # Derangements
+        type: Backbone.HasMany
+        key: 'derangements'
+        relatedModel: ORM.Characters.CharacterHasDerangement
+        includeInJSON: false
+    ,
+        # Combat Traits
+        type: Backbone.HasMany
+        key: 'combat_traits'
+        relatedModel: ORM.Characters.CharacterHasCombatTrait
+        includeInJSON: false
+    ,
+        # Miscellaneous Traits
+        type: Backbone.HasMany
+        key: 'misc_traits'
+        relatedModel: ORM.Characters.CharacterHasMiscTrait
+        includeInJSON: false
     ]
 
     parse: (raw) ->

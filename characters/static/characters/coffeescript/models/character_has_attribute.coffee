@@ -12,39 +12,11 @@ class Models.CharacterHasAttribute extends ORM.BaseModel
         DCMS.Settings.URL_PREFIX + '/characters/CharacterHasAttribute'
 
     defaults: () ->
-        id : undefined
-
-        character_id : undefined
-        trait_id     : undefined
-
-        rating : 1
-
-    relations: [
-        # Character
-        type: Backbone.HasOne
-        key: 'character'
-        relatedModel: ORM.Character.Character
-        includeInJSON: ORM.Character.Character.idAttribute
-        autoFetch: true
-        keySource: 'character_id'
-        reverseRelationship:
-            key: 'attributes'
-    ,
-        # Trait
-        type: Backbone.HasOne
-        key: 'trait'
-        relatedModel: ORM.Traits.Attribute
-        includeInJSON: ORM.Traits.Attribute.idAttribute
-        autoFetch: true
-        keySource: 'trait_id'
-    ]
+        return _.extend super,
+            rating : 1
 
     parse: (raw) ->
-        id : ORM.BaseModel.parse_int_field raw, 'id'
-
-        character_id : ORM.BaseModel.parse_int_field raw, 'character_id'
-        trait_id     : ORM.BaseModel.parse_int_field raw, 'trait_id'
-
-        rating : ORM.BaseModel.parse_int_field raw, 'rating'
+        return _.extend super,
+            rating : ORM.BaseModel.parse_int_field raw, 'rating'
 
 Models.CharacterHasAttribute.setup()
