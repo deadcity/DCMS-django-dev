@@ -44,7 +44,7 @@ class Virtue          (TraitType): pass
 
 class Trait (AppLabel, BaseModel):
     def __repr__ (self):
-        return "<{}({})>".formt(type(self.__name__), self.name)
+        return "<{}({})>".format(type(self).__name__, self.name)
 
     id = Column(Integer, primary_key = True)
     _discriminator = Column(String, nullable = False)
@@ -69,6 +69,7 @@ class Attribute (Trait):
     id = Column(Integer, ForeignKey(Trait.id, ondelete = 'CASCADE'), primary_key = True)
 
     attribute_type_id = Column(Integer, ForeignKey(AttributeType.id))
+    order             = Column(Integer)
 
     __mapper_args__ = {
         'polymorphic_identity': 'attribute',
@@ -81,6 +82,7 @@ class CharacterText (Trait):
     id = Column(Integer, ForeignKey(Trait.id, ondelete = 'CASCADE'), primary_key = True)
 
     hide_from_player = Column(Boolean, nullable = False, default = False)
+    include_on_sheet = Column(Boolean, nullable = False, default = False)
 
     __mapper_args__ = {
         'polymorphic_identity': 'character_text',
@@ -90,11 +92,7 @@ class CharacterText (Trait):
 class CombatTrait (Trait):
     id = Column(Integer, ForeignKey(Trait.id, ondelete = 'CASCADE'), primary_key = True)
 
-    rating = Column(Integer)
-
-    __table_args__ = (
-        CheckConstraint(or_(rating == None, rating >= 0), name = 'non_negative_rating'),
-    )
+    order = Column(Integer)
 
     __mapper_args__ = {
         'polymorphic_identity': 'combat_trait',
@@ -202,6 +200,10 @@ class Power (Trait):
     __table_args__ = (
         CheckConstraint(or_(rating == None, rating > 0), name = 'positive_rating'),
     )
+
+    __mapper_args__ = {
+        'polymorphic_identity': 'power',
+    }
 
     power_group = relationship(PowerGroup, foreign_keys = (power_group_id,))
 

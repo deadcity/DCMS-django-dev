@@ -36,6 +36,7 @@ class Models.Trait extends ORM.BaseModel
         'genealogy'      : 'Genealogy'
         'merit'          : 'Merit'
         'misc_trait'     : 'MiscTrait'
+        'power'          : 'Power'
         'power_group'    : 'PowerGroup'
         'skill'          : 'Skill'
         'subgroup'       : 'Subgroup'
@@ -54,7 +55,7 @@ class Models.Trait extends ORM.BaseModel
         id             : ORM.BaseModel.parse_int_field raw, 'id'
         _discriminator : raw._discriminator
 
-        name    : raw.name
-        label   : raw.label
+        name  : raw.name
+        label : raw.label
 
 Models.Trait.setup()
