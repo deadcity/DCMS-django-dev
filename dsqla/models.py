@@ -15,7 +15,7 @@ from sqlalchemy.types import INTEGER
 
 
 def get_model (application, model):
-    exec("from {}.models import {} as Model".format(application, model))
+    exec("from {}.models import {} as Model".format(application, model), globals())
     return Model
 
 

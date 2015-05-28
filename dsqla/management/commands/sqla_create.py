@@ -1,4 +1,4 @@
-## @package dsqla.management.command.sqla_create.py
+## @package dsqla.management.command.sqla_create
 #  Defines the django management command for creating all the sqla-managed tables.
 
 
@@ -9,6 +9,8 @@ from dsqla.session import session
 
 
 class Command (BaseCommand):
+    help = 'Creates all sqla-managed tables.'
+
     def handle (self, *args, **options):
         metadata = settings.DSQLA_BASE_MODEL.metadata
         metadata.create_all(session.bind)
