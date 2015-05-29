@@ -11,14 +11,25 @@ class Models.TraitType extends ORM.BaseModel
     defaults: () ->
         id : undefined
 
-        name  : undefined
-        label : ''
+        chronicle_id : undefined
+        name         : undefined
+        label        : ''
+
+    relations: [
+        type: Backbone.HasOne
+        key: 'chronicle'
+        relatedModel: ORM.Chronicles.ChronicleBase
+        includeInJSON: ORM.Chronicles.ChronicleBase.idAttribute
+        autoFetch: true
+        keySource: 'chronicle_id'
+    ]
 
     parse: (raw) ->
         id : ORM.BaseModel.parse_int_field raw, 'id'
 
-        name  : raw.name
-        label : raw.label
+        chronicle_id : ORM.BaseModel.parse_int_field raw, 'id'
+        name         : raw.name
+        label        : raw.label
 
 Models.TraitType.setup()
 
@@ -47,14 +58,25 @@ class Models.Trait extends ORM.BaseModel
         id             : undefined
         _discriminator : undefined
 
-        name  : undefined
-        label : ''
+        chronicle_id : undefined
+        name         : undefined
+        label        : ''
+
+    relations: [
+        type: Backbone.HasOne
+        key: 'chronicle'
+        relatedModel: ORM.Chronicles.ChronicleBase
+        includeInJSON: ORM.Chronicles.ChronicleBase.idAttribute
+        autoFetch: true
+        keySource: 'chronicle_id'
+    ]
 
     parse: (raw) ->
         id             : ORM.BaseModel.parse_int_field raw, 'id'
         _discriminator : raw._discriminator
 
-        name  : raw.name
-        label : raw.label
+        chronicle_id : ORM.BaseModel.parse_int_field raw, 'id'
+        name         : raw.name
+        label        : raw.label
 
 Models.Trait.setup()

@@ -25,7 +25,7 @@ class Models.Character extends ORM.BaseModel
 
         enabled      : true
         user_id      : undefined
-        # chronicle_id : undefined
+        chronicle_id : undefined
         status       : Character.Status.EDITING
 
         name             : undefined
@@ -48,14 +48,14 @@ class Models.Character extends ORM.BaseModel
         autoFetch: true
         keySource: 'user_id'
     ,
-    #     # Chronicle
-    #     type: Backbone.HasOne
-    #     key: 'chronicle'
-    #     relatedModel: ORM.Chronicle.Chronicle
-    #     includeInJSON: ORM.Chronicle.Chronicle.idAttribute
-    #     autoFetch: true
-    #     keySource: 'chronicle_id'
-    # ,
+        # Chronicle
+        type: Backbone.HasOne
+        key: 'chronicle'
+        relatedModel: ORM.Chronicles.Chronicle
+        includeInJSON: ORM.Chronicles.Chronicle.idAttribute
+        autoFetch: true
+        keySource: 'chronicle_id'
+    ,
 
         # Crature Type
         type: Backbone.HasOne

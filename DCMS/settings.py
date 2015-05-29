@@ -143,7 +143,7 @@ INSTALLED_APPS = (
 
     # 'accounts',
     'characters',
-    # 'chronicle',
+    'chronicles',
     'DCMS',
     'dsqla',
     # 'common',

@@ -2,13 +2,18 @@
 #  Provides models related to traits.
 
 
+from sqlalchemy.ext.declarative import declared_attr
 from sqlalchemy.orm import backref, relationship
-from sqlalchemy.schema import CheckConstraint, Column, ForeignKey, PrimaryKeyConstraint
+from sqlalchemy.schema import (
+    Column, ForeignKey,
+    CheckConstraint, PrimaryKeyConstraint, UniqueConstraint
+)
 from sqlalchemy.sql.expression import or_
 from sqlalchemy.types import Boolean, Integer, String
 
 from DCMS.model_base import BaseModel
 
+from chronicles.models import ChronicleBase
 from dsqla.models import app_label
 
 
@@ -29,14 +34,38 @@ class TraitType (AppLabel, BaseModel):
 
     id = Column(Integer, primary_key = True)
 
-    name  = Column(String, unique = True, nullable = False)
+    # A trait type is associated with a specific Chronicle or ChronicleTemplate.
+    @declared_attr
+    def chronicle_id (self):
+        return Column(Integer, ForeignKey(ChronicleBase.id), nullable = False)
+
+    name  = Column(String, nullable = False)
     label = Column(String, nullable = False, default = '')
 
+    @declared_attr
+    def chronicle (self):
+        return relationship(ChronicleBase)
 
-class AttributeType   (TraitType): pass
-class FlawType        (TraitType): pass
-class MeritType       (TraitType): pass
-class SkillType       (TraitType): pass
+
+class AttributeType (TraitType):
+    __table_args__ = (
+        UniqueConstraint('chronicle_id', 'name'),
+    )
+
+class FlawType (TraitType):
+    __table_args__ = (
+        UniqueConstraint('chronicle_id', 'name'),
+    )
+
+class MeritType (TraitType):
+    __table_args__ = (
+        UniqueConstraint('chronicle_id', 'name'),
+    )
+
+class SkillType (TraitType):
+    __table_args__ = (
+        UniqueConstraint('chronicle_id', 'name'),
+    )
 
 
 class Trait (AppLabel, BaseModel):
@@ -46,12 +75,22 @@ class Trait (AppLabel, BaseModel):
     id = Column(Integer, primary_key = True)
     _discriminator = Column(String, nullable = False)
 
+    # A trait is associated with a specific Chronicle or ChronicleTemplate.
+    chronicle_id = Column(Integer, ForeignKey(ChronicleBase.id), nullable = False)
+
     name  = Column(String, unique = True, nullable = False)
     label = Column(String, nullable = False, default = '')
+    order = Column(Integer)
+
+    __table_args__ = (
+        UniqueConstraint(chronicle_id, name),
+    )
 
     __mapper_args__ = {
         'polymorphic_on': _discriminator,
     }
+
+    chronicle = relationship(ChronicleBase)
 
 
 class Affiliation (Trait):
@@ -66,7 +105,6 @@ class Attribute (Trait):
     id = Column(Integer, ForeignKey(Trait.id, ondelete = 'CASCADE'), primary_key = True)
 
     attribute_type_id = Column(Integer, ForeignKey(AttributeType.id))
-    order             = Column(Integer)
 
     __mapper_args__ = {
         'polymorphic_identity': 'attribute',
@@ -88,8 +126,6 @@ class CharacterText (Trait):
 
 class CombatTrait (Trait):
     id = Column(Integer, ForeignKey(Trait.id, ondelete = 'CASCADE'), primary_key = True)
-
-    order = Column(Integer)
 
     __mapper_args__ = {
         'polymorphic_identity': 'combat_trait',
