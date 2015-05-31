@@ -30,8 +30,6 @@ def character_list (self, request):
             set(character.genealogy     for character in characters),
             set(character.affiliation   for character in characters),
             set(character.subgroup      for character in characters),
-            set(character.virtue        for character in characters),
-            set(character.vice          for character in characters),
         ),
     })
 

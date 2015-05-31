@@ -43,8 +43,6 @@ class Character (AppLabel, BaseModel):
     genealogy_id     = Column(Integer, ForeignKey(trait_models.Genealogy.id))
     affiliation_id   = Column(Integer, ForeignKey(trait_models.Affiliation.id))
     subgroup_id      = Column(Integer, ForeignKey(trait_models.Subgroup.id))
-    virtue_id        = Column(Integer, ForeignKey(trait_models.Virtue.id))
-    vice_id          = Column(Integer, ForeignKey(trait_models.Vice.id))
 
     date_created     = Column(DateTime, nullable = False, default = datetime.utcnow)
     date_submitted   = Column(DateTime)
@@ -61,8 +59,6 @@ class Character (AppLabel, BaseModel):
     genealogy     = relationship(trait_models.Genealogy)
     affiliation   = relationship(trait_models.Affiliation)
     subgroup      = relationship(trait_models.Subgroup)
-    virtue        = relationship(trait_models.Virtue)
-    vice          = relationship(trait_models.Vice)
 
     attributes        = relationship('CharacterHasAttribute')
     skills            = relationship('CharacterHasSkill')
@@ -70,7 +66,6 @@ class Character (AppLabel, BaseModel):
     powers            = relationship('CharacterHasPower')
     merits            = relationship('CharacterHasMerit')
     flaws             = relationship('CharacterHasFlaw')
-    derangements      = relationship('CharacterHasDerangement')
     combat_traits     = relationship('CharacterHasCombatTrait')
     misc_traits       = relationship('CharacterHasMiscTrait')
 
@@ -159,17 +154,6 @@ class CharacterHasCombatTrait (CharacterHasTrait):
 
     __mapper_args__ = {
         'polymorphic_identity': 'combat_trait',
-    }
-
-
-class CharacterHasDerangement (CharacterHasTrait):
-    id = Column(Integer, ForeignKey(CharacterHasTrait.id, ondelete = 'CASCADE'), primary_key = True)
-
-    specification = Column(String)
-    description   = Column(Text)
-
-    __mapper_args__ = {
-        'polymorphic_identity': 'derangement',
     }
 
 

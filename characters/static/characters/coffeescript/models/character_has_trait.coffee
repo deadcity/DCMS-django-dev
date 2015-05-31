@@ -13,7 +13,6 @@ class Models.CharacterHasTrait extends ORM.BaseModel
         'attribute'       : 'CharacterHasAttribute'
         'character_text'  : 'CharacterHasCharacterText'
         'combat_trait'    : 'CharacterHasCombatTrait'
-        'derangement'     : 'CharacterHasDerangement'
         'flaw'            : 'CharacterHasFlaw'
         'merit'           : 'CharacterHasMerit'
         'misc_trait'      : 'CharacterHasMiscTrait'

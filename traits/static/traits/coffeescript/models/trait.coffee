@@ -31,7 +31,6 @@ class Models.Trait extends ORM.BaseModel
         'character_text' : 'CharacterText'
         'combat_trait'   : 'CombatTrait'
         'creature_type'  : 'CreatureType'
-        'derangement'    : 'Derangement'
         'flaw'           : 'Flaw'
         'genealogy'      : 'Genealogy'
         'merit'          : 'Merit'

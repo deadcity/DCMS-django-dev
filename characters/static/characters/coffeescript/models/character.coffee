@@ -33,8 +33,6 @@ class Models.Character extends ORM.BaseModel
         genealogy_id     : undefined
         affiliation_id   : undefined
         subgroup_id      : undefined
-        virtue_id        : undefined
-        vice_id          : undefined
 
         date_created     : undefined
         date_submitted   : undefined
@@ -91,22 +89,6 @@ class Models.Character extends ORM.BaseModel
         autoFetch: true
         keySource: 'subgroup_id'
     ,
-        # Virtue
-        type: Backbone.HasOne
-        key: 'virtue'
-        relatedModel: ORM.Traits.Virtue
-        includeInJSON: ORM.Traits.Virtue.idAttribute
-        autoFetch: true
-        keySource: 'virtue_id'
-    ,
-        # Vice
-        type: Backbone.HasOne
-        key: 'vice'
-        relatedModel: ORM.Traits.Vice
-        includeInJSON: ORM.Traits.Vice.idAttribute
-        autoFetch: true
-        keySource: 'vice_id'
-    ,
 
         # Attributes
         type: Backbone.HasMany
@@ -144,12 +126,6 @@ class Models.Character extends ORM.BaseModel
         relatedModel: ORM.Characters.CharacterHasFlaw
         includeInJSON: false
     ,
-        # Derangements
-        type: Backbone.HasMany
-        key: 'derangements'
-        relatedModel: ORM.Characters.CharacterHasDerangement
-        includeInJSON: false
-    ,
         # Combat Traits
         type: Backbone.HasMany
         key: 'combat_traits'
@@ -176,8 +152,6 @@ class Models.Character extends ORM.BaseModel
         genealogy_id     : ORM.BaseModel.parse_int_field raw, 'genealogy_id'
         affiliation_id   : ORM.BaseModel.parse_int_field raw, 'affiliation_id'
         subgroup_id      : ORM.BaseModel.parse_int_field raw, 'subgroup_id'
-        virtue_id        : ORM.BaseModel.parse_int_field raw, 'virtue_id'
-        vice_id          : ORM.BaseModel.parse_int_field raw, 'vice_id'
 
         date_created     : ORM.BaseModel.parse_datetime_field raw, 'date_created'
         date_submitted   : ORM.BaseModel.parse_datetime_field raw, 'date_submitted'

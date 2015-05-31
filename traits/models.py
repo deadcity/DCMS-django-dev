@@ -34,12 +34,9 @@ class TraitType (AppLabel, BaseModel):
 
 
 class AttributeType   (TraitType): pass
-class DerangementType (TraitType): pass
 class FlawType        (TraitType): pass
 class MeritType       (TraitType): pass
 class SkillType       (TraitType): pass
-class Vice            (TraitType): pass
-class Virtue          (TraitType): pass
 
 
 class Trait (AppLabel, BaseModel):
@@ -110,19 +107,6 @@ class CreatureType (Trait):
     __mapper_args__ = {
         'polymorphic_identity': 'creature_type',
     }
-
-
-class Derangement (Trait):
-    id = Column(Integer, ForeignKey(Trait.id, ondelete = 'CASCADE'), primary_key = True)
-
-    derangement_type_id = Column(Integer, ForeignKey(DerangementType.id))
-    requires_specification = Column(Boolean, nullable = False, default = True)
-
-    __mapper_args__ = {
-        'polymorphic_identity': 'derangement',
-    }
-
-    derangement_type = relationship(DerangementType)
 
 
 class Flaw (Trait):
