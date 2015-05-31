@@ -40,18 +40,44 @@ def prepare (session, Model, datum):
 
 def key_from_constraint (constraint, obj):
     if isinstance(obj, dict):
-        return tuple(obj[column.key] for column in constraint.columns)
+        return tuple(
+            obj[column.key[:-3]].id
+                if column.key.endswith('_id')
+                else column.key
+            for column
+            in constraint.columns
+        )
     else:
-        return tuple(getattr(obj, column.key) for column in constraint.columns)
+        return tuple(
+            getattr(obj, column.key[:-3]).id
+                if column.key.endswith('_id')
+                else getattr(column.key)
+            for column
+            in constraint.columns
+        )
 
 
 def filter_from_constraint (constraint, obj):
     if isinstance(obj, dict):
-        return tuple(column == obj[column.key]
-            for column in constraint.columns)
+        return tuple(
+            column == (
+                obj[column.key[:-3]].id
+                if column.key.endswith('_id')
+                else obj[column.key]
+            )
+            for column
+            in constraint.columns
+        )
     else:
-        return tuple(column == getattr(obj, column.key)
-            for column in constraint.columns)
+        return tuple(
+            column == (
+                getattr(obj, column.key[:-3]).id
+                if column.key.endswith('_id')
+                else getattr(obj, column.key)
+            )
+            for column
+            in constraint.columns
+        )
 
 
 class Command (BaseCommand):
