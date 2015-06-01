@@ -9,7 +9,7 @@ Models = Tools.create_namespace 'ORM.Auth'
 
 class Models.User extends ORM.BaseModel
     urlRoot: () ->
-        DCMS.Settings.URL_PREFIX + '/auth/User'
+        DCMS.Settings.URL_PREFIX + '/accounts/User'
 
     defaults: () ->
         id : undefined

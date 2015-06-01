@@ -12,7 +12,7 @@ from sqlalchemy.types import Boolean, DateTime, Integer, SmallInteger, String, T
 
 from DCMS.model_base import BaseModel
 
-from auth.models import User
+from accounts.models import User
 from chronicles.models import Chronicle, Game
 from dsqla.column_types import EnumColumn
 from dsqla.models import app_label

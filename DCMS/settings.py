@@ -141,7 +141,7 @@ INSTALLED_APPS = (
     'compressor',
     # 'rest_framework',
 
-    # 'accounts',
+    'accounts',
     'characters',
     'chronicles',
     'DCMS',

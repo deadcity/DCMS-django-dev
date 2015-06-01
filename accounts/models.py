@@ -1,4 +1,4 @@
-## @module auth.models
+## @module accounts.models
 
 
 from sqlalchemy.schema import Column

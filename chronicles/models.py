@@ -8,7 +8,7 @@ from sqlalchemy.types import Boolean, Date, Integer, String, Text
 
 from DCMS.model_base import BaseModel
 
-from auth.models import User
+from accounts.models import User
 from dsqla.models import app_label
 
 
