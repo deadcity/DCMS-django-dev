@@ -9,7 +9,7 @@ Models = Tools.create_namespace 'ORM.Traits'
 
 class Models.MiscTrait extends Models.Trait
     urlRoot: () ->
-        DCMS.Settings.URL_PREFIX + '/traits/MiscTrait'
+        DCMS.Settings.URL_PREFIX + '/rest/traits/MiscTrait'
 
     defaults: () ->
         return _.extend super,

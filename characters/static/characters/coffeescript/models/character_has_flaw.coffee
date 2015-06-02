@@ -9,7 +9,7 @@ Models = Tools.create_namespace 'ORM.Characters'
 
 class Models.CharacterHasFlaw extends ORM.BaseModel
     urlRoot: () ->
-        DCMS.Settings.URL_PREFIX + '/characters/CharacterHasFlaw'
+        DCMS.Settings.URL_PREFIX + '/rest/characters/CharacterHasFlaw'
 
     defaults: () ->
         return _.extend super,

@@ -9,14 +9,14 @@ Models = Tools.create_namespace 'ORM.Traits'
 
 class Models.MeritType extends Models.TraitType
     urlRoot: () ->
-        DCMS.Settings.URL_PREFIX + '/traits/MeritType'
+        DCMS.Settings.URL_PREFIX + '/rest/traits/MeritType'
 
 Models.MeritType.setup()
 
 
 class Models.Merit extends Models.Merit
     urlRoot: () ->
-        DCMS.Settings.URL_PREFIX + '/traits/Merit'
+        DCMS.Settings.URL_PREFIX + '/rest/traits/Merit'
 
     defaults: () ->
         return _.extend super,
@@ -44,7 +44,7 @@ Models.Merit.setup()
 
 class Models.AllowedMeritRating extends ORM.BaseModel
     urlRoot: () ->
-        DCMS.Settings.URL_PREFIX + '/traits/AllowedMeritRating'
+        DCMS.Settings.URL_PREFIX + '/rest/traits/AllowedMeritRating'
 
     defaults: () ->
         merit_id : undefined

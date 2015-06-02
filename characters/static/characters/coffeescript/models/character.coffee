@@ -18,7 +18,7 @@ class Models.Character extends ORM.BaseModel
     ]
 
     urlRoot: () ->
-        DCMS.Settings.URL_PREFIX + '/characters/Character'
+        DCMS.Settings.URL_PREFIX + '/rest/characters/Character'
 
     defaults: () ->
         id : undefined

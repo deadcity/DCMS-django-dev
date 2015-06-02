@@ -9,7 +9,7 @@ Models = Tools.create_namespace 'ORM.Characters'
 
 class Models.CharacterHasMerit extends ORM.BaseModel
     urlRoot: () ->
-        DCMS.Settings.URL_PREFIX + '/characters/CharacterHasMerit'
+        DCMS.Settings.URL_PREFIX + '/rest/characters/CharacterHasMerit'
 
     defaults: () ->
         return _.extend super,

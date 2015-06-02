@@ -21,7 +21,7 @@ class Models.CharacterHasTrait extends ORM.BaseModel
         'skill_specialty' : 'CharacterHasSkillSpecialty'
 
     urlRoot: () ->
-        DCMS.Settings.URL_PREFIX + '/characters/CharacterHasTrait'
+        DCMS.Settings.URL_PREFIX + '/rest/characters/CharacterHasTrait'
 
     defaults: () ->
         id             : undefined

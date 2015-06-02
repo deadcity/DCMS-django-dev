@@ -9,7 +9,7 @@ Models = Tools.create_namespace 'ORM.Chronicles'
 
 class Models.Game extends ORM.BaseModel
     urlRoot: () ->
-        DCMS.Settings.URL_PREFIX + '/chronicles/Game'
+        DCMS.Settings.URL_PREFIX + '/rest/chronicles/Game'
 
     defaults: () ->
         id : undefined

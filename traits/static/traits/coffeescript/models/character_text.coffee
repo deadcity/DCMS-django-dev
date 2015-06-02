@@ -9,7 +9,7 @@ Models = Tools.create_namespace 'ORM.Traits'
 
 class Models.CharacterText extends Models.Trait
     urlRoot: () ->
-        DCMS.Settings.URL_PREFIX + '/traits/CharacterText'
+        DCMS.Settings.URL_PREFIX + '/rest/traits/CharacterText'
 
     defaults: () ->
         return _.extend super,

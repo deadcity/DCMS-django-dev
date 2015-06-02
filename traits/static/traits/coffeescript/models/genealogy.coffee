@@ -9,6 +9,6 @@ Models = Tools.create_namespace 'ORM.Traits'
 
 class Models.Genealogy extends Models.Trait
     urlRoot: () ->
-        DCMS.Settings.URL_PREFIX + '/traits/Genealogy'
+        DCMS.Settings.URL_PREFIX + '/rest/traits/Genealogy'
 
 Models.Genealogy.setup()

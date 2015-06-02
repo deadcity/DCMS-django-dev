@@ -9,14 +9,14 @@ Models = Tools.create_namespace 'ORM.Traits'
 
 class Models.FlawType extends Models.TraitType
     urlRoot: () ->
-        DCMS.Settings.URL_PREFIX + '/traits/FlawType'
+        DCMS.Settings.URL_PREFIX + '/rest/traits/FlawType'
 
 Models.FlawType.setup()
 
 
 class Models.Flaw extends Models.Flaw
     urlRoot: () ->
-        DCMS.Settings.URL_PREFIX + '/traits/Flaw'
+        DCMS.Settings.URL_PREFIX + '/rest/traits/Flaw'
 
     defaults: () ->
         return _.extend super,

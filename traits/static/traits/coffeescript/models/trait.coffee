@@ -52,7 +52,7 @@ class Models.Trait extends ORM.BaseModel
         'subgroup'       : 'Subgroup'
 
     urlRoot: () ->
-        DCMS.Settings.URL_PREFIX + '/traits/Trait'
+        DCMS.Settings.URL_PREFIX + '/rest/traits/Trait'
 
     defaults: () ->
         id             : undefined

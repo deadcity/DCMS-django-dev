@@ -14,7 +14,7 @@ class Models.ChronicleBase extends ORM.BaseModel
         'chronicle'          : 'Chronicle'
 
     urlRoot: () ->
-        DCMS.Settings.URL_PREFIX + '/chronicles/ChronicleBase'
+        DCMS.Settings.URL_PREFIX + '/rest/chronicles/ChronicleBase'
 
     defaults: () ->
         id             : undefined
@@ -37,14 +37,14 @@ Models.ChronicleBase.setup()
 
 class Models.ChronicleTemplate extends Models.ChronicleBase
     urlRoot: () ->
-        DCMS.Settings.URL_PREFIX + '/chronicles/ChronicleTemplate'
+        DCMS.Settings.URL_PREFIX + '/rest/chronicles/ChronicleTemplate'
 
 Models.ChronicleTemplate.setup()
 
 
 class Models.Chronicle extends Models.ChronicleBase
     urlRoot: () ->
-        DCMS.Settings.URL_PREFIX + '/chronicles/Chronicle'
+        DCMS.Settings.URL_PREFIX + '/rest/chronicles/Chronicle'
 
     # referse relations:
     #   templates -> ORM.Chronicles.ChronicleInheritsTemplate
@@ -55,7 +55,7 @@ Models.Chronicle.setup()
 
 class Models.ChronicleInheritsTemplate extends ORM.BaseModel
     urlRoot: () ->
-        DCMS.Settings.URL_PREFIX + '/chronicles/ChronicleInheritsTemplate'
+        DCMS.Settings.URL_PREFIX + '/rest/chronicles/ChronicleInheritsTemplate'
 
     defaults: () ->
         chronicle_id          : undefined

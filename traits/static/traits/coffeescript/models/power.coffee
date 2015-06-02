@@ -9,14 +9,14 @@ Models = Tools.create_namespace 'ORM.Traits'
 
 class Models.PowerGroup extends Models.Trait
     urlRoot: () ->
-        DCMS.Settings.URL_PREFIX + '/traits/PowerGroup'
+        DCMS.Settings.URL_PREFIX + '/rest/traits/PowerGroup'
 
 Models.PowerGroup.setup()
 
 
 class Models.Power extends Models.Trait
     urlRoot: () ->
-        DCMS.Settings.URL_PREFIX + '/traits/Power'
+        DCMS.Settings.URL_PREFIX + '/rest/traits/Power'
 
     defaults: () ->
         return _.extend super,

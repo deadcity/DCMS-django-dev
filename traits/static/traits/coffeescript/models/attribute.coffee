@@ -9,14 +9,14 @@ Models = Tools.create_namespace 'ORM.Traits'
 
 class Models.AttributeType extends Models.TraitType
     urlRoot: () ->
-        DCMS.Settings.URL_PREFIX + '/traits/AttributeType'
+        DCMS.Settings.URL_PREFIX + '/rest/traits/AttributeType'
 
 Models.AttributeType.setup()
 
 
 class Models.Attribute extends Models.Trait
     urlRoot: () ->
-        DCMS.Settings.URL_PREFIX + '/traits/Attribute'
+        DCMS.Settings.URL_PREFIX + '/rest/traits/Attribute'
 
     defaults: () ->
         return _.extend super,
