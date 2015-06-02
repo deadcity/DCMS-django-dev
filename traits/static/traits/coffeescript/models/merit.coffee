@@ -14,7 +14,7 @@ class Models.MeritType extends Models.TraitType
 Models.MeritType.setup()
 
 
-class Models.Merit extends Models.Merit
+class Models.Merit extends Models.Trait
     urlRoot: () ->
         DCMS.Settings.URL_PREFIX + '/rest/traits/Merit'
 

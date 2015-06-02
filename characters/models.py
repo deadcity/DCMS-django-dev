@@ -34,8 +34,8 @@ class Character (AppLabel, BaseModel):
     id = Column(Integer, primary_key = True)
 
     enabled      = Column(Boolean, nullable = False, default = True)
-    user_id      = Column(Integer, ForeignKey(User.id))
-    chronicle_id = Column(Integer, ForeignKey(Chronicle.id))
+    user_id      = Column(Integer, ForeignKey(User.id), nullable = False)
+    chronicle_id = Column(Integer, ForeignKey(Chronicle.id), nullable = False)
     status       = Column(EnumColumn(Status, name = 'character_status'), nullable = False, default = Status.EDITING)
 
     name             = Column(String, nullable = False, default = '')

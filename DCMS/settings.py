@@ -147,7 +147,7 @@ INSTALLED_APPS = (
     'DCMS',
     'dsqla',
     # 'common',
-    # 'traits',
+    'traits',
 )
 
 DSQLA_BASE_MODEL = BaseModel

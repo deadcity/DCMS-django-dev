@@ -31,7 +31,7 @@ class ModelEncoder (JSONEncoder):
 
         # datetime, date, or time
         elif isinstance(obj, (datetime, date, time)):
-            return unicode(obj)
+            return str(obj)
 
         # (others)
         else:

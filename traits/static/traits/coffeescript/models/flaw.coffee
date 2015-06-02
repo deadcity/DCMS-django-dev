@@ -14,7 +14,7 @@ class Models.FlawType extends Models.TraitType
 Models.FlawType.setup()
 
 
-class Models.Flaw extends Models.Flaw
+class Models.Flaw extends Models.Trait
     urlRoot: () ->
         DCMS.Settings.URL_PREFIX + '/rest/traits/Flaw'
 

@@ -28,7 +28,7 @@ class Models.Character extends ORM.BaseModel
         chronicle_id : undefined
         status       : Character.Status.EDITING
 
-        name             : undefined
+        name             : ''
         creature_type_id : undefined
         genealogy_id     : undefined
         affiliation_id   : undefined

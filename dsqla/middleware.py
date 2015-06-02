@@ -2,7 +2,7 @@
 #  Django middleware
 
 
-from django_sqla.session import session
+from dsqla.session import session
 
 
 class SQLATransactionMiddleware (object):

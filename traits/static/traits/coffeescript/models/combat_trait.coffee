@@ -17,6 +17,6 @@ class Models.CombatTrait extends Models.Trait
 
     parse: (raw) ->
         return _.extend super,
-            attr.rating: ORM.BaseModel.parse_int_field raw, 'rating'
+            rating : ORM.BaseModel.parse_int_field raw, 'rating'
 
 Models.CombatTrait.setup()

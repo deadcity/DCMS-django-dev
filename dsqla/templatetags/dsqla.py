@@ -10,7 +10,7 @@ from dsqla.models import ToJSON
 register = template.Library()
 
 
-_create_instance_format = "ORM.{Model._app_label}.|{Model.__name__}.findOrCreate({json}, {{ parse: true }});"
+_create_instance_format = "ORM.{Model._app_label}.{Model.__name__}.findOrCreate({json}, {{ parse: true }});"
 
 @register.filter()
 def create_js_records (obj):
@@ -27,7 +27,7 @@ def create_js_records (obj):
             Model = type(model),
             json = model.to_json()
         ) for model in obj
-        if isinstance(obj, ToJSON)
+        if isinstance(model, ToJSON)
     )
 
 

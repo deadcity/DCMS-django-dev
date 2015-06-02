@@ -4,7 +4,7 @@
 
 import json
 
-from django_sqla.models import get_model
+from dsqla.models import get_model
 
 
 ## Parses request body as json and saves result to request.data.
@@ -27,10 +27,10 @@ class ModelView (object):
     @property
     def Model (self):
         if not hasattr(self, '_Model'):
-            self._Model = get_model(self._schema, self._model_name)
+            self._Model = get_model(self._module, self._model_name)
         return self._Model
 
     def dispatch (self, request, *args, **kwargs):
-        self._schema = kwargs.pop('schema')
+        self._module = kwargs.pop('module')
         self._model_name = kwargs.pop('model')
         return super(ModelView, self).dispatch(request, *args, **kwargs)

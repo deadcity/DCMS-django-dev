@@ -1,1 +1,1 @@
-from main import urlpatterns
+from .main import urlpatterns
