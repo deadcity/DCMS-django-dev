@@ -24,14 +24,7 @@ class Models.Flaw extends Models.Trait
             requires_specification : undefined
             requires_description   : undefined
 
-    relations: [
-        type: Backbone.HasOne
-        key: 'flaw_type'
-        relatedModel: Models.FlawType
-        includeInJSON: Models.FlawType.idAttribute
-        autoFetch: true
-        keySource: 'flaw_type_id'
-    ]
+    relations: [ORM.relation 'flaw_type', ORM.traits.FlawType]
 
     parse: (raw) ->
         return _.extend super,

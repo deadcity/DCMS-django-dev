@@ -20,6 +20,11 @@ class Models.Game extends ORM.BaseModel
         chronicle_id : undefined
         date         : undefined
 
+    relations: [ORM.relation 'chronicle', ORM.Chronicles.Chronicle,
+        reverseRelation:
+            key: 'games'
+    ]
+
     parse: (raw) ->
         id : ORM.BaseModel.parse_int_field raw, 'id'
 

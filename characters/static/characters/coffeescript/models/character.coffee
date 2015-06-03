@@ -40,103 +40,22 @@ class Models.Character extends ORM.BaseModel
         date_last_edited : undefined
 
     relations: [
-        # User
-        type: Backbone.HasOne
-        key: 'user'
-        relatedModel: ORM.Auth.User
-        includeInJSON: ORM.Auth.User.idAttribute
-        autoFetch: true
-        keySource: 'user_id'
-    ,
-        # Chronicle
-        type: Backbone.HasOne
-        key: 'chronicle'
-        relatedModel: ORM.Chronicles.Chronicle
-        includeInJSON: ORM.Chronicles.Chronicle.idAttribute
-        autoFetch: true
-        keySource: 'chronicle_id'
-    ,
+        ORM.relation('user',      ORM.Auth.User),
+        ORM.relation('chronicle', ORM.Chronicles.Chronicle),
 
-        # Crature Type
-        type: Backbone.HasOne
-        key: 'creature_type'
-        relatedModel: ORM.Traits.CreatureType
-        includeInJSON: ORM.Traits.CreatureType.idAttribute
-        autoFetch: true
-        keySource: 'creature_type_id'
-    ,
-        # Genealogy
-        type: Backbone.HasOne
-        key: 'genealogy'
-        relatedModel: ORM.Traits.Genealogy
-        includeInJSON: ORM.Traits.Genealogy.idAttribute
-        autoFetch: true
-        keySource: 'genealogy_id'
-    ,
-        # Affiliation
-        type: Backbone.HasOne
-        key: 'affiliation'
-        relatedModel: ORM.Traits.Affiliation
-        includeInJSON: ORM.Traits.Affiliation.idAttribute
-        autoFetch: true
-        keySource: 'affiliation_id'
-    ,
-        # Subgroup
-        type: Backbone.HasOne
-        key: 'subgroup'
-        relatedModel: ORM.Traits.Subgroup
-        includeInJSON: ORM.Traits.Subgroup.idAttribute
-        autoFetch: true
-        keySource: 'subgroup_id'
-    ,
+        ORM.relation('creature_type', ORM.Traits.CreatureType),
+        ORM.relation('genealogy',     ORM.Traits.Genealogy),
+        ORM.relation('affiliation',   ORM.Traits.Affiliation),
+        ORM.relation('subgroup',      ORM.Traits.Subgroup),
 
-        # Attributes
-        type: Backbone.HasMany
-        key: 'attributes'
-        relatedModel: ORM.Characters.CharacterHasAttribute
-        includeInJSON: false
-    ,
-        # Skills
-        type: Backbone.HasMany
-        key: 'skills'
-        relatedModel: ORM.Characters.CharacterHasSkill
-        includeInJSON: false
-    ,
-        # Skil Specialties
-        type: Backbone.HasMany
-        key: 'skill_specialties'
-        relatedModel: ORM.Characters.CharacterHasSkillSpecialty
-        includeInJSON: false
-    ,
-        # Powers
-        type: Backbone.HasMany
-        key: 'powers'
-        relatedModel: ORM.Characters.CharacterHasPower
-        includeInJSON: false
-    ,
-        # Merits
-        type: Backbone.HasMany
-        key: 'merits'
-        relatedModel: ORM.Characters.CharacterHasMerit
-        includeInJSON: false
-    ,
-        # Flaws
-        type: Backbone.HasMany
-        key: 'flaws'
-        relatedModel: ORM.Characters.CharacterHasFlaw
-        includeInJSON: false
-    ,
-        # Combat Traits
-        type: Backbone.HasMany
-        key: 'combat_traits'
-        relatedModel: ORM.Characters.CharacterHasCombatTrait
-        includeInJSON: false
-    ,
-        # Miscellaneous Traits
-        type: Backbone.HasMany
-        key: 'misc_traits'
-        relatedModel: ORM.Characters.CharacterHasMiscTrait
-        includeInJSON: false
+        ORM.relation_collection('attributes',        ORM.Characters.CharacterHasAttribute),
+        ORM.relation_collection('skills',            ORM.Characters.CharacterHasSkill),
+        ORM.relation_collection('skill_specialties', ORM.Characters.CharacterHasSkillSpecialty),
+        ORM.relation_collection('powers',            ORM.Characters.CharacterHasPower),
+        ORM.relation_collection('merits',            ORM.Characters.CharacterHasMerit),
+        ORM.relation_collection('flaws',             ORM.Characters.CharacterHasFlaw),
+        ORM.relation_collection('combat_traits',     ORM.Characters.CharacterHasCombatTrait),
+        ORM.relation_collection('misc_traits',       ORM.Characters.CharacterHasMiscTrait),
     ]
 
     parse: (raw) ->

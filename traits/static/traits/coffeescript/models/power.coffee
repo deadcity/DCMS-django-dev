@@ -23,13 +23,7 @@ class Models.Power extends Models.Trait
             rating         : undefined
             power_group_id : undefined
 
-    relations: [
-        type: Backbone.HasOne
-        key: 'power_group'
-        relatedModel: Models.PowerGroup
-        includeInJSON: Models.PowerGroup.idAttribute
-        autoFetch: true
-        keySource: 'power_group_id'
+    relations: [ORM.relation 'power_group', ORM.Traits.PowerGroup,
         reverseRelationship:
             key: 'powers'
     ]

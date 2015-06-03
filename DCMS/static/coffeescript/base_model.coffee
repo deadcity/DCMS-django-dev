@@ -6,8 +6,26 @@
 
 Tools.create_namespace 'ORM'
 
+Backbone.Relational.store.addModelScope ORM
 
-class ORM.ModelBase extends Backbone.RelationalModel
+ORM.relation = (key, RelatedModel, options = {}) ->
+    return _.defaults {}, options,
+        type          : Backbone.HasOne
+        key           : key
+        relatedModel  : RelatedModel
+        includeInJSON : RelatedModel.idAttribute
+        autoFetch     : true
+        keySource     : key + '_id'
+
+ORM.relation_collection = (key, RelatedModel, options = {}) ->
+    return _.defaults {}, options,
+        type          : Backbone.HasMany
+        key           : key
+        relatedModel  : RelatedModel
+        includeInJSON : false
+
+
+class ORM.BaseModel extends Backbone.RelationalModel
     @idAttribute: 'id'
     @define_property 'idAttribute',
         get: -> @constructor.idAttribute
@@ -20,10 +38,10 @@ class ORM.ModelBase extends Backbone.RelationalModel
         return value
 
     @parse_int_field: (raw, field) ->
-        return ModelBase.parse_num_field raw, field, (val) -> parseInt val, 10
+        return BaseModel.parse_num_field raw, field, (val) -> parseInt val, 10
 
     @parse_float_field: (raw, field) ->
-        return ModelBase.parse_num_field raw, field, (val) -> parseFloat val, 10
+        return BaseModel.parse_num_field raw, field, (val) -> parseFloat val, 10
 
     @parse_datetime_field: (raw, field) ->
         return undefined if raw[field] is undefined

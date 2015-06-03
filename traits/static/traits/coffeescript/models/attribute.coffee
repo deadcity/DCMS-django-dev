@@ -22,14 +22,7 @@ class Models.Attribute extends Models.Trait
         return _.extend super,
             attribute_type_id : undefined
 
-    relations: [
-        type: Backbone.HasOne
-        key: 'attribute_type'
-        relatedModel: Models.AttributeType
-        includeInJSON: Models.AttributeType.idAttribute
-        autoFetch: true
-        keySource: 'attribute_type_id'
-    ]
+    relations: [ORM.relation 'attribute_type', ORM.Traits.AttributeType]
 
     parse: (raw) ->
         return _.extend super,

@@ -24,14 +24,7 @@ class Models.Merit extends Models.Trait
             requires_specification : undefined
             requires_description   : undefined
 
-    relations: [
-        type: Backbone.HasOne
-        key: 'merit_type'
-        relatedModel: Models.MeritType
-        includeInJSON: Models.MeritType.idAttribute
-        autoFetch: true
-        keySource: 'merit_type_id'
-    ]
+    relations: [ORM.relation 'merit_type', ORM.Traits.MeritType]
 
     parse: (raw) ->
         return _.extend super,
@@ -50,13 +43,7 @@ class Models.AllowedMeritRating extends ORM.BaseModel
         merit_id : undefined
         rating   : undefined
 
-    relations: [
-        type: Backbone.HasOne
-        key: 'merit'
-        relatedModel: Models.Merit
-        includeInJSON: Models.Merit.idAttribute
-        autoFetch: true
-        keySource: 'merit_id'
+    relations: [ORM.relation 'merit', Models.Merit,
         reverseRelation:
             key: 'allowed_ratings'
     ]

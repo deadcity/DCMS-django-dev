@@ -31,21 +31,8 @@ class Models.CharacterHasTrait extends ORM.BaseModel
         trait_id     : undefined
 
     relations: [
-        # Character
-        type: Backbone.HasOne
-        key: 'character'
-        relatedModel: ORM.Characters.Character
-        includeInJSON: ORM.Characters.Character.idAttribute
-        autoFetch: true
-        keySource: 'character_id'
-    ,
-        # Trait
-        type: Backbone.HasOne
-        key: 'trait'
-        relatedModel: ORM.Traits.Trait
-        includeInJSON: ORM.Traits.Trait.idAttribute
-        autoFetch: true
-        keySource: 'trait_id'
+        ORM.relation('character', ORM.Characters.Character),
+        ORM.relation('trait',     ORM.Traits.Trait),
     ]
 
     parse: (raw) ->

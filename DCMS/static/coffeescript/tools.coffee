@@ -14,4 +14,4 @@ Tools.create_namespace = create_namespace
 
 
 Function::define_property = (property_name, desc) ->
-    Object.defineProperty @prototype, property_name desc
+    Object.defineProperty @prototype, property_name, desc

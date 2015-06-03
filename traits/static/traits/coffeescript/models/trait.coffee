@@ -15,14 +15,7 @@ class Models.TraitType extends ORM.BaseModel
         name         : undefined
         label        : ''
 
-    relations: [
-        type: Backbone.HasOne
-        key: 'chronicle'
-        relatedModel: ORM.Chronicles.ChronicleBase
-        includeInJSON: ORM.Chronicles.ChronicleBase.idAttribute
-        autoFetch: true
-        keySource: 'chronicle_id'
-    ]
+    relations: [ORM.relation 'chronicle', ORM.Chronicles.ChronicleBase]
 
     parse: (raw) ->
         id : ORM.BaseModel.parse_int_field raw, 'id'
@@ -62,14 +55,7 @@ class Models.Trait extends ORM.BaseModel
         name         : undefined
         label        : ''
 
-    relations: [
-        type: Backbone.HasOne
-        key: 'chronicle'
-        relatedModel: ORM.Chronicles.ChronicleBase
-        includeInJSON: ORM.Chronicles.ChronicleBase.idAttribute
-        autoFetch: true
-        keySource: 'chronicle_id'
-    ]
+    relations: [ORM.relation 'chronicle', ORM.Chronicles.ChronicleBase]
 
     parse: (raw) ->
         id             : ORM.BaseModel.parse_int_field raw, 'id'

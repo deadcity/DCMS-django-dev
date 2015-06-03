@@ -22,14 +22,7 @@ class Models.Skill extends Models.Trait
         return _.extend super,
             skill_type_id : undefined
 
-    relations: [
-        type: Backbone.HasOne
-        key: 'skill_type'
-        relatedModel: Models.SkillType
-        includeInJSON: Models.SkillType.idAttribute
-        autoFetch: true
-        keySource: 'skill_type_id'
-    ]
+    relations: [ORM.relation 'skill_type', Models.SkillType]
 
     parse: (raw) ->
         return _.extend super,

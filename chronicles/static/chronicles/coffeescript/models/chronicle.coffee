@@ -64,23 +64,11 @@ class Models.ChronicleInheritsTemplate extends ORM.BaseModel
         hide_denied_traits : false
 
     relations: [
-        # Chronicle
-        type: Backbone.HasOne
-        key: 'chronicle'
-        relatedModel: ORM.Chronicles.Chronicle
-        includeInJSON: ORM.Chronicles.Chronicle.idAttribute
-        autoFetch: true
-        keySource: 'chronicle_id'
-        reverseRelation:
-            key: 'templates'
-    ,
-        # ChronicleTemplate
-        type: Backbone.HasOne
-        key: 'template'
-        relatedModel: ORM.Chronicles.ChronicleTemplate
-        includeInJSON: ORM.Chronicles.ChronicleTemplate.idAttribute
-        autoFetch: true
-        keySource: 'chronicle_template_id'
+        ORM.relation('chronicle', ORM.Chronicles.Chronicle,
+            reverseRelation:
+                key: 'templates'
+        ),
+        ORM.relation('template', ORM.Chronicles.ChronicleTemplate),
     ]
 
     parse: () ->
