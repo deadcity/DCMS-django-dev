@@ -4,7 +4,7 @@
 ###
 
 
-Models = Tools.create_namespace 'ORM.Characters'
+Models = Tools.create_namespace 'ORM.characters'
 
 
 class Models.Character extends ORM.BaseModel
@@ -40,22 +40,22 @@ class Models.Character extends ORM.BaseModel
         date_last_edited : undefined
 
     relations: [
-        ORM.relation('user',      ORM.Auth.User),
-        ORM.relation('chronicle', ORM.Chronicles.Chronicle),
+        ORM.relation('user',      ORM.auth.User),
+        ORM.relation('chronicle', ORM.chronicles.Chronicle),
 
-        ORM.relation('creature_type', ORM.Traits.CreatureType),
-        ORM.relation('genealogy',     ORM.Traits.Genealogy),
-        ORM.relation('affiliation',   ORM.Traits.Affiliation),
-        ORM.relation('subgroup',      ORM.Traits.Subgroup),
+        ORM.relation('creature_type', ORM.traits.CreatureType),
+        ORM.relation('genealogy',     ORM.traits.Genealogy),
+        ORM.relation('affiliation',   ORM.traits.Affiliation),
+        ORM.relation('subgroup',      ORM.traits.Subgroup),
 
-        ORM.relation_collection('attributes',        ORM.Characters.CharacterHasAttribute),
-        ORM.relation_collection('skills',            ORM.Characters.CharacterHasSkill),
-        ORM.relation_collection('skill_specialties', ORM.Characters.CharacterHasSkillSpecialty),
-        ORM.relation_collection('powers',            ORM.Characters.CharacterHasPower),
-        ORM.relation_collection('merits',            ORM.Characters.CharacterHasMerit),
-        ORM.relation_collection('flaws',             ORM.Characters.CharacterHasFlaw),
-        ORM.relation_collection('combat_traits',     ORM.Characters.CharacterHasCombatTrait),
-        ORM.relation_collection('misc_traits',       ORM.Characters.CharacterHasMiscTrait),
+        ORM.relation_collection('attributes',        'characters.CharacterHasAttribute'),
+        ORM.relation_collection('skills',            'characters.CharacterHasSkill'),
+        ORM.relation_collection('skill_specialties', 'characters.CharacterHasSkillSpecialty'),
+        ORM.relation_collection('powers',            'characters.CharacterHasPower'),
+        ORM.relation_collection('merits',            'characters.CharacterHasMerit'),
+        ORM.relation_collection('flaws',             'characters.CharacterHasFlaw'),
+        ORM.relation_collection('combat_traits',     'characters.CharacterHasCombatTrait'),
+        ORM.relation_collection('misc_traits',       'characters.CharacterHasMiscTrait'),
     ]
 
     parse: (raw) ->

@@ -4,7 +4,7 @@
 ###
 
 
-Models = Tools.create_namespace 'ORM.Chronicles'
+Models = Tools.create_namespace 'ORM.chronicles'
 
 
 class Models.Game extends ORM.BaseModel
@@ -20,7 +20,7 @@ class Models.Game extends ORM.BaseModel
         chronicle_id : undefined
         date         : undefined
 
-    relations: [ORM.relation 'chronicle', ORM.Chronicles.Chronicle,
+    relations: [ORM.relation 'chronicle', ORM.chronicles.Chronicle,
         reverseRelation:
             key: 'games'
     ]

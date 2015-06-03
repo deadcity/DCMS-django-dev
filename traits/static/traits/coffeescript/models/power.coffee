@@ -4,7 +4,7 @@
 ###
 
 
-Models = Tools.create_namespace 'ORM.Traits'
+Models = Tools.create_namespace 'ORM.traits'
 
 
 class Models.PowerGroup extends Models.Trait
@@ -23,7 +23,7 @@ class Models.Power extends Models.Trait
             rating         : undefined
             power_group_id : undefined
 
-    relations: [ORM.relation 'power_group', ORM.Traits.PowerGroup,
+    relations: [ORM.relation 'power_group', ORM.traits.PowerGroup,
         reverseRelationship:
             key: 'powers'
     ]

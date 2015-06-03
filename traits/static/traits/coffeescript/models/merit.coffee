@@ -4,7 +4,7 @@
 ###
 
 
-Models = Tools.create_namespace 'ORM.Traits'
+Models = Tools.create_namespace 'ORM.traits'
 
 
 class Models.MeritType extends Models.TraitType
@@ -24,7 +24,7 @@ class Models.Merit extends Models.Trait
             requires_specification : undefined
             requires_description   : undefined
 
-    relations: [ORM.relation 'merit_type', ORM.Traits.MeritType]
+    relations: [ORM.relation 'merit_type', ORM.traits.MeritType]
 
     parse: (raw) ->
         return _.extend super,

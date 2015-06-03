@@ -4,7 +4,7 @@
 ###
 
 
-Models = Tools.create_namespace 'ORM.Chronicles'
+Models = Tools.create_namespace 'ORM.chronicles'
 
 
 class Models.ChronicleBase extends ORM.BaseModel
@@ -64,11 +64,11 @@ class Models.ChronicleInheritsTemplate extends ORM.BaseModel
         hide_denied_traits : false
 
     relations: [
-        ORM.relation('chronicle', ORM.Chronicles.Chronicle,
+        ORM.relation('chronicle', ORM.chronicles.Chronicle,
             reverseRelation:
                 key: 'templates'
         ),
-        ORM.relation('template', ORM.Chronicles.ChronicleTemplate),
+        ORM.relation('template', ORM.chronicles.ChronicleTemplate),
     ]
 
     parse: () ->

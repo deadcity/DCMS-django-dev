@@ -4,7 +4,7 @@
 ###
 
 
-Models = Tools.create_namespace 'ORM.Traits'
+Models = Tools.create_namespace 'ORM.traits'
 
 
 class Models.Affiliation extends Models.Trait

@@ -4,7 +4,7 @@
 ###
 
 
-Models = Tools.create_namespace 'ORM.Characters'
+Models = Tools.create_namespace 'ORM.characters'
 
 
 class Models.CharacterHasTrait extends ORM.BaseModel
@@ -31,8 +31,8 @@ class Models.CharacterHasTrait extends ORM.BaseModel
         trait_id     : undefined
 
     relations: [
-        ORM.relation('character', ORM.Characters.Character),
-        ORM.relation('trait',     ORM.Traits.Trait),
+        ORM.relation('character', ORM.characters.Character),
+        ORM.relation('trait',     ORM.traits.Trait),
     ]
 
     parse: (raw) ->

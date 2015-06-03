@@ -4,7 +4,7 @@
 ###
 
 
-Models = Tools.create_namespace 'ORM.Traits'
+Models = Tools.create_namespace 'ORM.traits'
 
 
 class Models.AttributeType extends Models.TraitType
@@ -22,7 +22,7 @@ class Models.Attribute extends Models.Trait
         return _.extend super,
             attribute_type_id : undefined
 
-    relations: [ORM.relation 'attribute_type', ORM.Traits.AttributeType]
+    relations: [ORM.relation 'attribute_type', ORM.traits.AttributeType]
 
     parse: (raw) ->
         return _.extend super,

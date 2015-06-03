@@ -4,7 +4,7 @@
 ###
 
 
-Models = Tools.create_namespace 'ORM.Traits'
+Models = Tools.create_namespace 'ORM.traits'
 
 
 class Models.TraitType extends ORM.BaseModel
@@ -15,7 +15,7 @@ class Models.TraitType extends ORM.BaseModel
         name         : undefined
         label        : ''
 
-    relations: [ORM.relation 'chronicle', ORM.Chronicles.ChronicleBase]
+    relations: [ORM.relation 'chronicle', ORM.chronicles.ChronicleBase]
 
     parse: (raw) ->
         id : ORM.BaseModel.parse_int_field raw, 'id'
@@ -55,7 +55,7 @@ class Models.Trait extends ORM.BaseModel
         name         : undefined
         label        : ''
 
-    relations: [ORM.relation 'chronicle', ORM.Chronicles.ChronicleBase]
+    relations: [ORM.relation 'chronicle', ORM.chronicles.ChronicleBase]
 
     parse: (raw) ->
         id             : ORM.BaseModel.parse_int_field raw, 'id'

@@ -4,7 +4,7 @@
 ###
 
 
-Models = Tools.create_namespace 'ORM.Characters'
+Models = Tools.create_namespace 'ORM.characters'
 
 
 class Models.CharacterHasCombatTrait extends ORM.BaseModel

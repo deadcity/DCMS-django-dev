@@ -4,7 +4,7 @@
 ###
 
 
-Models = Tools.create_namespace 'ORM.Auth'
+Models = Tools.create_namespace 'ORM.auth'
 
 
 class Models.User extends ORM.BaseModel
