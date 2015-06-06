@@ -1,0 +1,96 @@
+.charsheet-header {
+    text-align: center;
+}
+
+.charsheet-header .label {
+    font-style: italic;
+}
+
+#general-character-traits .label {
+    font-weight: bold;
+    display: inline-block;
+    width: 120px;
+}
+
+#general-character-traits #character-dates .label {
+    font-style: italic;
+    font-weight: normal;
+}
+
+.trait-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.stat-label {
+    font-weight: bold;
+    display: inline-block;
+    width: 100px;
+}
+
+.num-trait {
+    width: 75px;
+    margin-left: 40px;
+}
+
+.trait-list .rating-container {
+    display: inline;
+}
+
+#attributes h2, #attributes h3, #skills h2, #skills h3 {
+    text-align: center;
+    margin: 0 0 10px 0;
+}
+
+#skill-specialties ul, #powers ul, #merits ul, #flaws ul, #combat ul, #supernatural ul, #derangements ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.row:after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+.row section, .row .trait-set {
+    float: left;
+    width: 33%;
+}
+
+#mental-attributes, #physical-attributes, #social-attributes, #mental-skills, #physical-skills, #social-skills {
+    float: left;
+    width: 33%;
+}
+
+.trait-list li {
+    padding-right: 35px;
+}
+
+.controls {
+    display: inline-block;
+    float: right;
+}
+
+.remove {
+    color: #F00;
+    display: inline;
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+.edit {
+    margin-left: 5px;
+    display: inline;
+    cursor: pointer;
+}
+
+#character-texts .trait-list .character-text {
+    padding: 0;
+}
+
+.character-text textarea {
+    width: 100%
+}

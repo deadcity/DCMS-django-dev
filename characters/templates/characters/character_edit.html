@@ -1,0 +1,200 @@
+{% extends 'base_page.html' %}
+
+{% load dsqla %}
+{% load compress %}
+{% load static %}
+
+
+{% block style_includes %}
+    {{ block.super }}
+
+    <link rel='stylesheet' type='text/css' href='{% static 'characters/css/character_detail.css' %}' />
+{% endblock style_includes %}
+
+
+{% block script_includes %}
+    {{ block.super }}
+
+    <!-- chronicles -->
+    {% compress js %}
+        <script type='text/coffeescript' src='{% static 'accounts/coffeescript/models/user.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'chronicles/coffeescript/models/chronicle.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'chronicles/coffeescript/models/game.coffee' %}'></script>
+    {% endcompress %}
+
+    <!-- traits -->
+    {% compress js %}
+        <script type='text/coffeescript' src='{% static 'traits/coffeescript/models/trait.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'traits/coffeescript/models/affiliation.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'traits/coffeescript/models/attribute.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'traits/coffeescript/models/character_text.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'traits/coffeescript/models/combat_trait.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'traits/coffeescript/models/creature_type.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'traits/coffeescript/models/flaw.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'traits/coffeescript/models/genealogy.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'traits/coffeescript/models/merit.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'traits/coffeescript/models/misc_trait.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'traits/coffeescript/models/power.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'traits/coffeescript/models/skill.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'traits/coffeescript/models/subgroup.coffee' %}'></script>
+    {% endcompress %}
+
+    <!-- characters -->
+    {% compress js %}
+        <script type='text/coffeescript' src='{% static 'characters/coffeescript/models/character.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'characters/coffeescript/models/character_has_trait.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'characters/coffeescript/models/character_has_attribute.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'characters/coffeescript/models/character_has_character_text.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'characters/coffeescript/models/character_has_combat_trait.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'characters/coffeescript/models/character_has_flaw.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'characters/coffeescript/models/character_has_merit.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'characters/coffeescript/models/character_has_misc_trait.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'characters/coffeescript/models/character_has_power.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'characters/coffeescript/models/character_has_skill.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'characters/coffeescript/models/character_has_skill_specialty.coffee' %}'></script>
+        {# <script type='text/coffeescript' src='{% static 'characters/coffeescript/models/character_has_xp.coffee' %}'></script> #}
+    {% endcompress %}
+{% endblock script_includes %}
+
+
+{% block content %}
+    <header class="charsheet-header">
+        <!-- ko if: name() != '' -->
+            <h1 data-bind="text: name()"></h1>
+        <!-- /ko -->
+        <!-- ko if: name() == '' -->
+            <h1>(new character)</h1>
+        <!-- /ko -->
+        <p><em>Played by:</em> <span data-bind="text: player_name()"></span></p>
+    </header>
+
+    <section id='general-character-traits'>
+    </section>
+
+    <section id='attributes'>
+        <h2>Attributes</h2>
+        <div id='mental-attributes' style='width: 33.33333%'>
+            <h3>Mental</h3>
+            <ul class='trait-list' data-bind="foreach: mental_attributes">
+                <li>
+                    <span class='stat-label' data-bind="text: trait().label()"></span>
+                    <!-- TODO(Emery): fancy dots -->
+                    <div class='rating-container' data-bind="text: rating()"></div>
+                </li>
+            </ul>
+        </div>
+        <div id='physical-attributes' style='width: 33.33333%'>
+            <h3>Physical</h3>
+            <ul class='trait-list' data-bind="foreach: physical_attributes">
+                <li>
+                    <span class='stat-label' data-bind="text: trait().label()"></span>
+                    <!-- TODO(Emery): fancy dots -->
+                    <div class='rating-container' data-bind="text: rating()"></div>
+                </li>
+            </ul>
+        </div>
+        <div id='social-attributes' style='width: 33.33333%'>
+            <h3>Social</h3>
+            <ul class='trait-list' data-bind="foreach: social_attributes">
+                <li>
+                    <span class='stat-label' data-bind="text: trait().label()"></span>
+                    <!-- TODO(Emery): fancy dots -->
+                    <div class='rating-container' data-bind="text: rating()"></div>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <section id='skills'>
+        <h2>Skills</h2>
+        <div id='mental-skills' style='width: 33.33333%'>
+            <h3>Mental</h3>
+            <ul class='trait-list' data-bind="foreach: mental_skills">
+                <li>
+                    <span class='stat-label' data-bind="text: trait().label()"></span>
+                    <!-- TODO(Emery): fancy dots -->
+                    <div class='rating-container' data-bind="text: rating()"></div>
+                </li>
+            </ul>
+        </div>
+        <div id='physical-skills' style='width: 33.33333%'>
+            <h3>Physical</h3>
+            <ul class='trait-list' data-bind="foreach: physical_skills">
+                <li>
+                    <span class='stat-label' data-bind="text: trait().label()"></span>
+                    <!-- TODO(Emery): fancy dots -->
+                    <div class='rating-container' data-bind="text: rating()"></div>
+                </li>
+            </ul>
+        </div>
+        <div id='social-skills' style='width: 33.33333%'>
+            <h3>Social</h3>
+            <ul class='trait-list' data-bind="foreach: social_skills">
+                <li>
+                    <span class='stat-label' data-bind="text: trait().label()"></span>
+                    <!-- TODO(Emery): fancy dots -->
+                    <div class='rating-container' data-bind="text: rating()"></div>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- bootstrap data -->
+    <script type='text/javascript'>
+{{ models | create_js_records | safe }}
+
+window.character = new ORM.characters.Character(
+    {{ character | serialize_json | safe }},
+    { parse: true }
+);
+    </script>
+
+    {% compress js %}
+        <script type='text/coffeescript'>
+            order_comparator = (a, b) ->
+                a_order = a.trait().order()
+                b_order = b.trait().order()
+                return a_order - b_order
+
+            order_label = (a, b) ->
+                a_label = a.trait().label()
+                b_label = b.trait().label()
+                return a_label.localeCompare b_label
+
+            class window.CharacterViewModel extends kb.ViewModel
+                constructor: (model, options) ->
+                    super
+
+                    @player_name = ko.computed =>
+                        user = @user()
+                        if user.first_name()? or user.last_name()?
+                            player_name = ((user.first_name() ? '') + ' ' + (user.last_name() ? '')).trim()
+                            return player_name if player_name != ''
+                        return user.username().trim()
+
+                    @mental_attributes = kb.collectionObservable @model().character_attributes(), null,
+                        filters: (model) -> 'Mental' == model.trait().attribute_type().get 'label'
+                        comparator: order_comparator
+                    @physical_attributes = kb.collectionObservable @model().character_attributes(), null,
+                        filters: (model) -> 'Physical' == model.trait().attribute_type().get 'label'
+                        comparator: order_comparator
+                    @social_attributes = kb.collectionObservable @model().character_attributes(), null,
+                        filters: (model) -> 'Social' == model.trait().attribute_type().get 'label'
+                        comparator: order_comparator
+
+                    @mental_skills = kb.collectionObservable @model().character_skills(), null,
+                        filters: (model) -> 'Mental' == model.trait().skill_type().get 'label'
+                        comparator: order_label
+                    @physical_skills = kb.collectionObservable @model().character_skills(), null,
+                        filters: (model) -> 'Physical' == model.trait().skill_type().get 'label'
+                        comparator: order_label
+                    @social_skills = kb.collectionObservable @model().character_skills(), null,
+                        filters: (model) -> 'Social' == model.trait().skill_type().get 'label'
+                        comparator: order_label
+
+
+            window.character_view_model = new CharacterViewModel character
+            ko.applyBindings character_view_model
+        </script>
+    {% endcompress %}
+{% endblock content %}
