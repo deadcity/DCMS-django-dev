@@ -4,24 +4,15 @@
 ###
 
 
-Models = Tools.create_namespace 'ORM.characters'
+Tools.create_namespace 'ORM.characters'
 
 
-class Models.CharacterHasTrait extends ORM.BaseModel
-    subModelTypeAttribute: '_discriminator'
-    subModelTypes:
-        'attribute'       : 'CharacterHasAttribute'
-        'character_text'  : 'CharacterHasCharacterText'
-        'combat_trait'    : 'CharacterHasCombatTrait'
-        'flaw'            : 'CharacterHasFlaw'
-        'merit'           : 'CharacterHasMerit'
-        'misc_trait'      : 'CharacterHasMiscTrait'
-        'power'           : 'CharacterHasPower'
-        'skill'           : 'CharacterHasSkill'
-        'skill_specialty' : 'CharacterHasSkillSpecialty'
+class ORM.characters.CharacterHasTrait extends ORM.BaseModel
+    @_polymorphic_on: '_discriminator'
+    @_polymorphic_identity: {}
 
     urlRoot: () ->
-        DCMS.Settings.URL_PREFIX + '/rest/characters/CharacterHasTrait'
+        DCMS.Settings.URL_PREFIX + '/rest/characters/' + @constructor.name
 
     defaults: () ->
         id             : undefined
@@ -30,16 +21,11 @@ class Models.CharacterHasTrait extends ORM.BaseModel
         character_id : undefined
         trait_id     : undefined
 
-    relations: [
-        ORM.relation('character', ORM.characters.Character),
-        ORM.relation('trait',     ORM.traits.Trait),
-    ]
-
     parse: (raw) ->
-        id             : ORM.BaseModel.parse_int_field raw, 'id'
+        id             : ORM.parse.int raw, 'id'
         _discriminator : raw._discriminator
 
-        character_id : ORM.BaseModel.parse_int_field raw, 'character_id'
-        trait_id     : ORM.BaseModel.parse_int_field raw, 'trait_id'
+        character_id : ORM.parse.int raw, 'character_id'
+        trait_id     : ORM.parse.int raw, 'trait_id'
 
-Models.CharacterHasTrait.setup()
+ORM.characters.CharacterHasTrait.reset()

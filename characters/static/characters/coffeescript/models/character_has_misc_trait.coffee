@@ -4,12 +4,11 @@
 ###
 
 
-Models = Tools.create_namespace 'ORM.characters'
+Tools.create_namespace 'ORM.characters'
 
 
-class Models.CharacterHasMiscTrait extends ORM.BaseModel
-    urlRoot: () ->
-        DCMS.Settings.URL_PREFIX + '/rest/characters/CharacterHasMiscTrait'
+class ORM.characters.CharacterHasMiscTrait extends ORM.characters.CharacterHasTrait
+    @parent: ORM.characters.CharacterHasTrait
 
     defaults: () ->
         return _.extend super,
@@ -18,7 +17,22 @@ class Models.CharacterHasMiscTrait extends ORM.BaseModel
 
     parse: (raw) ->
         return _.extend super,
-            rating      : ORM.BaseModel.parse_int_field raw, 'rating'
+            rating      : ORM.parse.int raw, 'rating'
             description : raw.description
 
-Models.CharacterHasMiscTrait.setup()
+ORM.characters.CharacterHasMiscTrait.reset()
+
+ORM.polymorphic_identity 'misc_trait', ORM.characters.CharacterHasMiscTrait
+
+ORM.characters.CharacterHasMiscTrait.has().one 'trait',
+    model: ORM.traits.MiscTrait
+    inverse: 'character_has_misc_trait'
+
+ORM.characters.CharacterHasMiscTrait.has().one 'character',
+    model: ORM.characters.Character
+    inverse: 'character_misc_traits'
+
+ORM.characters.Character.has().many 'character_misc_traits',
+    collection: class CharacterHasMiscTrait_Collection extends Backbone.Collection
+        model: ORM.characters.CharacterHasMiscTrait
+    inverse: 'character'

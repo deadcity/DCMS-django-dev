@@ -4,33 +4,39 @@
 ###
 
 
-Models = Tools.create_namespace 'ORM.traits'
+Tools.create_namespace 'ORM.traits'
 
 
-class Models.PowerGroup extends Models.Trait
-    urlRoot: () ->
-        DCMS.Settings.URL_PREFIX + '/rest/traits/PowerGroup'
+class ORM.traits.PowerGroup extends ORM.traits.Trait
+    @parent: ORM.traits.Trait
 
-Models.PowerGroup.setup()
+ORM.traits.PowerGroup.reset()
+
+ORM.polymorphic_identity 'power_group', ORM.traits.PowerGroup
 
 
-class Models.Power extends Models.Trait
-    urlRoot: () ->
-        DCMS.Settings.URL_PREFIX + '/rest/traits/Power'
+class ORM.traits.Power extends ORM.traits.Trait
+    @parent: ORM.traits.Trait
 
     defaults: () ->
         return _.extend super,
             rating         : undefined
             power_group_id : undefined
 
-    relations: [ORM.relation 'power_group', ORM.traits.PowerGroup,
-        reverseRelationship:
-            key: 'powers'
-    ]
-
     parse: (raw) ->
         return _.extend super,
-            rating         : ORM.BaseModel.parse_int_field raw, 'rating'
-            power_group_id : ORM.BaseModel.parse_int_field raw, 'power_group_id'
+            rating         : ORM.parse.int raw, 'rating'
+            power_group_id : ORM.parse.int raw, 'power_group_id'
 
-Models.Power.setup()
+ORM.traits.Power.reset()
+
+ORM.polymorphic_identity 'power', ORM.traits.Power
+
+ORM.traits.Power.has().one 'power_group',
+    model: ORM.traits.PowerGroup
+    inverse: 'powers'
+
+ORM.traits.PowerGroup.has().many 'powers',
+    collection: class Power_Collection extends Backbone.Collection
+        model: ORM.traits.Power
+    inverse: 'power_group'

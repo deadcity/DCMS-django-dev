@@ -4,11 +4,12 @@
 ###
 
 
-Models = Tools.create_namespace 'ORM.traits'
+Tools.create_namespace 'ORM.traits'
 
 
-class Models.Genealogy extends Models.Trait
-    urlRoot: () ->
-        DCMS.Settings.URL_PREFIX + '/rest/traits/Genealogy'
+class ORM.traits.Genealogy extends ORM.traits.Trait
+    @parent: ORM.traits.Trait
 
-Models.Genealogy.setup()
+ORM.traits.Genealogy.reset()
+
+ORM.polymorphic_identity 'genealogy', ORM.traits.Genealogy

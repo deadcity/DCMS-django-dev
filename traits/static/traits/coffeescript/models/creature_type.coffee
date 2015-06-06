@@ -4,12 +4,11 @@
 ###
 
 
-Models = Tools.create_namespace 'ORM.traits'
+Tools.create_namespace 'ORM.traits'
 
 
-class Models.CreatureType extends Models.Trait
-    urlRoot: () ->
-        DCMS.Settings.URL_PREFIX + '/rest/traits/CreatureType'
+class ORM.traits.CreatureType extends ORM.traits.Trait
+    @parent: ORM.traits.Trait
 
     defaults: () ->
         return _.extend super,
@@ -25,4 +24,6 @@ class Models.CreatureType extends Models.Trait
             subgroup_name    : raw.subgroup_name
             power_name       : raw.power_name
 
-Models.CreatureType.setup()
+ORM.traits.CreatureType.reset()
+
+ORM.polymorphic_identity 'creature_type', ORM.traits.CreatureType

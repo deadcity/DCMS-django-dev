@@ -4,28 +4,29 @@
 ###
 
 
-Models = Tools.create_namespace 'ORM.traits'
+Tools.create_namespace 'ORM.traits'
 
 
-class Models.SkillType extends Models.TraitType
-    urlRoot: () ->
-        DCMS.Settings.URL_PREFIX + '/rest/traits/SkillType'
+class ORM.traits.SkillType extends ORM.traits.TraitType
 
-Models.SkillType.setup()
+ORM.traits.SkillType.reset()
 
 
-class Models.Skill extends Models.Trait
-    urlRoot: () ->
-        DCMS.Settings.URL_PREFIX + '/rest/traits/Skill'
+class ORM.traits.Skill extends ORM.traits.Trait
+    @parent: ORM.traits.Trait
 
     defaults: () ->
         return _.extend super,
             skill_type_id : undefined
 
-    relations: [ORM.relation 'skill_type', Models.SkillType]
-
     parse: (raw) ->
         return _.extend super,
-            skill_type_id : ORM.BaseModel.parse_int_field raw, 'skill_type_id'
+            skill_type_id : ORM.parse.int raw, 'skill_type_id'
 
-Models.Skill.setup()
+ORM.traits.Skill.reset()
+
+ORM.polymorphic_identity 'skill', ORM.traits.Skill
+
+ORM.traits.Skill.has().one 'skill_type',
+    model: ORM.traits.SkillType
+    inverse: 'skills'

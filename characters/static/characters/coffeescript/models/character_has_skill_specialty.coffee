@@ -4,12 +4,11 @@
 ###
 
 
-Models = Tools.create_namespace 'ORM.characters'
+Tools.create_namespace 'ORM.characters'
 
 
-class Models.CharacterHasSkillSpecialty extends ORM.BaseModel
-    urlRoot: () ->
-        DCMS.Settings.URL_PREFIX + '/rest/characters/CharacterHasSkillSpecialty'
+class ORM.characters.CharacterHasSkillSpecialty extends ORM.characters.CharacterHasTrait
+    @parent: ORM.characters.CharacterHasTrait
 
     defaults: () ->
         return _.extend super,
@@ -19,4 +18,19 @@ class Models.CharacterHasSkillSpecialty extends ORM.BaseModel
         return _.extend super,
             specialty : raw.specialty
 
-Models.CharacterHasSkillSpecialty.setup()
+ORM.characters.CharacterHasSkillSpecialty.reset()
+
+ORM.polymorphic_identity 'skill_specialty', ORM.characters.CharacterHasSkillSpecialty
+
+ORM.characters.CharacterHasSkillSpecialty.has().one 'trait',
+    model: ORM.traits.Skill
+    inverse: 'character_has_skill_specialties'
+
+ORM.characters.CharacterHasSkillSpecialty.has().one 'character',
+    model: ORM.characters.Character
+    inverse: 'character_skill_specialties'
+
+ORM.characters.Character.has().many 'character_skill_specialties',
+    collection: class CharacterHasSkillSpecialty_Collection extends Backbone.Collection
+        model: ORM.characters.CharacterHasSkillSpecialty
+    inverse: 'character'

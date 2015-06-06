@@ -4,10 +4,10 @@
 ###
 
 
-Models = Tools.create_namespace 'ORM.chronicles'
+Tools.create_namespace 'ORM.chronicles'
 
 
-class Models.Game extends ORM.BaseModel
+class ORM.chronicles.Game extends ORM.BaseModel
     urlRoot: () ->
         DCMS.Settings.URL_PREFIX + '/rest/chronicles/Game'
 
@@ -20,18 +20,26 @@ class Models.Game extends ORM.BaseModel
         chronicle_id : undefined
         date         : undefined
 
-    relations: [ORM.relation 'chronicle', ORM.chronicles.Chronicle,
-        reverseRelation:
-            key: 'games'
-    ]
-
     parse: (raw) ->
-        id : ORM.BaseModel.parse_int_field raw, 'id'
+        raw = super
 
-        enabled : raw.enabled
+        return {
+            id : ORM.parse.int raw, 'id'
 
-        name         : raw.name
-        chronicle_id : ORM.BaseModel.parse_int_field raw, 'chronicle_id'
-        date         : ORM.BaseModel.parse_date_field raw, 'date'
+            enabled : raw.enabled
 
-Models.Game.setup()
+            name         : raw.name
+            chronicle_id : ORM.parse.int raw, 'chronicle_id'
+            date         : ORM.parse.date raw, 'date'
+        }
+
+ORM.chronicles.Game.reset()
+
+ORM.chronicles.Game.has().one 'chronicle',
+    model: ORM.chronicles.Chronicle
+    inverse: 'games'
+
+ORM.chronicles.Chronicle.has().many 'games',
+    collection: class Game_Collection extends Backbone.Collection
+        model: ORM.chronicles.Game
+    inverse: 'chronicle'

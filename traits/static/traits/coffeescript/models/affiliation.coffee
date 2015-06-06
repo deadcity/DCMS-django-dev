@@ -4,11 +4,12 @@
 ###
 
 
-Models = Tools.create_namespace 'ORM.traits'
+Tools.create_namespace 'ORM.traits'
 
 
-class Models.Affiliation extends Models.Trait
-    urlRoot: () ->
-        DCMS.Settings.URL_PREFIX + '/rest/traits/Affiliation'
+class ORM.traits.Affiliation extends ORM.traits.Trait
+    @parent: ORM.traits.Trait
 
-Models.Affiliation.setup()
+ORM.traits.Affiliation.reset()
+
+ORM.polymorphic_identity 'affiliation', ORM.traits.Affiliation

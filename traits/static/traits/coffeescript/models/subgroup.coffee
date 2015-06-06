@@ -4,11 +4,12 @@
 ###
 
 
-Models = Tools.create_namespace 'ORM.traits'
+Tools.create_namespace 'ORM.traits'
 
 
-class Models.Subgroup extends Models.Trait
-    urlRoot: () ->
-        DCMS.Settings.URL_PREFIX + '/rest/traits/Subgroup'
+class ORM.traits.Subgroup extends ORM.traits.Trait
+    @parent: ORM.traits.Trait
 
-Models.Subgroup.setup()
+ORM.traits.Subgroup.reset()
+
+ORM.polymorphic_identity 'subgroup', ORM.traits.Subgroup

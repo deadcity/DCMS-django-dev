@@ -4,12 +4,11 @@
 ###
 
 
-Models = Tools.create_namespace 'ORM.characters'
+Tools.create_namespace 'ORM.characters'
 
 
-class Models.CharacterHasFlaw extends ORM.BaseModel
-    urlRoot: () ->
-        DCMS.Settings.URL_PREFIX + '/rest/characters/CharacterHasFlaw'
+class ORM.characters.CharacterHasFlaw extends ORM.characters.CharacterHasTrait
+    @parent: ORM.characters.CharacterHasTrait
 
     defaults: () ->
         return _.extend super,
@@ -21,4 +20,19 @@ class Models.CharacterHasFlaw extends ORM.BaseModel
             specification : raw.specification
             description   : raw.description
 
-Models.CharacterHasFlaw.setup()
+ORM.characters.CharacterHasFlaw.reset()
+
+ORM.polymorphic_identity 'flaw', ORM.characters.CharacterHasFlaw
+
+ORM.characters.CharacterHasFlaw.has().one 'trait',
+    model: ORM.traits.Flaw
+    inverse: 'character_has_flaw'
+
+ORM.characters.CharacterHasFlaw.has().one 'character',
+    model: ORM.characters.Character
+    inverse: 'character_flaws'
+
+ORM.characters.Character.has().many 'character_flaws',
+    collection: class CharacterHasFlaw_Collection extends Backbone.Collection
+        model: ORM.characters.CharacterHasFlaw
+    inverse: 'character'

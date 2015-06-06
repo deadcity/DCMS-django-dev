@@ -4,14 +4,14 @@
 ###
 
 
-Models = Tools.create_namespace 'ORM.chronicles'
+Tools.create_namespace 'ORM.chronicles'
 
 
-class Models.ChronicleBase extends ORM.BaseModel
-    subModelTypeAttribute: '_discriminator'
-    subModelTypes:
-        'chronicle_template' : 'ChronicleTemplate'
-        'chronicle'          : 'Chronicle'
+class ORM.chronicles.ChronicleBase extends ORM.BaseModel
+    @_polymorphic_on: '_discriminator'
+    @_polymorphic_identity: {}
+    #     'chronicle_template' : 'ChronicleTemplate'
+    #     'chronicle'          : 'Chronicle'
 
     urlRoot: () ->
         DCMS.Settings.URL_PREFIX + '/rest/chronicles/ChronicleBase'
@@ -25,24 +25,30 @@ class Models.ChronicleBase extends ORM.BaseModel
         description : ''
 
     parse: (raw) ->
-        id             : ORM.BaseModel.parse_int_field raw, 'id'
+        id             : ORM.parse.int raw, 'id'
         _discriminator : raw._discriminator
 
         enabled     : raw.enabled
         name        : raw.name
         description : raw.description
 
-Models.ChronicleBase.setup()
+ORM.chronicles.ChronicleBase.reset()
 
 
-class Models.ChronicleTemplate extends Models.ChronicleBase
+class ORM.chronicles.ChronicleTemplate extends ORM.chronicles.ChronicleBase
+    @parent: ORM.chronicles.ChronicleBase
+
     urlRoot: () ->
         DCMS.Settings.URL_PREFIX + '/rest/chronicles/ChronicleTemplate'
 
-Models.ChronicleTemplate.setup()
+ORM.chronicles.ChronicleTemplate.reset()
+
+ORM.polymorphic_identity 'chronicle_template', ORM.chronicles.ChronicleTemplate
 
 
-class Models.Chronicle extends Models.ChronicleBase
+class ORM.chronicles.Chronicle extends ORM.chronicles.ChronicleBase
+    @parent: ORM.chronicles.ChronicleBase
+
     urlRoot: () ->
         DCMS.Settings.URL_PREFIX + '/rest/chronicles/Chronicle'
 
@@ -50,10 +56,12 @@ class Models.Chronicle extends Models.ChronicleBase
     #   templates -> ORM.Chronicles.ChronicleInheritsTemplate
     #   games -> ORM.Chronicles.Game
 
-Models.Chronicle.setup()
+ORM.chronicles.Chronicle.reset()
+
+ORM.polymorphic_identity 'chronicle', ORM.chronicles.Chronicle
 
 
-class Models.ChronicleInheritsTemplate extends ORM.BaseModel
+class ORM.chronicles.ChronicleInheritsTemplate extends ORM.BaseModel
     urlRoot: () ->
         DCMS.Settings.URL_PREFIX + '/rest/chronicles/ChronicleInheritsTemplate'
 
@@ -63,18 +71,24 @@ class Models.ChronicleInheritsTemplate extends ORM.BaseModel
 
         hide_denied_traits : false
 
-    relations: [
-        ORM.relation('chronicle', ORM.chronicles.Chronicle,
-            reverseRelation:
-                key: 'templates'
-        ),
-        ORM.relation('template', ORM.chronicles.ChronicleTemplate),
-    ]
-
     parse: () ->
-        chronicle_id          : ORM.BaseModel.parse_int_field raw, 'chronicle_id'
-        chronicle_template_id : ORM.BaseModel.parse_int_field raw, 'chronicle_template_id'
+        chronicle_id          : ORM.parse.int raw, 'chronicle_id'
+        chronicle_template_id : ORM.parse.int raw, 'chronicle_template_id'
 
         hide_denied_traits : raw.hide_denied_traits
 
-Models.ChronicleInheritsTemplate.setup()
+ORM.chronicles.ChronicleInheritsTemplate.reset()
+
+
+ORM.chronicles.Chronicle.has().many 'templates',
+    collection: class ChronicleInheritsTemplate_Collection extends Backbone.Collection
+        model: ORM.chronicles.ChronicleInheritsTemplate
+    inverse: 'chronicle'
+
+ORM.chronicles.ChronicleInheritsTemplate.has().one 'chronicle',
+    model: ORM.chronicles.Chronicle
+    inverse: 'templates'
+
+ORM.chronicles.ChronicleInheritsTemplate.has().one 'template',
+    model: ORM.chronicles.ChronicleTemplate
+    inverse: 'chronicles'

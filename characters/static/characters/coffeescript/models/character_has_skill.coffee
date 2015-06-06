@@ -4,12 +4,11 @@
 ###
 
 
-Models = Tools.create_namespace 'ORM.characters'
+Tools.create_namespace 'ORM.characters'
 
 
-class Models.CharacterHasSkill extends ORM.BaseModel
-    urlRoot: () ->
-        DCMS.Settings.URL_PREFIX + '/rest/characters/CharacterHasSkill'
+class ORM.characters.CharacterHasSkill extends ORM.characters.CharacterHasTrait
+    @parent: ORM.characters.CharacterHasTrait
 
     defaults: () ->
         return _.extend super,
@@ -17,6 +16,21 @@ class Models.CharacterHasSkill extends ORM.BaseModel
 
     parse: (raw) ->
         return _.extend super,
-            rating : ORM.BaseModel.parse_int_field raw, 'rating'
+            rating : ORM.parse.int raw, 'rating'
 
-Models.CharacterHasSkill.setup()
+ORM.characters.CharacterHasSkill.reset()
+
+ORM.polymorphic_identity 'skill', ORM.characters.CharacterHasSkill
+
+ORM.characters.CharacterHasSkill.has().one 'trait',
+    model: ORM.traits.Skill
+    inverse: 'character_has_skill'
+
+ORM.characters.CharacterHasSkill.has().one 'character',
+    model: ORM.characters.Character
+    inverse: 'character_skills'
+
+ORM.characters.Character.has().many 'character_skills',
+    collection: class CharacterHasSkill_Collection extends Backbone.Collection
+        model: ORM.characters.CharacterHasSkill
+    inverse: 'character'

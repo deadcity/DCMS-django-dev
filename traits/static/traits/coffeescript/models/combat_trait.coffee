@@ -4,12 +4,11 @@
 ###
 
 
-Models = Tools.create_namespace 'ORM.traits'
+Tools.create_namespace 'ORM.traits'
 
 
-class Models.CombatTrait extends Models.Trait
-    urlRoot: () ->
-        DCMS.Settings.URL_PREFIX + '/rest/traits/CombatTrait'
+class ORM.traits.CombatTrait extends ORM.traits.Trait
+    @parent: ORM.traits.Trait
 
     defaults: () ->
         return _.extend super,
@@ -17,6 +16,8 @@ class Models.CombatTrait extends Models.Trait
 
     parse: (raw) ->
         return _.extend super,
-            rating : ORM.BaseModel.parse_int_field raw, 'rating'
+            rating : ORM.parse.int raw, 'rating'
 
-Models.CombatTrait.setup()
+ORM.traits.CombatTrait.reset()
+
+ORM.polymorphic_identity 'combat_trait', ORM.traits.CombatTrait

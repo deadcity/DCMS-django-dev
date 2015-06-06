@@ -4,28 +4,29 @@
 ###
 
 
-Models = Tools.create_namespace 'ORM.traits'
+Tools.create_namespace 'ORM.traits'
 
 
-class Models.AttributeType extends Models.TraitType
-    urlRoot: () ->
-        DCMS.Settings.URL_PREFIX + '/rest/traits/AttributeType'
+class ORM.traits.AttributeType extends ORM.traits.TraitType
 
-Models.AttributeType.setup()
+ORM.traits.AttributeType.reset()
 
 
-class Models.Attribute extends Models.Trait
-    urlRoot: () ->
-        DCMS.Settings.URL_PREFIX + '/rest/traits/Attribute'
+class ORM.traits.Attribute extends ORM.traits.Trait
+    @parent: ORM.traits.Trait
 
     defaults: () ->
         return _.extend super,
             attribute_type_id : undefined
 
-    relations: [ORM.relation 'attribute_type', ORM.traits.AttributeType]
-
     parse: (raw) ->
         return _.extend super,
-            attribute_type_id : ORM.BaseModel.parse_int_field raw, 'attribute_type_id'
+            attribute_type_id : ORM.parse.int raw, 'attribute_type_id'
 
-Models.Attribute.setup()
+ORM.traits.Attribute.reset()
+
+ORM.polymorphic_identity 'attribute', ORM.traits.Attribute
+
+ORM.traits.Attribute.has().one 'attribute_type',
+    model: ORM.traits.AttributeType
+    inverse: 'attributes'

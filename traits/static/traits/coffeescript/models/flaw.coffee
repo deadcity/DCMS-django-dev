@@ -4,19 +4,16 @@
 ###
 
 
-Models = Tools.create_namespace 'ORM.traits'
+Tools.create_namespace 'ORM.traits'
 
 
-class Models.FlawType extends Models.TraitType
-    urlRoot: () ->
-        DCMS.Settings.URL_PREFIX + '/rest/traits/FlawType'
+class ORM.traits.FlawType extends ORM.traits.TraitType
 
-Models.FlawType.setup()
+ORM.traits.FlawType.reset()
 
 
-class Models.Flaw extends Models.Trait
-    urlRoot: () ->
-        DCMS.Settings.URL_PREFIX + '/rest/traits/Flaw'
+class ORM.traits.Flaw extends ORM.traits.Trait
+    @parent: ORM.traits.Trait
 
     defaults: () ->
         return _.extend super,
@@ -24,12 +21,16 @@ class Models.Flaw extends Models.Trait
             requires_specification : undefined
             requires_description   : undefined
 
-    relations: [ORM.relation 'flaw_type', ORM.traits.FlawType]
-
     parse: (raw) ->
         return _.extend super,
-            flaw_type_id           : ORM.BaseModel.parse_int_field raw, 'flaw_type_id'
+            flaw_type_id           : ORM.parse.int raw, 'flaw_type_id'
             requires_specification : raw.requires_specification
             requires_description   : raw.requires_description
 
-Models.Flaw.setup()
+ORM.traits.Flaw.reset()
+
+ORM.polymorphic_identity 'flaw', ORM.traits.Flaw
+
+ORM.traits.Flaw.has().one 'flaw_type',
+    model: ORM.traits.FlawType
+    inverse: 'flaws'

@@ -4,12 +4,11 @@
 ###
 
 
-Models = Tools.create_namespace 'ORM.traits'
+Tools.create_namespace 'ORM.traits'
 
 
-class Models.CharacterText extends Models.Trait
-    urlRoot: () ->
-        DCMS.Settings.URL_PREFIX + '/rest/traits/CharacterText'
+class ORM.traits.CharacterText extends ORM.traits.Trait
+    @parent: ORM.traits.Trait
 
     defaults: () ->
         return _.extend super,
@@ -19,4 +18,6 @@ class Models.CharacterText extends Models.Trait
         return _.extend super,
             hide_from_player : raw.hide_from_player
 
-Models.CharacterText.setup()
+ORM.traits.CharacterText.reset()
+
+ORM.polymorphic_identity 'character_text', ORM.traits.CharacterText

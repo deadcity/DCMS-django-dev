@@ -4,21 +4,37 @@
 ###
 
 
-Models = Tools.create_namespace 'ORM.characters'
+Tools.create_namespace 'ORM.characters'
 
 
-class Models.CharacterHasMerit extends ORM.BaseModel
-    urlRoot: () ->
-        DCMS.Settings.URL_PREFIX + '/rest/characters/CharacterHasMerit'
+class ORM.characters.CharacterHasMerit extends ORM.characters.CharacterHasTrait
+    @parent: ORM.characters.CharacterHasTrait
 
     defaults: () ->
         return _.extend super,
+            rating        : undefined
             specification : undefined
             description   : undefined
 
     parse: (raw) ->
         return _.extend super,
+            rating        : ORM.parse.int raw, 'rating'
             specification : raw.specification
             description   : raw.description
 
-Models.CharacterHasMerit.setup()
+ORM.characters.CharacterHasMerit.reset()
+
+ORM.polymorphic_identity 'merit', ORM.characters.CharacterHasMerit
+
+ORM.characters.CharacterHasMerit.has().one 'trait',
+    model: ORM.traits.Merit
+    inverse: 'character_has_merit'
+
+ORM.characters.CharacterHasMerit.has().one 'character',
+    model: ORM.characters.Character
+    inverse: 'character_merits'
+
+ORM.characters.Character.has().many 'character_merits',
+    collection: class CharacterHasMerit_Collection extends Backbone.Collection
+        model: ORM.characters.CharacterHasMerit
+    inverse: 'character'

@@ -4,12 +4,11 @@
 ###
 
 
-Models = Tools.create_namespace 'ORM.traits'
+Tools.create_namespace 'ORM.traits'
 
 
-class Models.MiscTrait extends Models.Trait
-    urlRoot: () ->
-        DCMS.Settings.URL_PREFIX + '/rest/traits/MiscTrait'
+class ORM.traits.MiscTrait extends ORM.traits.Trait
+    @parent: ORM.traits.Trait
 
     defaults: () ->
         return _.extend super,
@@ -19,4 +18,6 @@ class Models.MiscTrait extends Models.Trait
         return _.extend super,
             requires_specification : raw.requires_specification
 
-Models.MiscTrait.setup()
+ORM.traits.MiscTrait.reset()
+
+ORM.polymorphic_identity 'misc_trait', ORM.traits.MiscTrait

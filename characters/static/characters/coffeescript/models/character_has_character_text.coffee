@@ -4,12 +4,11 @@
 ###
 
 
-Models = Tools.create_namespace 'ORM.characters'
+Tools.create_namespace 'ORM.characters'
 
 
-class Models.CharacterHasCharacterText extends ORM.BaseModel
-    urlRoot: () ->
-        DCMS.Settings.URL_PREFIX + '/rest/characters/CharacterHasCharacterText'
+class ORM.characters.CharacterHasCharacterText extends ORM.characters.CharacterHasTrait
+    @parent: ORM.characters.CharacterHasTrait
 
     defaults: () ->
         return _.extend super,
@@ -19,4 +18,19 @@ class Models.CharacterHasCharacterText extends ORM.BaseModel
         return _.extend super,
             text : raw.text
 
-Models.CharacterHasCharacterText.setup()
+ORM.characters.CharacterHasCharacterText.reset()
+
+ORM.polymorphic_identity 'character_text', ORM.characters.CharacterHasCharacterText
+
+ORM.characters.CharacterHasCharacterText.has().one 'trait',
+    model: ORM.traits.CharacterText
+    inverse: 'character_has_character_text'
+
+ORM.characters.CharacterHasCharacterText.has().one 'character',
+    model: ORM.characters.Character
+    inverse: 'character_texts'
+
+ORM.characters.Character.has().many 'character_texts',
+    collection: class CharacterHasCharacterText_Collection extends Backbone.Collection
+        model: ORM.characters.CharacterHasCharacterText
+    inverse: 'character'

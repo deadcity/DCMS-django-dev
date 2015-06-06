@@ -4,12 +4,12 @@
 ###
 
 
-Models = Tools.create_namespace 'ORM.auth'
+Tools.create_namespace 'ORM.auth'
 
 
-class Models.User extends ORM.BaseModel
+class ORM.auth.User extends ORM.BaseModel
     urlRoot: () ->
-        DCMS.Settings.URL_PREFIX + '/accounts/User'
+        DCMS.Settings.URL_PREFIX + '/rest/accounts/User'
 
     defaults: () ->
         id : undefined
@@ -29,20 +29,24 @@ class Models.User extends ORM.BaseModel
         date_joined : undefined
 
     parse: (raw) ->
-        id : ORM.BaseModel.parse_int_field raw, 'id'
+        raw = super
 
-        username   : raw.username
-        first_name : raw.first_name
-        last_name  : raw.last_name
-        email      : raw.email
+        return {
+            id : ORM.parse.int raw, 'id'
 
-        # password
+            username   : raw.username
+            first_name : raw.first_name
+            last_name  : raw.last_name
+            email      : raw.email
 
-        is_staff     : raw.is_staff
-        is_active    : raw.is_active
-        is_superuser : raw.is_superuser
+            # password
 
-        last_login  : ORM.BaseModel.parse_datetime_field raw, 'last_login'
-        date_joined : ORM.BaseModel.parse_datetime_field raw, 'date_joined'
+            is_staff     : raw.is_staff
+            is_active    : raw.is_active
+            is_superuser : raw.is_superuser
 
-Models.User.setup()
+            last_login  : ORM.parse.datetime raw, 'last_login'
+            date_joined : ORM.parse.datetime raw, 'date_joined'
+        }
+
+ORM.auth.User.reset()

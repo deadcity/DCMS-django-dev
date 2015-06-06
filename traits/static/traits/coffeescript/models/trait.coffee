@@ -4,65 +4,79 @@
 ###
 
 
-Models = Tools.create_namespace 'ORM.traits'
+Tools.create_namespace 'ORM.traits'
 
 
-class Models.TraitType extends ORM.BaseModel
+class ORM.traits.TraitType extends ORM.BaseModel
+    urlRoot: () ->
+        return undefined if @constructor is ORM.traits.TraitType
+        return DCMS.Settings.URL_PREFIX + '/rest/traits/' + @constructor.name
+
     defaults: () ->
         id : undefined
 
         chronicle_id : undefined
-        name         : undefined
-        label        : ''
 
-    relations: [ORM.relation 'chronicle', ORM.chronicles.ChronicleBase]
+        name  : undefined
+        label : ''
 
     parse: (raw) ->
-        id : ORM.BaseModel.parse_int_field raw, 'id'
+        raw = super
 
-        chronicle_id : ORM.BaseModel.parse_int_field raw, 'id'
-        name         : raw.name
-        label        : raw.label
+        return {
+            id : ORM.parse.int raw, 'id'
 
-Models.TraitType.setup()
+            chronicle_id : ORM.parse.int raw, 'chronicle_id'
+
+            name  : raw.name
+            label : raw.label
+        }
+
+ORM.traits.TraitType.reset()
+
+ORM.traits.TraitType.has().one 'chronicle',
+    model: ORM.chronicles.ChronicleBase
+    inverse: 'trait_types'
 
 
-class Models.Trait extends ORM.BaseModel
-    subModelTypeAttribute: '_discriminator'
-    subModelTypes:
-        'affiliation'    : 'Affiliation'
-        'attribute'      : 'Attribute'
-        'character_text' : 'CharacterText'
-        'combat_trait'   : 'CombatTrait'
-        'creature_type'  : 'CreatureType'
-        'flaw'           : 'Flaw'
-        'genealogy'      : 'Genealogy'
-        'merit'          : 'Merit'
-        'misc_trait'     : 'MiscTrait'
-        'power'          : 'Power'
-        'power_group'    : 'PowerGroup'
-        'skill'          : 'Skill'
-        'subgroup'       : 'Subgroup'
+class ORM.traits.Trait extends ORM.BaseModel
+    @_polymorphic_on: '_discriminator'
+    @_polymorphic_identity: {}
 
     urlRoot: () ->
-        DCMS.Settings.URL_PREFIX + '/rest/traits/Trait'
+        DCMS.Settings.URL_PREFIX + '/rest/traits/' + @constructor.name
 
     defaults: () ->
         id             : undefined
         _discriminator : undefined
 
         chronicle_id : undefined
-        name         : undefined
-        label        : ''
 
-    relations: [ORM.relation 'chronicle', ORM.chronicles.ChronicleBase]
+        name  : undefined
+        label : ''
+        order : undefined
 
     parse: (raw) ->
-        id             : ORM.BaseModel.parse_int_field raw, 'id'
-        _discriminator : raw._discriminator
+        raw = super
 
-        chronicle_id : ORM.BaseModel.parse_int_field raw, 'id'
-        name         : raw.name
-        label        : raw.label
+        return {
+            id             : ORM.parse.int raw, 'id'
+            _discriminator : raw._discriminator
 
-Models.Trait.setup()
+            chronicle_id : ORM.parse.int raw, 'chronicle_id'
+
+            name  : raw.name
+            label : raw.label
+            order : ORM.parse.int raw, 'order'
+        }
+
+ORM.traits.Trait.reset()
+
+ORM.traits.Trait.has().one 'chronicle',
+    model: ORM.chronicles.ChronicleBase
+    inverse: 'traits'
+
+ORM.chronicles.ChronicleBase.has().many 'traits',
+    collection: class Trait_Collection extends Backbone.Collection
+        model: ORM.traits.Trait
+    inverse: 'chronicle'
