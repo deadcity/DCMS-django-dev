@@ -9,11 +9,14 @@
     {{ block.super }}
 
     <link rel='stylesheet' type='text/css' href='{% static 'characters/css/character_detail.css' %}' />
+    <link rel='stylesheet' type='text/css' href='{% static 'css/rating.css' %}' />
 {% endblock style_includes %}
 
 
 {% block script_includes %}
     {{ block.super }}
+
+    <script type='text/javascript' src='{% static 'js/libraries/d3-3.5.5.js' %}'></script>
 
     <!-- chronicles -->
     {% compress js %}
@@ -54,6 +57,12 @@
         <script type='text/coffeescript' src='{% static 'characters/coffeescript/models/character_has_skill_specialty.coffee' %}'></script>
         {# <script type='text/coffeescript' src='{% static 'characters/coffeescript/models/character_has_xp.coffee' %}'></script> #}
     {% endcompress %}
+
+    <!-- view-models -->
+    {% compress js %}
+        <script type='text/coffeescript' src='{% static 'coffeescript/ko_bindings/dot_rating.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'characters/coffeescript/viewmodels/edit_main.coffee' %}'></script>
+    {% endcompress %}
 {% endblock script_includes %}
 
 
@@ -78,8 +87,7 @@
             <ul class='trait-list' data-bind="foreach: mental_attributes">
                 <li>
                     <span class='stat-label' data-bind="text: trait().label()"></span>
-                    <!-- TODO(Emery): fancy dots -->
-                    <div class='rating-container' data-bind="text: rating()"></div>
+                    <div data-bind="dot_rating: $data"></div>
                 </li>
             </ul>
         </div>
@@ -88,8 +96,7 @@
             <ul class='trait-list' data-bind="foreach: physical_attributes">
                 <li>
                     <span class='stat-label' data-bind="text: trait().label()"></span>
-                    <!-- TODO(Emery): fancy dots -->
-                    <div class='rating-container' data-bind="text: rating()"></div>
+                    <div data-bind="dot_rating: $data"></div>
                 </li>
             </ul>
         </div>
@@ -98,8 +105,7 @@
             <ul class='trait-list' data-bind="foreach: social_attributes">
                 <li>
                     <span class='stat-label' data-bind="text: trait().label()"></span>
-                    <!-- TODO(Emery): fancy dots -->
-                    <div class='rating-container' data-bind="text: rating()"></div>
+                    <div data-bind="dot_rating: $data"></div>
                 </li>
             </ul>
         </div>
@@ -151,49 +157,7 @@ window.character = new ORM.characters.Character(
 
     {% compress js %}
         <script type='text/coffeescript'>
-            order_comparator = (a, b) ->
-                a_order = a.trait().order()
-                b_order = b.trait().order()
-                return a_order - b_order
-
-            order_label = (a, b) ->
-                a_label = a.trait().label()
-                b_label = b.trait().label()
-                return a_label.localeCompare b_label
-
-            class window.CharacterViewModel extends kb.ViewModel
-                constructor: (model, options) ->
-                    super
-
-                    @player_name = ko.computed =>
-                        user = @user()
-                        if user.first_name()? or user.last_name()?
-                            player_name = ((user.first_name() ? '') + ' ' + (user.last_name() ? '')).trim()
-                            return player_name if player_name != ''
-                        return user.username().trim()
-
-                    @mental_attributes = kb.collectionObservable @model().character_attributes(), null,
-                        filters: (model) -> 'Mental' == model.trait().attribute_type().get 'label'
-                        comparator: order_comparator
-                    @physical_attributes = kb.collectionObservable @model().character_attributes(), null,
-                        filters: (model) -> 'Physical' == model.trait().attribute_type().get 'label'
-                        comparator: order_comparator
-                    @social_attributes = kb.collectionObservable @model().character_attributes(), null,
-                        filters: (model) -> 'Social' == model.trait().attribute_type().get 'label'
-                        comparator: order_comparator
-
-                    @mental_skills = kb.collectionObservable @model().character_skills(), null,
-                        filters: (model) -> 'Mental' == model.trait().skill_type().get 'label'
-                        comparator: order_label
-                    @physical_skills = kb.collectionObservable @model().character_skills(), null,
-                        filters: (model) -> 'Physical' == model.trait().skill_type().get 'label'
-                        comparator: order_label
-                    @social_skills = kb.collectionObservable @model().character_skills(), null,
-                        filters: (model) -> 'Social' == model.trait().skill_type().get 'label'
-                        comparator: order_label
-
-
-            window.character_view_model = new CharacterViewModel character
+            window.character_view_model = new VM.characters.CharacterViewModel character
             ko.applyBindings character_view_model
         </script>
     {% endcompress %}
