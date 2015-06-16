@@ -60,8 +60,18 @@
     width: 33%;
 }
 
-#mental-attributes, #physical-attributes, #social-attributes, #mental-skills, #physical-skills, #social-skills {
+#mental-attributes, #mental-skills {
     float: left;
+    width: 33%;
+}
+
+#physical-attributes, #physical-skills {
+    display: inline-block;
+    width: 33%;
+}
+
+#social-attributes, #social-skills {
+    float: right;
     width: 33%;
 }
 
