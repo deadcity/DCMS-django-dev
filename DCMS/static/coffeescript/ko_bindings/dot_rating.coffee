@@ -4,6 +4,7 @@
 ###
 
 
+# TODO(Emery): Possibly move to binding arguments
 radius = 5
 padding = 2
 

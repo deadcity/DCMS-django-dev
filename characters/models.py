@@ -176,7 +176,7 @@ class CharacterHasFlaw (CharacterHasTrait):
 class CharacterHasMerit (CharacterHasTrait):
     id = Column(Integer, ForeignKey(CharacterHasTrait.id, ondelete = 'CASCADE'), primary_key = True)
 
-    rating        = Column(SmallInteger, nullable = False)
+    rating        = Column(SmallInteger)
     specification = Column(String)
     description   = Column(Text)
 

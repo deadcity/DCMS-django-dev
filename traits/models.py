@@ -159,6 +159,18 @@ class Flaw (Trait):
     flaw_type = relationship(FlawType)
 
 
+class AllowedFlawRating (AppLabel, BaseModel):
+    flaw_id = Column(Integer, ForeignKey(Flaw.id))
+    rating  = Column(Integer, nullable = False)
+
+    __table_args__ = (
+        PrimaryKeyConstraint(flaw_id, rating),
+        CheckConstraint(rating >= 0, name = 'non_negative_rating'),
+    )
+
+    flaw = relationship(Flaw, backref = backref('allowed_ratings'))
+
+
 class Genealogy (Trait):
     id = Column(Integer, ForeignKey(Trait.id, ondelete = 'CASCADE'), primary_key = True)
 

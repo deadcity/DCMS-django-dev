@@ -34,3 +34,31 @@ ORM.polymorphic_identity 'flaw', ORM.traits.Flaw
 ORM.traits.Flaw.has().one 'flaw_type',
     model: ORM.traits.FlawType
     inverse: 'flaws'
+
+
+class ORM.traits.AllowedFlawRating extends ORM.BaseModel
+    urlRoot: () ->
+        DCMS.Settings.URL_PREFIX + '/rest/traits/AllowedFlawRating'
+
+    defaults: () ->
+        flaw_id : undefined
+        rating  : undefined
+
+    parse: (raw) ->
+        raw = super
+
+        return {
+            flaw_id : ORM.parse.int raw, 'flaw_id'
+            rating  : ORM.parse.int raw, 'rating'
+        }
+
+ORM.traits.AllowedFlawRating.reset()
+
+ORM.traits.AllowedFlawRating.has().one 'flaw',
+    model: ORM.traits.Flaw
+    inverse: 'allowed_ratings'
+
+ORM.traits.Flaw.has().many 'allowed_ratings',
+    collection: class AllowedFlawRating_Collection extends Backbone.Collection
+        model: ORM.traits.AllowedFlawRating
+    inverse: 'flaw'
