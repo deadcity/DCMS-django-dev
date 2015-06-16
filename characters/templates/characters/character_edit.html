@@ -118,8 +118,7 @@
             <ul class='trait-list' data-bind="foreach: mental_skills">
                 <li>
                     <span class='stat-label' data-bind="text: trait().label()"></span>
-                    <!-- TODO(Emery): fancy dots -->
-                    <div class='rating-container' data-bind="text: rating()"></div>
+                    <div data-bind="dot_rating: $data"></div>
                 </li>
             </ul>
         </div>
@@ -128,8 +127,7 @@
             <ul class='trait-list' data-bind="foreach: physical_skills">
                 <li>
                     <span class='stat-label' data-bind="text: trait().label()"></span>
-                    <!-- TODO(Emery): fancy dots -->
-                    <div class='rating-container' data-bind="text: rating()"></div>
+                    <div data-bind="dot_rating: $data"></div>
                 </li>
             </ul>
         </div>
@@ -138,8 +136,7 @@
             <ul class='trait-list' data-bind="foreach: social_skills">
                 <li>
                     <span class='stat-label' data-bind="text: trait().label()"></span>
-                    <!-- TODO(Emery): fancy dots -->
-                    <div class='rating-container' data-bind="text: rating()"></div>
+                    <div data-bind="dot_rating: $data"></div>
                 </li>
             </ul>
         </div>

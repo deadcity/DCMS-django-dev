@@ -25,6 +25,31 @@ ko.bindingHandlers['dot_rating'] =
         svg.attr 'height', 10
         svg.attr 'width', 100
 
+        if includes_zero
+            zero_group = svg.append 'g'
+            zero_cx = 2 * (radius + padding)
+
+            zero_selector = zero_group.append 'circle'
+                .attr 'r', radius
+                .attr 'cx', zero_cx
+                .attr 'cy', radius
+                .classed 'zero-value', true
+
+            zero_marker = zero_group.append 'circle'
+            zero_marker
+                .attr 'r', radius / 2
+                .attr 'cx', zero_cx
+                .attr 'cy', radius
+                .classed 'zero-marker', true
+
+            zero_circles = zero_group.selectAll 'circle'
+            zero_circles.classed 'selectable', true
+
+            # Set selecting behavior.
+            zero_circles.on 'mouseover', () -> zero_selector.classed 'selecting', true
+            zero_circles.on 'mouseout',  () -> zero_selector.classed 'selecting', false
+            zero_circles.on 'click', () -> rating_observable 0
+
         rating_circles = svg
             .append 'g'
             .selectAll 'circle'
@@ -34,7 +59,13 @@ ko.bindingHandlers['dot_rating'] =
             .classed 'rating-value', true
             .attr 'r', radius
             .attr 'cy', 5
-            .attr 'cx', (data) -> data * 2 * (radius + padding)
+
+        if includes_zero
+            rating_circles
+                .attr 'cx', (rating) -> (rating + 1) * 2 * (radius + padding)
+        else
+            rating_circles
+                .attr 'cx', (rating) -> rating * 2 * (radius + padding)
 
         # Set initial state.
         rating_circles.classed 'selected', (rating) -> current_rating >= rating

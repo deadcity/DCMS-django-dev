@@ -2,6 +2,10 @@
     padding: 2px;
 }
 
+.rating-container .selectable {
+    cursor: pointer;
+}
+
 .rating-container .rating-value {
     stroke: black;
     stroke-width: 1px;
@@ -28,11 +32,11 @@
 }
 
 .rating-container .zero-value {
-    stroke: none;
-    fill: none;
+    stroke: white;
+    stroke-width: 1px;
+    fill: white;
 }
 
 .rating-container .zero-value.selecting {
     stroke: red;
-    stroke-width: 1px;
 }
