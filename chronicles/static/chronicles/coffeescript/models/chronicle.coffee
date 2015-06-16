@@ -8,7 +8,7 @@ Tools.create_namespace 'ORM.chronicles'
 
 
 class ORM.chronicles.ChronicleBase extends ORM.BaseModel
-    @_polymorphic_on: '_discriminator'
+    @_polymorphic_on: 'chronicle_type'
     @_polymorphic_identity: {}
     #     'chronicle_template' : 'ChronicleTemplate'
     #     'chronicle'          : 'Chronicle'
@@ -18,7 +18,7 @@ class ORM.chronicles.ChronicleBase extends ORM.BaseModel
 
     defaults: () ->
         id             : undefined
-        _discriminator : undefined
+        chronicle_type : undefined
 
         enabled     : true
         name        : ''
@@ -26,7 +26,7 @@ class ORM.chronicles.ChronicleBase extends ORM.BaseModel
 
     parse: (raw) ->
         id             : ORM.parse.int raw, 'id'
-        _discriminator : raw._discriminator
+        chronicle_type : raw.chronicle_type
 
         enabled     : raw.enabled
         name        : raw.name

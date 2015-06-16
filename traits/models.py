@@ -73,7 +73,7 @@ class Trait (AppLabel, BaseModel):
         return "<{}({})>".format(type(self).__name__, self.name)
 
     id = Column(Integer, primary_key = True)
-    _discriminator = Column(String, nullable = False)
+    trait_type = Column(String, nullable = False)
 
     # A trait is associated with a specific Chronicle or ChronicleTemplate.
     chronicle_id = Column(Integer, ForeignKey(ChronicleBase.id), nullable = False)
@@ -87,7 +87,7 @@ class Trait (AppLabel, BaseModel):
     )
 
     __mapper_args__ = {
-        'polymorphic_on': _discriminator,
+        'polymorphic_on': trait_type,
     }
 
     chronicle = relationship(ChronicleBase)

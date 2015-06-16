@@ -20,14 +20,14 @@ class ChronicleBase (AppLabel, BaseModel):
         return "<{}({})>".format(type(self).__name__, self.name)
 
     id = Column(Integer, primary_key = True)
-    _discriminator = Column(String, nullable = False)
+    chronicle_type = Column(String, nullable = False)
 
     enabled     = Column(Boolean, nullable = False, default = True)
     name        = Column(String, nullable = False, default = '', unique = True)
     description = Column(Text, nullable = False, default = '')
 
     __mapper_args__ = {
-        'polymorphic_on': _discriminator,
+        'polymorphic_on': chronicle_type,
     }
 
 

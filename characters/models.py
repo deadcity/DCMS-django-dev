@@ -91,23 +91,23 @@ class CharacterHasTrait (AppLabel, BaseModel):
         )
 
     id = Column(Integer, primary_key = True)
-    _discriminator = Column(String, nullable = False)
+    trait_type = Column(String, nullable = False)
 
     character_id = Column(Integer, ForeignKey(Character.id),          nullable = False)
     trait_id     = Column(Integer, ForeignKey(trait_models.Trait.id), nullable = False)
 
-    # TODO(Emery): Limit the value of `_discriminator` to enforce using the
+    # TODO(Emery): Limit the value of `trait_type` to enforce using the
     #              appropriate child class when linking to the appropriate type
     #              of trait.
     # possible solution: composite foreign key using ForeignKeyConstraint
     #      e.g. ForeignKeyConstraint(
-    #               (trait_id, _discriminator),
-    #               (Trait.id, Trait._discriminator)
+    #               (trait_id, trait_type),
+    #               (Trait.id, Trait.trait_type)
     #           )
     #    (This won't work right now.  It will break skill-specialties.)
 
     __mapper_args__ = {
-        'polymorphic_on': _discriminator,
+        'polymorphic_on': trait_type,
     }
 
     character = relationship(Character)
