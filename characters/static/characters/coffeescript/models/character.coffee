@@ -8,13 +8,13 @@ Tools.create_namespace 'ORM.characters'
 
 
 class ORM.characters.Character extends ORM.BaseModel
-    @Status: new Tools.Enum [
-        { name: 'EDITING',   value: 1 }
-        { name: 'SUBMITTED', }
-        { name: 'APPROVED',  }
-        { name: 'ACTIVE',    }
-        { name: 'DECEASED',  }
-        { name: 'INACTIVE',  }
+    @Status: Tools.enum 'Status', [
+        'EDITING'
+        'SUBMITTED'
+        'APPROVED'
+        'ACTIVE'
+        'DECEASED'
+        'INACTIVE'
     ]
 
     urlRoot: () ->
@@ -67,7 +67,7 @@ class ORM.characters.Character extends ORM.BaseModel
             enabled      : raw.enabled
             user_id      : ORM.parse.int raw, 'user'
             chronicle_id : ORM.parse.int raw, 'chronicle_id'
-            status       : Character.Status.get raw.status
+            status       : Character.Status[raw.status]
 
             name             : raw.name
             creature_type_id : ORM.parse.int raw, 'creature_type_id'

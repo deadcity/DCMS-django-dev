@@ -32,29 +32,29 @@ _non_standard_base = (upper, x, lower) ->
     ]
 
 
-Datetime.Month = new Tools.Enum [
-    { name: 'January',   value:  1 }
-    { name: 'February',  }
-    { name: 'March',     }
-    { name: 'April',     }
-    { name: 'May',       }
-    { name: 'June',      }
-    { name: 'July',      }
-    { name: 'August',    }
-    { name: 'September', }
-    { name: 'October',   }
-    { name: 'November',  }
-    { name: 'December',  }
+Datetime.Month = Tools.enum 'Month', [
+    'January'
+    'February'
+    'March'
+    'April'
+    'May'
+    'June'
+    'July'
+    'August'
+    'September'
+    'October'
+    'November'
+    'December'
 ]
 
-Datetime.Day_of_Week = new Tools.Enum [
-    { name: 'Sunday',    value: 1 }
-    { name: 'Monday',    }
-    { name: 'Tuesday',   }
-    { name: 'Wednesday', }
-    { name: 'Thursday',  }
-    { name: 'Friday',    }
-    { name: 'Saturday',  }
+Datetime.Day_of_Week = Tools.enum 'Day_of_Week', [
+    'Sunday'
+    'Monday'
+    'Tuesday'
+    'Wednesday'
+    'Thursday'
+    'Friday'
+    'Saturday'
 ]
 
 
@@ -120,7 +120,7 @@ class Datetime.Date
         @to_builtin_date().getTime()
 
     day_of_week: () ->
-        Datetime.Day_of_Week.get(@to_builtin_date().getDay() + 1)
+        Datetime.Day_of_Week @to_builtin_date().getDay() + 1
 
     toString: () ->
         "#{ @_year }-#{ if @_month < 10 then '0' else '' }#{ @_month.value }-#{ if @_day < 10 then '0' else '' }#{ @_day }"
