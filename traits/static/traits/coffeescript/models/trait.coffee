@@ -20,7 +20,7 @@ class ORM.traits.TraitType extends ORM.BaseModel
         name  : undefined
         label : ''
 
-    parse: (raw) ->
+    _parse: (raw) ->
         raw = super
 
         return {
@@ -56,7 +56,7 @@ class ORM.traits.Trait extends ORM.BaseModel
         label : ''
         order : undefined
 
-    parse: (raw) ->
+    _parse: (raw) ->
         raw = super
 
         return {

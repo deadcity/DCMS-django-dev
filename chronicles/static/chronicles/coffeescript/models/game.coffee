@@ -20,7 +20,7 @@ class ORM.chronicles.Game extends ORM.BaseModel
         chronicle_id : undefined
         date         : undefined
 
-    parse: (raw) ->
+    _parse: (raw) ->
         raw = super
 
         return {

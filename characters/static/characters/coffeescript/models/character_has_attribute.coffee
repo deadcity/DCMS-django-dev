@@ -14,7 +14,7 @@ class ORM.characters.CharacterHasAttribute extends ORM.characters.CharacterHasTr
         return _.extend super,
             rating : 1
 
-    parse: (raw) ->
+    _parse: (raw) ->
         return _.extend super,
             rating : ORM.parse.int raw, 'rating'
 

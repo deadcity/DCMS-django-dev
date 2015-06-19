@@ -19,7 +19,7 @@ class ORM.traits.Skill extends ORM.traits.Trait
         return _.extend super,
             skill_type_id : undefined
 
-    parse: (raw) ->
+    _parse: (raw) ->
         return _.extend super,
             skill_type_id : ORM.parse.int raw, 'skill_type_id'
 

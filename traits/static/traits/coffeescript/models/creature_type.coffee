@@ -17,7 +17,7 @@ class ORM.traits.CreatureType extends ORM.traits.Trait
             subgroup_name    : undefined
             power_name       : undefined
 
-    parse: (raw) ->
+    _parse: (raw) ->
         return _.extend super,
             genealogy_name   : raw.genealogy_name
             affiliation_name : raw.affiliation_name

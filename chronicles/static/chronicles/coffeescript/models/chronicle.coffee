@@ -24,7 +24,7 @@ class ORM.chronicles.ChronicleBase extends ORM.BaseModel
         name        : ''
         description : ''
 
-    parse: (raw) ->
+    _parse: (raw) ->
         id             : ORM.parse.int raw, 'id'
         chronicle_type : raw.chronicle_type
 
@@ -71,7 +71,7 @@ class ORM.chronicles.ChronicleInheritsTemplate extends ORM.BaseModel
 
         hide_denied_traits : false
 
-    parse: () ->
+    _parse: () ->
         chronicle_id          : ORM.parse.int raw, 'chronicle_id'
         chronicle_template_id : ORM.parse.int raw, 'chronicle_template_id'
 

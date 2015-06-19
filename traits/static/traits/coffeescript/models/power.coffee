@@ -23,7 +23,7 @@ class ORM.traits.Power extends ORM.traits.Trait
             rating         : undefined
             power_group_id : undefined
 
-    parse: (raw) ->
+    _parse: (raw) ->
         return _.extend super,
             rating         : ORM.parse.int raw, 'rating'
             power_group_id : ORM.parse.int raw, 'power_group_id'

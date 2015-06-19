@@ -21,7 +21,7 @@ class ORM.traits.Merit extends ORM.traits.Trait
             requires_specification : undefined
             requires_description   : undefined
 
-    parse: (raw) ->
+    _parse: (raw) ->
         return _.extend super,
             merit_type_id          : ORM.parse.int raw, 'merit_type_id'
             requires_specification : raw.requires_specification
@@ -44,7 +44,7 @@ class ORM.traits.AllowedMeritRating extends ORM.BaseModel
         merit_id : undefined
         rating   : undefined
 
-    parse: (raw) ->
+    _parse: (raw) ->
         raw = super
 
         return {

@@ -21,7 +21,7 @@ class ORM.traits.Flaw extends ORM.traits.Trait
             requires_specification : undefined
             requires_description   : undefined
 
-    parse: (raw) ->
+    _parse: (raw) ->
         return _.extend super,
             flaw_type_id           : ORM.parse.int raw, 'flaw_type_id'
             requires_specification : raw.requires_specification
@@ -44,7 +44,7 @@ class ORM.traits.AllowedFlawRating extends ORM.BaseModel
         flaw_id : undefined
         rating  : undefined
 
-    parse: (raw) ->
+    _parse: (raw) ->
         raw = super
 
         return {

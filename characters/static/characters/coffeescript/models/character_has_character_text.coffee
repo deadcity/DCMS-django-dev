@@ -14,7 +14,7 @@ class ORM.characters.CharacterHasCharacterText extends ORM.characters.CharacterH
         return _.extend super,
             text : undefined
 
-    parse: (raw) ->
+    _parse: (raw) ->
         return _.extend super,
             text : raw.text
 

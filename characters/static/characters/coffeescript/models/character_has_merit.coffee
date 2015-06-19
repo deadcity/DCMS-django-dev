@@ -16,7 +16,7 @@ class ORM.characters.CharacterHasMerit extends ORM.characters.CharacterHasTrait
             specification : undefined
             description   : undefined
 
-    parse: (raw) ->
+    _parse: (raw) ->
         return _.extend super,
             rating        : ORM.parse.int raw, 'rating'
             specification : raw.specification

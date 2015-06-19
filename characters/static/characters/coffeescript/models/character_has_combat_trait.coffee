@@ -14,7 +14,7 @@ class ORM.characters.CharacterHasCombatTrait extends ORM.characters.CharacterHas
         return _.extend super,
             rating : undefined
 
-    parse: (raw) ->
+    _parse: (raw) ->
         return _.extend super,
             rating : ORM.parse.int raw, 'rating'
 

@@ -14,7 +14,7 @@ class ORM.characters.CharacterHasSkillSpecialty extends ORM.characters.Character
         return _.extend super,
             specialty : undefined
 
-    parse: (raw) ->
+    _parse: (raw) ->
         return _.extend super,
             specialty : raw.specialty
 

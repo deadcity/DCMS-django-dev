@@ -32,6 +32,24 @@ class ORM.BaseModel extends Supermodel.Model
         model.initialize model.attributes, options
         model.fetch()
 
+    ## Override this to provide parsing functionality [instead of `parse`].
+    _parse: (raw) -> raw
+
+    ## Do not override this for normal parsing functionality.
+    #
+    #  Supermodel.js goes against standard Backbone.js and expects `parse` to
+    #  modify it's dictionary of attributes instead of handling whatever is
+    #  returned.  This function will take care of that, copying over any parsed
+    #  attributes and clearing out any that were not parsed.
+    parse: (raw) ->
+        raw_ = _.clone @_parse raw
+
+        # Clear out old values of `raw`.
+        for key of raw
+            delete raw[key]
+
+        super _.extendOwn raw, raw_
+
 
 ORM.parse.number = (raw, field, cstor) ->
     return undefined if raw[field] is undefined

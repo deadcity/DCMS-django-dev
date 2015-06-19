@@ -14,7 +14,7 @@ class ORM.traits.MiscTrait extends ORM.traits.Trait
         return _.extend super,
             requires_specification : undefined
 
-    parse: (raw) ->
+    _parse: (raw) ->
         return _.extend super,
             requires_specification : raw.requires_specification
 

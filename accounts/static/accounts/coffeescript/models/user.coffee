@@ -28,7 +28,7 @@ class ORM.auth.User extends ORM.BaseModel
         last_login  : undefined
         date_joined : undefined
 
-    parse: (raw) ->
+    _parse: (raw) ->
         raw = super
 
         return {

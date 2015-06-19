@@ -58,10 +58,8 @@ class ORM.characters.Character extends ORM.BaseModel
     #     ORM.relation_collection('misc_traits',       'characters.CharacterHasMiscTrait'),
     # ]
 
-    parse: (raw) ->
-        raw = super
-
-        return {
+    _parse: (raw) ->
+        raw = {
             id : ORM.parse.int raw, 'id'
 
             enabled      : raw.enabled
@@ -80,6 +78,8 @@ class ORM.characters.Character extends ORM.BaseModel
             date_approved    : ORM.parse.datetime raw, 'date_approved'
             date_last_edited : ORM.parse.datetime raw, 'date_last_edited'
         }
+
+        super raw
 
 ORM.characters.Character.reset()
 

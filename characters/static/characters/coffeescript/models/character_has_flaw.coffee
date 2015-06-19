@@ -15,7 +15,7 @@ class ORM.characters.CharacterHasFlaw extends ORM.characters.CharacterHasTrait
             specification : undefined
             description   : undefined
 
-    parse: (raw) ->
+    _parse: (raw) ->
         return _.extend super,
             specification : raw.specification
             description   : raw.description

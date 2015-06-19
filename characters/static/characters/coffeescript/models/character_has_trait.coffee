@@ -21,7 +21,7 @@ class ORM.characters.CharacterHasTrait extends ORM.BaseModel
         character_id : undefined
         trait_id     : undefined
 
-    parse: (raw) ->
+    _parse: (raw) ->
         id         : ORM.parse.int raw, 'id'
         trait_type : raw.trait_type
 
