@@ -15,8 +15,11 @@ class ORM.traits.CharacterText extends ORM.traits.Trait
             hide_from_player : undefined
 
     _parse: (raw) ->
-        return _.extend super,
-            hide_from_player : raw.hide_from_player
+        parsed = super
+
+        ORM.parse parsed, raw, 'hide_from_player'
+
+        return parsed
 
 ORM.traits.CharacterText.reset()
 

@@ -59,27 +59,27 @@ class ORM.characters.Character extends ORM.BaseModel
     # ]
 
     _parse: (raw) ->
-        raw = {
-            id : ORM.parse.int raw, 'id'
+        parsed = {}
 
-            enabled      : raw.enabled
-            user_id      : ORM.parse.int raw, 'user'
-            chronicle_id : ORM.parse.int raw, 'chronicle_id'
-            status       : Character.Status[raw.status]
+        ORM.parse.int parsed, raw, 'id'
 
-            name             : raw.name
-            creature_type_id : ORM.parse.int raw, 'creature_type_id'
-            genealogy_id     : ORM.parse.int raw, 'genealogy_id'
-            affiliation_id   : ORM.parse.int raw, 'affiliation_id'
-            subgroup_id      : ORM.parse.int raw, 'subgroup_id'
+        ORM.parse      parsed, raw, 'enabled'
+        ORM.parse.int  parsed, raw, 'user_id'
+        ORM.parse.int  parsed, raw, 'chronicle_id'
+        ORM.parse.enum parsed, raw, 'status', Character.Status
 
-            date_created     : ORM.parse.datetime raw, 'date_created'
-            date_submitted   : ORM.parse.datetime raw, 'date_submitted'
-            date_approved    : ORM.parse.datetime raw, 'date_approved'
-            date_last_edited : ORM.parse.datetime raw, 'date_last_edited'
-        }
+        ORM.parse     parsed, raw, 'name'
+        ORM.parse.int parsed, raw, 'creature_type_id'
+        ORM.parse.int parsed, raw, 'genealogy_id'
+        ORM.parse.int parsed, raw, 'affiliation_id'
+        ORM.parse.int parsed, raw, 'subgroup_id'
 
-        super raw
+        ORM.parse.datetime parsed, raw, 'date_created'
+        ORM.parse.datetime parsed, raw, 'date_submitted'
+        ORM.parse.datetime parsed, raw, 'date_approved'
+        ORM.parse.datetime parsed, raw, 'date_last_edited'
+
+        return parsed
 
 ORM.characters.Character.reset()
 

@@ -22,10 +22,14 @@ class ORM.characters.CharacterHasTrait extends ORM.BaseModel
         trait_id     : undefined
 
     _parse: (raw) ->
-        id         : ORM.parse.int raw, 'id'
-        trait_type : raw.trait_type
+        parsed = {}
 
-        character_id : ORM.parse.int raw, 'character_id'
-        trait_id     : ORM.parse.int raw, 'trait_id'
+        ORM.parse.int parsed, raw, 'id'
+        ORM.parse     parsed, raw, 'trait_type'
+
+        ORM.parse.int parsed, raw, 'character_id'
+        ORM.parse.int parsed, raw, 'trait_id'
+
+        return parsed
 
 ORM.characters.CharacterHasTrait.reset()

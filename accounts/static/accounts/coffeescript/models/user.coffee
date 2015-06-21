@@ -29,24 +29,24 @@ class ORM.auth.User extends ORM.BaseModel
         date_joined : undefined
 
     _parse: (raw) ->
-        raw = super
+        parsed = {}
 
-        return {
-            id : ORM.parse.int raw, 'id'
+        ORM.parse.int parsed, raw, 'id'
 
-            username   : raw.username
-            first_name : raw.first_name
-            last_name  : raw.last_name
-            email      : raw.email
+        ORM.parse parsed, raw, 'username'
+        ORM.parse parsed, raw, 'first_name'
+        ORM.parse parsed, raw, 'last_name'
+        ORM.parse parsed, raw, 'email'
 
-            # password
+        # password
 
-            is_staff     : raw.is_staff
-            is_active    : raw.is_active
-            is_superuser : raw.is_superuser
+        ORM.parse parsed, raw, 'is_staff'
+        ORM.parse parsed, raw, 'is_active'
+        ORM.parse parsed, raw, 'is_superuser'
 
-            last_login  : ORM.parse.datetime raw, 'last_login'
-            date_joined : ORM.parse.datetime raw, 'date_joined'
-        }
+        ORM.parse.datetime parsed, raw, 'last_login'
+        ORM.parse.datetime parsed, raw, 'date_joined'
+
+        return parsed
 
 ORM.auth.User.reset()

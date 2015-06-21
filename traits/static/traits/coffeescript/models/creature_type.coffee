@@ -18,11 +18,14 @@ class ORM.traits.CreatureType extends ORM.traits.Trait
             power_name       : undefined
 
     _parse: (raw) ->
-        return _.extend super,
-            genealogy_name   : raw.genealogy_name
-            affiliation_name : raw.affiliation_name
-            subgroup_name    : raw.subgroup_name
-            power_name       : raw.power_name
+        parsed = super
+
+        ORM.parse parsed, raw, 'genealogy_name'
+        ORM.parse parsed, raw, 'affiliation_name'
+        ORM.parse parsed, raw, 'subgroup_name'
+        ORM.parse parsed, raw, 'power_name'
+
+        return parsed
 
 ORM.traits.CreatureType.reset()
 

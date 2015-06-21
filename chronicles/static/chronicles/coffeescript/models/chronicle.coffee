@@ -25,12 +25,16 @@ class ORM.chronicles.ChronicleBase extends ORM.BaseModel
         description : ''
 
     _parse: (raw) ->
-        id             : ORM.parse.int raw, 'id'
-        chronicle_type : raw.chronicle_type
+        parsed = {}
 
-        enabled     : raw.enabled
-        name        : raw.name
-        description : raw.description
+        ORM.parse.int parsed, raw, 'id'
+        ORM.parse     parsed, raw, 'chronicle_type'
+
+        ORM.parse parsed, raw, 'enabled'
+        ORM.parse parsed, raw, 'name'
+        ORM.parse parsed, raw, 'description'
+
+        return parsed
 
 ORM.chronicles.ChronicleBase.reset()
 
@@ -72,10 +76,14 @@ class ORM.chronicles.ChronicleInheritsTemplate extends ORM.BaseModel
         hide_denied_traits : false
 
     _parse: () ->
-        chronicle_id          : ORM.parse.int raw, 'chronicle_id'
-        chronicle_template_id : ORM.parse.int raw, 'chronicle_template_id'
+        parsed = {}
 
-        hide_denied_traits : raw.hide_denied_traits
+        ORM.parse.int parsed, raw, 'chronicle_id'
+        ORM.parse.int parsed, raw, 'chronicle_template_id'
+
+        ORM.parse parsed, raw, 'hide_denied_traits'
+
+        return parsed
 
 ORM.chronicles.ChronicleInheritsTemplate.reset()
 

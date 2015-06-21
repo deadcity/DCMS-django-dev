@@ -15,8 +15,11 @@ class ORM.characters.CharacterHasSkill extends ORM.characters.CharacterHasTrait
             rating : 0
 
     _parse: (raw) ->
-        return _.extend super,
-            rating : ORM.parse.int raw, 'rating'
+        parsed = super
+
+        ORM.parse.int parsed, raw, 'rating'
+
+        return parsed
 
 ORM.characters.CharacterHasSkill.reset()
 

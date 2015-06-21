@@ -16,9 +16,12 @@ class ORM.characters.CharacterHasFlaw extends ORM.characters.CharacterHasTrait
             description   : undefined
 
     _parse: (raw) ->
-        return _.extend super,
-            specification : raw.specification
-            description   : raw.description
+        parsed = super
+
+        ORM.parse parsed, raw, 'specification'
+        ORM.parse parsed, raw, 'description'
+
+        return parsed
 
 ORM.characters.CharacterHasFlaw.reset()
 

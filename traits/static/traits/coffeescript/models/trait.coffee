@@ -21,16 +21,16 @@ class ORM.traits.TraitType extends ORM.BaseModel
         label : ''
 
     _parse: (raw) ->
-        raw = super
+        parsed = {}
 
-        return {
-            id : ORM.parse.int raw, 'id'
+        ORM.parse.int parsed, raw, 'id'
 
-            chronicle_id : ORM.parse.int raw, 'chronicle_id'
+        ORM.parse.int parsed, raw, 'chronicle_id'
 
-            name  : raw.name
-            label : raw.label
-        }
+        ORM.parse parsed, raw, 'name'
+        ORM.parse parsed, raw, 'label'
+
+        return parsed
 
 ORM.traits.TraitType.reset()
 
@@ -57,18 +57,18 @@ class ORM.traits.Trait extends ORM.BaseModel
         order : undefined
 
     _parse: (raw) ->
-        raw = super
+        parsed = {}
 
-        return {
-            id         : ORM.parse.int raw, 'id'
-            trait_type : raw.trait_type
+        ORM.parse.int parsed, raw, 'id'
+        ORM.parse     parsed, raw, trait_type
 
-            chronicle_id : ORM.parse.int raw, 'chronicle_id'
+        ORM.parse.int parsed, raw, 'chronicle_id'
 
-            name  : raw.name
-            label : raw.label
-            order : ORM.parse.int raw, 'order'
-        }
+        ORM.parse     parsed, raw, name
+        ORM.parse     parsed, raw, label
+        ORM.parse.int parsed, raw, 'order'
+
+        return parsed
 
 ORM.traits.Trait.reset()
 

@@ -4,7 +4,7 @@
 ###
 
 
-Tools.create_namespace 'ORM.parse'
+Tools.create_namespace 'ORM'
 
 
 ORM.polymorphic_identity = (value, Model) ->
@@ -51,24 +51,31 @@ class ORM.BaseModel extends Supermodel.Model
         super _.extendOwn raw, raw_
 
 
-ORM.parse.number = (raw, field, cstor) ->
-    return undefined if raw[field] is undefined
+ORM.parse = (obj, raw, field) ->
+    obj[field] = raw[field] if raw[field] isnt undefined
+
+ORM.parse.number = (obj, raw, field, cstor) ->
+    return if raw[field] is undefined
     value = cstor raw[field]
-    return null if _.isNaN value
-    return value
+    return obj[field] = null if _.isNaN value
+    obj[field] = value
 
-ORM.parse.int = (raw, field) ->
-    return ORM.parse.number raw, field, (val) -> parseInt val, 10
+ORM.parse.int = (obj, raw, field) ->
+    return ORM.parse.number obj, raw, field, (val) -> parseInt val, 10
 
-ORM.parse.float = (raw, field) ->
-    return ORM.parse.number raw, field, (val) -> parseFloat val, 10
+ORM.parse.float = (obj, raw, field) ->
+    return ORM.parse.number obj, raw, field, (val) -> parseFloat val, 10
 
-ORM.parse.datetime = (raw, field) ->
-    return undefined if raw[field] is undefined
-    return null if raw[field] is null
-    return new Date raw[field]
+ORM.parse.enum = (obj, raw, field, Enum) ->
+    return if raw[field] is undefined
+    obj[field] = Enum[raw[field]]
 
-ORM.parse.date = (raw, field) ->
-    return undefined if raw[field] is undefined
-    return null if raw[field] is null
-    return new Datetime.Date raw[field]
+ORM.parse.datetime = (obj, raw, field) ->
+    return if raw[field] is undefined
+    return obj[field] = null if raw[field] is null
+    obj[field] = new Date raw[field]
+
+ORM.parse.date = (obj, raw, field) ->
+    return if raw[field] is undefined
+    return obj[field] = null if raw[field] is null
+    obj[field] = Datetime.Date raw[field]

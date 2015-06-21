@@ -15,8 +15,11 @@ class ORM.traits.MiscTrait extends ORM.traits.Trait
             requires_specification : undefined
 
     _parse: (raw) ->
-        return _.extend super,
-            requires_specification : raw.requires_specification
+        parsed = super
+
+        ORM.parse parsed, raw, 'requires_specification'
+
+        return parsed
 
 ORM.traits.MiscTrait.reset()
 

@@ -16,9 +16,12 @@ class ORM.characters.CharacterHasMiscTrait extends ORM.characters.CharacterHasTr
             description : undefined
 
     _parse: (raw) ->
-        return _.extend super,
-            rating      : ORM.parse.int raw, 'rating'
-            description : raw.description
+        parsed = super
+
+        ORM.parse.int parsed, raw, 'rating'
+        ORM.parse     parsed, raw, 'description'
+
+        return parsed
 
 ORM.characters.CharacterHasMiscTrait.reset()
 

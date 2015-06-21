@@ -21,17 +21,17 @@ class ORM.chronicles.Game extends ORM.BaseModel
         date         : undefined
 
     _parse: (raw) ->
-        raw = super
+        parsed = {}
 
-        return {
-            id : ORM.parse.int raw, 'id'
+        ORM.parse.int parsed, raw, 'id'
 
-            enabled : raw.enabled
+        ORM.parse parsed, raw, 'enabled'
 
-            name         : raw.name
-            chronicle_id : ORM.parse.int raw, 'chronicle_id'
-            date         : ORM.parse.date raw, 'date'
-        }
+        ORM.parsed     parsed, raw, 'name'
+        ORM.parse.int  parsed, raw, 'chronicle_id'
+        ORM.parse.date parsed, raw, 'date'
+
+        return parsed
 
 ORM.chronicles.Game.reset()
 

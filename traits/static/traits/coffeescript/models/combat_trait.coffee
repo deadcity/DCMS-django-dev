@@ -15,8 +15,11 @@ class ORM.traits.CombatTrait extends ORM.traits.Trait
             rating : undefined
 
     _parse: (raw) ->
-        return _.extend super,
-            rating : ORM.parse.int raw, 'rating'
+        parsed = super
+
+        ORM.parse.int parsed, raw, 'rating'
+
+        return parsed
 
 ORM.traits.CombatTrait.reset()
 

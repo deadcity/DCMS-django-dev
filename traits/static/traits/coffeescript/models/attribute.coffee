@@ -20,8 +20,11 @@ class ORM.traits.Attribute extends ORM.traits.Trait
             attribute_type_id : undefined
 
     _parse: (raw) ->
-        return _.extend super,
-            attribute_type_id : ORM.parse.int raw, 'attribute_type_id'
+        parsed = super
+
+        ORM.parse.int parsed, raw, 'attribute_type_id'
+
+        return parsed
 
 ORM.traits.Attribute.reset()
 
