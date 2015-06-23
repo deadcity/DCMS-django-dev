@@ -36,39 +36,36 @@ class VM.characters.SkillViewModel extends kb.ViewModel
 
 class VM.characters.CharacterViewModel extends kb.ViewModel
     constructor: (model, options) ->
-        super
+        super model, _.extend {}, options,
+            factories:
+                'user' : VM.auth.User
 
-        attribute_type_mental   = ORM.traits.AttributeType.all().findWhere label: 'Mental'
-        attribute_type_social   = ORM.traits.AttributeType.all().findWhere label: 'Social'
-        attribute_type_physical = ORM.traits.AttributeType.all().findWhere label: 'Physical'
+        filter_attributes = (label) =>
+            attribute_type = ORM.traits.AttributeType.all().findWhere 'label': label
+            return kb.collectionObservable @model().character_attributes(), VM.characters.CharacterAttributeViewModel,
+                filters: (model) -> model.trait().attribute_type() == attribute_type
+                comparator: order_comparator
 
-        skill_type_mental   = ORM.traits.SkillType.all().findWhere label: 'Mental'
-        skill_type_social   = ORM.traits.SkillType.all().findWhere label: 'Social'
-        skill_type_physical = ORM.traits.SkillType.all().findWhere label: 'Physical'
+        filter_skills = (label) =>
+            skill_type = ORM.traits.SkillType.all().findWhere 'label': label
+            return kb.collectionObservable @model().character_skills(), VM.characters.CharacterSkillViewModel,
+                filters: (model) -> model.trait().skill_type() == skill_type
+                comparator: order_label
 
-        @player_name = ko.computed =>
-            user = @user()
-            if user.first_name()? or user.last_name()?
-                player_name = ((user.first_name() ? '') + ' ' + (user.last_name() ? '')).trim()
-                return player_name if player_name != ''
-            return user.username().trim()
+        @mental_attributes   = filter_attributes 'Mental'
+        @physical_attributes = filter_attributes 'Physical'
+        @social_attributes   = filter_attributes 'Social'
 
-        @mental_attributes = kb.collectionObservable @model().character_attributes(), VM.characters.AttributeViewModel,
-            filters: (model) -> model.trait().attribute_type() == attribute_type_mental
-            comparator: order_comparator
-        @physical_attributes = kb.collectionObservable @model().character_attributes(), VM.characters.AttributeViewModel,
-            filters: (model) -> model.trait().attribute_type() == attribute_type_physical
-            comparator: order_comparator
-        @social_attributes = kb.collectionObservable @model().character_attributes(), VM.characters.AttributeViewModel,
-            filters: (model) -> model.trait().attribute_type() == attribute_type_social
-            comparator: order_comparator
+        @mental_skills   = filter_skills 'Mental'
+        @physical_skills = filter_skills 'Physical'
+        @social_skills   = filter_skills 'Social'
 
-        @mental_skills = kb.collectionObservable @model().character_skills(), VM.characters.SkillViewModel,
-            filters: (model) -> model.trait().skill_type() == skill_type_mental
-            comparator: order_label
-        @physical_skills = kb.collectionObservable @model().character_skills(), VM.characters.SkillViewModel,
-            filters: (model) -> model.trait().skill_type() == skill_type_physical
-            comparator: order_label
-        @social_skills = kb.collectionObservable @model().character_skills(), VM.characters.SkillViewModel,
-            filters: (model) -> model.trait().skill_type() == skill_type_social
-            comparator: order_label
+
+        # # # # # # # # # # #
+        # AVAILABLE TRAITS  #
+        # # # # # # # # # # #
+
+        @available_creature_types = kb.collectionObservable [model.creature_type()], comparator: 'order'
+        @available_genealogies    = kb.collectionObservable [model.genealogy()],     comparator: 'order'
+        @available_affiliations   = kb.collectionObservable [model.affiliation()],   comparator: 'order'
+        @available_subgroups      = kb.collectionObservable [model.subgroup()],      comparator: 'order'

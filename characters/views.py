@@ -90,6 +90,10 @@ def edit_character (request, id):
     ))
 
     traits = set(cht.trait for cht in character_has_traits)
+    if character.creature_type : traits.add(character.creature_type)
+    if character.genealogy     : traits.add(character.genealogy)
+    if character.affiliation   : traits.add(character.affiliation)
+    if character.subgroup      : traits.add(character.subgroup)
 
     return render(request, 'characters/character_edit.html', {
         'character': character,

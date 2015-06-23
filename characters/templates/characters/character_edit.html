@@ -61,6 +61,7 @@
     <!-- view-models -->
     {% compress js %}
         <script type='text/coffeescript' src='{% static 'coffeescript/ko_bindings/dot_rating.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'accounts/coffeescript/viewmodels/user.coffee' %}'></script>
         <script type='text/coffeescript' src='{% static 'characters/coffeescript/viewmodels/edit_main.coffee' %}'></script>
     {% endcompress %}
 {% endblock script_includes %}
@@ -74,10 +75,44 @@
         <!-- ko if: name() == '' -->
             <h1>(new character)</h1>
         <!-- /ko -->
-        <p><em>Played by:</em> <span data-bind="text: player_name()"></span></p>
+        <p><em>Played by:</em> <span data-bind="text: user().name()"></span></p>
     </header>
 
     <section id='general-character-traits'>
+        <span class='label'>Character Name:</span> <input type='text' name='name' data-bind="value: name()" /><br />
+        <span class='label'>Character Status:</span> <span data-bind="text: status().name"></span><br />
+        <span class='label'>Creature Type:</span> <select name='creature_type' data-bind="
+                options: available_creature_types,
+                optionsText: 'label',
+                value: creature_type()
+            "></select><br />
+        <!-- ko if: creature_type().genealogy_name() != null -->
+            <span class='label' data-bind="text: creature_type().genealogy_name"></span> <select name='genealogy' data-bind="
+                    options: available_genealogies,
+                    optionsText: 'label',
+                    value: genealogy
+                "></select><br />
+        <!-- /ko -->
+        <!-- ko if: creature_type().affiliation_name() != null -->
+            <span class='label' data-bind="text: creature_type().affiliation_name"></span> <select name='affiliation' data-bind="
+                    options: available_affiliations,
+                    optionsText: 'label',
+                    value: affiliation
+                "></select><br />
+        <!-- /ko -->
+        <!-- ko if: creature_type().subgroup_name() != null -->
+            <span class='label' data-bind="text: creature_type().subgroup_name"></span> <select name='subgroup' data-bind="
+                    options: available_subgroups,
+                    optionsText: 'label',
+                    value: subgroup
+                "></select><br />
+        <!-- /ko -->
+
+        {% comment %}
+        {# only include these for mortals (and ghouls?) #}
+        <span class='label'>Virtue:</span> <select name='virtue'></select><br />
+        <span class='label'>Vice:</span> <select name='vice'></select><br />
+        {% endcomment %}
     </section>
 
     <section id='attributes'>

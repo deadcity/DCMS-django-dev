@@ -39,7 +39,7 @@ class Character (AppLabel, BaseModel):
     status       = Column(EnumColumn(Status, name = 'character_status'), nullable = False, default = Status.EDITING)
 
     name             = Column(String, nullable = False, default = '')
-    creature_type_id = Column(Integer, ForeignKey(trait_models.CreatureType.id))
+    creature_type_id = Column(Integer, ForeignKey(trait_models.CreatureType.id), nullable = False)
     genealogy_id     = Column(Integer, ForeignKey(trait_models.Genealogy.id))
     affiliation_id   = Column(Integer, ForeignKey(trait_models.Affiliation.id))
     subgroup_id      = Column(Integer, ForeignKey(trait_models.Subgroup.id))

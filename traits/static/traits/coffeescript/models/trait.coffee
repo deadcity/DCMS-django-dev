@@ -60,12 +60,12 @@ class ORM.traits.Trait extends ORM.BaseModel
         parsed = {}
 
         ORM.parse.int parsed, raw, 'id'
-        ORM.parse     parsed, raw, trait_type
+        ORM.parse     parsed, raw, 'trait_type'
 
         ORM.parse.int parsed, raw, 'chronicle_id'
 
-        ORM.parse     parsed, raw, name
-        ORM.parse     parsed, raw, label
+        ORM.parse     parsed, raw, 'name'
+        ORM.parse     parsed, raw, 'label'
         ORM.parse.int parsed, raw, 'order'
 
         return parsed
