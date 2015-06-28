@@ -69,42 +69,42 @@
 
 {% block content %}
     <header class="charsheet-header">
-        <!-- ko if: name() != '' -->
-            <h1 data-bind="text: name()"></h1>
+        <!-- ko if: character.name() != '' -->
+            <h1 data-bind="text: character.name()"></h1>
         <!-- /ko -->
-        <!-- ko if: name() == '' -->
+        <!-- ko if: character.name() == '' -->
             <h1>(new character)</h1>
         <!-- /ko -->
-        <p><em>Played by:</em> <span data-bind="text: user().name()"></span></p>
+        <p><em>Played by:</em> <span data-bind="text: character.user().name()"></span></p>
     </header>
 
     <section id='general-character-traits'>
-        <span class='label'>Character Name:</span> <input type='text' name='name' data-bind="value: name()" /><br />
-        <span class='label'>Character Status:</span> <span data-bind="text: status().name"></span><br />
+        <span class='label'>Character Name:</span> <input type='text' name='name' data-bind="value: character.name()" /><br />
+        <span class='label'>Character Status:</span> <span data-bind="text: character.status().name"></span><br />
         <span class='label'>Creature Type:</span> <select name='creature_type' data-bind="
-                options: available_creature_types,
+                options: available.creature_types,
                 optionsText: 'label',
-                value: creature_type()
+                value: character.creature_type
             "></select><br />
-        <!-- ko if: creature_type().genealogy_name() != null -->
-            <span class='label' data-bind="text: creature_type().genealogy_name"></span> <select name='genealogy' data-bind="
-                    options: available_genealogies,
+        <!-- ko if: character.creature_type().genealogy_name() != null -->
+            <span class='label' data-bind="text: character.creature_type().genealogy_name"></span> <select name='genealogy' data-bind="
+                    options: available.genealogies,
                     optionsText: 'label',
-                    value: genealogy
+                    value: character.genealogy
                 "></select><br />
         <!-- /ko -->
-        <!-- ko if: creature_type().affiliation_name() != null -->
-            <span class='label' data-bind="text: creature_type().affiliation_name"></span> <select name='affiliation' data-bind="
-                    options: available_affiliations,
+        <!-- ko if: character.creature_type().affiliation_name() != null -->
+            <span class='label' data-bind="text: character.creature_type().affiliation_name"></span> <select name='affiliation' data-bind="
+                    options: available.affiliations,
                     optionsText: 'label',
-                    value: affiliation
+                    value: character.affiliation
                 "></select><br />
         <!-- /ko -->
-        <!-- ko if: creature_type().subgroup_name() != null -->
-            <span class='label' data-bind="text: creature_type().subgroup_name"></span> <select name='subgroup' data-bind="
-                    options: available_subgroups,
+        <!-- ko if: character.creature_type().subgroup_name() != null -->
+            <span class='label' data-bind="text: character.creature_type().subgroup_name"></span> <select name='subgroup' data-bind="
+                    options: available.subgroups,
                     optionsText: 'label',
-                    value: subgroup
+                    value: character.subgroup
                 "></select><br />
         <!-- /ko -->
 
@@ -119,7 +119,7 @@
         <h2>Attributes</h2>
         <div id='mental-attributes' style='width: 33.33333%'>
             <h3>Mental</h3>
-            <ul class='trait-list' data-bind="foreach: mental_attributes">
+            <ul class='trait-list' data-bind="foreach: character.mental_attributes">
                 <li>
                     <span class='stat-label' data-bind="text: trait().label()"></span>
                     <div data-bind="dot_rating: $data"></div>
@@ -128,7 +128,7 @@
         </div>
         <div id='physical-attributes' style='width: 33.33333%'>
             <h3>Physical</h3>
-            <ul class='trait-list' data-bind="foreach: physical_attributes">
+            <ul class='trait-list' data-bind="foreach: character.physical_attributes">
                 <li>
                     <span class='stat-label' data-bind="text: trait().label()"></span>
                     <div data-bind="dot_rating: $data"></div>
@@ -137,7 +137,7 @@
         </div>
         <div id='social-attributes' style='width: 33.33333%'>
             <h3>Social</h3>
-            <ul class='trait-list' data-bind="foreach: social_attributes">
+            <ul class='trait-list' data-bind="foreach: character.social_attributes">
                 <li>
                     <span class='stat-label' data-bind="text: trait().label()"></span>
                     <div data-bind="dot_rating: $data"></div>
@@ -150,7 +150,7 @@
         <h2>Skills</h2>
         <div id='mental-skills' style='width: 33.33333%'>
             <h3>Mental</h3>
-            <ul class='trait-list' data-bind="foreach: mental_skills">
+            <ul class='trait-list' data-bind="foreach: character.mental_skills">
                 <li>
                     <span class='stat-label' data-bind="text: trait().label()"></span>
                     <div data-bind="dot_rating: $data"></div>
@@ -159,7 +159,7 @@
         </div>
         <div id='physical-skills' style='width: 33.33333%'>
             <h3>Physical</h3>
-            <ul class='trait-list' data-bind="foreach: physical_skills">
+            <ul class='trait-list' data-bind="foreach: character.physical_skills">
                 <li>
                     <span class='stat-label' data-bind="text: trait().label()"></span>
                     <div data-bind="dot_rating: $data"></div>
@@ -168,7 +168,7 @@
         </div>
         <div id='social-skills' style='width: 33.33333%'>
             <h3>Social</h3>
-            <ul class='trait-list' data-bind="foreach: social_skills">
+            <ul class='trait-list' data-bind="foreach: character.social_skills">
                 <li>
                     <span class='stat-label' data-bind="text: trait().label()"></span>
                     <div data-bind="dot_rating: $data"></div>
@@ -189,8 +189,14 @@ window.character = new ORM.characters.Character(
 
     {% compress js %}
         <script type='text/coffeescript'>
-            window.character_view_model = new VM.characters.CharacterViewModel character
-            ko.applyBindings character_view_model
+            window.master_view_model =
+                'character': new VM.characters.CharacterViewModel character
+                'available': new VM.characters.AvailableTraits character
+            master_view_model.character.available = master_view_model.available
+            master_view_model.available.character = master_view_model.character
+
+            # VM.characters.CharacterTrait.available_viewmodel = master_view_model.available
+            ko.applyBindings master_view_model
         </script>
     {% endcompress %}
 {% endblock content %}

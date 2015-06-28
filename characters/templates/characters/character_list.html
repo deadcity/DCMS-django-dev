@@ -107,11 +107,11 @@ window.characters = new Backbone.Collection(
                 @can_enable  = ko.computed => @can_edit() and not @enabled()
                 @can_disable = ko.computed => @can_edit() and     @enabled()
 
-                @edit_url = ko.computed => "#{ Settings.URL_PREFIX }/characters/#{ @id() }/edit"
+                @edit_url = ko.computed => "#{ DCMS.Settings.URL_PREFIX }/characters/#{ @id() }/edit"
 
             submit_character: ->
                 @processing true
-                $.ajax "#{ Settings.URL_PREFIX }/characters/#{ @id() }/submit",
+                $.ajax "#{ DCMS.Settings.URL_PREFIX }/characters/#{ @id() }/submit",
                     type: 'PUT'
                     dataType: 'json'
                     success: (data) =>
@@ -123,7 +123,7 @@ window.characters = new Backbone.Collection(
 
             disable_character: ->
                 @processing true
-                $.ajax "#{ Settings.URL_PREFIX }/characters/#{ @id() }/disable",
+                $.ajax "#{ DCMS.Settings.URL_PREFIX }/characters/#{ @id() }/disable",
                     type: 'PUT'
                     success: => @model().set 'enabled', false
                     error: -> window.alert 'ERROR: disable character failed'
@@ -131,7 +131,7 @@ window.characters = new Backbone.Collection(
 
             enable_character: ->
                 @processing true
-                $.ajax "#{ Settings.URL_PREFIX }/characters/#{ @id() }/enable",
+                $.ajax "#{ DCMS.Settings.URL_PREFIX }/characters/#{ @id() }/enable",
                     type: 'PUT'
                     success: => @model().set 'enabled', true
                     error: -> window.alert 'ERROR: enable character failed'

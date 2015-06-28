@@ -4,6 +4,7 @@
 
 from datetime import datetime
 from itertools import chain
+from json import loads  # DEBUG
 
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseForbidden, JsonResponse
@@ -13,7 +14,10 @@ from django.views.decorators.http import require_http_methods
 from characters.models import Character
 from dsqla.models import ModelEncoder
 from dsqla.session import session
-from traits.models import AttributeType, FlawType, MeritType, SkillType
+from traits.models import (
+    AttributeType, SkillType, MeritType, FlawType,
+    CreatureType, Genealogy, Affiliation, Subgroup
+)
 
 
 class HttpResponseUnauthorized (HttpResponse):
@@ -182,5 +186,50 @@ def enable_character (request, id):
     return JsonResponse(
         character.to_dict(),
         safe = False,
+        encoder = ModelEncoder
+    )
+
+
+@login_required
+def available_traits (request, id):
+    character = session.query(Character).get(int(id))
+
+    response = storyteller_or_editing_owner(request, character, 'edit')
+    if response:
+        return response
+
+    # TODO(Emery): This needs to actually go through the chronicle's access
+    #              rules and build up the list of trait availabilities.  For
+    #              now, just return everything.
+
+    return JsonResponse(
+        {
+            'CreatureType' : { 'ALLOW' : list(session.query(CreatureType)), },
+            'Genealogy'    : { 'ALLOW' : list(session.query(Genealogy)),    },
+            'Affiliation'  : { 'ALLOW' : list(session.query(Affiliation)),  },
+            'Subgroup'     : { 'ALLOW' : list(session.query(Subgroup)),     },
+        },
+        encoder = ModelEncoder
+    )
+
+
+@login_required
+# @require_http_methods(['PATCH'])
+@require_http_methods(['PUT'])
+def update_character_summary (request, id):
+    character = session.query(Character).get(int(id))
+
+    response = storyteller_or_editing_owner(request, character, 'edit')
+    if response:
+        return response
+
+    key, value = request.body.decode('ascii').split('=')
+    setattr(character, key, value)
+
+    # TODO(Emery): This needs to go through the access rules that are dependent
+    #              on the character-summary traits that changed and see if any
+    #              traits have changed access permissions.
+    return JsonResponse(
+        {},
         encoder = ModelEncoder
     )

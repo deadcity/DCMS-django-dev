@@ -21,6 +21,14 @@ class ORM.BaseModel extends Supermodel.Model
             polymorphic_on = @constructor._polymorphic_on
             if polymorphic_on? and not attrs[polymorphic_on]?
                 @once 'change:' + polymorphic_on, @_update_polymorphic_identity, @
+
+            # When a model is destoryed, remove all references so it can be
+            # cleaned up.  This will not prevent already queued events from
+            # firing.
+            @on 'destroy', =>
+                @stopListening()
+                @off()
+
             return @
 
         options = _.extend {}, options, _force_new: true
@@ -31,6 +39,24 @@ class ORM.BaseModel extends Supermodel.Model
         model.__proto__ = target_model.prototype
         model.initialize model.attributes, options
         model.fetch()
+
+    ## Destroy this object on the client only. (No effect on the server.)
+    #
+    #  This is basically the exact same implementation as Backbone.Model's
+    #  destroy(options) except that it doesn't sync with the server.  It will
+    #  trigger the 'dismantle' event on itself then it will trigger the
+    #  'destroy' event on itself passing the additional option dismantle: true.
+    #
+    #  This implementation may not look exactly like Backbone.Model's
+    #  destroy(options), but that's because it is unwinding a lot of
+    #  asynchronous callback definitions.
+    dismantle: (options) ->
+        options = _.extend {}, options
+
+        @trigger 'dismantle', @, @collection, options
+        options.dismantle = true
+        @trigger 'destroy', @, @collection, options
+        options.success model, resp, options if options.success?
 
     ## Override this to provide parsing functionality [instead of `parse`].
     _parse: (raw) -> raw
