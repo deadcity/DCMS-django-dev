@@ -33,6 +33,10 @@ class ModelEncoder (JSONEncoder):
         elif isinstance(obj, (datetime, date, time)):
             return str(obj)
 
+        # Model
+        elif isinstance(obj, ToJSON):
+            return obj.to_dict()
+
         # (others)
         else:
             return super(ModelEncoder, self).default(obj)
