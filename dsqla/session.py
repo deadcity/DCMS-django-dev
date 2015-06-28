@@ -7,11 +7,11 @@ from django.conf import settings
 
 from sqlalchemy import create_engine
 from sqlalchemy.engine.url import URL
+from sqlalchemy.orm.scoping import scoped_session
 from sqlalchemy.orm.session import sessionmaker
 
 
-Session = sessionmaker()
-_sessions = {}
+_session_classes = {}
 
 
 ENGINE = {
@@ -24,9 +24,9 @@ ENGINE = {
 
 
 def get_session (database_alias = 'default'):
-    _session = _sessions.get(database_alias, None)
+    Session = _session_classes.get(database_alias, None)
 
-    if _session is None:
+    if Session is None:
         db_settings = settings.DATABASES[database_alias]
         port = db_settings['PORT']
 
@@ -39,9 +39,11 @@ def get_session (database_alias = 'default'):
             database = db_settings['NAME']
         ), echo = settings.DEBUG)
 
-        _sessions[database_alias] = _session = Session(bind = engine)
+        session_factory = sessionmaker(bind = engine)
+        Session = scoped_session(session_factory)
+        _session_classes[database_alias] = Session
 
-    return _session
+    return Session
 
 
 session = get_session()

@@ -8,6 +8,7 @@ from dsqla.session import session
 class SQLATransactionMiddleware (object):
     def process_response (self, request, response):
         session.commit()
+        session.remove()
         return response
 
     def process_exception (self, request, exception):
