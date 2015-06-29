@@ -1,5 +1,5 @@
 create_namespace = (namespace_name) ->
-    if not namespace_name then return window
+    return window if not namespace_name
     tokens = namespace_name.split '.'
     parent = window
 
@@ -12,6 +12,18 @@ create_namespace = (namespace_name) ->
 Tools = create_namespace 'Tools'
 Tools.create_namespace = create_namespace
 
+Tools.resolve = (name, root = window) ->
+    return root if not name
+    return name if not _.isString name
+    tokens = name.split '.'
+    obj = root
+
+    for item in tokens
+        obj = obj[item]
+        return obj if obj is undefined
+
+    return obj
+
 
 ## Just a copy of Backbone's wrapError.
 #
@@ -23,5 +35,8 @@ Tools.wrap_error = (model, options) ->
         model.trigger 'error', model, resp, options
 
 
-Function::define_property = (property_name, desc) ->
+Function::property = (property_name, desc) ->
     Object.defineProperty @prototype, property_name, desc
+
+Function::class_property = (property_name, desc) ->
+    Object.defineProperty @, property_name, desc
