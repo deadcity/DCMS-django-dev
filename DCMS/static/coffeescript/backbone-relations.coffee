@@ -3,17 +3,10 @@
     @brief Base model class and related classes and functions for providing
         unobtrusive (with respect to the attributes) relations in Backbone
         models.
-
-    @TODO
-        + store (single model instances)
-        + relation to one
-        + relation to many
-        - polymorphic identity
 ###
 
 
 BackboneRelations = Tools.create_namespace 'BackboneRelations'
-Test = Tools.create_namespace 'Test'
 
 
 class BackboneRelations.Model extends Backbone.Model
@@ -76,6 +69,11 @@ class BackboneRelations.Model extends Backbone.Model
                 variable on this model where a cached copy of the referenced
                 model will be stored.
 
+        @event "update-relation:[name]" (this, model, relation_options)
+            This event is called whenever the related model is recached. This
+            event is triggered just before the referenced model is saved in the
+            store.
+
         Relations are property definitions on the prototype, hence they are
         inherited by child classes.
     ###
@@ -94,19 +92,33 @@ class BackboneRelations.Model extends Backbone.Model
                 attribute = @get options.attribute
                 model = @[options.store]
 
-                # Handle unsynched models or undefined relations.
+                # `attribute` being `undefined` means either the relation has
+                # not yet been set or the related model has not yet been
+                # persisted on the server. In case of the latter, assume the
+                # store is correctly set.
                 return model if attribute is undefined
+
+                # `attribute` being `null` means the relation is set to null.
+                if attribute is null
+                    if model isnt null
+                        @trigger 'update-relation:' + name, @, null, options
+                    return @[options.store] = null
 
                 # If cached value is up-to-date, return it.
                 if model?.id is attribute
                     return model
 
                 # Fetch (or create) the model.
-                Model = Tools.resolve options.Model
-                return @[options.store] = new Model 'id': attribute
+                if _.isString options.Model
+                    options.Model = Tools.resolve options.Model
+                model = new options.Model 'id': attribute
+                @trigger 'update-relation:' + name, @, model, options
+
+                return @[options.store] = model
 
             set: (model) ->
                 @set options.attribute, model.id
+                @trigger 'update-relation:' + name, @, model, options
                 @[options.store] = model
 
     ###
@@ -132,6 +144,11 @@ class BackboneRelations.Model extends Backbone.Model
                 collection and filtering for models with `attribute` equal to
                 this model's id.
 
+        @event "update-relation:[name]" (this, collection, relation_options)
+            This event is called whenever the collection of related models is
+            recreated. This event is triggered just before the referenced model
+            is saved in the store.
+
         Relations are property definitions on the prototype, hence they are
         inherited by child classes.
     ###
@@ -151,7 +168,7 @@ class BackboneRelations.Model extends Backbone.Model
                 options.filter = filter()
                 collection = new Tools.Collections.Filtered null, options
                 collection.listenTo options.referenced_model, 'change:id', ->
-                    collection.filter filter()
+                    collection.set_filter filter()
 
                 return collection
 
@@ -161,18 +178,21 @@ class BackboneRelations.Model extends Backbone.Model
         # Define lazy property.
         @property name,
             get: ->
-                models = @[options.store]
+                collection = @[options.store]
 
                 # Collection already initialized.
-                return models if models?
+                return collection if collection?
 
                 # First time accessed.
-                Model = Tools.resolve options.Model
-                models = new options.Collection null,
-                    model                 : Model
+                if _.isString options.Model
+                    options.Model = Tools.resolve options.Model
+                collection = new options.Collection null,
+                    model                 : options.Model
                     referenced_model      : @
                     referencing_attribute : options.attribute
-                return @[options.store] = models
+                @trigger 'update-relation:' + name, @, collection, options
+
+                return @[options.store] = collection
 
     ###
         Class function to initialize polymorphic model inheritance.
@@ -250,6 +270,13 @@ class BackboneRelations.Model extends Backbone.Model
         if @constructor._polymorphic_on?
             @on 'change:' + @constructor._polymorphic_on, @_update_polymorphic_identity, @
 
+        # When a model is destroyed, remove all references so it can be cleaned
+        # up. This should not prevent any already queued event-handlers from
+        # being called.
+        @on 'destroy', =>
+            @stopListening()
+            @off()
+
         return @
 
     _update_polymorphic_identity: (model, value, options) ->
@@ -273,26 +300,3 @@ class BackboneRelations.Model extends Backbone.Model
                 delete model[relation.store]
 
         model.trigger 'update-polymorphic-identity', model, value, options
-
-
-class Test.Standalone extends BackboneRelations.Model
-    @has_many 'parents',
-        Model: 'Test.Parent'
-        attribute: 'standalone_id'
-
-
-class Test.Parent extends BackboneRelations.Model
-    @has_one 'standalone', Model: Test.Standalone
-
-    @polymorphic_on 'discriminator'
-
-
-class Test.Child1 extends Test.Parent
-    @polymorphic_identity 'child_1'
-
-
-Test.Parent.store()
-
-
-class Test.Child2 extends Test.Parent
-    @polymorphic_identity 'child_2'

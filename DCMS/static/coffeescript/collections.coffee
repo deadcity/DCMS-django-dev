@@ -19,7 +19,7 @@ class Collections.Filtered extends Collections.ReadOnly
     initialize: (models, options) ->
         super
         @_base_collection = options.base_collection
-        @filter options.filter
+        @set_filter options.filter
 
         @listenTo @_base_collection, 'change', @_filter_model
         @listenTo @_base_collection, 'add',    @_on_add
@@ -46,7 +46,7 @@ class Collections.Filtered extends Collections.ReadOnly
         if collection is @_base_collection
             Backbone.Collection::remove.call @, model, options
 
-    filter: (filter) ->
+    set_filter: (filter) ->
         @_filter = filter
 
         models = if @_filter? then @_base_collection.filter @_filter else @_base_collection.models
