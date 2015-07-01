@@ -9,27 +9,20 @@ Tools.create_namespace 'ORM.traits'
 
 class ORM.traits.AttributeType extends ORM.traits.TraitType
 
-ORM.traits.AttributeType.reset()
-
 
 class ORM.traits.Attribute extends ORM.traits.Trait
-    @parent: ORM.traits.Trait
+    @polymorphic_identity 'attribute'
 
     defaults: () ->
         return _.extend super,
             attribute_type_id : undefined
 
-    _parse: (raw) ->
+    parse: (raw) ->
         parsed = super
 
         ORM.parse.int parsed, raw, 'attribute_type_id'
 
         return parsed
 
-ORM.traits.Attribute.reset()
-
-ORM.polymorphic_identity 'attribute', ORM.traits.Attribute
-
-ORM.traits.Attribute.has().one 'attribute_type',
-    model: ORM.traits.AttributeType
-    inverse: 'attributes'
+    @has_one 'attribute_type',
+        Model : ORM.traits.AttributeType

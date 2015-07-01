@@ -8,19 +8,15 @@ Tools.create_namespace 'ORM.traits'
 
 
 class ORM.traits.CombatTrait extends ORM.traits.Trait
-    @parent: ORM.traits.Trait
+    @polymorphic_identity 'combat_trait'
 
     defaults: () ->
         return _.extend super,
             rating : undefined
 
-    _parse: (raw) ->
+    parse: (raw) ->
         parsed = super
 
         ORM.parse.int parsed, raw, 'rating'
 
         return parsed
-
-ORM.traits.CombatTrait.reset()
-
-ORM.polymorphic_identity 'combat_trait', ORM.traits.CombatTrait

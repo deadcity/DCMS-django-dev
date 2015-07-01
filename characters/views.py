@@ -214,8 +214,7 @@ def available_traits (request, id):
 
 
 @login_required
-# @require_http_methods(['PATCH'])
-@require_http_methods(['PUT'])
+@require_http_methods(['PATCH'])
 def update_character_summary (request, id):
     character = session.query(Character).get(int(id))
 
@@ -223,6 +222,7 @@ def update_character_summary (request, id):
     if response:
         return response
 
+    # print('REQUEST:', request.body.decode('ascii'))
     key, value = request.body.decode('ascii').split('=')
     setattr(character, key, value)
 

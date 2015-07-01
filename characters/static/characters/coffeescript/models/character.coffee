@@ -39,26 +39,7 @@ class ORM.characters.Character extends ORM.BaseModel
         date_approved    : undefined
         date_last_edited : undefined
 
-    # relations: [
-    #     ORM.relation('user',      ORM.auth.User),
-    #     ORM.relation('chronicle', ORM.chronicles.Chronicle),
-
-    #     ORM.relation('creature_type', ORM.traits.CreatureType),
-    #     ORM.relation('genealogy',     ORM.traits.Genealogy),
-    #     ORM.relation('affiliation',   ORM.traits.Affiliation),
-    #     ORM.relation('subgroup',      ORM.traits.Subgroup),
-
-    #     ORM.relation_collection('attributes',        'characters.CharacterHasAttribute'),
-    #     ORM.relation_collection('skills',            'characters.CharacterHasSkill'),
-    #     ORM.relation_collection('skill_specialties', 'characters.CharacterHasSkillSpecialty'),
-    #     ORM.relation_collection('powers',            'characters.CharacterHasPower'),
-    #     ORM.relation_collection('merits',            'characters.CharacterHasMerit'),
-    #     ORM.relation_collection('flaws',             'characters.CharacterHasFlaw'),
-    #     ORM.relation_collection('combat_traits',     'characters.CharacterHasCombatTrait'),
-    #     ORM.relation_collection('misc_traits',       'characters.CharacterHasMiscTrait'),
-    # ]
-
-    _parse: (raw) ->
+    parse: (raw) ->
         parsed = {}
 
         ORM.parse.int parsed, raw, 'id'
@@ -81,29 +62,42 @@ class ORM.characters.Character extends ORM.BaseModel
 
         return parsed
 
-ORM.characters.Character.reset()
+    @has_one 'user',      Model : 'ORM.auth.User'
+    @has_one 'chronicle', Model : 'ORM.chronicles.Chronicle'
 
-ORM.characters.Character.has().one 'user',
-    model: ORM.auth.User
-    inverse: 'characters'
+    @has_one 'creature_type', Model : 'ORM.traits.CreatureType'
+    @has_one 'genealogy',     Model : 'ORM.traits.Genealogy'
+    @has_one 'affiliation',   Model : 'ORM.traits.Affiliation'
+    @has_one 'subgroup',      Model : 'ORM.traits.Subgroup'
 
-ORM.auth.User.has().many 'characters',
-    collection: class Character_Collection extends Backbone.Collection
-        model: ORM.characters.Character
-    inverse: 'user'
+    @has_many 'character_attributes',
+        Model     : 'ORM.characters.CharacterHasAttribute'
+        attribute : 'character_id'
 
-ORM.characters.Character.has().one 'creature_type',
-    model: ORM.traits.CreatureType
-    inverse: 'character'
+    @has_many 'character_skills',
+        Model     : 'ORM.characters.CharacterHasSkill'
+        attribute : 'character_id'
 
-ORM.characters.Character.has().one 'genealogy',
-    model: ORM.traits.Genealogy
-    inverse: 'character'
+    @has_many 'character_skill_specialties',
+        Model     : 'ORM.characters.CharacterHasSkillSpecialty',
+        attribute : 'character_id'
 
-ORM.characters.Character.has().one 'affiliation',
-    model: ORM.traits.Affiliation
-    inverse: 'character'
+    @has_many 'character_powers',
+        Model     : 'ORM.characters.CharacterHasPower',
+        attribute : 'character_id'
 
-ORM.characters.Character.has().one 'subgroup',
-    model: ORM.traits.Subgroup
-    inverse: 'character'
+    @has_many 'character_merits',
+        Model     : 'ORM.characters.CharacterHasMerit',
+        attribute : 'character_id'
+
+    @has_many 'character_flaws',
+        Model     : 'ORM.characters.CharacterHasFlaw',
+        attribute : 'character_id'
+
+    @has_many 'character_combat_traits',
+        Model     : 'ORM.characters.CharacterHasCombatTrait',
+        attribute : 'character_id'
+
+    @has_many 'character_misc_traits',
+        Model     : 'ORM.characters.CharacterHasMiscTrait',
+        attribute : 'character_id'

@@ -8,34 +8,17 @@ Tools.create_namespace 'ORM.characters'
 
 
 class ORM.characters.CharacterHasMiscTrait extends ORM.characters.CharacterHasTrait
-    @parent: ORM.characters.CharacterHasTrait
+    @polymorphic_identity 'misc_trait'
 
     defaults: () ->
         return _.extend super,
             rating      : undefined
             description : undefined
 
-    _parse: (raw) ->
+    parse: (raw) ->
         parsed = super
 
         ORM.parse.int parsed, raw, 'rating'
         ORM.parse     parsed, raw, 'description'
 
         return parsed
-
-ORM.characters.CharacterHasMiscTrait.reset()
-
-ORM.polymorphic_identity 'misc_trait', ORM.characters.CharacterHasMiscTrait
-
-ORM.characters.CharacterHasMiscTrait.has().one 'trait',
-    model: ORM.traits.MiscTrait
-    inverse: 'character_has_misc_trait'
-
-ORM.characters.CharacterHasMiscTrait.has().one 'character',
-    model: ORM.characters.Character
-    inverse: 'character_misc_traits'
-
-ORM.characters.Character.has().many 'character_misc_traits',
-    collection: class CharacterHasMiscTrait_Collection extends Backbone.Collection
-        model: ORM.characters.CharacterHasMiscTrait
-    inverse: 'character'

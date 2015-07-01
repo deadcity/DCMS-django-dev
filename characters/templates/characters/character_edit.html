@@ -82,27 +82,27 @@
         <span class='label'>Character Name:</span> <input type='text' name='name' data-bind="value: character.name()" /><br />
         <span class='label'>Character Status:</span> <span data-bind="text: character.status().name"></span><br />
         <span class='label'>Creature Type:</span> <select name='creature_type' data-bind="
-                options: available.creature_types,
+                options: character.available.creature_types,
                 optionsText: 'label',
                 value: character.creature_type
             "></select><br />
         <!-- ko if: character.creature_type().genealogy_name() != null -->
             <span class='label' data-bind="text: character.creature_type().genealogy_name"></span> <select name='genealogy' data-bind="
-                    options: available.genealogies,
+                    options: character.available.genealogies,
                     optionsText: 'label',
                     value: character.genealogy
                 "></select><br />
         <!-- /ko -->
         <!-- ko if: character.creature_type().affiliation_name() != null -->
             <span class='label' data-bind="text: character.creature_type().affiliation_name"></span> <select name='affiliation' data-bind="
-                    options: available.affiliations,
+                    options: character.available.affiliations,
                     optionsText: 'label',
                     value: character.affiliation
                 "></select><br />
         <!-- /ko -->
         <!-- ko if: character.creature_type().subgroup_name() != null -->
             <span class='label' data-bind="text: character.creature_type().subgroup_name"></span> <select name='subgroup' data-bind="
-                    options: available.subgroups,
+                    options: character.available.subgroups,
                     optionsText: 'label',
                     value: character.subgroup
                 "></select><br />
@@ -189,14 +189,11 @@ window.character = new ORM.characters.Character(
 
     {% compress js %}
         <script type='text/coffeescript'>
-            window.master_view_model =
+            window.character_view_model =
                 'character': new VM.characters.CharacterViewModel character
-                'available': new VM.characters.AvailableTraits character
-            master_view_model.character.available = master_view_model.available
-            master_view_model.available.character = master_view_model.character
 
             # VM.characters.CharacterTrait.available_viewmodel = master_view_model.available
-            ko.applyBindings master_view_model
+            ko.applyBindings character_view_model
         </script>
     {% endcompress %}
 {% endblock content %}

@@ -20,7 +20,7 @@ class ORM.traits.TraitType extends ORM.BaseModel
         name  : undefined
         label : ''
 
-    _parse: (raw) ->
+    parse: (raw) ->
         parsed = {}
 
         ORM.parse.int parsed, raw, 'id'
@@ -32,16 +32,12 @@ class ORM.traits.TraitType extends ORM.BaseModel
 
         return parsed
 
-ORM.traits.TraitType.reset()
-
-ORM.traits.TraitType.has().one 'chronicle',
-    model: ORM.chronicles.ChronicleBase
-    inverse: 'trait_types'
+    @has_one 'chronicle',
+        Model : ORM.chronicles.ChronicleBase
 
 
 class ORM.traits.Trait extends ORM.BaseModel
-    @_polymorphic_on: 'trait_type'
-    @_polymorphic_identity: {}
+    @polymorphic_on 'trait_type'
 
     urlRoot: () ->
         DCMS.Settings.URL_PREFIX + '/rest/traits/' + @constructor.name
@@ -56,7 +52,7 @@ class ORM.traits.Trait extends ORM.BaseModel
         label : ''
         order : undefined
 
-    _parse: (raw) ->
+    parse: (raw) ->
         parsed = {}
 
         ORM.parse.int parsed, raw, 'id'
@@ -70,13 +66,5 @@ class ORM.traits.Trait extends ORM.BaseModel
 
         return parsed
 
-ORM.traits.Trait.reset()
-
-ORM.traits.Trait.has().one 'chronicle',
-    model: ORM.chronicles.ChronicleBase
-    inverse: 'traits'
-
-ORM.chronicles.ChronicleBase.has().many 'traits',
-    collection: class Trait_Collection extends Backbone.Collection
-        model: ORM.traits.Trait
-    inverse: 'chronicle'
+    @has_one 'chronicle',
+        Model : ORM.chronicles.ChronicleBase

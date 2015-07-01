@@ -20,7 +20,7 @@ class ORM.chronicles.Game extends ORM.BaseModel
         chronicle_id : undefined
         date         : undefined
 
-    _parse: (raw) ->
+    parse: (raw) ->
         parsed = {}
 
         ORM.parse.int parsed, raw, 'id'
@@ -33,13 +33,5 @@ class ORM.chronicles.Game extends ORM.BaseModel
 
         return parsed
 
-ORM.chronicles.Game.reset()
-
-ORM.chronicles.Game.has().one 'chronicle',
-    model: ORM.chronicles.Chronicle
-    inverse: 'games'
-
-ORM.chronicles.Chronicle.has().many 'games',
-    collection: class Game_Collection extends Backbone.Collection
-        model: ORM.chronicles.Game
-    inverse: 'chronicle'
+    @has_one 'chronicle',
+        Model : ORM.chronicles.Chronicle

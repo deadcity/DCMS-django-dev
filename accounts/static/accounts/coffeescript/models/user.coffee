@@ -28,7 +28,7 @@ class ORM.auth.User extends ORM.BaseModel
         last_login  : undefined
         date_joined : undefined
 
-    _parse: (raw) ->
+    parse: (raw) ->
         parsed = {}
 
         ORM.parse.int parsed, raw, 'id'
@@ -48,5 +48,3 @@ class ORM.auth.User extends ORM.BaseModel
         ORM.parse.datetime parsed, raw, 'date_joined'
 
         return parsed
-
-ORM.auth.User.reset()

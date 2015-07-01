@@ -8,7 +8,7 @@ Tools.create_namespace 'ORM.characters'
 
 
 class ORM.characters.CharacterHasMerit extends ORM.characters.CharacterHasTrait
-    @parent: ORM.characters.CharacterHasTrait
+    @polymorphic_identity 'merit'
 
     defaults: () ->
         return _.extend super,
@@ -16,7 +16,7 @@ class ORM.characters.CharacterHasMerit extends ORM.characters.CharacterHasTrait
             specification : undefined
             description   : undefined
 
-    _parse: (raw) ->
+    parse: (raw) ->
         parsed = super
 
         ORM.parse.int parsed, raw, 'rating'
@@ -24,20 +24,3 @@ class ORM.characters.CharacterHasMerit extends ORM.characters.CharacterHasTrait
         ORM.parse     parsed, raw, 'description'
 
         return parsed
-
-ORM.characters.CharacterHasMerit.reset()
-
-ORM.polymorphic_identity 'merit', ORM.characters.CharacterHasMerit
-
-ORM.characters.CharacterHasMerit.has().one 'trait',
-    model: ORM.traits.Merit
-    inverse: 'character_has_merit'
-
-ORM.characters.CharacterHasMerit.has().one 'character',
-    model: ORM.characters.Character
-    inverse: 'character_merits'
-
-ORM.characters.Character.has().many 'character_merits',
-    collection: class CharacterHasMerit_Collection extends Backbone.Collection
-        model: ORM.characters.CharacterHasMerit
-    inverse: 'character'

@@ -8,7 +8,7 @@ Tools.create_namespace 'ORM.traits'
 
 
 class ORM.traits.CreatureType extends ORM.traits.Trait
-    @parent: ORM.traits.Trait
+    @polymorphic_identity 'creature_type'
 
     defaults: () ->
         return _.extend super,
@@ -17,7 +17,7 @@ class ORM.traits.CreatureType extends ORM.traits.Trait
             subgroup_name    : undefined
             power_name       : undefined
 
-    _parse: (raw) ->
+    parse: (raw) ->
         parsed = super
 
         ORM.parse parsed, raw, 'genealogy_name'
@@ -26,7 +26,3 @@ class ORM.traits.CreatureType extends ORM.traits.Trait
         ORM.parse parsed, raw, 'power_name'
 
         return parsed
-
-ORM.traits.CreatureType.reset()
-
-ORM.polymorphic_identity 'creature_type', ORM.traits.CreatureType

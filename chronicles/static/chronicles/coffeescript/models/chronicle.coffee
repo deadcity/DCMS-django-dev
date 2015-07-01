@@ -8,10 +8,7 @@ Tools.create_namespace 'ORM.chronicles'
 
 
 class ORM.chronicles.ChronicleBase extends ORM.BaseModel
-    @_polymorphic_on: 'chronicle_type'
-    @_polymorphic_identity: {}
-    #     'chronicle_template' : 'ChronicleTemplate'
-    #     'chronicle'          : 'Chronicle'
+    @polymorphic_on 'chronicle_type'
 
     urlRoot: () ->
         DCMS.Settings.URL_PREFIX + '/rest/chronicles/ChronicleBase'
@@ -24,7 +21,7 @@ class ORM.chronicles.ChronicleBase extends ORM.BaseModel
         name        : ''
         description : ''
 
-    _parse: (raw) ->
+    parse: (raw) ->
         parsed = {}
 
         ORM.parse.int parsed, raw, 'id'
@@ -36,33 +33,27 @@ class ORM.chronicles.ChronicleBase extends ORM.BaseModel
 
         return parsed
 
-ORM.chronicles.ChronicleBase.reset()
-
 
 class ORM.chronicles.ChronicleTemplate extends ORM.chronicles.ChronicleBase
-    @parent: ORM.chronicles.ChronicleBase
+    @polymorphic_identity 'chronicle_template'
 
     urlRoot: () ->
         DCMS.Settings.URL_PREFIX + '/rest/chronicles/ChronicleTemplate'
 
-ORM.chronicles.ChronicleTemplate.reset()
-
-ORM.polymorphic_identity 'chronicle_template', ORM.chronicles.ChronicleTemplate
-
 
 class ORM.chronicles.Chronicle extends ORM.chronicles.ChronicleBase
-    @parent: ORM.chronicles.ChronicleBase
+    @polymorphic_identity 'chronicle'
 
     urlRoot: () ->
         DCMS.Settings.URL_PREFIX + '/rest/chronicles/Chronicle'
 
-    # referse relations:
-    #   templates -> ORM.Chronicles.ChronicleInheritsTemplate
-    #   games -> ORM.Chronicles.Game
+    @has_many 'templates',
+        Model     : 'ORM.chronicles.ChronicleInheritsTemplate'
+        attribute : 'chronicle_id'
 
-ORM.chronicles.Chronicle.reset()
-
-ORM.polymorphic_identity 'chronicle', ORM.chronicles.Chronicle
+    @has_many 'games',
+        Model     : 'ORM.chronicles.Game'
+        attribute : 'chronicle_id'
 
 
 class ORM.chronicles.ChronicleInheritsTemplate extends ORM.BaseModel
@@ -75,7 +66,7 @@ class ORM.chronicles.ChronicleInheritsTemplate extends ORM.BaseModel
 
         hide_denied_traits : false
 
-    _parse: () ->
+    parse: () ->
         parsed = {}
 
         ORM.parse.int parsed, raw, 'chronicle_id'
@@ -85,18 +76,9 @@ class ORM.chronicles.ChronicleInheritsTemplate extends ORM.BaseModel
 
         return parsed
 
-ORM.chronicles.ChronicleInheritsTemplate.reset()
+    @has_one 'chronicle',
+        Model : ORM.chronicles.Chronicle
 
-
-ORM.chronicles.Chronicle.has().many 'templates',
-    collection: class ChronicleInheritsTemplate_Collection extends Backbone.Collection
-        model: ORM.chronicles.ChronicleInheritsTemplate
-    inverse: 'chronicle'
-
-ORM.chronicles.ChronicleInheritsTemplate.has().one 'chronicle',
-    model: ORM.chronicles.Chronicle
-    inverse: 'templates'
-
-ORM.chronicles.ChronicleInheritsTemplate.has().one 'template',
-    model: ORM.chronicles.ChronicleTemplate
-    inverse: 'chronicles'
+    @has_one 'template',
+        Model     : ORM.chronicles.ChronicleTemplate
+        attribute : 'chronicle_template_id'

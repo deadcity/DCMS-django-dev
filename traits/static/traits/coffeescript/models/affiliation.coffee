@@ -8,8 +8,4 @@ Tools.create_namespace 'ORM.traits'
 
 
 class ORM.traits.Affiliation extends ORM.traits.Trait
-    @parent: ORM.traits.Trait
-
-ORM.traits.Affiliation.reset()
-
-ORM.polymorphic_identity 'affiliation', ORM.traits.Affiliation
+    @polymorphic_identity 'affiliation'

@@ -8,8 +8,7 @@ Tools.create_namespace 'ORM.characters'
 
 
 class ORM.characters.CharacterHasTrait extends ORM.BaseModel
-    @_polymorphic_on: 'trait_type'
-    @_polymorphic_identity: {}
+    @polymorphic_on 'trait_type'
 
     urlRoot: () ->
         DCMS.Settings.URL_PREFIX + '/rest/characters/' + @constructor.name
@@ -21,7 +20,7 @@ class ORM.characters.CharacterHasTrait extends ORM.BaseModel
         character_id : undefined
         trait_id     : undefined
 
-    _parse: (raw) ->
+    parse: (raw) ->
         parsed = {}
 
         ORM.parse.int parsed, raw, 'id'
@@ -32,4 +31,5 @@ class ORM.characters.CharacterHasTrait extends ORM.BaseModel
 
         return parsed
 
-ORM.characters.CharacterHasTrait.reset()
+    @has_one 'character', Model : 'ORM.characters.Character'
+    @has_one 'trait',     Model : 'ORM.traits.Trait'

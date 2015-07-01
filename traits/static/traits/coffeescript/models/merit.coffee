@@ -9,11 +9,9 @@ Tools.create_namespace 'ORM.traits'
 
 class ORM.traits.MeritType extends ORM.traits.TraitType
 
-ORM.traits.MeritType.reset()
-
 
 class ORM.traits.Merit extends ORM.traits.Trait
-    @parent: ORM.traits.Trait
+    @polymorphic_identity 'merit'
 
     defaults: () ->
         return _.extend super,
@@ -21,7 +19,7 @@ class ORM.traits.Merit extends ORM.traits.Trait
             requires_specification : undefined
             requires_description   : undefined
 
-    _parse: (raw) ->
+    parse: (raw) ->
         parsed = super
 
         ORM.parse.int parsed, raw, 'merit_type_id'
@@ -30,13 +28,12 @@ class ORM.traits.Merit extends ORM.traits.Trait
 
         return parsed
 
-ORM.traits.Merit.reset()
+    @has_one 'merit_type',
+        Model : ORM.traits.MeritType
 
-ORM.polymorphic_identity 'merit', ORM.traits.Merit
-
-ORM.traits.Merit.has().one 'merit_type',
-    model: ORM.traits.MeritType
-    inverse: 'merits'
+    @has_many 'allowed_ratings',
+        Model     : 'ORM.traits.AllowedMeritRating'
+        attribute : 'merit_id'
 
 
 class ORM.traits.AllowedMeritRating extends ORM.BaseModel
@@ -47,7 +44,7 @@ class ORM.traits.AllowedMeritRating extends ORM.BaseModel
         merit_id : undefined
         rating   : undefined
 
-    _parse: (raw) ->
+    parse: (raw) ->
         parsed = {}
 
         ORM.parse.int parsed, raw, 'merit_id'
@@ -55,13 +52,5 @@ class ORM.traits.AllowedMeritRating extends ORM.BaseModel
 
         return parsed
 
-ORM.traits.AllowedMeritRating.reset()
-
-ORM.traits.AllowedMeritRating.has().one 'merit',
-    model: ORM.traits.Merit
-    inverse: 'allowed_ratings'
-
-ORM.traits.Merit.has().many 'allowed_ratings',
-    collection: class AllowedMeritRating_Collection extends Backbone.Collection
-        model: ORM.traits.AllowedMeritRating
-    inverse: 'merit'
+    @has_one 'merit',
+        Model : ORM.traits.Merit

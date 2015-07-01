@@ -22,7 +22,55 @@ trait_label_comparator = (a, b) ->
     return a.label().localeCompare b.label()
 
 
-class VM.traits.Trait extends kb.ViewModel
+class VM.BaseViewModel extends kb.ViewModel
+    copy: (other_vm) ->
+        if not other_vm?
+            @model null
+            return @
+
+        if @constructor isnt other_vm.constructor
+            throw "Cannot copy observables from a different class of view-model."
+
+        @model other_vm.model()
+        return @
+
+    configure_has_one: (name, options) ->
+        referenced_model = @model()[name]
+        attribute = @model().constructor.relations().one[name].attribute
+
+        if options.ViewModel?
+            ViewModel = options.ViewModel
+            sub_vm = new ViewModel referenced_model
+            read = =>
+                @[attribute]()
+                sub_vm.model @model()[name]
+                return sub_vm
+
+        else
+            collection = options.collection_observable
+            ViewModel = collection.shareOptions().factory.paths.models
+            sub_vm = new ViewModel referenced_model
+            read = =>
+                @[attribute]()
+                referenced_model = @model()[name]
+                if referenced_model?
+                    other_sub_vm = collection.viewModelByModel referenced_model
+                    sub_vm.copy other_sub_vm
+                else
+                    sub_vm.copy null
+                return sub_vm
+
+        @[name] = ko.computed
+            read: read
+            write: (other_sub_vm) =>
+                sub_vm.copy other_sub_vm
+                @model()[name] = other_sub_vm.model()
+
+    configure_has_many: (name, options) ->
+        @[name] = kb.collectionObservable @model()[name], options
+
+
+class VM.traits.Trait extends VM.BaseViewModel
     @Access: Tools.enum 'Access', [
         'FORCE'
         'ALLOW'
@@ -35,8 +83,20 @@ class VM.traits.Trait extends kb.ViewModel
 
         @access = ko.observable undefined
 
+    copy: (other_vm) ->
+        super
+        @access other_vm?.access()
+        return @
 
-class VM.characters.CharacterAttribute extends kb.ViewModel
+
+class VM.characters.CharacterTrait extends VM.BaseViewModel
+    constructor: (model, options) ->
+        super
+
+        @configure_has_one 'trait', collection_observable: options.available_traits
+
+
+class VM.characters.CharacterAttribute extends VM.characters.CharacterTrait
     constructor: (model, options) ->
         super
 
@@ -44,7 +104,7 @@ class VM.characters.CharacterAttribute extends kb.ViewModel
         @allowed_ratings.sort()
 
 
-class VM.characters.CharacterSkill extends kb.ViewModel
+class VM.characters.CharacterSkill extends VM.characters.CharacterTrait
     constructor: (model, options) ->
         super
 
@@ -52,27 +112,58 @@ class VM.characters.CharacterSkill extends kb.ViewModel
         @allowed_ratings.sort()
 
 
-class VM.characters.CharacterViewModel extends kb.ViewModel
-    available: undefined
-
+class VM.characters.CharacterViewModel extends VM.BaseViewModel
     constructor: (model, options) ->
-        super model, _.extend {}, options,
-            factories:
-                'user' : VM.auth.User
+        # Kick this off right away so the server has as much time to process it
+        # as possible as it might be an expensive operation.
+        $.getJSON "#{ DCMS.Settings.URL_PREFIX }/characters/#{ model.id }/available_traits", null, => @process_update_response arguments...
 
-        model.on 'change', @update_summary_traits, @
+        super
+
+        ## available traits
+
+        @available =
+            creature_types : kb.collectionObservable ORM.traits.CreatureType.store(), VM.traits.Trait, sort_attribute: 'label'
+            genealogies    : kb.collectionObservable ORM.traits.Genealogy.store(),    VM.traits.Trait, sort_attribute: 'label'
+            affiliations   : kb.collectionObservable ORM.traits.Affiliation.store(),  VM.traits.Trait, sort_attribute: 'label'
+            subgroups      : kb.collectionObservable ORM.traits.Subgroup.store(),     VM.traits.Trait, sort_attribute: 'label'
+
+            attributes : kb.collectionObservable ORM.traits.Attribute.store(), VM.traits.Trait
+            skills     : kb.collectionObservable ORM.traits.Skill.store(),     VM.traits.Trait,
+
+        ## helper functions
 
         filter_attributes = (label) =>
-            attribute_type = ORM.traits.AttributeType.all().findWhere 'label': label
-            return kb.collectionObservable @model().character_attributes(), VM.characters.CharacterAttribute,
-                filters: (model) -> model.trait().attribute_type() == attribute_type
+            attribute_type = ORM.traits.AttributeType.store().findWhere 'label': label
+            ViewModel = (model, options) =>
+                new VM.characters.CharacterAttribute model, _.extend {}, options,
+                    available_traits: @available.attributes
+            return kb.collectionObservable @model().character_attributes, ViewModel,
+                filters: (model) -> model.trait.attribute_type == attribute_type
                 comparator: order_comparator
 
         filter_skills = (label) =>
-            skill_type = ORM.traits.SkillType.all().findWhere 'label': label
-            return kb.collectionObservable @model().character_skills(), VM.characters.CharacterSkill,
-                filters: (model) -> model.trait().skill_type() == skill_type
+            skill_type = ORM.traits.SkillType.store().findWhere 'label': label
+            ViewModel = (model, options) =>
+                new VM.characters.CharacterSkill model, _.extend {}, options,
+                    available_traits: @available.skills
+            return kb.collectionObservable @model().character_skills, ViewModel,
+                filters: (model) -> model.trait.skill_type == skill_type
                 comparator: label_comparator
+
+        ## character summary traits
+
+        model.on 'change', @update_summary_traits, @
+
+        @configure_has_one 'user',      ViewModel : VM.auth.User
+        @configure_has_one 'chronicle', ViewModel : VM.BaseViewModel
+
+        @configure_has_one 'creature_type', collection_observable : @available.creature_types
+        @configure_has_one 'genealogy',     collection_observable : @available.genealogies
+        @configure_has_one 'affiliation',   collection_observable : @available.affiliations
+        @configure_has_one 'subgroup',      collection_observable : @available.subgroups
+
+        ## character traits
 
         @mental_attributes   = filter_attributes 'Mental'
         @physical_attributes = filter_attributes 'Physical'
@@ -87,47 +178,26 @@ class VM.characters.CharacterViewModel extends kb.ViewModel
             patch = model.changedAttributes()
             if patch
                 $.ajax "#{ DCMS.Settings.URL_PREFIX }/characters/#{ model.id }/update_summary",
-                    # method: 'PATCH'
-                    method: 'PUT'
+                    method: 'PATCH'
                     dataType: 'json'
                     data: patch
-                    success: => @available.process_update arguments...
+                    success: => @process_update_response arguments...
                     error: (jqXHR, status, exception) ->
                         window.alert 'ERROR in update_summary_traits:\n' + status
         , 1, model, options
 
-
-class VM.characters.AvailableTraits
-    # Instance of VM.characters.CharacterViewModel
-    character: undefined
-
-    constructor: (model) ->
-        @creature_types = if model.creature_type()? then [model.creature_type()] else []
-        @genealogies    = if model.genealogy()?     then [model.genealogy()]     else []
-        @affiliations   = if model.affiliation()?   then [model.affiliation()]   else []
-        @subgroups      = if model.subgroup()?      then [model.subgroup()]      else []
-
-        @creature_types = kb.collectionObservable @creature_types, VM.traits.Trait, comparator: trait_label_comparator
-        @genealogies    = kb.collectionObservable @genealogies,    VM.traits.Trait, comparator: trait_label_comparator
-        @affiliations   = kb.collectionObservable @affiliations,   VM.traits.Trait, comparator: trait_label_comparator
-        @subgroups      = kb.collectionObservable @subgroups,      VM.traits.Trait, comparator: trait_label_comparator
-
-        $.getJSON "#{ DCMS.Settings.URL_PREFIX }/characters/#{ model.id }/available_traits", null, => @process_update arguments...
-
-    # get_all_available_traits: () ->
-    #     $.getJSON "#{ DCMS.Settings.URL_PREFIX }/characters/#{ model.id }/available_traits", null, => @process_update arguments...
-
-    process_update: (data) ->
+    process_update_response: (data) ->
         for Model, model_groups of data
             Model = ORM.traits[Model]
 
             switch Model
-                when ORM.traits.CreatureType then @update_summary_traits Model, @creature_types, model_groups, @character.creature_type
-                when ORM.traits.Genealogy    then @update_summary_traits Model, @genealogies,    model_groups, @character.genealogy
-                when ORM.traits.Affiliation  then @update_summary_traits Model, @affiliations,   model_groups, @character.affiliation
-                when ORM.traits.Subgroup     then @update_summary_traits Model, @subgroups,      model_groups, @character.subgroup
+                when ORM.traits.CreatureType then @update_available_summary_traits 'creature_type', Model, @available.creature_types, model_groups
+                when ORM.traits.Genealogy    then @update_available_summary_traits 'genealogy',     Model, @available.genealogies,    model_groups
+                when ORM.traits.Affiliation  then @update_available_summary_traits 'affiliation',   Model, @available.affiliations,   model_groups
+                when ORM.traits.Subgroup     then @update_available_summary_traits 'subgroup',      Model, @available.subgroups,      model_groups
+                # TODO(Emery): Update other available traits.
 
-    update_summary_traits: (Model, collection_observable, data, observable) ->
+    update_available_summary_traits: (name, Model, collection_observable, data) ->
         Access = VM.traits.Trait.Access
 
         create = (attributes, access) ->
@@ -146,7 +216,7 @@ class VM.characters.AvailableTraits
                 when Access.FORCE
                     # TODO(Emery): enforce that this model list only has one item
                     [trait, view_model] = create models[0], access
-                    observable trait
+                    @[name] view_model
 
                 when Access.ALLOW
                     for attr in models
@@ -155,15 +225,19 @@ class VM.characters.AvailableTraits
                 when Access.DENY
                     for attr in models
                         create attr, access
+                        # TODO(Emery): Should this automatically remove these
+                        #              traits from the character? (like it does
+                        #              with "HIDE" below)
 
                 when Access.HIDE
                     for attr in models
-                        trait = Model.all().findWhere 'id': attr.id
+                        trait = Model.store().findWhere 'id': attr.id
 
-                        if trait is observable()
+                        if trait is @model()[name]
                             if Model is ORM.traits.CreatureType
-                                observable ORM.traits.CreatureType.all().findWhere 'name': 'CREATURE_TYPE_MORTAL'
+                                creature_type_mortal = Model.store().findWhere 'name': 'CREATURE_TYPE_MORTAL'
+                                @model().creature_type = creature_type_mortal
                             else
-                                observable null
+                                @model()[name] null
 
                         trait.dismantle()

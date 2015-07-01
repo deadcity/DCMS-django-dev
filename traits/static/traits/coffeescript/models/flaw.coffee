@@ -9,11 +9,9 @@ Tools.create_namespace 'ORM.traits'
 
 class ORM.traits.FlawType extends ORM.traits.TraitType
 
-ORM.traits.FlawType.reset()
-
 
 class ORM.traits.Flaw extends ORM.traits.Trait
-    @parent: ORM.traits.Trait
+    @polymorphic_identity 'flaw'
 
     defaults: () ->
         return _.extend super,
@@ -21,7 +19,7 @@ class ORM.traits.Flaw extends ORM.traits.Trait
             requires_specification : undefined
             requires_description   : undefined
 
-    _parse: (raw) ->
+    parse: (raw) ->
         parsed = super
 
         ORM.parse.int parsed, raw, 'flaw_type_id'
@@ -30,13 +28,12 @@ class ORM.traits.Flaw extends ORM.traits.Trait
 
         return parsed
 
-ORM.traits.Flaw.reset()
+    @has_one 'flaw_type',
+        Model : ORM.traits.FlawType
 
-ORM.polymorphic_identity 'flaw', ORM.traits.Flaw
-
-ORM.traits.Flaw.has().one 'flaw_type',
-    model: ORM.traits.FlawType
-    inverse: 'flaws'
+    @has_many 'allowed_ratings',
+        Model     : 'ORM.traits.AllowedFlawRating'
+        attribute : 'flaw_id'
 
 
 class ORM.traits.AllowedFlawRating extends ORM.BaseModel
@@ -47,7 +44,7 @@ class ORM.traits.AllowedFlawRating extends ORM.BaseModel
         flaw_id : undefined
         rating  : undefined
 
-    _parse: (raw) ->
+    parse: (raw) ->
         parsed = {}
 
         ORM.parse.int parsed, raw, 'flaw_id'
@@ -55,13 +52,5 @@ class ORM.traits.AllowedFlawRating extends ORM.BaseModel
 
         return parsed
 
-ORM.traits.AllowedFlawRating.reset()
-
-ORM.traits.AllowedFlawRating.has().one 'flaw',
-    model: ORM.traits.Flaw
-    inverse: 'allowed_ratings'
-
-ORM.traits.Flaw.has().many 'allowed_ratings',
-    collection: class AllowedFlawRating_Collection extends Backbone.Collection
-        model: ORM.traits.AllowedFlawRating
-    inverse: 'flaw'
+    @has_one 'flaw',
+        Model : ORM.traits.Flaw
