@@ -2,6 +2,6 @@
 
 ## List of Dependencies ##
 
-* Django 1.6 ('Django==1.6')
-* Django Rest Framwork ('djangorestframework')
-* Django Compressor ('django_compressor')
+* Django 1.8 ('Django==1.8')
+* Django Compressor ('django-compressor')
+* SQLAlchemy ('sqlalchemy')
