@@ -1,11 +1,33 @@
+###
+    @file  enum.coffee
+    @brief Base class and factory function for providing strongly-typed
+        Enumerations in coffeescript.
+
+    @dependencies
+        tools.coffee
+###
+
+
 Tools.create_namespace 'Tools'
 
 
+###
+    A default base class to use for Enumerations. When creating a new enum, you
+    should simply use the factory function defined below.
+###
 class Tools.Enum
     constructor: () ->
         Tools.enum.apply this, arguments
 
 
+###
+    A factory funtion for creating new Enumerations.
+
+    @arg name A string to use as the name of the Enumeration class.
+    @arg elements An array of strings used to generate the elements of the
+        Enumeration.
+    @arg options Configuration for the
+###
 Tools.enum = (name, elements, options) ->
     options = _.defaults {}, options,
         Base          : Tools.Enum
@@ -37,8 +59,9 @@ Tools.enum = (name, elements, options) ->
     # EXTENDS #
     # # # # # #
 
-    # This is just coffeescript's "extends" functionality.  We have to duplicate
-    # it because we want the classname to be the passed value.
+    # This is just coffeescript's "extends" functionality. We have to duplicate
+    # it because we want some customized functionality. Namely, we want the
+    # classname to be the passed value.
 
     parent = options.Base
     child = EnumClass

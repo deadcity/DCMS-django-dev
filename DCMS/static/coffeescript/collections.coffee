@@ -1,6 +1,21 @@
+###
+    @file  collections.coffee
+    @brief A few subclasses of `Backbone.Collection` that provide commonly used
+        functionality.
+
+    @dependencies
+        underscore-1.8.3.js
+        backbone-1.1.2.js
+###
+
+
 Collections = Tools.create_namespace 'Tools.Collections'
 
 
+###
+    A collection that does not allow anybody to modify the models it contains.
+    (However, it cannot enforce that the models themselves are read-only.)
+###
 class Collections.ReadOnly extends Backbone.Collection
     sync    : -> throw "This collection does not support this method."
     add     : -> throw "This collection does not support this method."
@@ -15,6 +30,21 @@ class Collections.ReadOnly extends Backbone.Collection
     create  : -> throw "This collection does not support this method."
 
 
+###
+    A collection that is a subset of another collection.
+
+    @arg models This should be left `null`. It is an argument here only to
+        support the same constructor signature as other collections.
+    @arg options Configuration for filtered collection.
+        @option base_collection (required) Another collection to use as the
+            source. Models that are exposed by this instance of
+            `Collections.Filtered` will only come from `base_collection`.
+        @option filter (optional) A function to use as the initial filter. This
+            function should take a single argument, the model in question, and
+            return `true` if that model should be exposed in this filtered
+            collection. If this option is initially `null`, then all models from
+            `base_collection` will be exposed.
+###
 class Collections.Filtered extends Collections.ReadOnly
     initialize: (models, options) ->
         super
