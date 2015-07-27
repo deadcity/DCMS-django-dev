@@ -8,7 +8,7 @@
         underscore-1.8.3.js
         backbone-1.1.2.js
         tools.coffee
-        collections.js
+        collections.coffee
 
 
     There are three primary features of this little library, a common store for
