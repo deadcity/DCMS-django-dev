@@ -32,18 +32,15 @@ DEBUG = False
 COMPRESS_ENABLED = not DEBUG
 STATIC_ROOT = <path where static files will be collected to>
 ```
-
 2. DCMS does not use the Django ORM but there are still some Django modules we're using that do. They handle things like user account logins and session management. We need to make sure their tables are up-to-date. Run the following command from the project-root.
 ```
 python3 manage.py migrate
 ```
-
 3. DMCS's models are managed by SQLAlchemy. We do not yet make use of a migration tool. Until we do, they should be created from a fresh database, after we apply the Django migrations in step 2. Run the following command from the project-root.
 ```
 python3 manage.py sqla_create
 ```
-
-4. Collect and compile all the various static files to some place on the server where they will be served from. This should also compile the coffeescript and compress the resultant javascript. Run the following commands from the project-root. (I don't know what order these commands need to be run in and they might very well need to be run multiple times like below. I do know though that this works.)
+4. Collect and compile all the various static files to some place on the server where they will be served from (this is the path that's specified by `STATIC_ROOT`). This should also compile the coffeescript and compress the resultant javascript. Run the following commands from the project-root. (I don't know what order these commands need to be run in and they might very well need to be run multiple times like below. I do know though that this works.)
 ```
 python3 manage.py collectstatic
 python3 manage.py compress
