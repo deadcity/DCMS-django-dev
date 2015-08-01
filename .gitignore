@@ -3,3 +3,4 @@
 *.db
 CACHE
 DCMS/platform_settings.py
+venv
