@@ -90,7 +90,7 @@ class CharacterHasTrait (AppLabel, BaseModel):
     id = Column(Integer, primary_key = True)
     trait_type = Column(String, nullable = False)
 
-    character_id = Column(Integer, ForeignKey(Character.id),          nullable = False)
+    character_id = Column(Integer, ForeignKey(Character.id),      nullable = False)
     trait_id     = Column(Integer, ForeignKey('traits_trait.id'), nullable = False)
 
     # TODO(Emery): Limit the value of `trait_type` to enforce using the

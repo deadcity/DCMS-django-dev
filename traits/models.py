@@ -159,7 +159,7 @@ class Flaw (Trait):
 
 
 class AllowedFlawRating (AppLabel, BaseModel):
-    flaw_id = Column(Integer, ForeignKey(Flaw.id))
+    flaw_id = Column(Integer, ForeignKey(Flaw.id), nullable = False)
     rating  = Column(Integer, nullable = False)
 
     __table_args__ = (
@@ -193,7 +193,7 @@ class Merit (Trait):
 
 
 class AllowedMeritRating (AppLabel, BaseModel):
-    merit_id = Column(Integer, ForeignKey(Merit.id))
+    merit_id = Column(Integer, ForeignKey(Merit.id), nullable = False)
     rating = Column(Integer, nullable = False)
 
     __table_args__ = (
