@@ -26,6 +26,12 @@ class EnumColumn (types.TypeDecorator, types.SchemaType):
     def process_bind_param (self, value, dialect):
         if value is None:
             return None
+
+        # Freeform strings are allowed, but only if they are the name of one of
+        # the Enum's elements.
+        if isinstance(value, str):
+            value = self.Enum[value]
+
         return value.name
 
     def process_result_value (self, value, dialect):

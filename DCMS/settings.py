@@ -64,6 +64,7 @@ INSTALLED_APPS = (
     'DCMS',
     'dsqla',
     # 'common',
+    'trait_access',
     'traits',
 )
 
