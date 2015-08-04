@@ -1,6 +1,7 @@
 *.sublime-workspace
 *.pyc
 *.db
-CACHE
+CACHE/
 DCMS/platform_settings.py
-venv
+venv/
+data/
