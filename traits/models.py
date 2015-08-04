@@ -13,7 +13,6 @@ from sqlalchemy.types import Boolean, Integer, String
 
 from DCMS.model_base import BaseModel
 
-from chronicles.models import ChronicleBase
 from dsqla.models import app_label
 
 
@@ -37,14 +36,14 @@ class TraitType (AppLabel, BaseModel):
     # A trait type is associated with a specific Chronicle or ChronicleTemplate.
     @declared_attr
     def chronicle_id (self):
-        return Column(Integer, ForeignKey(ChronicleBase.id), nullable = False)
+        return Column(Integer, ForeignKey('chronicles_chroniclebase.id'), nullable = False)
 
     name  = Column(String, nullable = False)
     label = Column(String, nullable = False, default = '')
 
     @declared_attr
     def chronicle (self):
-        return relationship(ChronicleBase)
+        return relationship('ChronicleBase')
 
 
 class AttributeType (TraitType):
@@ -76,7 +75,7 @@ class Trait (AppLabel, BaseModel):
     trait_type = Column(String, nullable = False)
 
     # A trait is associated with a specific Chronicle or ChronicleTemplate.
-    chronicle_id = Column(Integer, ForeignKey(ChronicleBase.id), nullable = False)
+    chronicle_id = Column(Integer, ForeignKey('chronicles_chroniclebase.id'), nullable = False)
 
     name  = Column(String, unique = True, nullable = False)
     label = Column(String, nullable = False, default = '')
@@ -90,7 +89,7 @@ class Trait (AppLabel, BaseModel):
         'polymorphic_on': trait_type,
     }
 
-    chronicle = relationship(ChronicleBase)
+    chronicle = relationship('ChronicleBase')
 
 
 class Affiliation (Trait):
