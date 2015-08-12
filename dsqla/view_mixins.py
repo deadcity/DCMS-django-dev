@@ -9,7 +9,7 @@ from dsqla.models import get_model
 
 ## Parses request body as json and saves result to request.data.
 #
-#  This should only be mixed in to view classes that exect only a Content-Type
+#  This should only be mixed in to view classes that expect only a Content-Type
 #  of "application/json".
 class JsonBody (object):
     def dispatch (self, request, *args, **kwargs):
@@ -21,7 +21,7 @@ class JsonBody (object):
             request, *args, **kwargs)
 
 
-## Mixin to add Model class to view based on view args.
+## Mixin to add Model class as a property to the host view based on view args.
 #
 class ModelView (object):
     @property

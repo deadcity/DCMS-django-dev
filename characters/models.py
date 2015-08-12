@@ -12,11 +12,8 @@ from sqlalchemy.types import Boolean, DateTime, Integer, SmallInteger, String, T
 
 from DCMS.model_base import BaseModel
 
-from accounts.models import User
-from chronicles.models import Chronicle, Game
 from dsqla.column_types import EnumColumn
 from dsqla.models import app_label
-import traits.models as trait_models
 
 
 AppLabel = app_label('characters')
@@ -34,15 +31,15 @@ class Character (AppLabel, BaseModel):
     id = Column(Integer, primary_key = True)
 
     enabled      = Column(Boolean, nullable = False, default = True)
-    user_id      = Column(Integer, ForeignKey(User.id), nullable = False)
-    chronicle_id = Column(Integer, ForeignKey(Chronicle.id), nullable = False)
+    user_id      = Column(Integer, ForeignKey('auth_user.id'), nullable = False)
+    chronicle_id = Column(Integer, ForeignKey('chronicles_chronicle.id'), nullable = False)
     status       = Column(EnumColumn(Status, name = 'character_status'), nullable = False, default = Status.EDITING)
 
     name             = Column(String, nullable = False, default = '')
-    creature_type_id = Column(Integer, ForeignKey(trait_models.CreatureType.id), nullable = False)
-    genealogy_id     = Column(Integer, ForeignKey(trait_models.Genealogy.id))
-    affiliation_id   = Column(Integer, ForeignKey(trait_models.Affiliation.id))
-    subgroup_id      = Column(Integer, ForeignKey(trait_models.Subgroup.id))
+    creature_type_id = Column(Integer, ForeignKey('traits_creaturetype.id'), nullable = False)
+    genealogy_id     = Column(Integer, ForeignKey('traits_genealogy.id'))
+    affiliation_id   = Column(Integer, ForeignKey('traits_affiliation.id'))
+    subgroup_id      = Column(Integer, ForeignKey('traits_subgroup.id'))
 
     date_created     = Column(DateTime, nullable = False, default = datetime.utcnow)
     date_submitted   = Column(DateTime)
@@ -52,13 +49,13 @@ class Character (AppLabel, BaseModel):
     def __unicode__(self):
         return self.name
 
-    user      = relationship(User)
-    chronicle = relationship(Chronicle)
+    user      = relationship('User')
+    chronicle = relationship('Chronicle')
 
-    creature_type = relationship(trait_models.CreatureType)
-    genealogy     = relationship(trait_models.Genealogy)
-    affiliation   = relationship(trait_models.Affiliation)
-    subgroup      = relationship(trait_models.Subgroup)
+    creature_type = relationship('CreatureType')
+    genealogy     = relationship('Genealogy')
+    affiliation   = relationship('Affiliation')
+    subgroup      = relationship('Subgroup')
 
     attributes        = relationship('CharacterHasAttribute')
     skills            = relationship('CharacterHasSkill')
@@ -94,7 +91,7 @@ class CharacterHasTrait (AppLabel, BaseModel):
     trait_type = Column(String, nullable = False)
 
     character_id = Column(Integer, ForeignKey(Character.id),          nullable = False)
-    trait_id     = Column(Integer, ForeignKey(trait_models.Trait.id), nullable = False)
+    trait_id     = Column(Integer, ForeignKey('traits_trait.id'), nullable = False)
 
     # TODO(Emery): Limit the value of `trait_type` to enforce using the
     #              appropriate child class when linking to the appropriate type
@@ -111,7 +108,7 @@ class CharacterHasTrait (AppLabel, BaseModel):
     }
 
     character = relationship(Character)
-    trait     = relationship(trait_models.Trait, lazy = 'joined')
+    trait     = relationship('Trait', lazy = 'joined')
 
 
 class CharacterHasAttribute (CharacterHasTrait):

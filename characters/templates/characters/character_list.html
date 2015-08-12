@@ -16,12 +16,12 @@
     {{ block.super }}
 
     {% compress js %}
-        <script type='text/coffeescript' src='{% static 'accounts/coffeescript/user.coffee' %}'></script>
-        <script type='text/coffeescript' src='{% static 'traits/coffeescript/crature_type.coffee' %}'></script>
-        <script type='text/coffeescript' src='{% static 'traits/coffeescript/genealogy.coffee' %}'></script>
-        <script type='text/coffeescript' src='{% static 'traits/coffeescript/affiliation.coffee' %}'></script>
-        <script type='text/coffeescript' src='{% static 'traits/coffeescript/subgroup.coffee' %}'></script>
-        <script type='text/coffeescript' src='{% static 'characters/coffeescript/character.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'accounts/coffeescript/models/user.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'traits/coffeescript/models/crature_type.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'traits/coffeescript/models/genealogy.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'traits/coffeescript/models/affiliation.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'traits/coffeescript/models/subgroup.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'characters/coffeescript/models/character.coffee' %}'></script>
     {% endcompress %}
 {% endblock script_includes %}
 
