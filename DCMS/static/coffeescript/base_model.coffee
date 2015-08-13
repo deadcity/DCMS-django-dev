@@ -16,8 +16,8 @@ class ORM.BaseModel extends BackboneRelations.Model
     #  'destroy' event on itself passing the additional option dismantle: true.
     #
     #  This implementation may not look exactly like Backbone.Model's
-    #  destroy(options), but that's because it is unwinding a lot of
-    #  asynchronous callback definitions.
+    #  destroy(options), but that's because Backbone's version of the function
+    #  is unwinding a lot of asynchronous callback definitions.
     dismantle: (options) ->
         options = _.extend {}, options
 

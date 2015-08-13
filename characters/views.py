@@ -2,6 +2,9 @@
 #  Provides view functions and classes related to character management.
 
 
+from sys import stdout
+
+from collections import defaultdict
 from datetime import datetime
 from itertools import chain
 from json import loads  # DEBUG
@@ -12,9 +15,14 @@ from django.shortcuts import render
 from django.views.decorators.http import require_http_methods
 
 from characters.models import Character
-from dsqla.models import ModelEncoder
+from dsqla.models import get_referenced_model, ModelEncoder
 from dsqla.session import session
+from trait_access.models import (
+    AccessRule, evaluate_trait,
+    CharacterHasTrait, CharacterDoesNotHaveTrait
+)
 from traits.models import (
+    Trait,
     AttributeType, SkillType, MeritType, FlawType,
     CreatureType, Genealogy, Affiliation, Subgroup
 )
@@ -198,19 +206,23 @@ def available_traits (request, id):
     if response:
         return response
 
-    # TODO(Emery): This needs to actually go through the chronicle's access
-    #              rules and build up the list of trait availabilities.  For
-    #              now, just return everything.
+    availabilities = defaultdict(lambda: defaultdict(list))
+    chronicle_ids = [c.id for c in character.chronicle.all_chronicles]
 
-    return JsonResponse(
-        {
-            'CreatureType' : { 'ALLOW' : list(session.query(CreatureType)), },
-            'Genealogy'    : { 'ALLOW' : list(session.query(Genealogy)),    },
-            'Affiliation'  : { 'ALLOW' : list(session.query(Affiliation)),  },
-            'Subgroup'     : { 'ALLOW' : list(session.query(Subgroup)),     },
-        },
-        encoder = ModelEncoder
-    )
+    for trait in session.query(Trait).filter(
+        Trait.chronicle_id.in_(chronicle_ids)
+    ):
+        access = evaluate_trait(character, trait)
+        if access is AccessRule.Access.DENY:
+            inheritance_source = character.chronicle.inheritance_source(trait)
+            if getattr(inheritance_source, 'hide_denied_traits', False):
+                access = AccessRule.Access.HIDE
+
+        availabilities[type(trait).__name__][access.name].append(trait)
+
+    print(repr(availabilities))
+
+    return JsonResponse(availabilities, encoder = ModelEncoder)
 
 
 @login_required
@@ -222,14 +234,52 @@ def update_character_summary (request, id):
     if response:
         return response
 
-    # print('REQUEST:', request.body.decode('ascii'))
+    stdout.write("\nREQUEST: {}\n\n".format(request.body.decode('ascii')))
+    chronicle_ids = [c.id for c in character.chronicle.all_chronicles]
+    affected_traits = set()
     key, value = request.body.decode('ascii').split('=')
-    setattr(character, key, value)
+    column = Character.__table__.columns[key]
+    TraitType = get_referenced_model(column)
 
-    # TODO(Emery): This needs to go through the access rules that are dependent
-    #              on the character-summary traits that changed and see if any
-    #              traits have changed access permissions.
-    return JsonResponse(
-        {},
-        encoder = ModelEncoder
-    )
+    key = key[:-3]  # assumes key in format "<key>_id"
+    value = None if value is '' else int(value)
+    old_trait = getattr(character, key)
+    new_trait = None if value is None else session.query(TraitType).get(value)
+
+    if old_trait:
+        changing_trait_ids = (old_trait.id,)
+    else:
+        changing_trait_ids = tuple()
+    if new_trait:
+        changing_trait_ids += (new_trait.id,)
+
+    # Rule: character-has-trait
+    for rule in session.query(CharacterHasTrait).filter(
+        CharacterHasTrait.chronicle_id.in_(chronicle_ids),
+        CharacterHasTrait.other_trait_id.in_(changing_trait_ids)
+    ):
+        affected_traits.add(rule.trait)
+
+    # Rule: character-does-not-have-trait
+    for rule in session.query(CharacterDoesNotHaveTrait).filter(
+        CharacterDoesNotHaveTrait.chronicle_id.in_(chronicle_ids),
+        CharacterDoesNotHaveTrait.other_trait_id.in_(changing_trait_ids)
+    ):
+        affected_traits.add(rule.trait)
+
+    # Set summary trait on character.
+    setattr(character, key, new_trait)
+    session.flush()
+
+    # Recalculate availabilities for affected traits.
+    availabilities = defaultdict(lambda: defaultdict(list))
+    for trait in affected_traits:
+        access = evaluate_trait(character, trait)
+        if access is AccessRule.Access.DENY:
+            inheritance_source = character.chronicle.inheritance_source(trait)
+            if getattr(inheritance_source, 'hide_denied_traits', False):
+                access = AccessRule.Access.HIDE
+
+        availabilities[type(trait).__name__][access.name].append(trait)
+
+    return JsonResponse(availabilities, encoder = ModelEncoder)

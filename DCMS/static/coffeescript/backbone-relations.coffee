@@ -231,7 +231,7 @@ class BackboneRelations.Model extends Backbone.Model
                 return @[options.store] = model
 
             set: (model) ->
-                @set options.attribute, model.id
+                @set options.attribute, model?.id
                 @trigger 'update-relation:' + name, @, model, options
                 @[options.store] = model
 
@@ -386,11 +386,13 @@ class BackboneRelations.Model extends Backbone.Model
             @on 'change:' + @constructor._polymorphic_on, @_update_polymorphic_identity, @
 
         # When a model is destroyed, remove all references so it can be cleaned
-        # up. This should not prevent any already queued event-handlers from
-        # being called.
+        # up. The use of `setTimeout` will allow any already queued event-
+        # handlers to finish being called.
         @on 'destroy', =>
-            @stopListening()
-            @off()
+            setTimeout =>
+                @stopListening()
+                @off()
+            , 1
 
         return @
 

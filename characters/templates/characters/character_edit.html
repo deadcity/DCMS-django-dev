@@ -84,27 +84,34 @@
         <span class='label'>Creature Type:</span> <select name='creature_type' data-bind="
                 options: character.available.creature_types,
                 optionsText: 'label',
-                value: character.creature_type
+                optionsValue: 'id',
+                value: character.creature_type_id
             "></select><br />
         <!-- ko if: character.creature_type().genealogy_name() != null -->
             <span class='label' data-bind="text: character.creature_type().genealogy_name"></span> <select name='genealogy' data-bind="
                     options: character.available.genealogies,
+                    optionsCaption: character.creature_type().genealogy_name,
                     optionsText: 'label',
-                    value: character.genealogy
+                    optionsValue: 'id',
+                    value: character.genealogy_id
                 "></select><br />
         <!-- /ko -->
         <!-- ko if: character.creature_type().affiliation_name() != null -->
             <span class='label' data-bind="text: character.creature_type().affiliation_name"></span> <select name='affiliation' data-bind="
                     options: character.available.affiliations,
+                    optionsCaption: character.creature_type().affiliation_name,
                     optionsText: 'label',
-                    value: character.affiliation
+                    optionsValue: 'id',
+                    value: character.affiliation_id
                 "></select><br />
         <!-- /ko -->
         <!-- ko if: character.creature_type().subgroup_name() != null -->
             <span class='label' data-bind="text: character.creature_type().subgroup_name"></span> <select name='subgroup' data-bind="
                     options: character.available.subgroups,
+                    optionsCaption: character.creature_type().subgroup_name,
                     optionsText: 'label',
-                    value: character.subgroup
+                    optionsValue: 'id',
+                    value: character.subgroup_id
                 "></select><br />
         <!-- /ko -->
 
