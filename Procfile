@@ -1,0 +1,1 @@
+web: gunicorn DCMS.wsgi --log-file -

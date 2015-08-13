@@ -3,5 +3,7 @@
 *.db
 CACHE/
 DCMS/platform_settings.py
+staticfiles
 venv/
+.DS_Store
 data/
