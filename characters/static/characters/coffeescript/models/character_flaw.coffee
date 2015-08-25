@@ -1,14 +1,14 @@
 ###
-  @file  character_has_merit.coffee
-  @brief Model specifying the specific merit of a specific character.
+  @file  character_flaw.coffee
+  @brief Model specifying the specific flaw of a specific character.
 ###
 
 
 Tools.create_namespace 'ORM.characters'
 
 
-class ORM.characters.CharacterHasMerit extends ORM.characters.CharacterHasTrait
-    @polymorphic_identity 'merit'
+class ORM.characters.CharacterFlaw extends ORM.characters.CharacterTrait
+    @polymorphic_identity 'flaw'
 
     defaults: () ->
         return _.extend super,

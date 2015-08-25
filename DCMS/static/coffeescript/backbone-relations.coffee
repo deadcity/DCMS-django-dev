@@ -348,6 +348,7 @@ class BackboneRelations.Model extends Backbone.Model
         @_polymorphic_on = attribute
         @_polymorphic_identity = {}
         @_store_factory = options.store_factory
+        @_polymorphic_identity_values = {}
 
     ###
         Class-function to specify which value maps to this class in a
@@ -358,8 +359,10 @@ class BackboneRelations.Model extends Backbone.Model
     ###
     @polymorphic_identity: (value) ->
         @_polymorphic_identity[value] = @
+        @_polymorphic_identity_values[@name] = value
 
     constructor: (attributes, options) ->
+        polymorphic_on = this.constructor._polymorphic_on
         attrs = attributes || {}
         options || (options = {})
 
@@ -376,6 +379,12 @@ class BackboneRelations.Model extends Backbone.Model
             model.set attrs, options
             return model
 
+        # If model requires but does not specify a polymorphic-identity,
+        # automatically apply it here.
+        if polymorphic_on? and not attrs[polymorphic_on]?
+            pid_values = this.constructor._polymorphic_identity_values
+            attrs[polymorphic_on] = pid_values[this.constructor.name]
+
         # Normal construction if model does not yet exist.
         super attrs, options
         @constructor.store().add @
@@ -383,7 +392,7 @@ class BackboneRelations.Model extends Backbone.Model
         # Anytime the discriminator attribute updates [assuming this model
         # defines one], update the class of this instance.
         if @constructor._polymorphic_on?
-            @on 'change:' + @constructor._polymorphic_on, @_update_polymorphic_identity, @
+            @on 'change:' + @constructor._polymorphic_on, @__update_polymorphic_identity, @
 
         # When a model is destroyed, remove all references so it can be cleaned
         # up. The use of `setTimeout` will allow any already queued event-
@@ -396,7 +405,16 @@ class BackboneRelations.Model extends Backbone.Model
 
         return @
 
-    _update_polymorphic_identity: (model, value, options) ->
+    ###
+        Internal method to update the class of the model instance.
+
+        An internal method that gets called in polymorphic-inheritance whenever
+        the discriminator attribute changes. This method is responsible for
+        changing the class of `this` by manually updating the "__proto__"
+        property of the model instance. This is not well tested across different
+        browsers but at least works in Chrome.
+    ###
+    __update_polymorphic_identity: (model, value, options) ->
         old_relations = model.constructor.relations()
         target_model = model.constructor._polymorphic_identity[value]
         model.__proto__ = target_model.prototype

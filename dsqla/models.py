@@ -119,6 +119,7 @@ def app_label (app_name):
 #        called `generate_table_to_model_map()` on the base model class.
 def get_referenced_model (column):
     for foreign_key in column.foreign_keys: break
+    if foreign_key is None: return None
     table = foreign_key.column.table
     return table.metadata.models_by_table[table]
 

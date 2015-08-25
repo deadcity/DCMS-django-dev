@@ -2,6 +2,7 @@
 #  Provides models used to define access rules for traits.
 
 
+from collections import defaultdict
 from enum import Enum
 
 from sqlalchemy.orm import relationship
@@ -10,7 +11,7 @@ from sqlalchemy.types import Integer, String
 
 from DCMS.model_base import BaseModel
 
-from characters.models import CharacterHasTrait
+from characters.models import CharacterTrait
 from dsqla.column_types import EnumColumn
 from dsqla.models import app_label
 from dsqla.session import session
@@ -53,10 +54,24 @@ def evaluate_trait (character, trait):
     for access_rule in session.query(AccessRule).filter(
         AccessRule.trait == trait,
         AccessRule.chronicle_id.in_(c.id for c in character.chronicle.all_chronicles)
-    ).order_by(AccessRule.priority.desc()):
+    ).order_by(AccessRule.priority.asc()):
         result = access_rule.evaluate(character)
         if result:
             return result
+
+
+def calculate_availabilities (character, trait_list):
+    availabilities = defaultdict(lambda: defaultdict(list))
+    for trait in trait_list:
+        access = evaluate_trait(character, trait)
+        if access is AccessRule.Access.DENY:
+            inheritance_source = character.cronicle.inheritance_source(trait)
+            if getattr(inheritance_source, 'hide_denied_traits', False):
+                access = AccessRule.Access.HIDE
+
+        availabilities[type(trait).__name__][access.name].append(trait)
+
+    return availabilities
 
 
 class DefaultAccess (AccessRule):
@@ -114,27 +129,21 @@ class CharacterHasTrait (AccessRule):
     other_trait = relationship('Trait', foreign_keys = other_trait_id)
 
     def evaluate (self, character):
-        if self.other_trait.trait_type == 'creature_type':
-            if character.creature_type is self.other_trait:
-                return self.access
-
-        elif self.other_trait.trait_type == 'genealogy':
-            if character.genealogy is self.other_trait:
-                return self.access
-
-        elif self.other_trait.trait_type == 'affiliation':
-            if character.affiliation is self.other_trait:
-                return self.access
-
-        elif self.other_trait.trait_type == 'subgroup':
-            if character.subgroup is self.other_trait:
+        other_trait_type = self.other_trait.trait_type
+        if other_trait_type in (
+            'creature_type',
+            'genealogy',
+            'affiliation',
+            'subgroup',
+        ):
+            if getattr(character, other_trait_type) is self.other_trait:
                 return self.access
 
         else:
-            query = session.query(CharacterHasTrait).filter(
-                CharacterHasTrait.character  == character,
-                CharacterHasTrait.trait      == self.other_trait,
-                CharacterHasTrait.trait_type != 'skill_specialty'
+            query = session.query(CharacterTrait).filter(
+                CharacterTrait.character  == character,
+                CharacterTrait.trait      == self.other_trait,
+                CharacterTrait.trait_type != 'skill_specialty'
             )
             if len(query) > 0:
                 return self.access
@@ -152,27 +161,21 @@ class CharacterDoesNotHaveTrait (AccessRule):
     other_trait = relationship('Trait', foreign_keys = other_trait_id)
 
     def evaluate (self, character):
-        if self.other_trait.trait_type == 'creature_type':
-            if character.creature_type is not self.other_trait:
-                return self.access
-
-        elif self.other_trait.trait_type == 'genealogy':
-            if character.genealogy is not self.other_trait:
-                return self.access
-
-        elif self.other_trait.trait_type == 'affiliation':
-            if character.affiliation is not self.other_trait:
-                return self.access
-
-        elif self.other_trait.trait_type == 'subgroup':
-            if character.subgroup is not self.other_trait:
+        other_trait_type = self.other_trait.trait_type
+        if other_trait_type in (
+            'creature_type',
+            'genealogy',
+            'affiliation',
+            'subgroup',
+        ):
+            if getattr(character, other_trait_type) is not self.other_trait:
                 return self.access
 
         else:
-            query = session.query(CharacterHasTrait).filter(
-                CharacterHasTrait.character  == character,
-                CharacterHasTrait.trait      == self.other_trait,
-                CharacterHasTrait.trait_type != 'skill_specialty'
+            query = session.query(CharacterTrait).filter(
+                CharacterTrait.character  == character,
+                CharacterTrait.trait      == self.other_trait,
+                CharacterTrait.trait_type != 'skill_specialty'
             )
             if len(query) == 0:
                 return self.access

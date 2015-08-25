@@ -1,5 +1,5 @@
 ###
-  @file  character_has_combat_trait.coffee
+  @file  character_combat_trait.coffee
   @brief Model specifying the specific combat-trait of a specific character.
 ###
 
@@ -7,7 +7,7 @@
 Tools.create_namespace 'ORM.characters'
 
 
-class ORM.characters.CharacterHasCombatTrait extends ORM.characters.CharacterHasTrait
+class ORM.characters.CharacterCombatTrait extends ORM.characters.CharacterTrait
     @polymorphic_identity 'combat_trait'
 
     defaults: () ->

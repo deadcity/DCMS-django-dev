@@ -1,5 +1,5 @@
 ###
-  @file  character_has_skill_specialty.coffee
+  @file  character_skill_specialty.coffee
   @brief Model specifying the specific skill specialty of a specific character.
 ###
 
@@ -7,7 +7,7 @@
 Tools.create_namespace 'ORM.characters'
 
 
-class ORM.characters.CharacterHasSkillSpecialty extends ORM.characters.CharacterHasTrait
+class ORM.characters.CharacterSkillSpecialty extends ORM.characters.CharacterTrait
     @polymorphic_identity 'skill_specialty'
 
     defaults: () ->

@@ -45,23 +45,27 @@
     <!-- characters -->
     {% compress js %}
         <script type='text/coffeescript' src='{% static 'characters/coffeescript/models/character.coffee' %}'></script>
-        <script type='text/coffeescript' src='{% static 'characters/coffeescript/models/character_has_trait.coffee' %}'></script>
-        <script type='text/coffeescript' src='{% static 'characters/coffeescript/models/character_has_attribute.coffee' %}'></script>
-        <script type='text/coffeescript' src='{% static 'characters/coffeescript/models/character_has_character_text.coffee' %}'></script>
-        <script type='text/coffeescript' src='{% static 'characters/coffeescript/models/character_has_combat_trait.coffee' %}'></script>
-        <script type='text/coffeescript' src='{% static 'characters/coffeescript/models/character_has_flaw.coffee' %}'></script>
-        <script type='text/coffeescript' src='{% static 'characters/coffeescript/models/character_has_merit.coffee' %}'></script>
-        <script type='text/coffeescript' src='{% static 'characters/coffeescript/models/character_has_misc_trait.coffee' %}'></script>
-        <script type='text/coffeescript' src='{% static 'characters/coffeescript/models/character_has_power.coffee' %}'></script>
-        <script type='text/coffeescript' src='{% static 'characters/coffeescript/models/character_has_skill.coffee' %}'></script>
-        <script type='text/coffeescript' src='{% static 'characters/coffeescript/models/character_has_skill_specialty.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'characters/coffeescript/models/character_trait.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'characters/coffeescript/models/character_attribute.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'characters/coffeescript/models/character_character_text.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'characters/coffeescript/models/character_combat_trait.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'characters/coffeescript/models/character_flaw.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'characters/coffeescript/models/character_merit.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'characters/coffeescript/models/character_misc_trait.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'characters/coffeescript/models/character_power.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'characters/coffeescript/models/character_skill.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'characters/coffeescript/models/character_skill_specialty.coffee' %}'></script>
         {# <script type='text/coffeescript' src='{% static 'characters/coffeescript/models/character_has_xp.coffee' %}'></script> #}
     {% endcompress %}
 
     <!-- view-models -->
     {% compress js %}
         <script type='text/coffeescript' src='{% static 'coffeescript/ko_bindings/dot_rating.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'coffeescript/base_view_model.coffee' %}'></script>
         <script type='text/coffeescript' src='{% static 'accounts/coffeescript/viewmodels/user.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'traits/coffeescript/viewmodels/trait.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'characters/coffeescript/viewmodels/character_summary.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'characters/coffeescript/viewmodels/character_trait.coffee' %}'></script>
         <script type='text/coffeescript' src='{% static 'characters/coffeescript/viewmodels/edit_main.coffee' %}'></script>
     {% endcompress %}
 {% endblock script_includes %}
@@ -69,49 +73,49 @@
 
 {% block content %}
     <header class="charsheet-header">
-        <!-- ko if: character.name() != '' -->
-            <h1 data-bind="text: character.name()"></h1>
+        <!-- ko if: character_summary.name() != '' -->
+            <h1 data-bind="text: character_summary.name()"></h1>
         <!-- /ko -->
-        <!-- ko if: character.name() == '' -->
+        <!-- ko if: character_summary.name() == '' -->
             <h1>(new character)</h1>
         <!-- /ko -->
-        <p><em>Played by:</em> <span data-bind="text: character.user().name()"></span></p>
+        <p><em>Played by:</em> <span data-bind="text: character_summary.user().name()"></span></p>
     </header>
 
     <section id='general-character-traits'>
-        <span class='label'>Character Name:</span> <input type='text' name='name' data-bind="value: character.name()" /><br />
-        <span class='label'>Character Status:</span> <span data-bind="text: character.status().name"></span><br />
+        <span class='label'>Character Name:</span> <input type='text' name='name' data-bind="value: character_summary.name()" /><br />
+        <span class='label'>Character Status:</span> <span data-bind="text: character_summary.status().name"></span><br />
         <span class='label'>Creature Type:</span> <select name='creature_type' data-bind="
-                options: character.available.creature_types,
+                options: character_summary.available.creature_type,
                 optionsText: 'label',
                 optionsValue: 'id',
-                value: character.creature_type_id
+                value: character_summary.creature_type_id
             "></select><br />
-        <!-- ko if: character.creature_type().genealogy_name() != null -->
-            <span class='label' data-bind="text: character.creature_type().genealogy_name"></span> <select name='genealogy' data-bind="
-                    options: character.available.genealogies,
-                    optionsCaption: character.creature_type().genealogy_name,
+        <!-- ko if: character_summary.creature_type().genealogy_name() != null -->
+            <span class='label' data-bind="text: character_summary.creature_type().genealogy_name"></span> <select name='genealogy' data-bind="
+                    options: character_summary.available.genealogy,
+                    optionsCaption: character_summary.creature_type().genealogy_name,
                     optionsText: 'label',
                     optionsValue: 'id',
-                    value: character.genealogy_id
+                    value: character_summary.genealogy_id
                 "></select><br />
         <!-- /ko -->
-        <!-- ko if: character.creature_type().affiliation_name() != null -->
-            <span class='label' data-bind="text: character.creature_type().affiliation_name"></span> <select name='affiliation' data-bind="
-                    options: character.available.affiliations,
-                    optionsCaption: character.creature_type().affiliation_name,
+        <!-- ko if: character_summary.creature_type().affiliation_name() != null -->
+            <span class='label' data-bind="text: character_summary.creature_type().affiliation_name"></span> <select name='affiliation' data-bind="
+                    options: character_summary.available.affiliation,
+                    optionsCaption: character_summary.creature_type().affiliation_name,
                     optionsText: 'label',
                     optionsValue: 'id',
-                    value: character.affiliation_id
+                    value: character_summary.affiliation_id
                 "></select><br />
         <!-- /ko -->
-        <!-- ko if: character.creature_type().subgroup_name() != null -->
-            <span class='label' data-bind="text: character.creature_type().subgroup_name"></span> <select name='subgroup' data-bind="
-                    options: character.available.subgroups,
-                    optionsCaption: character.creature_type().subgroup_name,
+        <!-- ko if: character_summary.creature_type().subgroup_name() != null -->
+            <span class='label' data-bind="text: character_summary.creature_type().subgroup_name"></span> <select name='subgroup' data-bind="
+                    options: character_summary.available.subgroup,
+                    optionsCaption: character_summary.creature_type().subgroup_name,
                     optionsText: 'label',
                     optionsValue: 'id',
-                    value: character.subgroup_id
+                    value: character_summary.subgroup_id
                 "></select><br />
         <!-- /ko -->
 
@@ -126,7 +130,7 @@
         <h2>Attributes</h2>
         <div id='mental-attributes' style='width: 33.33333%'>
             <h3>Mental</h3>
-            <ul class='trait-list' data-bind="foreach: character.mental_attributes">
+            <ul class='trait-list' data-bind="foreach: character_details.mental_attributes">
                 <li>
                     <span class='stat-label' data-bind="text: trait().label()"></span>
                     <div data-bind="dot_rating: $data"></div>
@@ -135,7 +139,7 @@
         </div>
         <div id='physical-attributes' style='width: 33.33333%'>
             <h3>Physical</h3>
-            <ul class='trait-list' data-bind="foreach: character.physical_attributes">
+            <ul class='trait-list' data-bind="foreach: character_details.physical_attributes">
                 <li>
                     <span class='stat-label' data-bind="text: trait().label()"></span>
                     <div data-bind="dot_rating: $data"></div>
@@ -144,7 +148,7 @@
         </div>
         <div id='social-attributes' style='width: 33.33333%'>
             <h3>Social</h3>
-            <ul class='trait-list' data-bind="foreach: character.social_attributes">
+            <ul class='trait-list' data-bind="foreach: character_details.social_attributes">
                 <li>
                     <span class='stat-label' data-bind="text: trait().label()"></span>
                     <div data-bind="dot_rating: $data"></div>
@@ -157,7 +161,7 @@
         <h2>Skills</h2>
         <div id='mental-skills' style='width: 33.33333%'>
             <h3>Mental</h3>
-            <ul class='trait-list' data-bind="foreach: character.mental_skills">
+            <ul class='trait-list' data-bind="foreach: character_details.mental_skills">
                 <li>
                     <span class='stat-label' data-bind="text: trait().label()"></span>
                     <div data-bind="dot_rating: $data"></div>
@@ -166,7 +170,7 @@
         </div>
         <div id='physical-skills' style='width: 33.33333%'>
             <h3>Physical</h3>
-            <ul class='trait-list' data-bind="foreach: character.physical_skills">
+            <ul class='trait-list' data-bind="foreach: character_details.physical_skills">
                 <li>
                     <span class='stat-label' data-bind="text: trait().label()"></span>
                     <div data-bind="dot_rating: $data"></div>
@@ -175,7 +179,7 @@
         </div>
         <div id='social-skills' style='width: 33.33333%'>
             <h3>Social</h3>
-            <ul class='trait-list' data-bind="foreach: character.social_skills">
+            <ul class='trait-list' data-bind="foreach: character_details.social_skills">
                 <li>
                     <span class='stat-label' data-bind="text: trait().label()"></span>
                     <div data-bind="dot_rating: $data"></div>
@@ -196,10 +200,7 @@ window.character = new ORM.characters.Character(
 
     {% compress js %}
         <script type='text/coffeescript'>
-            window.character_view_model =
-                'character': new VM.characters.CharacterViewModel character
-
-            # VM.characters.CharacterTrait.available_viewmodel = master_view_model.available
+            window.character_view_model = new VM.characters.CharacterViewModel character
             ko.applyBindings character_view_model
         </script>
     {% endcompress %}

@@ -7,7 +7,7 @@
 Tools.create_namespace 'VM.auth'
 
 
-class VM.auth.User extends kb.ViewModel
+class VM.auth.User extends VM.BaseViewModel
     constructor: (model, options) ->
         super
 

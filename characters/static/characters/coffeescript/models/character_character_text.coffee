@@ -1,5 +1,5 @@
 ###
-  @file  character_has_character_text.coffee
+  @file  character_character_text.coffee
   @brief Model specifying the specific text of a specific character.
 ###
 
@@ -7,7 +7,7 @@
 Tools.create_namespace 'ORM.characters'
 
 
-class ORM.characters.CharacterHasCharacterText extends ORM.characters.CharacterHasTrait
+class ORM.characters.CharacterCharacterText extends ORM.characters.CharacterTrait
     @polymorphic_identity 'character_text'
 
     defaults: () ->

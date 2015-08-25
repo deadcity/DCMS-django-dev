@@ -57,14 +57,14 @@ class Character (AppLabel, BaseModel):
     affiliation   = relationship('Affiliation')
     subgroup      = relationship('Subgroup')
 
-    attributes        = relationship('CharacterHasAttribute')
-    skills            = relationship('CharacterHasSkill')
-    skill_specialties = relationship('CharacterHasSkillSpecialty')
-    powers            = relationship('CharacterHasPower')
-    merits            = relationship('CharacterHasMerit')
-    flaws             = relationship('CharacterHasFlaw')
-    combat_traits     = relationship('CharacterHasCombatTrait')
-    misc_traits       = relationship('CharacterHasMiscTrait')
+    attributes        = relationship('CharacterAttribute')
+    skills            = relationship('CharacterSkill')
+    skill_specialties = relationship('CharacterSkillSpecialty')
+    powers            = relationship('CharacterPower')
+    merits            = relationship('CharacterMerit')
+    flaws             = relationship('CharacterFlaw')
+    combat_traits     = relationship('CharacterCombatTrait')
+    misc_traits       = relationship('CharacterMiscTrait')
 
 
 # class XPRecord (models.Model):
@@ -77,7 +77,7 @@ class Character (AppLabel, BaseModel):
 #         ordering = ('game__date', 'character')
 
 
-class CharacterHasTrait (AppLabel, BaseModel):
+class CharacterTrait (AppLabel, BaseModel):
     def __repr__ (self):
         return "<{}({}, {}, {})>".format(
             type(self).__name__,
@@ -111,8 +111,8 @@ class CharacterHasTrait (AppLabel, BaseModel):
     trait     = relationship('Trait', lazy = 'joined')
 
 
-class CharacterHasAttribute (CharacterHasTrait):
-    id = Column(Integer, ForeignKey(CharacterHasTrait.id, ondelete = 'CASCADE'), primary_key = True)
+class CharacterAttribute (CharacterTrait):
+    id = Column(Integer, ForeignKey(CharacterTrait.id, ondelete = 'CASCADE'), primary_key = True)
 
     rating = Column(SmallInteger, nullable = False, default = 1)
 
@@ -126,8 +126,8 @@ class CharacterHasAttribute (CharacterHasTrait):
     }
 
 
-class CharacterHasCharacterText (CharacterHasTrait):
-    id = Column(Integer, ForeignKey(CharacterHasTrait.id, ondelete = 'CASCADE'), primary_key = True)
+class CharacterCharacterText (CharacterTrait):
+    id = Column(Integer, ForeignKey(CharacterTrait.id, ondelete = 'CASCADE'), primary_key = True)
 
     text = Column(Text, nullable = False, default = '')
 
@@ -140,8 +140,8 @@ class CharacterHasCharacterText (CharacterHasTrait):
     }
 
 
-class CharacterHasCombatTrait (CharacterHasTrait):
-    id = Column(Integer, ForeignKey(CharacterHasTrait.id, ondelete = 'CASCADE'), primary_key = True)
+class CharacterCombatTrait (CharacterTrait):
+    id = Column(Integer, ForeignKey(CharacterTrait.id, ondelete = 'CASCADE'), primary_key = True)
 
     rating = Column(SmallInteger)
 
@@ -154,8 +154,8 @@ class CharacterHasCombatTrait (CharacterHasTrait):
     }
 
 
-class CharacterHasFlaw (CharacterHasTrait):
-    id = Column(Integer, ForeignKey(CharacterHasTrait.id, ondelete = 'CASCADE'), primary_key = True)
+class CharacterFlaw (CharacterTrait):
+    id = Column(Integer, ForeignKey(CharacterTrait.id, ondelete = 'CASCADE'), primary_key = True)
 
     rating        = Column(SmallInteger)
     specification = Column(String)
@@ -170,8 +170,8 @@ class CharacterHasFlaw (CharacterHasTrait):
     }
 
 
-class CharacterHasMerit (CharacterHasTrait):
-    id = Column(Integer, ForeignKey(CharacterHasTrait.id, ondelete = 'CASCADE'), primary_key = True)
+class CharacterMerit (CharacterTrait):
+    id = Column(Integer, ForeignKey(CharacterTrait.id, ondelete = 'CASCADE'), primary_key = True)
 
     rating        = Column(SmallInteger)
     specification = Column(String)
@@ -184,8 +184,8 @@ class CharacterHasMerit (CharacterHasTrait):
     }
 
 
-class CharacterHasMiscTrait (CharacterHasTrait):
-    id = Column(Integer, ForeignKey(CharacterHasTrait.id, ondelete = 'CASCADE'), primary_key = True)
+class CharacterMiscTrait (CharacterTrait):
+    id = Column(Integer, ForeignKey(CharacterTrait.id, ondelete = 'CASCADE'), primary_key = True)
 
     rating      = Column(SmallInteger, nullable = False)
     description = Column(Text)
@@ -200,8 +200,8 @@ class CharacterHasMiscTrait (CharacterHasTrait):
     }
 
 
-class CharacterHasPower (CharacterHasTrait):
-    id = Column(Integer, ForeignKey(CharacterHasTrait.id, ondelete = 'CASCADE'), primary_key = True)
+class CharacterPower (CharacterTrait):
+    id = Column(Integer, ForeignKey(CharacterTrait.id, ondelete = 'CASCADE'), primary_key = True)
 
     __table_args__ = (
         # UniqueConstraint(character_id, trait_id),  # TODO(Emery): enforce this
@@ -212,8 +212,8 @@ class CharacterHasPower (CharacterHasTrait):
     }
 
 
-class CharacterHasSkill (CharacterHasTrait):
-    id = Column(Integer, ForeignKey(CharacterHasTrait.id, ondelete = 'CASCADE'), primary_key = True)
+class CharacterSkill (CharacterTrait):
+    id = Column(Integer, ForeignKey(CharacterTrait.id, ondelete = 'CASCADE'), primary_key = True)
 
     rating = Column(SmallInteger, nullable = False, default = 0)
 
@@ -227,8 +227,8 @@ class CharacterHasSkill (CharacterHasTrait):
     }
 
 
-class CharacterHasSkillSpecialty (CharacterHasTrait):
-    id = Column(Integer, ForeignKey(CharacterHasTrait.id, ondelete = 'CASCADE'), primary_key = True)
+class CharacterSkillSpecialty (CharacterTrait):
+    id = Column(Integer, ForeignKey(CharacterTrait.id, ondelete = 'CASCADE'), primary_key = True)
 
     specialty = Column(String, nullable = False)
 

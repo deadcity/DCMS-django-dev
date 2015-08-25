@@ -1,5 +1,5 @@
 ###
-  @file  character_has_trait.coffee
+  @file  character_trait.coffee
   @brief Base model for "character-has-trait" models.
 ###
 
@@ -7,7 +7,7 @@
 Tools.create_namespace 'ORM.characters'
 
 
-class ORM.characters.CharacterHasTrait extends ORM.BaseModel
+class ORM.characters.CharacterTrait extends ORM.BaseModel
     @polymorphic_on 'trait_type'
 
     urlRoot: () ->

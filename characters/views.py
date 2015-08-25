@@ -7,18 +7,21 @@ from sys import stdout
 from collections import defaultdict
 from datetime import datetime
 from itertools import chain
-from json import loads  # DEBUG
+import json
 
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseForbidden, JsonResponse
 from django.shortcuts import render
+from django.utils.decorators import method_decorator
 from django.views.decorators.http import require_http_methods
+from django.views.generic import View
 
-from characters.models import Character
+from characters.models import Character, CharacterTrait
 from dsqla.models import get_referenced_model, ModelEncoder
 from dsqla.session import session
+from dsqla.view_mixins import JsonBody
 from trait_access.models import (
-    AccessRule, evaluate_trait,
+    AccessRule, calculate_availabilities,
     CharacterHasTrait, CharacterDoesNotHaveTrait
 )
 from traits.models import (
@@ -96,12 +99,12 @@ def edit_character (request, id):
     if response:
         return response
 
-    character_has_traits = set(chain(
+    character_traits = set(chain(
         character.attributes,
         character.skills,
     ))
 
-    traits = set(cht.trait for cht in character_has_traits)
+    traits = set(cht.trait for cht in character_traits)
     if character.creature_type : traits.add(character.creature_type)
     if character.genealogy     : traits.add(character.genealogy)
     if character.affiliation   : traits.add(character.affiliation)
@@ -114,7 +117,7 @@ def edit_character (request, id):
             session.query(AttributeType),
             session.query(SkillType),
             traits,
-            character_has_traits
+            character_traits
         )),
     })
 
@@ -206,23 +209,20 @@ def available_traits (request, id):
     if response:
         return response
 
-    availabilities = defaultdict(lambda: defaultdict(list))
     chronicle_ids = [c.id for c in character.chronicle.all_chronicles]
+    availabilities = calculate_availabilities(
+        character,
+        session.query(Trait).filter(
+            Trait.chronicle_id.in_(chronicle_ids)
+        )
+    )
 
-    for trait in session.query(Trait).filter(
-        Trait.chronicle_id.in_(chronicle_ids)
-    ):
-        access = evaluate_trait(character, trait)
-        if access is AccessRule.Access.DENY:
-            inheritance_source = character.chronicle.inheritance_source(trait)
-            if getattr(inheritance_source, 'hide_denied_traits', False):
-                access = AccessRule.Access.HIDE
-
-        availabilities[type(trait).__name__][access.name].append(trait)
-
-    print(repr(availabilities))
-
-    return JsonResponse(availabilities, encoder = ModelEncoder)
+    return JsonResponse(
+        {
+            'availabilities': availabilities,
+        },
+        encoder = ModelEncoder
+    )
 
 
 @login_required
@@ -234,52 +234,162 @@ def update_character_summary (request, id):
     if response:
         return response
 
-    stdout.write("\nREQUEST: {}\n\n".format(request.body.decode('ascii')))
     chronicle_ids = [c.id for c in character.chronicle.all_chronicles]
     affected_traits = set()
-    key, value = request.body.decode('ascii').split('=')
-    column = Character.__table__.columns[key]
-    TraitType = get_referenced_model(column)
+    data = json.loads(request.body.decode('ascii'))
 
-    key = key[:-3]  # assumes key in format "<key>_id"
-    value = None if value is '' else int(value)
-    old_trait = getattr(character, key)
-    new_trait = None if value is None else session.query(TraitType).get(value)
+    for key, value in data.items():
+        column = Character.__table__.columns[key]
 
-    if old_trait:
-        changing_trait_ids = (old_trait.id,)
-    else:
-        changing_trait_ids = tuple()
-    if new_trait:
-        changing_trait_ids += (new_trait.id,)
+        if len(column.foreign_keys) == 0:
+            old_value = getattr(character, key)
+            new_value = value
 
-    # Rule: character-has-trait
-    for rule in session.query(CharacterHasTrait).filter(
-        CharacterHasTrait.chronicle_id.in_(chronicle_ids),
-        CharacterHasTrait.other_trait_id.in_(changing_trait_ids)
-    ):
-        affected_traits.add(rule.trait)
+            # TODO (Emery): Check rules for character_summary attributes.
 
-    # Rule: character-does-not-have-trait
-    for rule in session.query(CharacterDoesNotHaveTrait).filter(
-        CharacterDoesNotHaveTrait.chronicle_id.in_(chronicle_ids),
-        CharacterDoesNotHaveTrait.other_trait_id.in_(changing_trait_ids)
-    ):
-        affected_traits.add(rule.trait)
+        else:
+            TraitType = get_referenced_model(column)
 
-    # Set summary trait on character.
-    setattr(character, key, new_trait)
+            key = key[:-3]  # assumes key in format "<key>_id"
+            old_value = getattr(character, key)
+            new_value = None if value is None else session.query(TraitType).get(value)
+
+            if old_value:
+                changing_trait_ids = (old_value.id,)
+            else:
+                changing_trait_ids = tuple()
+            if new_value:
+                changing_trait_ids += (new_value.id,)
+
+            # Rule: character-has-trait
+            for rule in session.query(CharacterHasTrait).filter(
+                CharacterHasTrait.chronicle_id.in_(chronicle_ids),
+                CharacterHasTrait.other_trait_id.in_(changing_trait_ids)
+            ):
+                affected_traits.add(rule.trait)
+
+            # Rule: character-does-not-have-trait
+            for rule in session.query(CharacterDoesNotHaveTrait).filter(
+                CharacterDoesNotHaveTrait.chronicle_id.in_(chronicle_ids),
+                CharacterDoesNotHaveTrait.other_trait_id.in_(changing_trait_ids)
+            ):
+                affected_traits.add(rule.trait)
+
+        # Set attribute on character.
+        setattr(character, key, new_value)
+
     session.flush()
 
     # Recalculate availabilities for affected traits.
-    availabilities = defaultdict(lambda: defaultdict(list))
-    for trait in affected_traits:
-        access = evaluate_trait(character, trait)
-        if access is AccessRule.Access.DENY:
-            inheritance_source = character.chronicle.inheritance_source(trait)
-            if getattr(inheritance_source, 'hide_denied_traits', False):
-                access = AccessRule.Access.HIDE
+    availabilities = calculate_availabilities(character, affected_traits)
 
-        availabilities[type(trait).__name__][access.name].append(trait)
+    return JsonResponse(
+        {
+            'character': character,
+            'availabilities': availabilities,
+        },
+        encoder = ModelEncoder
+    )
 
-    return JsonResponse(availabilities, encoder = ModelEncoder)
+
+class CharacterTraitView (JsonBody, View):
+    @method_decorator(login_required)
+    def dispatch (self, request, id, trait_id, *args, **kwargs):
+        self._id = int(id)
+
+        response = storyteller_or_editing_owner(request, self.character,
+            'edit character-trait')
+        if response:
+            return response
+
+        return super().dispatch(request, trait_id, *args, **kwargs)
+
+    @property
+    def character (self):
+        if hasattr(self, '_character') and self._character and self._character.id is self._id:
+            return self._character
+        character = session.query(Character).get(self._id)
+        self._character = character
+        return character
+
+    def recalculate_access (self, character_trait):
+        affected_traits = set()
+        chronicle_ids = [c.id for c in self.character.chronicle.all_chronicles]
+
+        # Rule: character-has-trait
+        for rule in session.query(CharacterHasTrait).filter(
+            CharacterHasTrait.chronicle_id.in_(chronicle_ids),
+            CharacterHasTrait.other_trait_id == character_trait.id
+        ):
+            affected_traits.add(rule.trait)
+
+        # Rule: character-does-not-have-trait
+        for rule in session.query(CharacterDoesNotHaveTrait).filter(
+            CharacterDoesNotHaveTrait.chronicle_id.in_(chronicle_ids),
+            CharacterDoesNotHaveTrait.other_trait_id == character_trait.id
+        ):
+            affected_traits.add(rule.trait)
+
+        # Recalculate availabilities for affected traits.
+        availabilities = calculate_availabilities(self.character, affected_traits)
+
+        return availabilities
+
+    # CRUD: create
+    def post (self, request, trait_id):
+        polymorphic_on = CharacterTrait.__mapper__.polymorphic_on
+        polymorphic_value = request.data[polymorphic_on]
+        Model = CharacterTrait.__mapper__.polymorphic_map[polymorphic_value]
+        self.character.date_last_edited = datetime.now
+
+        # Create the new character trait and commit the addition so that the
+        # model gets assigned an id.
+        character_trait = Model(**request.data)
+        session.add(character_trait)
+        session.commit()
+
+        return JsonResponse(
+            {
+                'character': self.character,
+                'model': character_trait,
+                'availabilities': self.recalculate_access(character_trait),
+            },
+            encoder = ModelEncoder
+        )
+
+    # CRUD: update
+    def patch (self, request, trait_id):
+        print('\ntrait_id: ({}) {}\n'.format(type(trait_id), trait_id))
+        character_trait = session.query(CharacterTrait).get(trait_id)
+        for field, value in request.data.items():
+            setattr(character_trait, field, value)
+        self.character.date_last_edited = datetime.now()
+        session.commit()
+
+        return JsonResponse(
+            {
+                'character': self.character,
+                'model': character_trait,
+                'availabilities': self.recalculate_access(character_trait),
+            },
+            encoder = ModelEncoder
+        )
+
+    # CRUD: delete
+    def delete (self, request, trait_id):
+        character_trait = session.query(CharacterTrait).get(trait_id)
+        self.character.date_last_edited = datetime.now
+
+        # Delete the model and commit the change so that the deletion propagates
+        # to any relationship collections that might reference this model.
+        character_trait.delete()
+        session.commit()
+
+        return JsonResponse(
+            {
+                'character': self.character,
+                'model': character_trait,
+                'availabilities': self.recalculate_access(character_trait),
+            },
+            encoder = ModelEncoder
+        )

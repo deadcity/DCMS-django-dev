@@ -71,33 +71,33 @@ class ORM.characters.Character extends ORM.BaseModel
     @has_one 'subgroup',      Model : 'ORM.traits.Subgroup'
 
     @has_many 'character_attributes',
-        Model     : 'ORM.characters.CharacterHasAttribute'
+        Model     : 'ORM.characters.CharacterAttribute'
         attribute : 'character_id'
 
     @has_many 'character_skills',
-        Model     : 'ORM.characters.CharacterHasSkill'
+        Model     : 'ORM.characters.CharacterSkill'
         attribute : 'character_id'
 
     @has_many 'character_skill_specialties',
-        Model     : 'ORM.characters.CharacterHasSkillSpecialty',
+        Model     : 'ORM.characters.CharacterSkillSpecialty',
         attribute : 'character_id'
 
     @has_many 'character_powers',
-        Model     : 'ORM.characters.CharacterHasPower',
+        Model     : 'ORM.characters.CharacterPower',
         attribute : 'character_id'
 
     @has_many 'character_merits',
-        Model     : 'ORM.characters.CharacterHasMerit',
+        Model     : 'ORM.characters.CharacterMerit',
         attribute : 'character_id'
 
     @has_many 'character_flaws',
-        Model     : 'ORM.characters.CharacterHasFlaw',
+        Model     : 'ORM.characters.CharacterFlaw',
         attribute : 'character_id'
 
     @has_many 'character_combat_traits',
-        Model     : 'ORM.characters.CharacterHasCombatTrait',
+        Model     : 'ORM.characters.CharacterCombatTrait',
         attribute : 'character_id'
 
     @has_many 'character_misc_traits',
-        Model     : 'ORM.characters.CharacterHasMiscTrait',
+        Model     : 'ORM.characters.CharacterMiscTrait',
         attribute : 'character_id'

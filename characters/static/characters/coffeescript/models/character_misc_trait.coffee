@@ -1,5 +1,5 @@
 ###
-  @file  character_has_misc_trait.coffee
+  @file  character_misc_trait.coffee
   @brief Model specifying the specific miscellaneous trait of a specific character.
 ###
 
@@ -7,7 +7,7 @@
 Tools.create_namespace 'ORM.characters'
 
 
-class ORM.characters.CharacterHasMiscTrait extends ORM.characters.CharacterHasTrait
+class ORM.characters.CharacterMiscTrait extends ORM.characters.CharacterTrait
     @polymorphic_identity 'misc_trait'
 
     defaults: () ->

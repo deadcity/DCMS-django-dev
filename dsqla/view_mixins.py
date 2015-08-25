@@ -14,7 +14,7 @@ from dsqla.models import get_model
 class JsonBody (object):
     def dispatch (self, request, *args, **kwargs):
         if request.body:
-            request.data = json.loads(request.body)
+            request.data = json.loads(request.body.decode('ascii'))
         else:
             request.data = None
         return super(JsonBody, self).dispatch(
