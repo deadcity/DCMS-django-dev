@@ -188,6 +188,27 @@
         </div>
     </section>
 
+    <section id='skill-specialties' data-bind="with: character_details">
+        <h2>Skill Specialties</h2>
+        <select name='trait' data-bind="
+                options: available.skill,
+                optionsText: 'label',
+                optionsValue: 'id',
+                value: skill_specialty_skill_id
+            "></select>
+        <input type='text' data-bind="value: skill_specialty_text" placeholder='specialty' />
+        <button name='add' data-bind="click: add_skill_specialty">add</button>
+        <ul class='trait-list' data-bind="foreach: character_skill_specialties">
+            <li>
+                <span class='specialty-label' data-bind="text: trait().label"></span>:
+                <span data-bind="text: specialty"></span>
+                <div class='controls'>
+                    <a class='remove' data-bind="click: $parent.remove_trait">✖</a>
+                </div>
+            </li>
+        </ul>
+    </section>
+
     <!-- bootstrap data -->
     <script type='text/javascript'>
 {{ models | create_js_records | safe }}

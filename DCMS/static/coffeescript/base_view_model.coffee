@@ -108,5 +108,13 @@ class VM.BaseViewModel extends kb.ViewModel
         Create a knockback CollectionObservable over the collection representing
         a "has-many" relation.
     ###
-    configure_has_many: (name, options) ->
-        @[name] = kb.collectionObservable @model()[name], options
+    configure_has_many: (name, ViewModel, options) ->
+        options = _.defaults {}, options,
+            # viewmodel_options: {}
+        if options?.viewmodel_options?
+            viewmodel_options = options.viewmodel_options
+            VM_Constructor = (model, options) ->
+                new ViewModel model, _.defaults {}, viewmodel_options, options
+        else
+            VM_Constructor = ViewModel
+        @[name] = kb.collectionObservable @model()[name], VM_Constructor, options

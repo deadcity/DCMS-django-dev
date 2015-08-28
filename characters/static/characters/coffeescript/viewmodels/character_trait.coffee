@@ -103,13 +103,28 @@ class VM.characters.CharacterDetails extends VM.BaseViewModel
         @physical_skills = filter_skills 'Physical'
         @social_skills   = filter_skills 'Social'
 
+        @skill_specialty_skill_id = ko.observable()
+        @skill_specialty_text = ko.observable()
+        @configure_has_many 'character_skill_specialties', VM.characters.CharacterTrait,
+            'viewmodel_options':
+                'available_traits': @available.skill
+
+    add_skill_specialty: () ->
+        specialty = new ORM.characters.CharacterSkillSpecialty
+            'character_id' : @model().id
+            'trait_id'     : @skill_specialty_skill_id()
+            'specialty'    : @skill_specialty_text()
+
+    remove_trait: (view_model) ->
+        view_model.model().dismantle()
+
     new_trait: (model, options) ->
         # TODO (Emery): Better error handling.
 
         $.ajax "#{DCMS.Settings.URL_PREFIX}/characters/#{model.character.id}/character_trait/",
             method: 'POST'
             dataType: 'json'
-            data: model.toJSON()
+            data: JSON.stringify model.toJSON()
             success: (data) =>
                 @model().set (@model().parse data.character), 'synced': true
                 model.set (model.parse data.model), 'synced': true
@@ -148,7 +163,7 @@ class VM.characters.CharacterDetails extends VM.BaseViewModel
         $.ajax "#{DCMS.Settings.URL_PREFIX}/characters/#{model.character.id}/character_trait/#{model.id}",
             method: 'DELETE'
             datatype: 'json'
-            data: model.toJSON()
+            data: JSON.stringify model.toJSON()
             success: (data) =>
                 @model().set (@model().parse data.character), 'synced': true
                 @_process_update_response arguments...

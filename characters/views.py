@@ -102,6 +102,7 @@ def edit_character (request, id):
     character_traits = set(chain(
         character.attributes,
         character.skills,
+        character.skill_specialties
     ))
 
     traits = set(cht.trait for cht in character_traits)
@@ -338,9 +339,10 @@ class CharacterTraitView (JsonBody, View):
     # CRUD: create
     def post (self, request, trait_id):
         polymorphic_on = CharacterTrait.__mapper__.polymorphic_on
-        polymorphic_value = request.data[polymorphic_on]
-        Model = CharacterTrait.__mapper__.polymorphic_map[polymorphic_value]
-        self.character.date_last_edited = datetime.now
+        polymorphic_value = request.data[polymorphic_on.name]
+        mapper = CharacterTrait.__mapper__.polymorphic_map[polymorphic_value]
+        Model = mapper.class_
+        self.character.date_last_edited = datetime.now()
 
         # Create the new character trait and commit the addition so that the
         # model gets assigned an id.
@@ -378,17 +380,18 @@ class CharacterTraitView (JsonBody, View):
     # CRUD: delete
     def delete (self, request, trait_id):
         character_trait = session.query(CharacterTrait).get(trait_id)
-        self.character.date_last_edited = datetime.now
+        self.character.date_last_edited = datetime.now()
+        character_trait_attrs = character_trait.to_dict()
 
         # Delete the model and commit the change so that the deletion propagates
         # to any relationship collections that might reference this model.
-        character_trait.delete()
+        session.delete(character_trait)
         session.commit()
 
         return JsonResponse(
             {
                 'character': self.character,
-                'model': character_trait,
+                'model': character_trait_attrs,
                 'availabilities': self.recalculate_access(character_trait),
             },
             encoder = ModelEncoder
