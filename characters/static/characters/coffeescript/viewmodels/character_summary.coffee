@@ -15,18 +15,10 @@ class VM.characters.CharacterSummary extends VM.BaseViewModel
         super model, options
         @_process_update_response = options.process_update_response
 
-        @available = {}
+        @available = VM.trait_access.AvailableTraits
+
+        ## register sync events
         if options.process_update_response?
-
-            ## available traits
-
-            @available.creature_type = kb.collectionObservable ORM.traits.CreatureType.store(), VM.traits.Trait, sort_attribute: 'label'
-            @available.genealogy     = kb.collectionObservable ORM.traits.Genealogy.store(),    VM.traits.Trait, sort_attribute: 'label'
-            @available.affiliation   = kb.collectionObservable ORM.traits.Affiliation.store(),  VM.traits.Trait, sort_attribute: 'label'
-            @available.subgroup      = kb.collectionObservable ORM.traits.Subgroup.store(),     VM.traits.Trait, sort_attribute: 'label'
-
-            ## register sync events
-
             model.on 'change', @update_summary_traits, @
 
         ## character summary traits
@@ -74,54 +66,3 @@ class VM.characters.CharacterSummary extends VM.BaseViewModel
                     error: (jqXHR, status, exception) ->
                         window.alert 'ERROR in update_summary_traits:\n' + status
         , 1, model, options
-
-    update_available_summary_traits: (name, data) ->
-        relation_options = @model().constructor.relations().one[name]
-        if _.isString relation_options.Model
-            relation_options.Model = Tools.resolve relation_options.Model
-
-        Access = VM.traits.Trait.Access
-        Model = relation_options.Model
-        collection_observable = @available[name]
-
-        create = (attributes, access) ->
-            trait = new Model attributes, 'parse': true
-            collection_observable.collection().add trait
-            view_model = collection_observable.viewModelByModel trait
-            view_model.access access
-            return [trait, view_model]
-
-        for access, models of data
-            access = Access[access]
-
-            switch access
-                when Access.FORCE
-                    # TODO (Emery): enforce that this model list only has one item.
-                    [trait, view_model] = create models[0], access
-                    @[name] view_model
-
-                when Access.ALLOW
-                    for attr in models
-                        create attr, access
-
-                when Access.DENY
-                    for attr in models
-                        create attr, access
-                        # TODO (Emery): (Make design decision.)
-                        #   Should this automatically remove these traits from
-                        #   the character? (like it does with "HIDE" below)
-
-                when Access.HIDE
-                    for attr in models
-                        trait = Model.store().get attr.id
-
-                        if trait is @model()[name]
-                            if Model is ORM.traits.CreatureType
-                                creature_type_mortal = Model.store().findWhere 'name': 'CREATURE_TYPE_MORTAL'
-                                @model().creature_type = creature_type_mortal
-                            else
-                                @model()[name] = null
-
-                        trait?.dismantle()
-
-        return

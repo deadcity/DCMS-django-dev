@@ -49,14 +49,9 @@ class VM.characters.CharacterDetails extends VM.BaseViewModel
         super model, options
         @_process_update_response = options.process_update_response
 
-        @available = {}
+        @available = VM.trait_access.AvailableTraits
         if options.process_update_response?
             character_traits = ORM.characters.CharacterTrait.store()
-
-            ## available traits
-
-            @available.attribute = kb.collectionObservable ORM.traits.Attribute.store(), VM.traits.Trait
-            @available.skill     = kb.collectionObservable ORM.traits.Skill.store(),     VM.traits.Trait
 
             ## register sync events
 
@@ -169,56 +164,3 @@ class VM.characters.CharacterDetails extends VM.BaseViewModel
                 @_process_update_response arguments...
             error: (jqXHR, status, exception) ->
                 window.alert 'ERROR in delete_trait:\n' + status
-
-    update_available_traits: (name, Model, data) ->
-        Access = VM.traits.Trait.Access
-        collection_observable = @available[name]
-        CharacterModel = Tools.resolve "ORM.characters.Character#{Model.name}"
-
-        create_trait = (attributes, access) ->
-            trait = new Model attributes, 'parse': true
-            collection_observable.collection().add trait
-            view_model = collection_observable.viewModelByModel trait
-            view_model.access access
-            return [trait, view_model]
-
-        for access, models of data
-            access = Access[access]
-
-            switch access
-                when Access.FORCE
-                    for attr in models
-                        [trait, view_model] = create_trait attr, access
-                        character_trait = CharacterModel.store().findWhere
-                            'character_id': @id()
-                            'trait_id': trait.id
-                        if not character_trait?
-                            character_trait = new CharacterModel
-                                'character_id': @id()
-                                'trait_id': trait.id
-
-                when Access.ALLOW
-                    for attr in models
-                        create_trait attr, access
-
-                when Access.DENY
-                    for attr in models
-                        create_trait attr, access
-                        # TODO (Emery): (Make design decision.)
-                        #   Should this automatically remove these traits from
-                        #   the character? (like it does with "HIDE" below)
-
-                when Access.HIDE
-                    for trait in models
-                        trait = Model.store().get attr.id
-
-                        character_traits = CharacterModel.store().where
-                            'character_id': @id()
-                            'trait_id': trait.id
-
-                        _.each character_traits, (character_trait) ->
-                            character_trait.dismantle()
-
-                        trait.dismantle()
-
-        return

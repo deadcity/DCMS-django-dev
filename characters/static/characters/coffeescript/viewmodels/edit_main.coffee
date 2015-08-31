@@ -43,16 +43,4 @@ class VM.characters.CharacterViewModel extends VM.BaseViewModel
             'disable': disable
 
     process_update_response: (data) ->
-        for Model, model_groups of data.availabilities
-            Model = ORM.traits[Model]
-
-            switch Model
-                when ORM.traits.CreatureType then @character_summary.update_available_summary_traits 'creature_type', model_groups
-                when ORM.traits.Genealogy    then @character_summary.update_available_summary_traits 'genealogy',     model_groups
-                when ORM.traits.Affiliation  then @character_summary.update_available_summary_traits 'affiliation',   model_groups
-                when ORM.traits.Subgroup     then @character_summary.update_available_summary_traits 'subgroup',      model_groups
-
-                when ORM.traits.Attibute then @character_details.update_available_traits 'attribute', ORM.traits.Attibute, model_groups
-                when ORM.traits.Skill    then @character_details.update_available_traits 'skill',     ORM.traits.Skill,    model_groups
-
-        return
+        VM.trait_access.update_available_traits @model(), data.availabilities

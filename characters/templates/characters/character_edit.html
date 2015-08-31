@@ -64,6 +64,7 @@
         <script type='text/coffeescript' src='{% static 'coffeescript/base_view_model.coffee' %}'></script>
         <script type='text/coffeescript' src='{% static 'accounts/coffeescript/viewmodels/user.coffee' %}'></script>
         <script type='text/coffeescript' src='{% static 'traits/coffeescript/viewmodels/trait.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'trait_access/coffeescript/viewmodels/available_traits.coffee' %}'></script>
         <script type='text/coffeescript' src='{% static 'characters/coffeescript/viewmodels/character_summary.coffee' %}'></script>
         <script type='text/coffeescript' src='{% static 'characters/coffeescript/viewmodels/character_trait.coffee' %}'></script>
         <script type='text/coffeescript' src='{% static 'characters/coffeescript/viewmodels/edit_main.coffee' %}'></script>
@@ -82,40 +83,40 @@
         <p><em>Played by:</em> <span data-bind="text: character_summary.user().name()"></span></p>
     </header>
 
-    <section id='general-character-traits'>
-        <span class='label'>Character Name:</span> <input type='text' name='name' data-bind="value: character_summary.name()" /><br />
-        <span class='label'>Character Status:</span> <span data-bind="text: character_summary.status().name"></span><br />
+    <section id='general-character-traits' data-bind="with: character_summary">
+        <span class='label'>Character Name:</span> <input type='text' name='name' data-bind="value: name()" /><br />
+        <span class='label'>Character Status:</span> <span data-bind="text: status().name"></span><br />
         <span class='label'>Creature Type:</span> <select name='creature_type' data-bind="
-                options: character_summary.available.creature_type,
+                options: available.creature_type,
                 optionsText: 'label',
                 optionsValue: 'id',
-                value: character_summary.creature_type_id
+                value: creature_type_id
             "></select><br />
-        <!-- ko if: character_summary.creature_type().genealogy_name() != null -->
-            <span class='label' data-bind="text: character_summary.creature_type().genealogy_name"></span> <select name='genealogy' data-bind="
-                    options: character_summary.available.genealogy,
-                    optionsCaption: character_summary.creature_type().genealogy_name,
+        <!-- ko if: creature_type().genealogy_name() != null -->
+            <span class='label' data-bind="text: creature_type().genealogy_name"></span> <select name='genealogy' data-bind="
+                    options: available.genealogy,
+                    optionsCaption: creature_type().genealogy_name,
                     optionsText: 'label',
                     optionsValue: 'id',
-                    value: character_summary.genealogy_id
+                    value: genealogy_id
                 "></select><br />
         <!-- /ko -->
-        <!-- ko if: character_summary.creature_type().affiliation_name() != null -->
-            <span class='label' data-bind="text: character_summary.creature_type().affiliation_name"></span> <select name='affiliation' data-bind="
-                    options: character_summary.available.affiliation,
-                    optionsCaption: character_summary.creature_type().affiliation_name,
+        <!-- ko if: creature_type().affiliation_name() != null -->
+            <span class='label' data-bind="text: creature_type().affiliation_name"></span> <select name='affiliation' data-bind="
+                    options: available.affiliation,
+                    optionsCaption: creature_type().affiliation_name,
                     optionsText: 'label',
                     optionsValue: 'id',
-                    value: character_summary.affiliation_id
+                    value: affiliation_id
                 "></select><br />
         <!-- /ko -->
-        <!-- ko if: character_summary.creature_type().subgroup_name() != null -->
-            <span class='label' data-bind="text: character_summary.creature_type().subgroup_name"></span> <select name='subgroup' data-bind="
-                    options: character_summary.available.subgroup,
-                    optionsCaption: character_summary.creature_type().subgroup_name,
+        <!-- ko if: creature_type().subgroup_name() != null -->
+            <span class='label' data-bind="text: creature_type().subgroup_name"></span> <select name='subgroup' data-bind="
+                    options: available.subgroup,
+                    optionsCaption: creature_type().subgroup_name,
                     optionsText: 'label',
                     optionsValue: 'id',
-                    value: character_summary.subgroup_id
+                    value: subgroup_id
                 "></select><br />
         <!-- /ko -->
 

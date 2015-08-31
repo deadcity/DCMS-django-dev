@@ -84,6 +84,9 @@ Tools.wrap_error = (model, options) ->
         rect = mew Rectangle 7, 5
         rect.area  # 35
 
+    @arg property_name A string the property will be accessed through.
+    @arg desc A dictionary specifying the detail of the property.
+
     One can also use this in defining class-methods that serve as factory
     functions for adding properties to the class or a child class. See
     'backbone-relations.coffee' for examples.
@@ -97,16 +100,19 @@ Function::property = (property_name, desc) ->
     the class itself.
 
         class Person
-            @_instance_count = 0
+            __instance_count = 0
 
             @class_property 'instance_count',
-                get: @_instance_count
+                get: -> __instance_count
 
             constructor: ->
-                @constructor._instance_count += 1
+                __instance_count += 1
 
         s = [new Person(), new Person()]
         Person.instance_count  # 2
+
+    @arg property_name A string the property will be accessed through.
+    @arg desc A dictionary specifying the detail of the property.
 
     Use this with caution when making use of Coffeescript's extends pattern as
     class-members are coppied by value to the child class. In other words, the
@@ -115,3 +121,18 @@ Function::property = (property_name, desc) ->
 ###
 Function::class_property = (property_name, desc) ->
     Object.defineProperty @, property_name, desc
+
+
+# ###
+#     Define a lazy-initialized singleton on the host object.
+
+#     @arg name A string the instance will be accessed through.
+#     @arg Class The class the instance will be initialized from.
+#     @arg args... The rest of the arguments will be the arguments to the
+#         constructor if and when it's called.
+# ###
+# Object::singleton = (name, Class, args...) ->
+#     instance = undefined
+#     Object.defineProperty @, name,
+#         'get': ->
+#             instance ?= new Class args...
