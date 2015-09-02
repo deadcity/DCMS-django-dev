@@ -84,20 +84,21 @@ class Command (BaseCommand):
     help = 'Import data for application from file.'
 
     def add_arguments (self, parser):
-        parser.add_argument('application')
         parser.add_argument('filepath')
         parser.add_argument('--debug', action = 'store_true')
 
     def handle (self, *args, **options):
         session.bind.echo = options['debug']
-        application = options['application']
         filepath = options['filepath']
 
-        with open(filepath, 'r') as data_file:
-            full_data = json.load(data_file, object_pairs_hook = OrderedDict)
+        model_info = {}
 
-        for model_name, data in full_data.items():
-            Model = get_model(application, model_name)
+        with open(filepath, 'r') as data_file:
+            content = ''.join(line.split('//')[0] for line in data_file)
+            full_data = json.loads(content, object_pairs_hook = OrderedDict)
+
+        for data_block in full_data:
+            Model = get_model(data_block['application'], data_block['Model'])
             unique_indexes = {}
 
             # Prepare indeces of unique-constraints.
@@ -106,7 +107,7 @@ class Command (BaseCommand):
                     if isinstance(constraint, UniqueConstraint):
                         unique_indexes[constraint] = set()
 
-            for datum in data:
+            for datum in data_block['data']:
                 datum = prepare(session, Model, datum)
                 update_target = None
 
@@ -125,7 +126,7 @@ class Command (BaseCommand):
                     target = session.query(Model).filter(
                         *filter_from_constraint(constraint, datum)).scalar()
                     if update_target and update_target != target:
-                        self.stderr.write('ERROR: Second unique-index match does yield the same model.')
+                        self.stderr.write('ERROR: Second unique-index match does not yield the same model.')
                         self.stderr.write("       Model: {}".format(Model))
                         self.stderr.write("       constraint: {}".format(constraint))
                         self.stderr.write("       data: {}".format(datum))
