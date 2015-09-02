@@ -15,8 +15,10 @@ AvailableTraits.affiliation   = kb.collectionObservable ORM.traits.Affiliation.s
 AvailableTraits.subgroup      = kb.collectionObservable ORM.traits.Subgroup.store(),     VM.traits.Trait, sort_attribute: 'label'
 
 # Detail traits.
-AvailableTraits.attribute = kb.collectionObservable ORM.traits.Attribute.store(), VM.traits.Trait
-AvailableTraits.skill     = kb.collectionObservable ORM.traits.Skill.store(),     VM.traits.Trait
+AvailableTraits.attribute   = kb.collectionObservable ORM.traits.Attribute.store(),  VM.traits.Trait
+AvailableTraits.skill       = kb.collectionObservable ORM.traits.Skill.store(),      VM.traits.Trait
+AvailableTraits.power_group = kb.collectionObservable ORM.traits.PowerGroup.store(), VM.traits.PowerGroup, sort_attribute: 'label'
+AvailableTraits.power       = kb.collectionObservable ORM.traits.Power.store(),      VM.traits.Power
 
 
 create = (Model, view_model_collection, attributes, access) ->
@@ -130,7 +132,9 @@ VM.trait_access.update_available_traits = (character, data) ->
             when ORM.traits.Affiliation  then update_available_summary_traits 'affiliation',   character, model_groups
             when ORM.traits.Subgroup     then update_available_summary_traits 'subgroup',      character, model_groups
 
-            when ORM.traits.Attibute then update_available_traits 'attribute', Model, character_id, model_groups
-            when ORM.traits.Skill    then update_available_traits 'skill',     Model, character_id, model_groups
+            when ORM.traits.Attibute   then update_available_traits 'attribute',   Model, character_id, model_groups
+            when ORM.traits.Skill      then update_available_traits 'skill',       Model, character_id, model_groups
+            when ORM.traits.PowerGroup then update_available_traits 'power_group', Model, character_id, model_groups
+            when ORM.traits.Power      then update_available_traits 'power',       Model, character_id, model_groups
 
     return

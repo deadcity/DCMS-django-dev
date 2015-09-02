@@ -20,6 +20,9 @@ class VM.traits.Trait extends VM.BaseViewModel
 
         @access = ko.observable this.constructor.Access._UNDEF
 
+        @access_denied = ko.computed =>
+            @access == this.constructor.Access.DENY
+
     copy: (other_vm) ->
         super
         @access other_vm?.access()

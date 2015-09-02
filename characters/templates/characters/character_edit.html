@@ -61,9 +61,11 @@
     <!-- view-models -->
     {% compress js %}
         <script type='text/coffeescript' src='{% static 'coffeescript/ko_bindings/dot_rating.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'coffeescript/ko_bindings/option.coffee' %}'></script>
         <script type='text/coffeescript' src='{% static 'coffeescript/base_view_model.coffee' %}'></script>
         <script type='text/coffeescript' src='{% static 'accounts/coffeescript/viewmodels/user.coffee' %}'></script>
         <script type='text/coffeescript' src='{% static 'traits/coffeescript/viewmodels/trait.coffee' %}'></script>
+        <script type='text/coffeescript' src='{% static 'traits/coffeescript/viewmodels/power.coffee' %}'></script>
         <script type='text/coffeescript' src='{% static 'trait_access/coffeescript/viewmodels/available_traits.coffee' %}'></script>
         <script type='text/coffeescript' src='{% static 'characters/coffeescript/viewmodels/character_summary.coffee' %}'></script>
         <script type='text/coffeescript' src='{% static 'characters/coffeescript/viewmodels/character_trait.coffee' %}'></script>
@@ -191,14 +193,19 @@
 
     <section id='skill-specialties' data-bind="with: character_details">
         <h2>Skill Specialties</h2>
-        <select name='trait' data-bind="
-                options: available.skill,
-                optionsText: 'label',
-                optionsValue: 'id',
-                value: skill_specialty_skill_id
-            "></select>
+        <select data-bind="value: skill_specialty_skill">
+            <optgroup label='Mental' data-bind="foreach: mental_skills">
+                <option data-bind="option: $data, text: trait().label"></option>
+            </optgroup>
+            <optgroup label='Physical' data-bind="foreach: physical_skills">
+                <option data-bind="option: $data, text: trait().label"></option>
+            </optgroup>
+            <optgroup label='Social' data-bind="foreach: social_skills">
+                <option data-bind="option: $data, text: trait().label"></option>
+            </optgroup>
+        </select>
         <input type='text' data-bind="value: skill_specialty_text" placeholder='specialty' />
-        <button name='add' data-bind="click: add_skill_specialty">add</button>
+        <button data-bind="click: add_skill_specialty">add</button>
         <ul class='trait-list' data-bind="foreach: character_skill_specialties">
             <li>
                 <span class='specialty-label' data-bind="text: trait().label"></span>:
@@ -209,6 +216,34 @@
             </li>
         </ul>
     </section>
+
+    <div class='row' data-bind="with: character_details">
+
+        <section id='powers' data-bind='visible: power_name() != null'>
+            <h2 data-bind="text: power_name"></h2>
+            <select data-bind="value: selected_power, foreach: available.power_group">
+                <optgroup data-bind="attr: {label: label}, foreach: powers">
+                    <option data-bind="
+                            option: $data,
+                            text: label_with_rating,
+                            disabled: access_denied
+                        "></option>
+                </optgroup>
+            </select>
+            <button data-bind="click: add_power">add</button>
+            <ul class='trait-list' data-bind="foreach: character_powers">
+                <li>
+                    <span data-bind="text: trait().model().power_group.get('label')"></span>
+                    <span data-bind="text: trait().rating"></span>:
+                    <span data-bind="text: trait().label"></span>
+                    <div class='controls'>
+                        <a class='remove' data-bind="click: $parent.remove_trait">✖</a>
+                    </div>
+                </li>
+            </ul>
+        </section>
+
+    </div>
 
     <!-- bootstrap data -->
     <script type='text/javascript'>

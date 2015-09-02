@@ -2,6 +2,8 @@
 #  Provides models used to define access rules for traits.
 
 
+from sys import stderr
+
 from collections import defaultdict
 from enum import Enum
 
@@ -59,17 +61,20 @@ def evaluate_trait (character, trait):
         if result:
             return result
 
+    stderr.write("ERROR: Trait \"{}\" has no default-access rule.\n".format(trait))
+
 
 def calculate_availabilities (character, trait_list):
     availabilities = defaultdict(lambda: defaultdict(list))
     for trait in trait_list:
         access = evaluate_trait(character, trait)
         if access is AccessRule.Access.DENY:
-            inheritance_source = character.cronicle.inheritance_source(trait)
+            inheritance_source = character.chronicle.inheritance_source(trait)
             if getattr(inheritance_source, 'hide_denied_traits', False):
                 access = AccessRule.Access.HIDE
 
-        availabilities[type(trait).__name__][access.name].append(trait)
+        if access is not None:
+            availabilities[type(trait).__name__][access.name].append(trait)
 
     return availabilities
 
@@ -145,7 +150,7 @@ class CharacterHasTrait (AccessRule):
                 CharacterTrait.trait      == self.other_trait,
                 CharacterTrait.trait_type != 'skill_specialty'
             )
-            if len(query) > 0:
+            if len(query.all()) > 0:
                 return self.access
 
 

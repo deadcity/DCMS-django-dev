@@ -17,5 +17,5 @@ urlpatterns = [
     url(r'^(?P<id>\d+)/available_traits$', views.available_traits,         name = 'character-available-traits'),
     url(r'^(?P<id>\d+)/update_summary$',   views.update_character_summary, name = 'character-update-summary'),
 
-    url(r'^(?P<id>\d+)/character_trait/(?P<trait_id>\d*)$', views.CharacterTraitView.as_view(), name = 'character-update-trait'),
+    url(r'^(?P<id>\d+)/character_trait/(?P<character_trait_id>\d*)$', views.CharacterTraitView.as_view(), name = 'character-update-trait'),
 ]

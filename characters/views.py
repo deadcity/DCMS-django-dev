@@ -102,10 +102,14 @@ def edit_character (request, id):
     character_traits = set(chain(
         character.attributes,
         character.skills,
-        character.skill_specialties
+        character.skill_specialties,
+        character.powers,
     ))
 
-    traits = set(cht.trait for cht in character_traits)
+    traits = set(chain(
+        (char_power.trait.power_group for char_power in character.powers),
+        (cht.trait for cht in character_traits),
+    ))
     if character.creature_type : traits.add(character.creature_type)
     if character.genealogy     : traits.add(character.genealogy)
     if character.affiliation   : traits.add(character.affiliation)
@@ -246,7 +250,7 @@ def update_character_summary (request, id):
             old_value = getattr(character, key)
             new_value = value
 
-            # TODO (Emery): Check rules for character_summary attributes.
+            # TODO (Emery): Check rules for character_summary attributes. (Name, last_edited, ...)
 
         else:
             TraitType = get_referenced_model(column)
@@ -295,7 +299,7 @@ def update_character_summary (request, id):
 
 class CharacterTraitView (JsonBody, View):
     @method_decorator(login_required)
-    def dispatch (self, request, id, trait_id, *args, **kwargs):
+    def dispatch (self, request, id, character_trait_id, *args, **kwargs):
         self._id = int(id)
 
         response = storyteller_or_editing_owner(request, self.character,
@@ -303,7 +307,7 @@ class CharacterTraitView (JsonBody, View):
         if response:
             return response
 
-        return super().dispatch(request, trait_id, *args, **kwargs)
+        return super().dispatch(request, character_trait_id, *args, **kwargs)
 
     @property
     def character (self):
@@ -313,21 +317,21 @@ class CharacterTraitView (JsonBody, View):
         self._character = character
         return character
 
-    def recalculate_access (self, character_trait):
+    def recalculate_access (self, trait):
         affected_traits = set()
         chronicle_ids = [c.id for c in self.character.chronicle.all_chronicles]
 
         # Rule: character-has-trait
         for rule in session.query(CharacterHasTrait).filter(
             CharacterHasTrait.chronicle_id.in_(chronicle_ids),
-            CharacterHasTrait.other_trait_id == character_trait.id
+            CharacterHasTrait.other_trait_id == trait.id
         ):
             affected_traits.add(rule.trait)
 
         # Rule: character-does-not-have-trait
         for rule in session.query(CharacterDoesNotHaveTrait).filter(
             CharacterDoesNotHaveTrait.chronicle_id.in_(chronicle_ids),
-            CharacterDoesNotHaveTrait.other_trait_id == character_trait.id
+            CharacterDoesNotHaveTrait.other_trait_id == trait.id
         ):
             affected_traits.add(rule.trait)
 
@@ -337,7 +341,7 @@ class CharacterTraitView (JsonBody, View):
         return availabilities
 
     # CRUD: create
-    def post (self, request, trait_id):
+    def post (self, request, character_trait_id):
         polymorphic_on = CharacterTrait.__mapper__.polymorphic_on
         polymorphic_value = request.data[polymorphic_on.name]
         mapper = CharacterTrait.__mapper__.polymorphic_map[polymorphic_value]
@@ -349,20 +353,21 @@ class CharacterTraitView (JsonBody, View):
         character_trait = Model(**request.data)
         session.add(character_trait)
         session.commit()
+        trait = character_trait.trait
 
         return JsonResponse(
             {
                 'character': self.character,
                 'model': character_trait,
-                'availabilities': self.recalculate_access(character_trait),
+                'availabilities': self.recalculate_access(trait),
             },
             encoder = ModelEncoder
         )
 
     # CRUD: update
-    def patch (self, request, trait_id):
-        print('\ntrait_id: ({}) {}\n'.format(type(trait_id), trait_id))
-        character_trait = session.query(CharacterTrait).get(trait_id)
+    def patch (self, request, character_trait_id):
+        character_trait = session.query(CharacterTrait).get(character_trait_id)
+        trait = character_trait.trait
         for field, value in request.data.items():
             setattr(character_trait, field, value)
         self.character.date_last_edited = datetime.now()
@@ -372,14 +377,15 @@ class CharacterTraitView (JsonBody, View):
             {
                 'character': self.character,
                 'model': character_trait,
-                'availabilities': self.recalculate_access(character_trait),
+                'availabilities': self.recalculate_access(trait),
             },
             encoder = ModelEncoder
         )
 
     # CRUD: delete
-    def delete (self, request, trait_id):
-        character_trait = session.query(CharacterTrait).get(trait_id)
+    def delete (self, request, character_trait_id):
+        character_trait = session.query(CharacterTrait).get(character_trait_id)
+        trait = character_trait.trait
         self.character.date_last_edited = datetime.now()
         character_trait_attrs = character_trait.to_dict()
 
@@ -392,7 +398,7 @@ class CharacterTraitView (JsonBody, View):
             {
                 'character': self.character,
                 'model': character_trait_attrs,
-                'availabilities': self.recalculate_access(character_trait),
+                'availabilities': self.recalculate_access(trait),
             },
             encoder = ModelEncoder
         )

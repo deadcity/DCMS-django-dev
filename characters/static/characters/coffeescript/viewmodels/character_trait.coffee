@@ -98,17 +98,31 @@ class VM.characters.CharacterDetails extends VM.BaseViewModel
         @physical_skills = filter_skills 'Physical'
         @social_skills   = filter_skills 'Social'
 
-        @skill_specialty_skill_id = ko.observable()
+        @skill_specialty_skill = ko.observable()
         @skill_specialty_text = ko.observable()
         @configure_has_many 'character_skill_specialties', VM.characters.CharacterTrait,
             'viewmodel_options':
                 'available_traits': @available.skill
 
+        @power_name = ko.computed =>
+            power_name = @model().creature_type?.get 'power_name'
+            return null if power_name is null
+            return "#{power_name[0].toUpperCase()}#{power_name.slice 1}s"
+        @selected_power = ko.observable()
+        @configure_has_many 'character_powers', VM.characters.CharacterTrait,
+            'viewmodel_options':
+                'available_traits': @available.power
+
     add_skill_specialty: () ->
         specialty = new ORM.characters.CharacterSkillSpecialty
             'character_id' : @model().id
-            'trait_id'     : @skill_specialty_skill_id()
+            'trait_id'     : @skill_specialty_skill().trait().id()
             'specialty'    : @skill_specialty_text()
+
+    add_power: () ->
+        power = new ORM.characters.CharacterPower
+            'character_id' : @model().id
+            'trait_id'     : @selected_power().id()
 
     remove_trait: (view_model) ->
         view_model.model().dismantle()
